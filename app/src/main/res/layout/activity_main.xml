@@ -337,6 +337,24 @@
         app:state_drawable_padding_left="10dp"
         app:state_drawable_width="20dp"
         />
+
+      <com.coorchice.supertextview.SuperTextView.SuperTextView
+        android:id="@+id/stv_16_1"
+        android:layout_width="@dimen/stv_normal_size"
+        android:layout_height="@dimen/stv_normal_size"
+        android:layout_marginLeft="10dp"
+        android:paddingBottom="1dp"
+        android:gravity="center"
+        android:text="状态图 2"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:isShowState="true"
+        app:solid="#4CBDD2"
+        app:state_drawable="@drawable/triangle"
+        app:state_drawable_height="30dp"
+        app:state_drawable_width="30dp"
+        app:state_drawable_mode="leftTop"
+        />
     </LinearLayout>
 
     <com.coorchice.supertextview.SuperTextView.SuperTextView
@@ -369,17 +387,25 @@
       app:solid="#ED86AE"
       />
 
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="10dp"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
     <com.coorchice.supertextview.SuperTextView.SuperTextView
       android:id="@+id/stv_19"
-      android:layout_width="match_parent"
+      android:layout_width="@dimen/stv_normal_size"
       android:layout_height="@dimen/stv_normal_size"
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"
-      android:layout_marginTop="10dp"
       android:gravity="center"
-      android:text="Adjuster层级:BEFORE_DRAWABLE"
-      android:textColor="@color/white"
-      android:textSize="16dp"
+      android:text="BEFORE_DRAWABLE"
+      android:textColor="@color/black"
+      android:textSize="7dp"
+      android:textStyle="bold"
       app:corner="20dp"
       app:isShowState="true"
       app:solid="#A58FED"
@@ -387,5 +413,44 @@
       app:state_drawable_height="30dp"
       app:state_drawable_width="30dp"
       />
+
+      <com.coorchice.supertextview.SuperTextView.SuperTextView
+        android:id="@+id/stv_20"
+        android:layout_width="@dimen/stv_normal_size"
+        android:layout_height="@dimen/stv_normal_size"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="BEFORE_TEXT"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        android:textStyle="bold"
+        app:corner="20dp"
+        app:isShowState="true"
+        app:solid="#A58FED"
+        app:state_drawable="@drawable/emoji_kiss"
+        app:state_drawable_height="30dp"
+        app:state_drawable_width="30dp"
+        />
+
+      <com.coorchice.supertextview.SuperTextView.SuperTextView
+        android:id="@+id/stv_21"
+        android:layout_width="@dimen/stv_normal_size"
+        android:layout_height="@dimen/stv_normal_size"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="AT_LAST"
+        android:textColor="@color/black"
+        android:textSize="8dp"
+        android:textStyle="bold"
+        app:corner="20dp"
+        app:isShowState="true"
+        app:solid="#A58FED"
+        app:state_drawable="@drawable/emoji_kiss"
+        app:state_drawable_height="30dp"
+        app:state_drawable_width="30dp"
+      />
+    </LinearLayout>
   </LinearLayout>
 </ScrollView>
