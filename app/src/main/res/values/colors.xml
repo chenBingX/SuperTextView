@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#FF4081</color>
+
+  <!--transparent-->
+  <color name="transparent">#00000000</color>
+
+  <!--white-->
+  <color name="white">#ffffff</color>
+  <color name="opacity_1_white">#1affffff</color>
+  <color name="opacity_2_white">#33ffffff</color>
+  <color name="opacity_3_white">#4dffffff</color>
+  <color name="opacity_3_5_white">#59ffffff</color>
+  <color name="opacity_5_white">#80ffffff</color>
+  <color name="opacity_6_5_white">#a6ffffff</color>
+  <color name="opacity_7_white">#b3ffffff</color>
+  <color name="opacity_7_5_white">#bfffffff</color>
+  <color name="opacity_8_white">#ccffffff</color>
+  <color name="opacity_9_white">#e6ffffff</color>
+
+  <!--red-->
+  <color name="red">#FF0A11</color>
+  <color name="opacity_5_red">#80FF0A11</color>
+
+  <!--black-->
+  <color name="black">#000000</color>
+  <color name="opacity_1_black">#1a000000</color>
+  <color name="opacity_2_black">#33000000</color>
+  <color name="opacity_3_black">#4d000000</color>
+  <color name="opacity_3_5_black">#59000000</color>
+  <color name="opacity_5_black">#80000000</color>
+  <color name="opacity_6_5_black">#a6000000</color>
+  <color name="opacity_7_black">#b3000000</color>
+  <color name="opacity_7_5_black">#bf000000</color>
+  <color name="opacity_8_black">#cc000000</color>
+  <color name="opacity_9_black">#e6000000</color>
+
+  <!--yellow-->
+  <color name="yellow">#ffff00</color>
+  <color name="opacity_1_yellow">#1affff00</color>
+  <color name="opacity_7_yellow">#b3ffff00</color>
+  <color name="opacity_9_yellow">#e6ffff00</color>
+
+  <!--Green-->
+  <color name="green">#00ff00</color>
+  <color name="opacity_1_green">#1a00ff00</color>
+  <color name="opacity_2_green">#3300ff00</color>
+  <color name="opacity_3_green">#4d00ff00</color>
+  <color name="opacity_5_green">#8000ff00</color>
+  <color name="opacity_6_5_green">#a600ff00</color>
+  <color name="opacity_7_green">#b300ff00</color>
+  <color name="opacity_8_green">#cc00ff00</color>
+  <color name="opacity_9_green">#e600ff00</color>
+
+  <!--Pink-->
+  <color name="pink">	#FFC0CB</color>
+
+  <!--gray-->
+  <color name="gray">#BEBEBE</color>
+  <color name="mid_gray">#999999</color>
+  <color name="opacity_7_5_mid_gray">#bf999999</color>
+  <color name="opacity_8_mid_gray">#cc999999</color>
+  <color name="mid_white">#33ffffff</color>
+  <color name="gray_d9">#d9d9d9</color>
+  <color name="gray_4c">#4c4c4c</color>
+  <color name="opacity_7_5_gray_4c">#bf4c4c4c</color>
+  <color name="opacity_8_gray_4c">#cc4c4c4c</color>
+  <color name="opacity_9_gray_4c">#d24c4c4c</color>
+  <color name="opacity_9_5_gray_4c">#F24c4c4c</color>
+  <color name="opacity_9_8_gray_4c">#F94c4c4e</color>
+  <color name="gray_ba">#AFB1B0</color>
+  <color name="gray_f2">#f2f2f2</color>
+
+  <!--blue-->
+  <color name="opacity_9_blue">#d215bdf4</color>
+  <color name="main_blue">#15bdf4</color>
+  <color name="blue">#19bbf7</color>
+
+  <!--purple-->
+  <color name="purple">#6844d3</color>
+
+  <color name="opacity_9_a233be">#ccA233BE</color>
+  <color name="a233be">#A233BE</color>
+
+  <color name="opacity_5_a58fed">#80A58FED</color>
+
+
+
+</resources>

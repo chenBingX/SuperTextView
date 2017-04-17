@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--SuperTextView-->
+  <declare-styleable name="SuperTextView">
+    <attr name="corner" format="dimension"/>
+    <attr name="left_top_corner" format="boolean"/>
+    <attr name="right_top_corner" format="boolean"/>
+    <attr name="left_bottom_corner" format="boolean"/>
+    <attr name="right_bottom_corner" format="boolean"/>
+    <attr name="solid" format="reference|color"/>
+    <attr name="stroke_width" format="dimension"/>
+    <attr name="stroke_color" format="reference|color"/>
+    <attr name="state_drawable" format="reference"/>
+    <attr name="state_drawable_width" format="dimension"/>
+    <attr name="state_drawable_height" format="dimension"/>
+    <attr name="state_drawable_padding_left" format="dimension"/>
+    <attr name="state_drawable_padding_top" format="dimension"/>
+    <attr name="isShowState" format="boolean"/>
+    <attr name="text_stroke" format="boolean"/>
+    <attr name="text_stroke_color" format="reference|color"/>
+    <attr name="text_stroke_width" format="dimension"/>
+    <attr name="text_fill_color" format="reference|color"/>
+    <attr name="autoAdjust" format="boolean"/>
+    <attr name="state_drawable_mode" format="enum">
+      <enum name="left" value="0"/>
+      <enum name="top" value="1"/>
+      <enum name="right" value="2"/>
+      <enum name="bottom" value="3"/>
+      <enum name="center" value="4"/>
+      <enum name="fill" value="5"/>
+      <enum name="leftTop" value="6"/>
+      <enum name="rightTop" value="7"/>
+      <enum name="leftBottom" value="8"/>
+      <enum name="rightBottom" value="9"/>
+    </attr>
+  </declare-styleable>
+</resources>
