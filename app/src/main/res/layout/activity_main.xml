@@ -452,5 +452,23 @@
         app:state_drawable_width="30dp"
       />
     </LinearLayout>
+
+
+    <!--<com.coorchice.supertextview.SuperTextView.SuperTextView-->
+      <!--android:layout_width="115dp"-->
+      <!--android:layout_height="115dp"-->
+      <!--android:gravity="bottom|center"-->
+      <!--android:paddingBottom="3dp"-->
+      <!--android:text="SuperTextView"-->
+      <!--android:textColor="@color/black"-->
+      <!--android:textSize="14sp"-->
+      <!--android:layout_gravity="center"-->
+      <!--android:layout_marginTop="20dp"-->
+      <!--android:textStyle="bold"-->
+      <!--app:isShowState="true"-->
+      <!--app:solid="#4CBDD2"-->
+      <!--app:state_drawable="@drawable/emoji_kiss"-->
+      <!--/>-->
+
   </LinearLayout>
 </ScrollView>
