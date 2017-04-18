@@ -1,117 +1,117 @@
+
+# [【中文文档地址：https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)
+
 # SuperTextView
 
-# 简介
-欢迎使用**SuperTextView**，这篇文档将会向你展示如何使用这个控件来提高你构建项目的效率。
+# Introduction
+Welcome to use **SuperTextView**, this document will show you how to use this widget.
+
 ![Cover](http://ogemdlrap.bkt.clouddn.com/SuperTextView_cover0.png)
 
-**SuperTextView**继承自TextView，它能够大量的减少布局的复杂程度，并且使得一些常见的效果变得十分容易实现且高效。同时，它内置了动画驱动，你只需要合理编写**Adjuster**，然后`startAnim()`就可以看到预期的动画效果。它仅仅是一个控件，所以你可以不费吹灰之力的在你的项目中集成使用。
+**SuperTextView** extends TextView, it can reduce the complexity of the layout, and you can achieve the effect of some common quickly 。At the same time，It is built-in support for animation driven, you just need to write **Adjuster** and invoke `startAnim()`, then you will see what you want. It's just a widget, so you can use it in your project easily.
 
-# 特点
-1. 你从此不必再为背景图编写和管理大量<shape>文件了。
-2. 重新优化的**状态图功能**使得你能够精确的控制状态图的大小，以及在**SuperTextView**中的位置。
-3. 支持设置圆角，并且能够精确的控制圆角位置。
-4. 能够轻松的实现控件边框效果。
-5. 支持文字描边，这使得空心文字效果成为了可能。
-6. 内置动画驱动，你只需配合**Adjuster**合理的使用即可。
-7. **Adjuster**的出现，使得你对控件的绘制过程具有了掌控权，良好的设计使得它能够完美的实现绝大部分你脑海中的效果。
+# Feature
+1. You don't have to write and manage for specific background drawable from now on.
+2. The **State Drawable** is optimized. Now, you can precise control of State Drawable's size and the location in the **SuperTextView**.
+3. Corner is supported. And you can precise control it location。
+4. You can implement the border effect in the widget easily.
+5. Text stroke is supported.
+6. Built-in animation driver. You just need to use whit **Adjuster**.
+7. The emergence of the **Adjuster**, allow you to control the drawing process of the widget. The good design makes it possible to implement the beautiful effect in your mind.
 
-# 使用指南
-## 支持的属性
-**SuperTextView**十分方便的支持在xml中直接设置属性，并且你能够立即看到效果。就像你平时使用TextView一样方便。
+# User Guide
+## Attribute
+**SuperTextView** properties can be set in the XML easily, and you can see the effect immediately. Just like to use TextView.
 ```
 <SuperTextView
     android:layout_width="50dp"
     android:layout_height="50dp"
 
-    //设置圆角。会同时作用于填充和边框(如果边框存在的话)。
-    //如果要设置为圆形，只需要把该值设置为宽或长的1/2即可。
+    //Set Corner.
+    //If you want to get a circle, you just need to set the value of half of width.
     app:corner="25dp"
-    //设置左上角圆角
+    //Corner of left-top
     app:left_top_corner="true"
-    //设置右上角圆角
+    //Corner of right-top
     app:right_top_corner="true"
-    //设置左下角圆角
+    //Corner of left-bottom
     app:left_bottom_corner="true"
-    //设置右下角圆角
+    //Corner of right-bottom
     app:right_bottom_corner="true"
-    //设置填充颜色
+    //Fill color
     app:solid="@color/red"
-    //设置边框颜色
+    //Stroke color
     app:stroke_color="@color/black"
-    //设置边框的宽度。
+    //Stroke width
     app:stroke_width="2dp"
-    //放置一个drawable在背景层上。默认居中显示。
-    //并且默认大小为SuperTextView的一半。
+    //Set a state drawbale
+    //The default size is half of the SuperTextView.
     app:state_drawable="@drawable/emoji"
-    //设置drawable的显示模式。可选值如下：
-    // left、top、right、bottom、center(默认值)、
+    //The mode of the state drawable. Optional values:
+    // left、top、right、bottom、center(Default)、
     //leftTop、rightTop、leftBottom、rightBottom、
-    //fill(充满整个SuperTextView，此时会使设置drawable的大小失效)
+    //fill(Fill the SuperTextView. In this case, set state drawable size will not work.)
     app:state_drawable_mode="center"
-    //设置drawable的height
+    //state drawable height
     app:state_drawable_height="30dp"
-    //设置drawable的width
+    //state drawable width
     app:state_drawable_width="30dp"
-    //设置drawble相对于基础位置左边的距离
+    //The padding of the left, it base on the value of state_drawable_mode.
     app:state_drawable_padding_left="10dp"
-    //设置drawble相对于基础位置上边的距离
+    //The padding of the top, it base on the value of state_drawable_mode.
     app:state_drawable_padding_top="10dp"
-    // boolean类型。是否显示drawable。
-    //如果你想要设置的drawable显示出来，必须设置为true。
-    //当不想让它显示时，再设置为false即可。
+    //boolean. Whether to show the state drawble.
     app:isShowState="true"
-    //是否开启文字描边功能。
-    //注意，启用这个模式之后通过setTextColor()设置的颜色将会被覆盖。
-    //你需要通过text_fill_color来设置文字的颜色。
+    //Whether to use the Stroke Text Function.
+    //Attention, Once you opne this function, setTextColor() will not work.
+    //That means you must to uses text_fill_color to set text color.
     app:text_stroke="true"
-    // 文字的描边颜色。默认为Color.BLACK。
+    // Text stroke color. The default value is Color.BLACK.
     app:text_stroke_color="@color/black"
-    // 文字描边的宽度。
+    // Stroke text width.
     app:text_stroke_width="1dp"
-    // 文字填充的颜色。默认为Color.BLACK。
+    // Stroke text color. The default value is Color.BLACK.
     app:text_fill_color="@color/blue"
-    // boolean类型。是否启用Adjuster功能。
-    //具体干什么，需要在Java中为SuperTextView实现一个Adjuster。
-    //当你启用这个功能而没有实现自己的Adjuster时，
-    //SuperTextView会启用默认的Adjuster。它会按照一定的规则调整文字大小。
+    //boolean. Whether to use the Adjuster Function.
+    //Use this function to do what you want to do.
+    //If open this function, but you haven't implemented your Adjuster, the DefaultAdjuster will be used.
+    //The DefaultAdjuster can auto adjust text size.
     app:autoAdjust="true"
     />
 
 ```
-以上这些属性，均可以在Java中进行动态的设置。同时也能够获得它们的值。例如：
+All the attributes can be set in the java. You can also to get their value. e.g.:
 ```
 mSuperTextView.setCorner(10);
 mSuperTextView.getCorner();
 ```
-### 圆形和边框
+### Corner And Border
 ![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.15.42.png)
 
-为了实现上图效果，通常你需要编写和管理大量的<shape>文件。现在你只需要在xml或代码中对**SuperTextView**直接进行设置即可。
+Usually, you have to write and manage a lot of <shape> file to implement the effect of the above chart. But now, you can easy to do this in the XML.
 
-### 不简单的圆角
+### Not Easy Corner
 ![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.15.59.png)
 
-不同于简单的圆角，**SuperTextView**支持精确的控制圆角的位置。一个、两个、三个都没问题。一切由你掌控。
+Different from general Corner, **SuperTextView** can support to precise control the location of corner. One, two , three, what ever you want.
 
-### 神奇的文字描边
+### Amazing Stroke Text
 ![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.16.13.png)
 
-文字描边从未如此简单！
+Use Stroke text is so easily！
 
-### 高效的状态图
+### High-Efficient State Drawable
 ![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.16.22.png)
 
-不同于原生的Drawable，**SuperTextView**对于Drawable提供了更多精细化的控制操作。你能够轻松的指定Drawable大小以及位置，只需一个属性就能搞定。
+Different from general state drawable, **SuperTextView** supports more precise control options. You can easy to set state drawable, just to use one attribute.
 
-相信你一定深有感触，想要实现上图中的效果，往往需要嵌套多层布局(一般3层吧？)。而**SuperTextView**只需一个控件，并且十分简单高效的就能实现。它能够大量的减少你的App中的布局复杂程度，减少视图树的绘制时间。
+## Explosive Adjuster
+**Adjuster** is be designed to insert some options in the drawing process of the **SuperTextView**. It has very important sense. e.g. The **DefaultAdjuster** can auto adjust text size before the text be draw. Of course, you can use it to do any thing.
 
-## 炸裂的Adjuster
-**Adjuster**被设计用来在**SuperTextView**的绘制过程中插入一些操作。这具有非常重要的意义。比如，默认实现的**DefaultAdjuster**能够动态的调整文字的大小。当然，你可以用它来实现各种各样的效果。
+**If you want to use Adjuster, you must to invoke `SuperTextView.setAutoAdjust(true)`. Of course, you can invoke `SuperTextView.setAutoAdjust(false)` to stop it at any time. You should invoke these method carefully. Because, once you invoke the `SuperTextView.setAutoAdjust(true)`, but didn't set your Adjuster before, the DefaultAdjuster will be used immediately.Until you set yourself Adjuster.**
 
-**想要Adjuster生效，你必须调用`SuperTextView.setAutoAdjust(true)`来启用Adjuster功能。当然，你可以所以方便的停止，通过调用`SuperTextView.setAutoAdjust(false)`。并且，你需要注意调用顺序，因为一旦调用了`SuperTextView.setAutoAdjust(true)`，而Adjuster没有被设置的话，将会启用默认的`DefaultAdjuster`(它能够动态的调整文字大小)，直到你设置了你自己的Adjuster**
-
-### 干预控件的绘制
-实现一个Adjuster需要继承SuperTextView.Adjuster，并且实现`adjust(SuperTextView v, Canvas canvas)`方法。Adjuster.adjust()会在每次绘制过程中被调用，这意味着你能够不可思议的从外部干预控件的绘制过程。
+### Intervene Drawing
+To implement a Adjuster, you need to extends SuperTextView.Adjuster，and implement `adjust(SuperTextView v, Canvas canvas)` method. Adjuster.adjust() will be invoke whenever the draw happened, that means you can intervene the drawing process in the outside.
 
 ```
 public class YourAdjuster extends SuperTextView.Adjuster {
@@ -123,14 +123,14 @@ public class YourAdjuster extends SuperTextView.Adjuster {
 
 }
 ```
-**注意，如果开启动画，你必须十分谨慎的编写adjuster()中的代码。因为动画会以60帧/每秒的速度进行绘制。这意味着，这个方法每秒会被调用60次！所以，千万不要在这个方法中重复的创建对象，会卡爆的！原因是短时间的大量将会引起【内存抖动】，导致GC频繁发生。相关知识你可以看看我的这两篇文章：**
-- [【Android内存基础——内存抖动http://www.jianshu.com/p/69e6f894c698】](http://www.jianshu.com/p/69e6f894c698)
-- [【用两张图告诉你，为什么你的App会卡顿?http://www.jianshu.com/p/df4d5ec779c8】](http://www.jianshu.com/p/df4d5ec779c8)
+**Attention, if you start animation, you must be very careful to write the code in the adjuster(). Because the animation will be draw 60fps/s. That means, this method will be invoked 60 times in a second！So, do not to create any new object in this method. Otherwise, your app will be get a big lag！Because it will cause【Memory Thrashing】, and GC occur frequently. About the detail reason, you can see my this two articles:**
+- [【Android Memory Thrashing : http://www.jianshu.com/p/69e6f894c698】](http://www.jianshu.com/p/69e6f894c698)
+- [【Two chart to tell you why your app lags? : http://www.jianshu.com/p/df4d5ec779c8】](http://www.jianshu.com/p/df4d5ec779c8)
 
 
-### 响应触摸事件
+### Response Touch Event
 
-如果你重载Adjuster的`onTouch(SuperTextView v, MotionEvent event)`方法，你将能够获得**SuperTextView**的触摸事件。这是重要的一点，如果你想持续的对**SuperTextView**的触摸事件进行处理，你必须使`onTouch()`返回true。否则你只能接收到一个ACTION_DOWN事件，而不是一个事件流。
+If you override the `onTouch(SuperTextView v, MotionEvent event)` method of the Adjuster, you will get the touch events of the **SuperTextView**. It's very important to get a series of touch events of **SuperTextView** to handle. And you must return true in the `onTouch()`, Otherwise you will just get a  ACTION_DOWN event, not a flow of events.
 
 ```
 public class YourAdjuster extends SuperTextView.Adjuster {
@@ -149,48 +149,47 @@ public class YourAdjuster extends SuperTextView.Adjuster {
 }
 ```
 
-### 如此惊艳的效果
+### So Amazing Effect
 
-得益于**SuperTextView**内置的动画驱动，你能够结合Adjuster来实现难以置信的动画效果。一切只需要在你合理的编写好Adjuster后，调用`startAnim()`和`stopAnim()`来启动／停止动画。
+Because the **SuperTextView** the build-in animation driven, you can use Adjuster to implement the unbelievable effect. All the things you need to do is invoke `startAnim()`and `stopAnim()` to start or stop animation after your Adjuster write down.
 
 ![link](http://ogemdlrap.bkt.clouddn.com/SuperTextView.gif)
 
-如你所见，上面的效果就是通过Adjuster来实现的。并且这种**拔插式**的设计，使得你能够随时在同一个**SuperTextView**上使用新的Adjuster，你所有需要做的事情就是创建一个新的Adjuster，然后调用`setAdjuster()`。
+As you can see, these beautiful effect is be implemented by Adjuster. This **pull plugin** design, makes you can use a new Adjuster in the **SuperTextView** at any time. You just need to create a new Adjuster, then invoke `setAdjuster()`.
 
-之前`@Alex_Cin`希望看到Ripple涟漪效果，所以在`RippleAdjuster.java`中，我演示了如何使用Adjuster和动画驱动配合实现上图的Rippler涟漪效果。[【RippleAdjuster.java链接：https://github.com/chenBingX/SuperTextView/blob/master/app/src/main/java/com/coorchice/supertextview/SuperTextView/Adjuster/RippleAdjuster.java】](https://github.com/chenBingX/SuperTextView/blob/master/app/src/main/java/com/coorchice/supertextview/SuperTextView/Adjuster/RippleAdjuster.java)
+`@Alex_Cin` hopes to see the Ripple Effect, so in the `RippleAdjuster.java`, I've shown how to use Adjuster with Animation Driven to implement the Ripple Effect. [【RippleAdjuster.java link：https://github.com/chenBingX/SuperTextView/blob/master/app/src/main/java/com/coorchice/supertextview/SuperTextView/Adjuster/RippleAdjuster.java】](https://github.com/chenBingX/SuperTextView/blob/master/app/src/main/java/com/coorchice/supertextview/SuperTextView/Adjuster/RippleAdjuster.java)
 
-看，你可以使用Adjuster实现自己的Ripple效果。
+See, you can implement your Ripple Effect.
 
-### 指定Adjuster的层级
-**Adjuster**贴心的设计了控制作用层级的功能。你可以通过`Adjuster.setOpportunity(Opportunity opportunity)`来指定Adjuster的绘制层级。
+### Set the hierarchy of Adjuster
+**Adjuster** is sweet designed the hierarchy function. You invoke `Adjuster.setOpportunity(Opportunity opportunity)` to set the hierarchy of your Adjuster in the **SuperTextView**.
 
-在**SuperTextView**中，绘制层级被从下到上分为：背景层、Drawable层、文字层3个层级。通过Opportunity来指定你的Adjuster想要插入到那个层级间。
+In the **SuperTextView**, the hierarchy is from bottom to top is divided into：Background Hierarchy、Drawable Hierarchy、Text Hierarchy. You can use Opportunity to set the hierarchy of your Adjuster to that you want layer.
 
 ```
 public enum Opportunity {
-      BEFORE_DRAWABLE, //背景层和Drawable层之间
-      BEFORE_TEXT,     //Drawable层和文字层之间
-      AT_LAST          //最上层
+      BEFORE_DRAWABLE, //between backgournd layer and drawable layer
+      BEFORE_TEXT,     //between drawable layer and text layer
+      AT_LAST          //The top layer
 }
 ```
-三种类型的Opportunity示意图。
+Opportunity chart.
 
 ![image](http://ogemdlrap.bkt.clouddn.com/Opportunity.png)
 
-默认值是`Opportunity.BEFORE_TEXT`。即第二张图的示例。
+The default value is `Opportunity.BEFORE_TEXT`. Like the second chart.
 
-事实上，只要你愿意，**SuperTextView**就相当于一张画布，你可以在上面任意的挥洒你的创意。它能够让你专注于创作，而不用去在意编写那些无用麻烦的代码。
+In fact, **SuperTextView** like a canvas, and you can draw your creative on it. It makes you forces on the creation, and you never need to write these useless code.
 
-# 如何开始使用
+# How To Use?
 
-> - 如果你喜欢**SuperTextView**，希望能顺手在Github点个**star**哦！
-> - 抽出空余时间写文章分享需要动力，还请各位看官动动小手点个赞，给我点鼓励😄
-> - 我一直在不定期的创作新的干货，想要上车只需进到我的[【简书主页】](http://www.jianshu.com/u/cfec7d70bbec)点个关注就好了哦。发车喽～
+> - If you like the **SuperTextView**, please give me a **star**！Thank you!
+> - I always writing "Dry Goods", if you want to continuous attention to me, you can go to  [【My Personal Homepage】](http://www.jianshu.com/u/cfec7d70bbec), and give me a followed. Let's drive～
 
 
-目前，你可以Clone我的[【Github仓库https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)，然后将**app/src/main/java/com/coorchice/supertextview/SuperTextView/SuperTextView.java**复制到你的项目中，接着将**/app/src/main/res/values/attrs.xml**的attrs.xml文件中的**SuperTextView**的属性整合到你的attrs.xml中。
+For now，you can Clone my [【Github repositories : https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)，然后将**app/src/main/java/com/coorchice/supertextview/SuperTextView/SuperTextView.java**复制到你的项目中，接着将**/app/src/main/res/values/attrs.xml**的attrs.xml文件中的**SuperTextView**的属性整合到你的attrs.xml中。
 
-现在，你可以开始使用**SuperTextView**了。
+Now, you can begin to use the **SuperTextView** immediately.
 
 
 # License
