@@ -1,5 +1,5 @@
 
-# [【中文文档地址：https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)
+# [【中文文档地址：https://github.com/chenBingX/SuperTextView/blob/master/README_zh.md】](https://github.com/chenBingX/SuperTextView/blob/master/README_zh.md)
 
 # SuperTextView
 
