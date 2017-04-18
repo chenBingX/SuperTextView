@@ -90,7 +90,7 @@ mSuperTextView.getCorner();
 
 Usually, you have to write and manage a lot of <shape> file to implement the effect of the above chart. But now, you can easy to do this in the XML.
 
-### Not Easy Corner
+### Not Simple Corner
 ![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.15.59.png)
 
 Different from general Corner, **SuperTextView** can support to precise control the location of corner. One, two , three, what ever you want.
