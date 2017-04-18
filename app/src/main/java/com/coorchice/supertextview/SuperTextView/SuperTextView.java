@@ -630,7 +630,6 @@ public class SuperTextView extends TextView {
   public static abstract class Adjuster {
     private Opportunity opportunity = Opportunity.BEFORE_TEXT;
 
-
     protected abstract void adjust(SuperTextView v, Canvas canvas);
 
     public boolean onTouch(SuperTextView v, MotionEvent event) {
