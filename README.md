@@ -187,7 +187,7 @@ In fact, **SuperTextView** like a canvas, and you can draw your creative on it. 
 > - I always writing "Dry Goods", if you want to continuous attention to me, you can go to  [【My Personal Homepage】](http://www.jianshu.com/u/cfec7d70bbec), and give me a followed. Let's drive～
 
 
-For now，you can Clone my [【Github repositories : https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)，然后将**app/src/main/java/com/coorchice/supertextview/SuperTextView/SuperTextView.java**复制到你的项目中，接着将**/app/src/main/res/values/attrs.xml**的attrs.xml文件中的**SuperTextView**的属性整合到你的attrs.xml中。
+For now，you can Clone my [【Github repositories : https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)，and copy **app/src/main/java/com/coorchice/supertextview/SuperTextView/SuperTextView.java** to your project, then copy content of **/app/src/main/res/values/attrs.xml** to your attrs.xml.
 
 Now, you can begin to use the **SuperTextView** immediately.
 
