@@ -490,7 +490,6 @@ public class SuperTextView extends TextView {
   public void setTextStrokeWidth(float textStrokeWidth) {
     this.textStrokeWidth = textStrokeWidth;
     postInvalidate();
-
   }
 
   public boolean isAutoAdjust() {
@@ -502,12 +501,13 @@ public class SuperTextView extends TextView {
   }
 
   public boolean isLeftTopCornerEnable() {
-
     return leftTopCornerEnable;
   }
 
   public void setLeftTopCornerEnable(boolean leftTopCornerEnable) {
     this.leftTopCornerEnable = leftTopCornerEnable;
+    postInvalidate();
+
   }
 
   public boolean isRightTopCornerEnable() {
@@ -516,6 +516,8 @@ public class SuperTextView extends TextView {
 
   public void setRightTopCornerEnable(boolean rightTopCornerEnable) {
     this.rightTopCornerEnable = rightTopCornerEnable;
+    postInvalidate();
+
   }
 
   public boolean isLeftBottomCornerEnable() {
@@ -524,6 +526,8 @@ public class SuperTextView extends TextView {
 
   public void setLeftBottomCornerEnable(boolean leftBottomCornerEnable) {
     this.leftBottomCornerEnable = leftBottomCornerEnable;
+    postInvalidate();
+
   }
 
   public boolean isRightBottomCornerEnable() {
@@ -532,8 +536,49 @@ public class SuperTextView extends TextView {
 
   public void setRightBottomCornerEnable(boolean rightBottomCornerEnable) {
     this.rightBottomCornerEnable = rightBottomCornerEnable;
+    postInvalidate();
+
   }
 
+  public float getDrawableWidth() {
+    return drawableWidth;
+  }
+
+  public void setDrawableWidth(float drawableWidth) {
+    this.drawableWidth = drawableWidth;
+    postInvalidate();
+
+  }
+
+  public float getDrawableHeight() {
+    return drawableHeight;
+  }
+
+  public void setDrawableHeight(float drawableHeight) {
+    this.drawableHeight = drawableHeight;
+    postInvalidate();
+
+  }
+
+  public float getDrawablePaddingLeft() {
+    return drawablePaddingLeft;
+  }
+
+  public void setDrawablePaddingLeft(float drawablePaddingLeft) {
+    this.drawablePaddingLeft = drawablePaddingLeft;
+    postInvalidate();
+
+  }
+
+  public float getDrawablePaddingTop() {
+    return drawablePaddingTop;
+  }
+
+  public void setDrawablePaddingTop(float drawablePaddingTop) {
+    this.drawablePaddingTop = drawablePaddingTop;
+    postInvalidate();
+
+  }
 
   public void startAnim() {
     needRun = true;
