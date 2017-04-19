@@ -31,6 +31,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -86,6 +87,8 @@ public class SuperTextView extends TextView {
   private float drawableHeight;
   private float drawablePaddingLeft;
   private float drawablePaddingTop;
+  private boolean cacheRunnableState;
+  private boolean cacheNeedRunState;
 
 
   public SuperTextView(Context context) {
@@ -595,6 +598,8 @@ public class SuperTextView extends TextView {
             e.printStackTrace();
             runnable = false;
           }
+          Log.e("SuperTextView", " -> startAnim: " + Thread.currentThread().getId() + "-> "
+              + hashCode() + ": It's running!");
         }
         animThread = null;
         if (needRun) {
@@ -622,8 +627,26 @@ public class SuperTextView extends TextView {
   }
 
   @Override
+  protected void onWindowVisibilityChanged(int visibility) {
+    super.onWindowVisibilityChanged(visibility);
+    if (visibility != VISIBLE) {
+      cacheRunnableState = runnable;
+      cacheNeedRunState = needRun;
+      stopAnim();
+    } else if (cacheRunnableState && cacheNeedRunState) {
+      startAnim();
+    }
+  }
+
+  @Override
+  protected void onDetachedFromWindow() {
+    stopAnim();
+    super.onDetachedFromWindow();
+  }
+
+  @Override
   protected void finalize() throws Throwable {
-    runnable = false;
+    stopAnim();
     super.finalize();
   }
 
