@@ -188,8 +188,24 @@ public enum Opportunity {
 > - 抽出空余时间写文章分享需要动力，还请各位看官动动小手点个赞，给我点鼓励😄
 > - 我一直在不定期的创作新的干货，想要上车只需进到我的[【简书主页】](http://www.jianshu.com/u/cfec7d70bbec)点个关注就好了哦。发车喽～
 
+## 方法一
+在你的**build.gradle**中加入：
 
-目前，你可以Clone我的[【Github仓库https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)，然后将**app/src/main/java/com/coorchice/supertextview/SuperTextView/SuperTextView.java**复制到你的项目中，接着将**/app/src/main/res/values/attrs.xml**的attrs.xml文件中的**SuperTextView**的属性整合到你的attrs.xml中。
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    compile 'com.github.chenBingX:SuperTextView:v1.0'
+}
+```
+
+## 方法二
+你可以Clone我的[【Github仓库https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)，然后在Library包下找到**SuperTextView**和**attrs.xml**，复制到你的项目中。
 
 现在，你可以开始使用**SuperTextView**了。
 
