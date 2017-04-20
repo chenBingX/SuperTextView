@@ -5,7 +5,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/activity_main"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  >
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -23,7 +24,7 @@
       android:orientation="horizontal"
       >
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_0"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -35,7 +36,7 @@
         app:solid="@color/opacity_5_red"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_2_1"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="50dp"
@@ -48,7 +49,7 @@
         app:solid="#85219E"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_1"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -62,7 +63,7 @@
         app:stroke_width="5dp"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_2"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -87,7 +88,7 @@
       android:orientation="horizontal"
       >
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_3"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -99,7 +100,7 @@
         app:solid="#008673"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_4"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -114,7 +115,7 @@
         app:stroke_width="5dp"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_5"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -138,7 +139,7 @@
       android:layout_marginTop="10dp"
       >
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_6"
         android:layout_width="@dimen/stv_small_size"
         android:layout_height="@dimen/stv_small_size"
@@ -151,7 +152,7 @@
         app:solid="#ed652f"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_7"
         android:layout_width="@dimen/stv_small_size"
         android:layout_height="@dimen/stv_small_size"
@@ -166,7 +167,7 @@
         app:solid="#ff443f"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_8"
         android:layout_width="@dimen/stv_small_size"
         android:layout_height="@dimen/stv_small_size"
@@ -182,7 +183,7 @@
         app:solid="#ed50a2"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_9"
         android:layout_width="@dimen/stv_small_size"
         android:layout_height="@dimen/stv_small_size"
@@ -199,7 +200,7 @@
         app:solid="#c12ded"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_10"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -215,7 +216,7 @@
         app:solid="#ed9581"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_11"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -243,7 +244,7 @@
       android:orientation="horizontal"
       >
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_12"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -259,7 +260,7 @@
         app:text_stroke_width="1dp"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_13"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -285,7 +286,7 @@
       android:orientation="horizontal"
       >
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_14"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -300,7 +301,7 @@
         app:state_drawable="@drawable/emoji_kiss"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_15"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -318,7 +319,7 @@
         app:state_drawable_width="20dp"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_16"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="40dp"
@@ -338,7 +339,7 @@
         app:state_drawable_width="20dp"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_16_1"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -357,7 +358,7 @@
         />
     </LinearLayout>
 
-    <com.coorchice.supertextview.SuperTextView.SuperTextView
+    <com.coorchice.library.SuperTextView
       android:id="@+id/stv_17"
       android:layout_width="match_parent"
       android:layout_height="@dimen/stv_small_size"
@@ -372,7 +373,7 @@
       app:solid="@color/purple"
       />
 
-    <com.coorchice.supertextview.SuperTextView.SuperTextView
+    <com.coorchice.library.SuperTextView
       android:id="@+id/stv_18"
       android:layout_width="match_parent"
       android:layout_height="@dimen/stv_small_size"
@@ -395,7 +396,7 @@
       android:gravity="center_vertical"
       android:orientation="horizontal"
       >
-    <com.coorchice.supertextview.SuperTextView.SuperTextView
+    <com.coorchice.library.SuperTextView
       android:id="@+id/stv_19"
       android:layout_width="@dimen/stv_normal_size"
       android:layout_height="@dimen/stv_normal_size"
@@ -414,7 +415,7 @@
       app:state_drawable_width="30dp"
       />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_20"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -433,7 +434,7 @@
         app:state_drawable_width="30dp"
         />
 
-      <com.coorchice.supertextview.SuperTextView.SuperTextView
+      <com.coorchice.library.SuperTextView
         android:id="@+id/stv_21"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="@dimen/stv_normal_size"
@@ -454,7 +455,7 @@
     </LinearLayout>
 
 
-    <!--<com.coorchice.supertextview.SuperTextView.SuperTextView-->
+    <!--<com.coorchice.library.SuperTextView-->
       <!--android:layout_width="115dp"-->
       <!--android:layout_height="115dp"-->
       <!--android:gravity="bottom|center"-->

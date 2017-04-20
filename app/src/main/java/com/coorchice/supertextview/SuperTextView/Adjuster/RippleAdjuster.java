@@ -16,7 +16,7 @@
 
 package com.coorchice.supertextview.SuperTextView.Adjuster;
 
-import com.coorchice.supertextview.SuperTextView.SuperTextView;
+import com.coorchice.library.SuperTextView;
 import com.coorchice.supertextview.Utils.LogUtils;
 
 import android.graphics.Canvas;

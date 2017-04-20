@@ -16,11 +16,12 @@
 
 package com.coorchice.supertextview.SuperTextView.Adjuster;
 
+import com.coorchice.library.SuperTextView;
 import com.coorchice.supertextview.R;
-import com.coorchice.supertextview.SuperTextView.SuperTextView;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+
 
 /**
  * Project Name:SuperTextView

@@ -13,12 +13,11 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  * <p>
- * Last modified 17-4-17 上午11:30
+ * Last modified 17-4-20 下午5:32
  */
 
-package com.coorchice.supertextview.SuperTextView;
+package com.coorchice.library;
 
-import com.coorchice.supertextview.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -589,21 +588,29 @@ public class SuperTextView extends TextView {
     if (animThread == null) {
       needRun = true;
       runnable = true;
-      animThread = new Thread(() -> {
-        while (runnable) {
-          post(this::postInvalidate);
-          try {
-            Thread.sleep(16);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-            runnable = false;
+      animThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+          while (runnable) {
+            post(new Runnable() {
+              @Override
+              public void run() {
+                postInvalidate();
+              }
+            });
+            try {
+              Thread.sleep(16);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+              runnable = false;
+            }
+            Log.e("SuperTextView", " -> startAnim: " + Thread.currentThread().getId() + "-> "
+                + hashCode() + ": It's running!");
           }
-          Log.e("SuperTextView", " -> startAnim: " + Thread.currentThread().getId() + "-> "
-              + hashCode() + ": It's running!");
-        }
-        animThread = null;
-        if (needRun) {
-          startAnim();
+          animThread = null;
+          if (needRun) {
+            startAnim();
+          }
         }
       });
       animThread.start();
