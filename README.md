@@ -187,10 +187,26 @@ In fact, **SuperTextView** like a canvas, and you can draw your creative on it. 
 > - I always writing "Dry Goods", if you want to continuous attention to me, you can go to  [【My Personal Homepage】](http://www.jianshu.com/u/cfec7d70bbec), and give me a followed. Let's drive～
 
 
-For now，you can Clone my [【Github repositories : https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView)，and copy **app/src/main/java/com/coorchice/supertextview/SuperTextView/SuperTextView.java** to your project, then copy content of **/app/src/main/res/values/attrs.xml** to your attrs.xml.
+## Method 1
+Add these code to your **build.gradle**:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    compile 'com.github.chenBingX:SuperTextView:v1.0'
+}
+```
+
+
+## Method 2
+You can Clone my [【Github repositories : https://github.com/chenBingX/SuperTextView】](https://github.com/chenBingX/SuperTextView), find **SuperTextView.java** and **attrs.xml** in the library package, then copy them to your project.
 
 Now, you can begin to use the **SuperTextView** immediately.
-
 
 # License
 Copyright (C) 2017 CoorChice <icechen_@outlook.com>
