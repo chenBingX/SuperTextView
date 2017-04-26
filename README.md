@@ -3,6 +3,17 @@
 
 # SuperTextView
 
+# Update Log
+## v1.1
+- Support Android 4.0，SdkVersion 14.
+- Support elegant fascinating **【Chain Programming】** , eg:
+```
+mSuperTextView.setAdjuster(new MoveEffectAdjuster())
+        .setAutoAdjust(true)
+        .startAnim();
+```
+- Reduce the library memory.
+
 # Introduction
 Welcome to use **SuperTextView**, this document will show you how to use this widget.
 

@@ -1,5 +1,17 @@
 # SuperTextView
 
+# 近期更新
+
+## v1.1
+- 最低支持Android 4.0，SdkVersion 14。
+- 支持优雅动人的 **【链式表达式】** , eg:
+```
+mSuperTextView.setAdjuster(new MoveEffectAdjuster())
+        .setAutoAdjust(true)
+        .startAnim();
+```
+- 减小占用空间。
+
 # 简介
 欢迎使用**SuperTextView**，这篇文档将会向你展示如何使用这个控件来提高你构建项目的效率。
 
