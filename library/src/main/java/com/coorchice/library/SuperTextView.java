@@ -19,6 +19,7 @@
 package com.coorchice.library;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -28,9 +29,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -105,7 +104,7 @@ public class SuperTextView extends TextView {
     init(attrs);
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public SuperTextView(Context context, AttributeSet attrs, int defStyleAttr,
       int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
@@ -385,70 +384,84 @@ public class SuperTextView extends TextView {
     return corner;
   }
 
-  public void setCorner(float corner) {
+  public SuperTextView setCorner(float corner) {
     this.corner = corner;
     postInvalidate();
 
+    return this;
   }
 
   public int getSolid() {
     return solid;
   }
 
-  public void setSolid(int solid) {
+  public SuperTextView setSolid(int solid) {
     this.solid = solid;
     postInvalidate();
+
+    return this;
   }
 
   public float getStrokeWidth() {
     return strokeWidth;
   }
 
-  public void setStrokeWidth(float strokeWidth) {
+  public SuperTextView setStrokeWidth(float strokeWidth) {
     this.strokeWidth = strokeWidth;
-
     postInvalidate();
+
+    return this;
   }
 
   public int getStrokeColor() {
     return strokeColor;
   }
 
-  public void setStrokeColor(int strokeColor) {
+  public SuperTextView setStrokeColor(int strokeColor) {
     this.strokeColor = strokeColor;
     postInvalidate();
+
+    return this;
   }
 
   public Drawable getDrawable() {
     return drawable;
   }
 
-  public void setDrawable(Drawable drawable) {
+  public SuperTextView setDrawable(Drawable drawable) {
     this.drawable = drawable;
     postInvalidate();
+
+    return this;
   }
 
   public boolean isShowState() {
     return isShowState;
   }
 
-  public void setShowState(boolean showState) {
+  public SuperTextView setShowState(boolean showState) {
     isShowState = showState;
     postInvalidate();
+
+    return this;
   }
 
   public int getStateDrawableMode() {
     return stateDrawableMode;
   }
 
-  public void setStateDrawableMode(int stateDrawableMode) {
+  public SuperTextView setStateDrawableMode(int stateDrawableMode) {
     this.stateDrawableMode = stateDrawableMode;
     postInvalidate();
+
+    return this;
   }
 
-  public void setAdjuster(Adjuster adjuster) {
+  public SuperTextView setAdjuster(Adjuster adjuster) {
     this.adjuster = adjuster;
     postInvalidate();
+
+    return this;
   }
 
   public Adjuster getAdjuster() {
@@ -459,127 +472,143 @@ public class SuperTextView extends TextView {
     return textStroke;
   }
 
-  public void setTextStroke(boolean textStroke) {
+  public SuperTextView setTextStroke(boolean textStroke) {
     this.textStroke = textStroke;
     postInvalidate();
 
+    return this;
   }
 
   public int getTextStrokeColor() {
     return textStrokeColor;
   }
 
-  public void setTextStrokeColor(int textStrokeColor) {
+  public SuperTextView setTextStrokeColor(int textStrokeColor) {
     this.textStrokeColor = textStrokeColor;
     postInvalidate();
 
+    return this;
   }
 
   public int getTextFillColor() {
     return textFillColor;
   }
 
-  public void setTextFillColor(int textFillColor) {
+  public SuperTextView setTextFillColor(int textFillColor) {
     this.textFillColor = textFillColor;
     postInvalidate();
 
+    return this;
   }
 
   public float getTextStrokeWidth() {
     return textStrokeWidth;
   }
 
-  public void setTextStrokeWidth(float textStrokeWidth) {
+  public SuperTextView setTextStrokeWidth(float textStrokeWidth) {
     this.textStrokeWidth = textStrokeWidth;
     postInvalidate();
+
+    return this;
   }
 
   public boolean isAutoAdjust() {
     return autoAdjust;
   }
 
-  public void setAutoAdjust(boolean autoAdjust) {
+  public SuperTextView setAutoAdjust(boolean autoAdjust) {
     this.autoAdjust = autoAdjust;
+    postInvalidate();
+
+    return this;
   }
 
   public boolean isLeftTopCornerEnable() {
     return leftTopCornerEnable;
   }
 
-  public void setLeftTopCornerEnable(boolean leftTopCornerEnable) {
+  public SuperTextView setLeftTopCornerEnable(boolean leftTopCornerEnable) {
     this.leftTopCornerEnable = leftTopCornerEnable;
     postInvalidate();
 
+    return this;
   }
 
   public boolean isRightTopCornerEnable() {
     return rightTopCornerEnable;
   }
 
-  public void setRightTopCornerEnable(boolean rightTopCornerEnable) {
+  public SuperTextView setRightTopCornerEnable(boolean rightTopCornerEnable) {
     this.rightTopCornerEnable = rightTopCornerEnable;
     postInvalidate();
 
+    return this;
   }
 
   public boolean isLeftBottomCornerEnable() {
     return leftBottomCornerEnable;
   }
 
-  public void setLeftBottomCornerEnable(boolean leftBottomCornerEnable) {
+  public SuperTextView setLeftBottomCornerEnable(boolean leftBottomCornerEnable) {
     this.leftBottomCornerEnable = leftBottomCornerEnable;
     postInvalidate();
 
+    return this;
   }
 
   public boolean isRightBottomCornerEnable() {
     return rightBottomCornerEnable;
   }
 
-  public void setRightBottomCornerEnable(boolean rightBottomCornerEnable) {
+  public SuperTextView setRightBottomCornerEnable(boolean rightBottomCornerEnable) {
     this.rightBottomCornerEnable = rightBottomCornerEnable;
     postInvalidate();
 
+    return this;
   }
 
   public float getDrawableWidth() {
     return drawableWidth;
   }
 
-  public void setDrawableWidth(float drawableWidth) {
+  public SuperTextView setDrawableWidth(float drawableWidth) {
     this.drawableWidth = drawableWidth;
     postInvalidate();
 
+    return this;
   }
 
   public float getDrawableHeight() {
     return drawableHeight;
   }
 
-  public void setDrawableHeight(float drawableHeight) {
+  public SuperTextView setDrawableHeight(float drawableHeight) {
     this.drawableHeight = drawableHeight;
     postInvalidate();
 
+    return this;
   }
 
   public float getDrawablePaddingLeft() {
     return drawablePaddingLeft;
   }
 
-  public void setDrawablePaddingLeft(float drawablePaddingLeft) {
+  public SuperTextView setDrawablePaddingLeft(float drawablePaddingLeft) {
     this.drawablePaddingLeft = drawablePaddingLeft;
     postInvalidate();
 
+    return this;
   }
 
   public float getDrawablePaddingTop() {
     return drawablePaddingTop;
   }
 
-  public void setDrawablePaddingTop(float drawablePaddingTop) {
+  public SuperTextView setDrawablePaddingTop(float drawablePaddingTop) {
     this.drawablePaddingTop = drawablePaddingTop;
     postInvalidate();
 
+    return this;
   }
 
   public void startAnim() {
@@ -604,8 +633,8 @@ public class SuperTextView extends TextView {
               e.printStackTrace();
               runnable = false;
             }
-            Log.e("SuperTextView", " -> startAnim: " + Thread.currentThread().getId() + "-> "
-                + hashCode() + ": It's running!");
+            // Log.e("SuperTextView", " -> startAnim: " + Thread.currentThread().getId() + "-> "
+            // + hashCode() + ": It's running!");
           }
           animThread = null;
           if (needRun) {

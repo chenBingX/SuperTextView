@@ -1,12 +1,12 @@
 package com.coorchice.supertextview;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
 import com.coorchice.library.SuperTextView;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.OpportunityDemoAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,26 +27,26 @@ public class MainActivity extends AppCompatActivity {
   private void initView() {
     findViews();
 
-     stv_17.setAdjuster(new MoveEffectAdjuster());
-     stv_17.setAutoAdjust(true);
-     stv_17.startAnim();
+    stv_17.setAdjuster(new MoveEffectAdjuster())
+        .setAutoAdjust(true)
+        .startAnim();
 
-     stv_18.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
+    stv_18.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
 
-     OpportunityDemoAdjuster opportunityDemoAdjuster1 = new OpportunityDemoAdjuster();
-     opportunityDemoAdjuster1.setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE);
-     stv_19.setAdjuster(opportunityDemoAdjuster1);
-     stv_19.setAutoAdjust(true);
+    OpportunityDemoAdjuster opportunityDemoAdjuster1 = new OpportunityDemoAdjuster();
+    opportunityDemoAdjuster1.setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE);
+    stv_19.setAdjuster(opportunityDemoAdjuster1);
+    stv_19.setAutoAdjust(true);
 
-     OpportunityDemoAdjuster opportunityDemoAdjuster2 = new OpportunityDemoAdjuster();
-     opportunityDemoAdjuster2.setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_TEXT);
-     stv_20.setAdjuster(opportunityDemoAdjuster2);
-     stv_20.setAutoAdjust(true);
+    OpportunityDemoAdjuster opportunityDemoAdjuster2 = new OpportunityDemoAdjuster();
+    opportunityDemoAdjuster2.setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_TEXT);
+    stv_20.setAdjuster(opportunityDemoAdjuster2);
+    stv_20.setAutoAdjust(true);
 
-     OpportunityDemoAdjuster opportunityDemoAdjuster3 = new OpportunityDemoAdjuster();
-     opportunityDemoAdjuster3.setOpportunity(SuperTextView.Adjuster.Opportunity.AT_LAST);
-     stv_21.setAdjuster(opportunityDemoAdjuster3);
-     stv_21.setAutoAdjust(true);
+    OpportunityDemoAdjuster opportunityDemoAdjuster3 = new OpportunityDemoAdjuster();
+    opportunityDemoAdjuster3.setOpportunity(SuperTextView.Adjuster.Opportunity.AT_LAST);
+    stv_21.setAdjuster(opportunityDemoAdjuster3);
+    stv_21.setAutoAdjust(true);
   }
 
   private void findViews() {
