@@ -212,7 +212,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.chenBingX:SuperTextView:v1.0'
+    compile 'com.github.chenBingX:SuperTextView:v1.1'
 }
 ```
 
