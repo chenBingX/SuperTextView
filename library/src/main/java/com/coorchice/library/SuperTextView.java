@@ -87,6 +87,8 @@ public class SuperTextView extends TextView {
   private float drawablePaddingTop;
   private boolean cacheRunnableState;
   private boolean cacheNeedRunState;
+  private int frameRate = 16;
+
 
 
   public SuperTextView(Context context) {
@@ -611,6 +613,15 @@ public class SuperTextView extends TextView {
     return this;
   }
 
+  public int getFrameRate() {
+    return frameRate;
+  }
+
+  public SuperTextView setFrameRate(int frameRate) {
+    this.frameRate = frameRate;
+    return this;
+  }
+
   public void startAnim() {
     needRun = true;
     runnable = false;
@@ -628,7 +639,7 @@ public class SuperTextView extends TextView {
               }
             });
             try {
-              Thread.sleep(16);
+              Thread.sleep(frameRate);
             } catch (InterruptedException e) {
               e.printStackTrace();
               runnable = false;
