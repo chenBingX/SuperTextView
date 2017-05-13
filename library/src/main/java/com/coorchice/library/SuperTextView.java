@@ -88,7 +88,7 @@ public class SuperTextView extends TextView {
   private boolean cacheRunnableState;
   private boolean cacheNeedRunState;
   private int frameRate = 60;
-
+  private Runnable invalidate;
 
 
   public SuperTextView(Context context) {
@@ -627,6 +627,7 @@ public class SuperTextView extends TextView {
   }
 
   public void startAnim() {
+    checkWhetherNeedInitInvalidate();
     needRun = true;
     runnable = false;
     if (animThread == null) {
@@ -636,12 +637,9 @@ public class SuperTextView extends TextView {
         @Override
         public void run() {
           while (runnable) {
-            post(new Runnable() {
-              @Override
-              public void run() {
-                postInvalidate();
-              }
-            });
+            synchronized (invalidate){
+              post(invalidate);
+            }
             try {
               Thread.sleep(1000 / frameRate);
             } catch (InterruptedException e) {
@@ -658,6 +656,17 @@ public class SuperTextView extends TextView {
         }
       });
       animThread.start();
+    }
+  }
+
+  private void checkWhetherNeedInitInvalidate() {
+    if (invalidate == null) {
+      invalidate = new Runnable() {
+        @Override
+        public void run() {
+          postInvalidate();
+        }
+      };
     }
   }
 
@@ -693,12 +702,6 @@ public class SuperTextView extends TextView {
   protected void onDetachedFromWindow() {
     stopAnim();
     super.onDetachedFromWindow();
-  }
-
-  @Override
-  protected void finalize() throws Throwable {
-    stopAnim();
-    super.finalize();
   }
 
   public static abstract class Adjuster {
