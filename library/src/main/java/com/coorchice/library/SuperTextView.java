@@ -382,6 +382,9 @@ public class SuperTextView extends TextView {
     }
   }
 
+  /**
+   * 获取
+   */
   public float getCorner() {
     return corner;
   }
