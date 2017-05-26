@@ -28,6 +28,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -90,6 +91,11 @@ public class SuperTextView extends TextView {
   private boolean cacheNeedRunState;
   private int frameRate = 60;
   private Runnable invalidate;
+  private int shaderStartColor;
+  private int shaderEndColor;
+  private int shaderMode;
+  private LinearGradient shader;
+  private boolean shaderEnable;
 
 
   public SuperTextView(Context context) {
@@ -159,6 +165,12 @@ public class SuperTextView extends TextView {
       textStrokeWidth = typedArray.getDimension(R.styleable.SuperTextView_text_stroke_width,
           DEFAULT_TEXT_STROKE_WIDTH);
       autoAdjust = typedArray.getBoolean(R.styleable.SuperTextView_autoAdjust, false);
+      shaderStartColor =
+          typedArray.getColor(R.styleable.SuperTextView_shaderStartColor, 0);
+      shaderEndColor =
+          typedArray.getColor(R.styleable.SuperTextView_shaderEndColor, 0);
+      shaderMode = typedArray.getInteger(R.styleable.SuperTextView_shaderMode, 0);
+      shaderEnable = typedArray.getBoolean(R.styleable.SuperTextView_shaderEnable, false);
       typedArray.recycle();
     }
   }
@@ -238,7 +250,11 @@ public class SuperTextView extends TextView {
 
     initPaint();
     paint.setStyle(Paint.Style.FILL);
-    paint.setColor(solid);
+    if (shaderEnable) {
+      useShader(paint);
+    } else {
+      paint.setColor(solid);
+    }
     canvas.drawPath(solidPath, paint);
   }
 
@@ -288,6 +304,46 @@ public class SuperTextView extends TextView {
     corners[6] = leftBottomCorner[0];
     corners[7] = leftBottomCorner[1];
     return corners;
+  }
+
+  private void useShader(Paint paint) {
+    if (shader == null) {
+      createShader();
+    }
+    paint.setShader(shader);
+  }
+
+  private boolean createShader() {
+    if (shaderStartColor != 0 && shaderEndColor != 0) {
+      float x0 = 0;
+      float x1 = 0;
+      float y0 = 0;
+      float y1 = 0;
+      int startColor = shaderStartColor;
+      int endColor = shaderEndColor;
+      switch (ShaderMode.valueOf(shaderMode)) {
+        case TOP_TO_BOTTOM:
+          y1 = height;
+          break;
+        case BOTTOM_TO_TOP:
+          y1 = height;
+          startColor = shaderEndColor;
+          endColor = shaderStartColor;
+          break;
+        case LEFT_TO_RIGHT:
+          x1 = width;
+          break;
+        case RIGHT_TO_LEFT:
+          x1 = width;
+          startColor = shaderEndColor;
+          endColor = shaderStartColor;
+          break;
+      }
+      shader = new LinearGradient(x0, y0, x1, y1, startColor, endColor, Shader.TileMode.CLAMP);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   private void drawStateDrawable(Canvas canvas) {
@@ -382,7 +438,6 @@ public class SuperTextView extends TextView {
       }
     }
   }
-
 
   /**
    * @return 获取Corner值。默认为0。
@@ -770,7 +825,77 @@ public class SuperTextView extends TextView {
   public SuperTextView setDrawablePaddingTop(float drawablePaddingTop) {
     this.drawablePaddingTop = drawablePaddingTop;
     postInvalidate();
+    return this;
+  }
 
+  /**
+   * @return 渐变起始色。
+   */
+  public int getShaderStartColor() {
+    return shaderStartColor;
+  }
+
+  /**
+   * @param shaderStartColor 设置渐变起始色。需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setShaderStartColor(int shaderStartColor) {
+    this.shaderStartColor = shaderStartColor;
+    shader = null;
+    postInvalidate();
+    return this;
+  }
+
+  /**
+   * @return 渐变结束色。
+   */
+  public int getShaderEndColor() {
+    return shaderEndColor;
+  }
+
+  /**
+   * @param shaderEndColor 设置渐变结束色。需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setShaderEndColor(int shaderEndColor) {
+    this.shaderEndColor = shaderEndColor;
+    shader = null;
+    postInvalidate();
+    return this;
+  }
+
+  /**
+   * @return 渐变模式。{@link ShaderMode}。
+   */
+  public int getShaderMode() {
+    return shaderMode;
+  }
+
+  /**
+   * @param shaderMode 设置渐变模式。{@link ShaderMode}。
+   * @return SuperTextView
+   */
+  public SuperTextView setShaderMode(int shaderMode) {
+    this.shaderMode = shaderMode;
+    shader = null;
+    postInvalidate();
+    return this;
+  }
+
+  /**
+   * @return 是否启用了渐变功能。
+   */
+  public boolean isShaderEnable() {
+    return shaderEnable;
+  }
+
+  /**
+   * @param shaderEnable true启用渐变功能。反之，停用。
+   * @return SuperTextView
+   */
+  public SuperTextView setShaderEnable(boolean shaderEnable) {
+    this.shaderEnable = shaderEnable;
+    postInvalidate();
     return this;
   }
 
@@ -999,7 +1124,43 @@ public class SuperTextView extends TextView {
       }
       return CENTER;
     }
+  }
 
+  /**
+   * 渐变模式。
+   */
+  public static enum ShaderMode {
+    /**
+     * 从上到下
+     */
+    TOP_TO_BOTTOM(0),
+    /**
+     * 从下到上
+     */
+    BOTTOM_TO_TOP(1),
+    /**
+     * 从左到右
+     */
+    LEFT_TO_RIGHT(2),
+    /**
+     * 从右到左
+     */
+    RIGHT_TO_LEFT(3);
+
+    public int code;
+
+    ShaderMode(int code) {
+      this.code = code;
+    }
+
+    public static ShaderMode valueOf(int code) {
+      for (ShaderMode mode : ShaderMode.values()) {
+        if (mode.code == code) {
+          return mode;
+        }
+      }
+      return TOP_TO_BOTTOM;
+    }
   }
 
   public static class DefaultAdjuster extends Adjuster {

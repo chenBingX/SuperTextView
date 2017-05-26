@@ -1,6 +1,7 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="AndroidLintDrawAllocation" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintRtlHardcoded" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintRtlSymmetry" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="LoggerInitializedWithForeignClass" enabled="false" level="WARNING" enabled_by_default="false">

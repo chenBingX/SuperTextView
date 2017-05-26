@@ -34,5 +34,14 @@
       <enum name="leftBottom" value="8"/>
       <enum name="rightBottom" value="9"/>
     </attr>
+    <attr name="shaderStartColor" format="reference|color"/>
+    <attr name="shaderEndColor" format="reference|color"/>
+    <attr name="shaderMode" format="enum">
+      <enum name="topToBottom" value="0"/>
+      <enum name="bottomToTop" value="1"/>
+      <enum name="leftTopRight" value="2"/>
+      <enum name="rightToLeft" value="3"/>
+    </attr>
+    <attr name="shaderEnable" format="boolean"/>
   </declare-styleable>
 </resources>

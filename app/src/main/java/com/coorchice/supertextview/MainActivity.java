@@ -5,6 +5,7 @@ import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.OpportunityDemoAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
    private SuperTextView stv_19;
    private SuperTextView stv_20;
    private SuperTextView stv_21;
+   private SuperTextView stv_22;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
     opportunityDemoAdjuster3.setOpportunity(SuperTextView.Adjuster.Opportunity.AT_LAST);
     stv_21.setAdjuster(opportunityDemoAdjuster3);
     stv_21.setAutoAdjust(true);
+
+    stv_22.setFrameRate(60);
+    stv_22.setShaderStartColor(Color.RED);
+
+//    stv_22.setShaderStartColor(Color.BLUE);
+//    stv_22.setShaderEndColor(Color.YELLOW);
+
   }
 
   private void findViews() {
@@ -55,5 +64,6 @@ public class MainActivity extends AppCompatActivity {
      stv_19 = (SuperTextView) findViewById(R.id.stv_19);
      stv_20 = (SuperTextView) findViewById(R.id.stv_20);
      stv_21 = (SuperTextView) findViewById(R.id.stv_21);
+     stv_22 = (SuperTextView) findViewById(R.id.stv_22);
   }
 }

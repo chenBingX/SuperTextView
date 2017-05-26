@@ -471,5 +471,85 @@
       <!--app:state_drawable="@drawable/emoji_kiss"-->
       <!--/>-->
 
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_22"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:paddingBottom="1dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:text="shader_topToBottom"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:corner="10dp"
+      app:shaderEnable="true"
+      app:shaderStartColor="@color/main_blue"
+      app:shaderEndColor="@color/pink"
+      app:shaderMode="topToBottom"
+      app:solid="@color/main_blue"
+      />
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_23"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:paddingBottom="1dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:text="shader_bottomToTop"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:corner="10dp"
+      app:shaderEnable="true"
+      app:shaderStartColor="@color/main_blue"
+      app:shaderEndColor="@color/pink"
+      app:shaderMode="bottomToTop"
+      app:solid="@color/main_blue"
+      />
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_24"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:paddingBottom="1dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:text="shader_leftTopRight"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:corner="10dp"
+      app:shaderEnable="true"
+      app:shaderStartColor="@color/main_blue"
+      app:shaderEndColor="@color/pink"
+      app:shaderMode="leftTopRight"
+      app:solid="@color/main_blue"
+      />
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_26"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:paddingBottom="1dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:text="shader_rightToLeft"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:corner="10dp"
+      app:shaderEnable="true"
+      app:shaderStartColor="@color/main_blue"
+      app:shaderEndColor="@color/pink"
+      app:shaderMode="rightToLeft"
+      app:solid="@color/main_blue"
+      />
+
   </LinearLayout>
 </ScrollView>
