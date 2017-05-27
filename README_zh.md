@@ -10,13 +10,13 @@ mSuperTextView.setFrameRate(30);
 // 修改帧率为30帧
 ```
 - 优化动画驱动的性能。
-- # 酷炫不止，渐变功能来袭！  
+- 酷炫不止，渐变来袭！  
 
 ![link](http://ogemdlrap.bkt.clouddn.com/%E6%B8%90%E5%8F%98%E8%89%B2.png)  
 
-渐变色的实现从未如此简单过，一切都触手可及！  
+一触即变，想象不至于此。艺术家，发挥你的创造力吧！  
 
-你可以在xml中这样使用：
+同样，渐变效果的设置支持在xml中设置，并且能够即时预览。
 ```
 app:shaderEnable="true"
 // 必须设置为true才能启用渐变功能。这意味着你可以灵活的控制这一功能。
@@ -31,19 +31,16 @@ app:shaderMode="rightToLeft"
 // 设置渐变模式。如上图可见，一共支持4中模式：
 // topTopBottom, bottomToTop, leftToRight, rightToLeft
 ```
-这些属性都提供了对应的`set/get`方法，供你在Java中动态改变／获取它们的值。比如：  
+当然，这些属性也都提供了对应的`set/get`方法，供你在Java中动态改变／获取它们的值。比如：  
 
 ```
 mSuperTextView.setShaderStartColor(Color.RED);
 ```
-- 现在提供了**SuperTextView**的文档，你可以到这下载：
+- 现在，提供了**SuperTextView**的详尽文档，你可以到这下载查看（解压后打开目录下的`index.html`开始）：
 [**SuperTextView文档：http://ogemdlrap.bkt.clouddn.com/SuperTextView%E6%96%87%E6%A1%A3%20.zip?attname=**](http://ogemdlrap.bkt.clouddn.com/SuperTextView%E6%96%87%E6%A1%A3%20.zip?attname=)  
 
-- ### 如何使用SuperTextView 1.3
-
-
-在你的**build.gradle**中加入：
-
+- 如何使用SuperTextView 1.3  
+  在你的**build.gradle**中加入：  
 ```
 allprojects {
     repositories {
@@ -56,6 +53,7 @@ dependencies {
     compile 'com.github.chenBingX:SuperTextView:v1.3'
 }
 ```
+---
 
 ## v1.1
 - 最低支持Android 4.0，SdkVersion 14。
