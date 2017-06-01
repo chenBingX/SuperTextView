@@ -33,10 +33,10 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         app:corner="10dp"
-        app:solid="@color/opacity_5_red"
+        app:solid="@color/button_color_sel"
         />
 
-      <com.coorchice.library.SuperTextView
+      <!--<com.coorchice.library.SuperTextView
         android:id="@+id/stv_2_1"
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="50dp"
@@ -451,7 +451,7 @@
         app:state_drawable="@drawable/emoji_kiss"
         app:state_drawable_height="30dp"
         app:state_drawable_width="30dp"
-      />
+      />-->
     </LinearLayout>
 
 

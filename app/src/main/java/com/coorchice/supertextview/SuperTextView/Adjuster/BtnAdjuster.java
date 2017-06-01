@@ -11,13 +11,10 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  * <p>
- * Last modified 17-4-17 下午5:44
+ * Last modified 17-5-23 上午9:41
  */
 
 package com.coorchice.supertextview.SuperTextView.Adjuster;
-
-import com.coorchice.library.SuperTextView;
-import com.coorchice.supertextview.Utils.LogUtils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -27,6 +24,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
+import com.coorchice.library.SuperTextView;
+import com.coorchice.supertextview.Utils.LogUtils;
+
 /**
  * Project Name:SuperTextView
  * Author:CoorChice
@@ -34,8 +34,8 @@ import android.view.MotionEvent;
  * Notes:
  */
 
-public class RippleAdjuster extends SuperTextView.Adjuster {
-  private static final float DEFAULT_RADIUS = 10;
+public class BtnAdjuster extends SuperTextView.Adjuster {
+  private static final float DEFAULT_RADIUS = 50;
 
   private PorterDuffXfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
   private int rippleColor = Color.parseColor("#ce938d");
@@ -49,7 +49,7 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
 
 
 
-  public RippleAdjuster(int rippleColor) {
+  public BtnAdjuster(int rippleColor) {
     this.rippleColor = rippleColor;
     initPaint();
   }
