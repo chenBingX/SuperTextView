@@ -28,8 +28,14 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.SystemClock;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 import android.widget.TextView;
 
 
@@ -39,7 +45,7 @@ public class SuperTextView extends TextView {
     private static final float DEFAULT_CORNER = 0f;
     private static final int DEFAULT_SOLID = Color.WHITE;
     private static final float DEFAULT_STROKE_WIDTH = 0f;
-    private static final int DEFAULT_STROKE_COLOR = Color.BLACK;
+    private static final int DEFAULT_STROKE_COLOR = Color.WHITE;
     private static final int DEFAULT_STATE_DRAWABLE_MODE = 4;
     private static final int DEFAULT_TEXT_STROKE_COLOR = Color.BLACK;
     private static final int DEFAULT_TEXT_FILL_COLOR = Color.BLACK;
@@ -95,6 +101,7 @@ public class SuperTextView extends TextView {
     private int frameRate = 60;
     private Runnable invalidate;
     private boolean pressed = false;
+    private int mTouchSlop; //控件边缘的溢出值，在溢出值范围内也可以看做是在控件区域里
 
 
     public SuperTextView(Context context) {
@@ -121,6 +128,7 @@ public class SuperTextView extends TextView {
 
     private void init(AttributeSet attrs) {
         density = getContext().getResources().getDisplayMetrics().density;
+        mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
         initAttrs(attrs);
         paint = new Paint();
         initPaint();
@@ -139,11 +147,8 @@ public class SuperTextView extends TextView {
                     typedArray.getBoolean(R.styleable.SuperTextView_left_bottom_corner, false);
             rightBottomCornerEnable =
                     typedArray.getBoolean(R.styleable.SuperTextView_right_bottom_corner, false);
-            bgColorNormal = typedArray.getColor(R.styleable.SuperTextView_solid, DEFAULT_SOLID);
             strokeWidth = typedArray.getDimension(R.styleable.SuperTextView_stroke_width,
                     DEFAULT_STROKE_WIDTH);
-            strokeColorNormal =
-                    typedArray.getColor(R.styleable.SuperTextView_stroke_color, DEFAULT_STROKE_COLOR);
             drawable = typedArray.getDrawable(R.styleable.SuperTextView_state_drawable);
             drawableWidth =
                     typedArray.getDimension(R.styleable.SuperTextView_state_drawable_width, 0);
@@ -167,29 +172,35 @@ public class SuperTextView extends TextView {
 
             ColorStateList bgColors = typedArray.getColorStateList(R.styleable.SuperTextView_solid);
             if (bgColors != null) {
-                bgColorNormal = bgColors.getColorForState(new int[]{android.R.attr.state_enabled}, 0);
-                bgColorPressed = bgColors.getColorForState(new int[]{android.R.attr.state_pressed}, bgColorNormal);
-                bgColorDisable = bgColors.getColorForState(new int[]{-android.R.attr.state_enabled}, bgColorNormal);
+                setBgColorWithStateList(bgColors, DEFAULT_SOLID);
             } else {
-//        bgColorNormal = Color.parseColor("#ffff0000");
+                bgColorNormal = DEFAULT_SOLID;
                 bgColorPressed = Color.parseColor("#0cff0000");
                 bgColorDisable = Color.parseColor("#06ff0000");
             }
 
             ColorStateList strokeColors = typedArray.getColorStateList(R.styleable.SuperTextView_stroke_color);
             if (strokeColors != null) {
-                strokeColorNormal = strokeColors.getColorForState(new int[]{android.R.attr.state_enabled}, 0);
-                strokeColorPressed = strokeColors.getColorForState(new int[]{android.R.attr.state_pressed}, strokeColorNormal);
-                strokeColorDisable = strokeColors.getColorForState(new int[]{-android.R.attr.state_enabled}, strokeColorNormal);
+                setStrokeColorWithStateList(strokeColors, DEFAULT_STROKE_COLOR);
             } else {
-//        strokeColorNormal = Color.parseColor("#00000000");
-                strokeColorPressed = Color.parseColor("#00000000");
-                strokeColorDisable = Color.parseColor("#00000000");
+                strokeColorNormal = DEFAULT_STROKE_COLOR;
+                strokeColorPressed = Color.parseColor("#0cff0000");
+                strokeColorDisable = Color.parseColor("#06ff0000");
             }
-
-
             typedArray.recycle();
         }
+    }
+
+    private void setBgColorWithStateList(ColorStateList bgColors, int defaultColor) {
+        bgColorNormal = bgColors.getColorForState(new int[]{android.R.attr.state_enabled}, defaultColor);
+        bgColorPressed = bgColors.getColorForState(new int[]{android.R.attr.state_pressed}, bgColorNormal);
+        bgColorDisable = bgColors.getColorForState(new int[]{-android.R.attr.state_enabled}, bgColorNormal);
+    }
+
+    private void setStrokeColorWithStateList(ColorStateList strokeColors, int defaultColor) {
+        strokeColorNormal = strokeColors.getColorForState(new int[]{android.R.attr.state_enabled}, defaultColor);
+        strokeColorPressed = strokeColors.getColorForState(new int[]{android.R.attr.state_pressed}, strokeColorNormal);
+        strokeColorDisable = strokeColors.getColorForState(new int[]{-android.R.attr.state_enabled}, strokeColorNormal);
     }
 
     private void initPaint() {
@@ -440,13 +451,33 @@ public class SuperTextView extends TextView {
     }
 
     public int getSolid() {
-//    return solid;
         return bgColorNormal;
     }
 
-    public SuperTextView setSolid(int solid) {
-//    this.solid = solid;
-        this.bgColorNormal = solid;
+    /**
+     * Sets bgColor attrId
+     *
+     * @param attrId the color attr id
+     * @return
+     */
+    public SuperTextView setBgColorAttr(@AttrRes int attrId) {
+        TypedValue typedValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(attrId, typedValue, true);
+        setBgColor(typedValue.resourceId);
+        return this;
+    }
+
+    /**
+     * Sets bgColor colorId
+     *
+     * @param colorId the color id
+     * @return
+     */
+    public SuperTextView setBgColor(@ColorRes int colorId) {
+        ColorStateList colorStateList = ContextCompat.getColorStateList(getContext(), colorId);
+        if (colorStateList != null) {
+            setBgColorWithStateList(colorStateList, bgColorNormal);
+        }
         postInvalidate();
         return this;
     }
@@ -463,15 +494,34 @@ public class SuperTextView extends TextView {
     }
 
     public int getStrokeColor() {
-//    return strokeColor;
         return strokeColorNormal;
     }
 
-    public SuperTextView setStrokeColor(int strokeColor) {
-//    this.strokeColor = strokeColor;
-        this.strokeColorNormal = strokeColor;
+    /**
+     * Sets StrokeColor colorId
+     *
+     * @param colorId the color id
+     * @return
+     */
+    public SuperTextView setStrokeColor(@ColorRes int colorId) {
+        ColorStateList colorStateList = ContextCompat.getColorStateList(getContext(), colorId);
+        if (colorStateList != null) {
+            setStrokeColorWithStateList(colorStateList, strokeColorNormal);
+        }
         postInvalidate();
+        return this;
+    }
 
+    /**
+     * Sets StrokeColor attrId
+     *
+     * @param attrId the color attr id
+     * @return
+     */
+    public SuperTextView setStrokeColorAttr(@AttrRes int attrId) {
+        TypedValue typedValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(attrId, typedValue, true);
+        setStrokeColor(typedValue.resourceId);
         return this;
     }
 
@@ -737,16 +787,53 @@ public class SuperTextView extends TextView {
                     pressed = true;
                     postInvalidate();
                     break;
+                case MotionEvent.ACTION_MOVE:
+                    if (pressed) {
+                        if (!isInWidget(event)) {
+                            pressed = false;
+                            postInvalidate();
+                        }
+                    }
+                    break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
                     pressed = false;
                     postInvalidate();
                     break;
             }
-            return true;
         }
         return super.onTouchEvent(event);
     }
+
+    /**
+     * 事件是否在控件里面
+     *
+     * @param event 事件
+     * @return
+     */
+    private boolean isInWidget(MotionEvent event) {
+        if (event.getX() >= (-mTouchSlop) && event.getX() <= (getWidth() + mTouchSlop)
+                && event.getY() >= (-mTouchSlop) && event.getY() <= (getHeight() + mTouchSlop)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 模拟发送Cancel事件
+     *
+     * @param x
+     * @param y
+     */
+    private void simulateTouch(float x, float y) {
+
+        final long downTime = SystemClock.uptimeMillis();
+        final MotionEvent downEvent = MotionEvent.obtain(
+                downTime, downTime, MotionEvent.ACTION_CANCEL, x, y, 0);
+        onTouchEvent(downEvent);
+        downEvent.recycle();
+    }
+
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {

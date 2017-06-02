@@ -6,7 +6,13 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="attr_part_translucent_black">@color/button_yellow_color_sel</item>
+    <item name="attr_part_translucent_black1">@color/button_color_sel</item>
   </style>
 
+
+  <attr name="attr_part_translucent_black" format="reference" />
+  <attr name="attr_part_translucent_black1" format="reference" />
 
 </resources>
