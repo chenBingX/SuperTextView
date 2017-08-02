@@ -5,6 +5,22 @@
 
 # Update Log
 
+
+## v1.4.0
+- SuperTextView support to press to change background color  and text color.  
+
+![image](http://ogemdlrap.bkt.clouddn.com/%E6%8C%89%E5%8E%8B%E5%8F%98%E8%89%B2.gif)  
+
+You just need to set these properties at the xml file like this:
+
+```
+# set the background color when you pressed
+app:pressBgColor="@color/red" 
+# set the text color when you pressed
+app:pressTextColor="@color/white"
+```
+- There is a new method `getCorners()`. You can get the infomation of the corners in the `SuperTextView`, sometimes you really want to use this method.
+
 ## v1.3
 - Now, you can change frame rate at any time. 
 

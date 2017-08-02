@@ -551,5 +551,26 @@
       app:solid="@color/main_blue"
       />
 
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/btn_next"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:paddingBottom="1dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:text="Next"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:corner="10dp"
+      app:shaderEnable="true"
+      app:shaderStartColor="@color/blue"
+      app:shaderEndColor="@color/yellow"
+      app:shaderMode="topToBottom"
+      app:solid="@color/main_blue"
+      />
+
   </LinearLayout>
 </ScrollView>

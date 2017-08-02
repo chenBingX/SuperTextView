@@ -2,6 +2,26 @@
 
 # 近期更新
 
+## v1.4.0
+- 千呼万唤使出来！你想要的按压变色效果在这里！ 
+
+![image](http://ogemdlrap.bkt.clouddn.com/%E6%8C%89%E5%8E%8B%E5%8F%98%E8%89%B2.gif)  
+
+只需在xml文件中设置以下两个属性就能轻松实现按压变色效果，例如上图那样的：
+
+```
+# 设置按压时的背景色
+app:pressBgColor="@color/red" 
+# 设置按压时的文字颜色
+app:pressTextColor="@color/white"
+```
+这个功能是依托内置一个`Adjuster`实现的，你可以看看这[](http://note.youdao.com/)。  
+
+CoorChice想说的是，`Adjuster`是`SuperTextView`的灵魂所在，它能够让一切创意变成可能。
+
+- 暴露一个新的方法`getCorners()`。你可以通过它获得`SuperTextView`的所有圆角信息，有时候你真的很需要它。
+
+
 ## v1.3
 - 支持随时修改动画帧率。难以置信的是，你甚至可以在动画执行过程中随时修改！当然最好不要这么做。
 

@@ -43,5 +43,7 @@
       <enum name="rightToLeft" value="3"/>
     </attr>
     <attr name="shaderEnable" format="boolean"/>
+    <attr name="pressBgColor" format="reference|color"/>
+    <attr name="pressTextColor" format="reference|color"/>
   </declare-styleable>
 </resources>

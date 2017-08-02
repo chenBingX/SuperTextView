@@ -17,11 +17,13 @@
 package com.coorchice.supertextview.SuperTextView.Adjuster;
 
 import com.coorchice.library.SuperTextView;
+import com.coorchice.supertextview.R;
 import com.coorchice.supertextview.Utils.LogUtils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
@@ -46,7 +48,8 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
   private float radius = DEFAULT_RADIUS;
   private RectF rectF = new RectF();
   private float velocity = 2f;
-
+  private Path solidPath;
+  private RectF solidRectF;
 
 
   public RippleAdjuster(int rippleColor) {
@@ -78,6 +81,8 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
     }
     if (radius < ((float) width) * 1.1) {
       radius = (radius + velocity);
+    } else {
+      v.stopAnim();
     }
     rectF.setEmpty();
     rectF.set(0, 0, width, height);
@@ -88,7 +93,23 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
         Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
         Canvas.CLIP_TO_LAYER_SAVE_FLAG);
     paint.setColor(v.getSolid());
-    canvas.drawRoundRect(rectF, height / 2, height / 2, paint);
+    if (solidPath == null) {
+      solidPath = new Path();
+    } else {
+      solidPath.reset();
+    }
+    if (solidRectF == null) {
+      solidRectF = new RectF();
+    } else {
+      solidRectF.setEmpty();
+    }
+    float strokeWidth = v.getStrokeWidth();
+    solidRectF.set(strokeWidth, strokeWidth, v.getWidth() - strokeWidth,
+      v.getHeight() - strokeWidth);
+    solidPath.addRoundRect(solidRectF, v.getCorners(), Path.Direction.CW);
+    paint.setStyle(Paint.Style.FILL);
+    canvas.drawPath(solidPath, paint);
+
     paint.setXfermode(xfermode);
     paint.setColor(rippleColor);
     canvas.drawCircle(x, y, radius * density, paint);

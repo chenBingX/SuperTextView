@@ -66,6 +66,7 @@ public class SuperTextView extends TextView {
   private float density;
   private boolean autoAdjust;
   private Adjuster adjuster;
+  private Adjuster pressAdjuster;
   private boolean textStroke;
   private int textStrokeColor;
   private int textFillColor;
@@ -96,6 +97,8 @@ public class SuperTextView extends TextView {
   private int shaderMode;
   private LinearGradient shader;
   private boolean shaderEnable;
+  private int pressBgColor;
+  private int pressTextColor;
 
 
   public SuperTextView(Context context) {
@@ -171,6 +174,8 @@ public class SuperTextView extends TextView {
           typedArray.getColor(R.styleable.SuperTextView_shaderEndColor, 0);
       shaderMode = typedArray.getInteger(R.styleable.SuperTextView_shaderMode, 0);
       shaderEnable = typedArray.getBoolean(R.styleable.SuperTextView_shaderEnable, false);
+      pressBgColor = typedArray.getColor(R.styleable.SuperTextView_pressBgColor, Color.TRANSPARENT);
+      pressTextColor = typedArray.getColor(R.styleable.SuperTextView_pressTextColor, -99);
       typedArray.recycle();
     }
   }
@@ -192,6 +197,7 @@ public class SuperTextView extends TextView {
     height = getHeight();
     drawStrokeLine(canvas);
     drawSolid(canvas);
+    checkWhetherUsePressColor(canvas);
     isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_DRAWABLE);
     drawStateDrawable(canvas);
     isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_TEXT);
@@ -304,6 +310,23 @@ public class SuperTextView extends TextView {
     corners[6] = leftBottomCorner[0];
     corners[7] = leftBottomCorner[1];
     return corners;
+  }
+
+  /**
+   *
+   * @return 返回SuperTextView的圆角信息 {@link SuperTextView#getCorners(float)}.
+   */
+  public float[] getCorners(){
+    return corners;
+  }
+
+  private void checkWhetherUsePressColor(Canvas canvas) {
+    if (pressBgColor != Color.TRANSPARENT || pressTextColor != -99) {
+      if (pressAdjuster == null) {
+        pressAdjuster = new PressAdjuster(pressBgColor).setPressTextColor(pressTextColor);
+      }
+      pressAdjuster.adjust(this, canvas);
+    }
   }
 
   private void useShader(Paint paint) {
@@ -979,9 +1002,17 @@ public class SuperTextView extends TextView {
   public boolean onTouchEvent(MotionEvent event) {
     if (adjuster != null) {
       if (adjuster.onTouch(this, event) && isAutoAdjust()) {
+        if (pressAdjuster != null) {
+          pressAdjuster.onTouch(this, event);
+        }
         super.onTouchEvent(event);
         return true;
       }
+    }
+    if (pressAdjuster != null) {
+      pressAdjuster.onTouch(this, event);
+      super.onTouchEvent(event);
+      return true;
     }
     return super.onTouchEvent(event);
   }
@@ -1015,12 +1046,20 @@ public class SuperTextView extends TextView {
     private Opportunity opportunity = Opportunity.BEFORE_TEXT;
 
     /**
+     * 在Canvas上绘制的东西将能够呈现在SuperTextView上。
+     * 提示：你需要注意图层的使用。
+     *
      * @param v SuperTextView
      * @param canvas 用于绘制的Canvas。注意对Canvas的变换最好使用图层，否则会影响后续的绘制。
      */
     protected abstract void adjust(SuperTextView v, Canvas canvas);
 
     /**
+     * 在这个方法中，你能够捕获到SuperTextView中发生的触摸事件。
+     * 需要注意，如果你在该方法中返回了true来处理SuperTextView的触摸事件的话，你将在
+     * SuperTextView的setOnTouchListener中设置的OnTouchListener中同样能够捕获到这些触摸事件，即使你在OnTouchListener中返回了false。
+     * 但是，如果你在OnTouchListener中返回了true，这个方法将会失效，因为事件在OnTouchListener中被拦截了。
+     *
      * @param v SuperTextView
      * @param event 控件件接收到的触摸事件。
      * @return 默认返回false。如果想持续的处理控件的触摸事件就返回true。否则，只能接收到{@link MotionEvent#ACTION_DOWN}事件。
@@ -1059,7 +1098,7 @@ public class SuperTextView extends TextView {
        */
       BEFORE_TEXT,
       /**
-       * 上层
+       * 最上层
        */
       AT_LAST
     }

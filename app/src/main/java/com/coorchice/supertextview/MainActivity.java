@@ -5,9 +5,11 @@ import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.OpportunityDemoAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
    private SuperTextView stv_20;
    private SuperTextView stv_21;
    private SuperTextView stv_22;
+  private SuperTextView btn_next;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +53,18 @@ public class MainActivity extends AppCompatActivity {
     stv_21.setAdjuster(opportunityDemoAdjuster3);
     stv_21.setAutoAdjust(true);
 
-    stv_22.setFrameRate(60);
-    stv_22.setShaderStartColor(Color.RED);
+    btn_next.setFrameRate(60);
+    btn_next.setShaderStartColor(Color.RED);
 
 //    stv_22.setShaderStartColor(Color.BLUE);
 //    stv_22.setShaderEndColor(Color.YELLOW);
 
+    btn_next.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(MainActivity.this, SecondActivity.class));
+      }
+    });
   }
 
   private void findViews() {
@@ -65,5 +74,7 @@ public class MainActivity extends AppCompatActivity {
      stv_20 = (SuperTextView) findViewById(R.id.stv_20);
      stv_21 = (SuperTextView) findViewById(R.id.stv_21);
      stv_22 = (SuperTextView) findViewById(R.id.stv_22);
+    btn_next = (SuperTextView) findViewById(R.id.btn_next);
+
   }
 }

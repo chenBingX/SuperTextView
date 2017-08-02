@@ -9,6 +9,7 @@
 
   <!--white-->
   <color name="white">#ffffff</color>
+  <color name="opacity_0_1_white">#19ffffff</color>
   <color name="opacity_1_white">#1affffff</color>
   <color name="opacity_2_white">#33ffffff</color>
   <color name="opacity_3_white">#4dffffff</color>
