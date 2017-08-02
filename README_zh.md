@@ -15,7 +15,7 @@ app:pressBgColor="@color/red"
 # 设置按压时的文字颜色
 app:pressTextColor="@color/white"
 ```
-这个功能是依托内置一个`Adjuster`实现的，你可以看看这[](http://note.youdao.com/)。  
+这个功能是依托内置一个`Adjuster`实现的，你可以看看这[https://github.com/chenBingX/SuperTextView/blob/master/library/src/main/java/com/coorchice/library/PressAdjuster.java](https://github.com/chenBingX/SuperTextView/blob/master/library/src/main/java/com/coorchice/library/PressAdjuster.java)。  
 
 CoorChice想说的是，`Adjuster`是`SuperTextView`的灵魂所在，它能够让一切创意变成可能。
 
