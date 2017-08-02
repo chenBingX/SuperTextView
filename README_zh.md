@@ -20,7 +20,13 @@ app:pressTextColor="@color/white"
 CoorChice想说的是，`Adjuster`是`SuperTextView`的灵魂所在，它能够让一切创意变成可能。
 
 - 暴露一个新的方法`getCorners()`。你可以通过它获得`SuperTextView`的所有圆角信息，有时候你真的很需要它。
+- 如何使用SuperTextView v1.4？
 
+```
+dependencies {
+	compile 'com.github.chenBingX:SuperTextView:v1.4'
+}
+```
 
 ## v1.3
 - 支持随时修改动画帧率。难以置信的是，你甚至可以在动画执行过程中随时修改！当然最好不要这么做。

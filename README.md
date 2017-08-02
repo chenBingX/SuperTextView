@@ -20,7 +20,13 @@ app:pressBgColor="@color/red"
 app:pressTextColor="@color/white"
 ```
 - There is a new method `getCorners()`. You can get the infomation of the corners in the `SuperTextView`, sometimes you really want to use this method.
+- How to use SuperTextView v1.4？
 
+```
+dependencies {
+	compile 'com.github.chenBingX:SuperTextView:v1.4'
+}
+```
 ## v1.3
 - Now, you can change frame rate at any time. 
 
