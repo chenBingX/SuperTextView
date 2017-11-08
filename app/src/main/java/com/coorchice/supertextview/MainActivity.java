@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
   private void initView() {
     findViews();
 
-    stv_17.setAdjuster(new MoveEffectAdjuster())
+    stv_17.setAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
         .setAutoAdjust(true)
         .startAnim();
 

@@ -21,6 +21,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="@color/gray"
   tools:context="com.coorchice.supertextview.SecondActivity">
 
   <com.coorchice.library.SuperTextView
@@ -41,6 +42,37 @@
     app:state_drawable_width="50dp"
     app:state_drawable_height="50dp"
     app:pressBgColor="@color/red"
+    app:pressTextColor="@color/white"
+    />
+
+  <com.coorchice.library.SuperTextView
+    android:id="@+id/btn_2"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_below="@+id/btn"
+    android:text="Homie"
+    android:paddingBottom="5dp"
+    android:gravity="bottom|center_horizontal"
+    android:textColor="@color/black"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="16dp"
+    app:corner="50dp"
+    app:solid="@color/white"
+    app:stroke_color="@color/main_blue"
+    app:stroke_width="20dp"
+    app:isShowState="true"
+    app:state_drawable="@drawable/amazing"
+    app:state_drawable_mode="left"
+    app:state_drawable_width="50dp"
+    app:state_drawable_height="50dp"
+    app:state_drawable_padding_top="-5dp"
+    app:drawableAsBackground="true"
+    app:isShowState2="true"
+    app:state_drawable2="@drawable/recousers"
+    app:state_drawable2_mode="rightTop"
+    app:state_drawable2_height="20dp"
+    app:state_drawable2_width="20dp"
+    app:pressBgColor="@color/black"
     app:pressTextColor="@color/white"
     />
 

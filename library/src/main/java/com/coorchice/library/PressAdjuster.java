@@ -60,6 +60,13 @@ public class PressAdjuster extends SuperTextView.Adjuster {
     return this;
   }
 
+  protected PressAdjuster setPressBgColor(int pressBgColor) {
+    this.pressBgColor = pressBgColor;
+    return this;
+  }
+
+
+
   @Override
   protected void adjust(SuperTextView v, Canvas canvas) {
     if (press) {

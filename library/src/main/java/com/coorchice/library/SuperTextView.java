@@ -22,11 +22,14 @@ package com.coorchice.library;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PixelFormat;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
@@ -57,12 +60,15 @@ public class SuperTextView extends TextView {
   private float strokeWidth;
   private int strokeColor;
   private int stateDrawableMode;
+  private int stateDrawable2Mode;
   private boolean isShowState;
+  private boolean isShowState2;
 
   private Paint paint;
   private int width;
   private int height;
   private Drawable drawable;
+  private Drawable drawable2;
   private float density;
   private boolean autoAdjust;
   private Adjuster adjuster;
@@ -88,6 +94,11 @@ public class SuperTextView extends TextView {
   private float drawableHeight;
   private float drawablePaddingLeft;
   private float drawablePaddingTop;
+  private float[] drawable2Bounds = new float[4];
+  private float drawable2Width;
+  private float drawable2Height;
+  private float drawable2PaddingLeft;
+  private float drawable2PaddingTop;
   private boolean cacheRunnableState;
   private boolean cacheNeedRunState;
   private int frameRate = 60;
@@ -99,6 +110,8 @@ public class SuperTextView extends TextView {
   private boolean shaderEnable;
   private int pressBgColor;
   private int pressTextColor;
+  private boolean drawableAsBackground;
+  private BitmapShader drawableBackgroundShader;
 
 
   public SuperTextView(Context context) {
@@ -157,8 +170,23 @@ public class SuperTextView extends TextView {
           typedArray.getDimension(R.styleable.SuperTextView_state_drawable_padding_left, 0);
       drawablePaddingTop =
           typedArray.getDimension(R.styleable.SuperTextView_state_drawable_padding_top, 0);
+      drawable = typedArray.getDrawable(R.styleable.SuperTextView_state_drawable);
+      drawable2 = typedArray.getDrawable(R.styleable.SuperTextView_state_drawable2);
+      drawable2Width =
+          typedArray.getDimension(R.styleable.SuperTextView_state_drawable2_width, 0);
+      drawable2Height =
+          typedArray.getDimension(R.styleable.SuperTextView_state_drawable2_height, 0);
+      drawable2PaddingLeft =
+          typedArray.getDimension(R.styleable.SuperTextView_state_drawable2_padding_left, 0);
+      drawable2PaddingTop =
+          typedArray.getDimension(R.styleable.SuperTextView_state_drawable2_padding_top, 0);
       isShowState = typedArray.getBoolean(R.styleable.SuperTextView_isShowState, false);
+      drawableAsBackground =
+          typedArray.getBoolean(R.styleable.SuperTextView_drawableAsBackground, false);
+      isShowState2 = typedArray.getBoolean(R.styleable.SuperTextView_isShowState2, false);
       stateDrawableMode = typedArray.getInteger(R.styleable.SuperTextView_state_drawable_mode,
+          DEFAULT_STATE_DRAWABLE_MODE);
+      stateDrawable2Mode = typedArray.getInteger(R.styleable.SuperTextView_state_drawable2_mode,
           DEFAULT_STATE_DRAWABLE_MODE);
       textStroke = typedArray.getBoolean(R.styleable.SuperTextView_text_stroke, false);
       textStrokeColor = typedArray.getColor(R.styleable.SuperTextView_text_stroke_color,
@@ -184,11 +212,15 @@ public class SuperTextView extends TextView {
     paint.reset();
     paint.setAntiAlias(true);
     paint.setDither(true);
+    paint.setFilterBitmap(true);
   }
 
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
+    if (w != oldw && h != oldh) {
+      drawableBackgroundShader = null;
+    }
   }
 
   @Override
@@ -325,6 +357,8 @@ public class SuperTextView extends TextView {
       if (pressAdjuster == null) {
         pressAdjuster = new PressAdjuster(pressBgColor).setPressTextColor(pressTextColor);
       }
+      ((PressAdjuster) pressAdjuster).setPressTextColor(pressTextColor)
+          .setPressBgColor(pressBgColor);
       pressAdjuster.adjust(this, canvas);
     }
   }
@@ -370,12 +404,67 @@ public class SuperTextView extends TextView {
   }
 
   private void drawStateDrawable(Canvas canvas) {
-    if (drawable != null && isShowState) {
-      getDrawableBounds();
-      drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1], (int) drawableBounds[2],
-          (int) drawableBounds[3]);
-      drawable.draw(canvas);
+    if (drawable != null) {
+      if (drawableAsBackground) {
+        drawDrawableBackground(canvas);
+      } else if (isShowState) {
+        getDrawableBounds();
+        drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1],
+            (int) drawableBounds[2], (int) drawableBounds[3]);
+        drawable.draw(canvas);
+      }
     }
+
+    if (drawable2 != null && isShowState2) {
+      getDrawable2Bounds();
+      drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1],
+          (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
+      drawable2.draw(canvas);
+    }
+  }
+
+  private void drawDrawableBackground(Canvas canvas) {
+    if (drawableBackgroundShader == null) {
+      Bitmap bitmap = drawableToBitmap(drawable);
+      bitmap = computeSuitedBitmapSize(bitmap);
+      drawableBackgroundShader =
+          new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+    }
+
+    Shader shader = paint.getShader();
+    paint.setShader(drawableBackgroundShader);
+    canvas.drawPath(solidPath, paint);
+    paint.setShader(shader);
+  }
+
+  private Bitmap drawableToBitmap(Drawable drawable) {
+    Bitmap bitmap = Bitmap.createBitmap(
+        drawable.getIntrinsicWidth(),
+        drawable.getIntrinsicHeight(),
+        drawable.getOpacity() != PixelFormat.OPAQUE
+            ? Bitmap.Config.ARGB_8888
+            : Bitmap.Config.RGB_565);
+    Canvas canvas = new Canvas(bitmap);
+    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+    drawable.draw(canvas);
+    return bitmap;
+  }
+
+  private Bitmap computeSuitedBitmapSize(Bitmap bitmap) {
+    int suitedWidth = width;
+    int suitedHeight = height;
+    if ((float) bitmap.getWidth() / (float) width > (float) bitmap.getHeight()
+        / (float) height) {
+      suitedWidth = (int) (((float) bitmap.getWidth() / (float) bitmap.getHeight())
+          * (float) suitedHeight);
+    } else {
+      suitedHeight = (int) ((float) suitedWidth
+          / ((float) bitmap.getWidth() / (float) bitmap.getHeight()));
+    }
+    bitmap = Bitmap.createScaledBitmap(bitmap, suitedWidth, suitedHeight, true);
+    bitmap = Bitmap.createBitmap(bitmap, bitmap.getWidth() / 2 - width / 2,
+        bitmap.getHeight() / 2 - height / 2, width, height);
+    return bitmap;
   }
 
   private float[] getDrawableBounds() {
@@ -448,6 +537,78 @@ public class SuperTextView extends TextView {
     }
 
     return drawableBounds;
+  }
+
+  private float[] getDrawable2Bounds() {
+    for (int i = 0; i < drawable2Bounds.length; i++) {
+      drawable2Bounds[i] = 0;
+    }
+    drawable2Width = (drawable2Width == 0 ? width / 2f : drawable2Width);
+    drawable2Height = (drawable2Height == 0 ? height / 2f : drawable2Height);
+    switch (DrawableMode.valueOf(stateDrawable2Mode)) {
+      case LEFT: // left
+        drawable2Bounds[0] = 0 + drawable2PaddingLeft;
+        drawable2Bounds[1] = height / 2f - drawable2Height / 2f + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case TOP: // top
+        drawable2Bounds[0] = width / 2f - drawable2Width / 2f + drawable2PaddingLeft;
+        drawable2Bounds[1] = 0 + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case RIGHT: // right
+        drawable2Bounds[0] = width - drawable2Width + drawable2PaddingLeft;
+        drawable2Bounds[1] = height / 2 - drawable2Height / 2 + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case BOTTOM: // bottom
+        drawable2Bounds[0] = width / 2f - drawable2Width / 2f + drawable2PaddingLeft;
+        drawable2Bounds[1] = height - drawable2Height + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case CENTER: // center
+        drawable2Bounds[0] = width / 2f - drawable2Width / 2f + drawable2PaddingLeft;
+        drawable2Bounds[1] = height / 2 - drawable2Height / 2 + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case FILL: // fill
+        drawable2Bounds[0] = 0;
+        drawable2Bounds[1] = 0;
+        drawable2Bounds[2] = width;
+        drawable2Bounds[3] = height;
+        break;
+      case LEFT_TOP: // leftTop
+        drawable2Bounds[0] = 0 + drawable2PaddingLeft;
+        drawable2Bounds[1] = 0 + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case RIGHT_TOP: // rightTop
+        drawable2Bounds[0] = width - drawable2Width + drawable2PaddingLeft;
+        drawable2Bounds[1] = 0 + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case LEFT_BOTTOM: // leftBottom
+        drawable2Bounds[0] = 0 + drawable2PaddingLeft;
+        drawable2Bounds[1] = height - drawable2Height + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+      case RIGHT_BOTTOM: // rightBottom
+        drawable2Bounds[0] = width - drawable2Width + drawable2PaddingLeft;
+        drawable2Bounds[1] = height - drawable2Height + drawable2PaddingTop;
+        drawable2Bounds[2] = drawable2Bounds[0] + drawable2Width;
+        drawable2Bounds[3] = drawable2Bounds[1] + drawable2Height;
+        break;
+    }
+
+    return drawable2Bounds;
   }
 
   private void isNeedToAdjust(Canvas canvas, Adjuster.Opportunity currentOpportunity) {
@@ -723,11 +884,30 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * @return 状态图2。
+   */
+  public Drawable getDrawable2() {
+    return drawable2;
+  }
+
+  /**
    * @param drawable 设置状态图。需要调用isShowState(true)才能显示。会触发一次重绘。
    * @return SuperTextView
    */
   public SuperTextView setDrawable(Drawable drawable) {
     this.drawable = drawable;
+    drawableBackgroundShader = null;
+    postInvalidate();
+
+    return this;
+  }
+
+  /**
+   * @param drawable 设置状态图2。需要调用isShowState2(true)才能显示。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setDrawable2(Drawable drawable) {
+    this.drawable2 = drawable;
     postInvalidate();
 
     return this;
@@ -739,6 +919,18 @@ public class SuperTextView extends TextView {
    */
   public SuperTextView setDrawable(int drawableRes) {
     this.drawable = getResources().getDrawable(drawableRes);
+    drawableBackgroundShader = null;
+    postInvalidate();
+
+    return this;
+  }
+
+  /**
+   * @param drawableRes 使用drawable资源设置状态图2。需要调用isShowState2(true)才能显示。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setDrawable2(int drawableRes) {
+    this.drawable2 = getResources().getDrawable(drawableRes);
     postInvalidate();
 
     return this;
@@ -749,6 +941,20 @@ public class SuperTextView extends TextView {
    */
   public boolean isShowState() {
     return isShowState;
+  }
+
+  /**
+   * @return 当前Drawable是否作为SuperTextView的背景图。
+   */
+  public boolean isDrawableAsBackground() {
+    return drawableAsBackground;
+  }
+
+  /**
+   * @return 当前是否显示状态图2。
+   */
+  public boolean isShowState2() {
+    return isShowState2;
   }
 
   /**
@@ -763,10 +969,42 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   *
+   * @param drawableAsBackground true，表示将Drawable作为背景图，其余所有对drawable的设置都会失效，直到该项为false。
+   * @return SuperTextView
+   */
+  public SuperTextView setDrawableAsBackground(boolean drawableAsBackground) {
+    this.drawableAsBackground = drawableAsBackground;
+    if (!drawableAsBackground) {
+      drawableBackgroundShader = null;
+    }
+    postInvalidate();
+    return this;
+  }
+
+  /**
+   * @param showState true，表示显示状态图2。反之，不显示。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setShowState2(boolean showState) {
+    isShowState2 = showState;
+    postInvalidate();
+
+    return this;
+  }
+
+  /**
    * @return 状态图显示模式。{@link DrawableMode}
    */
   public int getStateDrawableMode() {
     return stateDrawableMode;
+  }
+
+  /**
+   * @return 状态图2显示模式。{@link DrawableMode}
+   */
+  public int getStateDrawable2Mode() {
+    return stateDrawable2Mode;
   }
 
   /**
@@ -781,10 +1019,28 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * @param stateDrawableMode 设置状态图2显示模式。默认为{@link DrawableMode#CENTER}。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setStateDrawable2Mode(int stateDrawableMode) {
+    this.stateDrawable2Mode = stateDrawableMode;
+    postInvalidate();
+
+    return this;
+  }
+
+  /**
    * @return 状态图的宽度。
    */
   public float getDrawableWidth() {
     return drawableWidth;
+  }
+
+  /**
+   * @return 状态图2的宽度。
+   */
+  public float getDrawable2Width() {
+    return drawable2Width;
   }
 
   /**
@@ -799,10 +1055,28 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * @param drawableWidth 设置状态图2宽度。默认为控件的1／2。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setDrawable2Width(float drawableWidth) {
+    this.drawable2Width = drawableWidth;
+    postInvalidate();
+
+    return this;
+  }
+
+  /**
    * @return 状态图的高度。
    */
   public float getDrawableHeight() {
     return drawableHeight;
+  }
+
+  /**
+   * @return 状态图2的高度。
+   */
+  public float getDrawable2Height() {
+    return drawable2Height;
   }
 
   /**
@@ -817,10 +1091,28 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * @param drawableHeight 设置状态图2高度。默认为控件的1／2。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setDrawable2Height(float drawableHeight) {
+    this.drawable2Height = drawableHeight;
+    postInvalidate();
+
+    return this;
+  }
+
+  /**
    * @return 状态图相对于左边相对位置的左边距。
    */
   public float getDrawablePaddingLeft() {
     return drawablePaddingLeft;
+  }
+
+  /**
+   * @return 状态图2相对于左边相对位置的左边距。
+   */
+  public float getDrawable2PaddingLeft() {
+    return drawable2PaddingLeft;
   }
 
   /**
@@ -835,10 +1127,28 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * @param drawablePaddingLeft 设置状态图2相对于左边相对位置的左边距。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setDrawable2PaddingLeft(float drawablePaddingLeft) {
+    this.drawable2PaddingLeft = drawable2PaddingLeft;
+    postInvalidate();
+
+    return this;
+  }
+
+  /**
    * @return 状态图相对于上边相对位置的上边距。
    */
   public float getDrawablePaddingTop() {
     return drawablePaddingTop;
+  }
+
+  /**
+   * @return 状态图2相对于上边相对位置的上边距。
+   */
+  public float getDrawable2PaddingTop() {
+    return drawable2PaddingTop;
   }
 
   /**
@@ -847,6 +1157,16 @@ public class SuperTextView extends TextView {
    */
   public SuperTextView setDrawablePaddingTop(float drawablePaddingTop) {
     this.drawablePaddingTop = drawablePaddingTop;
+    postInvalidate();
+    return this;
+  }
+
+  /**
+   * @param drawablePaddingTop 设置状态图相对于上边相对位置的上边距。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView setDrawable2PaddingTop(float drawablePaddingTop) {
+    this.drawable2PaddingTop = drawablePaddingTop;
     postInvalidate();
     return this;
   }
@@ -1077,9 +1397,11 @@ public class SuperTextView extends TextView {
 
     /**
      * @param opportunity 设置Adjuster的作用层级。{@link Opportunity}
+     * @return 返回Adjuster本身，方便调用。
      */
-    public void setOpportunity(Opportunity opportunity) {
+    public Adjuster setOpportunity(Opportunity opportunity) {
       this.opportunity = opportunity;
+      return this;
     }
 
     /**
@@ -1248,6 +1570,5 @@ public class SuperTextView extends TextView {
           break;
       }
     }
-
   }
 }

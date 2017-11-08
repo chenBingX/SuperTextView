@@ -16,7 +16,14 @@
     <attr name="state_drawable_height" format="dimension"/>
     <attr name="state_drawable_padding_left" format="dimension"/>
     <attr name="state_drawable_padding_top" format="dimension"/>
+    <attr name="state_drawable2" format="reference"/>
+    <attr name="state_drawable2_width" format="dimension"/>
+    <attr name="state_drawable2_height" format="dimension"/>
+    <attr name="state_drawable2_padding_left" format="dimension"/>
+    <attr name="state_drawable2_padding_top" format="dimension"/>
     <attr name="isShowState" format="boolean"/>
+    <attr name="drawableAsBackground" format="boolean"/>
+    <attr name="isShowState2" format="boolean"/>
     <attr name="text_stroke" format="boolean"/>
     <attr name="text_stroke_color" format="reference|color"/>
     <attr name="text_stroke_width" format="dimension"/>
@@ -34,12 +41,24 @@
       <enum name="leftBottom" value="8"/>
       <enum name="rightBottom" value="9"/>
     </attr>
+    <attr name="state_drawable2_mode" format="enum">
+      <enum name="left" value="0"/>
+      <enum name="top" value="1"/>
+      <enum name="right" value="2"/>
+      <enum name="bottom" value="3"/>
+      <enum name="center" value="4"/>
+      <enum name="fill" value="5"/>
+      <enum name="leftTop" value="6"/>
+      <enum name="rightTop" value="7"/>
+      <enum name="leftBottom" value="8"/>
+      <enum name="rightBottom" value="9"/>
+    </attr>
     <attr name="shaderStartColor" format="reference|color"/>
     <attr name="shaderEndColor" format="reference|color"/>
     <attr name="shaderMode" format="enum">
       <enum name="topToBottom" value="0"/>
       <enum name="bottomToTop" value="1"/>
-      <enum name="leftTopRight" value="2"/>
+      <enum name="leftToRight" value="2"/>
       <enum name="rightToLeft" value="3"/>
     </attr>
     <attr name="shaderEnable" format="boolean"/>
