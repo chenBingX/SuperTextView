@@ -19,6 +19,11 @@
 package com.coorchice.library;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.coorchice.library.sys_adjusters.PressAdjuster;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -50,6 +55,8 @@ public class SuperTextView extends TextView {
   private static final int DEFAULT_TEXT_STROKE_COLOR = Color.BLACK;
   private static final int DEFAULT_TEXT_FILL_COLOR = Color.BLACK;
   private static final float DEFAULT_TEXT_STROKE_WIDTH = 0f;
+  private static final int ALLOW_CUSTOM_ADJUSTER_SIZE = 3;
+  private static int SYSTEM_ADJUSTER_SIZE = 0;
 
   private float corner;
   private boolean leftTopCornerEnable;
@@ -71,7 +78,7 @@ public class SuperTextView extends TextView {
   private Drawable drawable2;
   private float density;
   private boolean autoAdjust;
-  private Adjuster adjuster;
+  // private Adjuster adjuster;
   private Adjuster pressAdjuster;
   private boolean textStroke;
   private int textStrokeColor;
@@ -112,6 +119,10 @@ public class SuperTextView extends TextView {
   private int pressTextColor;
   private boolean drawableAsBackground;
   private BitmapShader drawableBackgroundShader;
+
+  private List<Adjuster> adjusterList = new ArrayList<>();
+  private List<Adjuster> touchAdjusters = new ArrayList<>();
+  private Runnable handleAnim;
 
 
   public SuperTextView(Context context) {
@@ -170,7 +181,6 @@ public class SuperTextView extends TextView {
           typedArray.getDimension(R.styleable.SuperTextView_state_drawable_padding_left, 0);
       drawablePaddingTop =
           typedArray.getDimension(R.styleable.SuperTextView_state_drawable_padding_top, 0);
-      drawable = typedArray.getDrawable(R.styleable.SuperTextView_state_drawable);
       drawable2 = typedArray.getDrawable(R.styleable.SuperTextView_state_drawable2);
       drawable2Width =
           typedArray.getDimension(R.styleable.SuperTextView_state_drawable2_width, 0);
@@ -229,7 +239,7 @@ public class SuperTextView extends TextView {
     height = getHeight();
     drawStrokeLine(canvas);
     drawSolid(canvas);
-    checkWhetherUsePressColor(canvas);
+    checkPressColor(canvas);
     isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_DRAWABLE);
     drawStateDrawable(canvas);
     isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_TEXT);
@@ -352,14 +362,17 @@ public class SuperTextView extends TextView {
     return corners;
   }
 
-  private void checkWhetherUsePressColor(Canvas canvas) {
+  private void checkPressColor(Canvas canvas) {
     if (pressBgColor != Color.TRANSPARENT || pressTextColor != -99) {
       if (pressAdjuster == null) {
-        pressAdjuster = new PressAdjuster(pressBgColor).setPressTextColor(pressTextColor);
+        pressAdjuster = new PressAdjuster(pressBgColor)
+            .setPressTextColor(pressTextColor)
+            .setType(Adjuster.TYPE_SYSTEM);
+        adjusterList.add(0, pressAdjuster);
+        SYSTEM_ADJUSTER_SIZE++;
       }
-      ((PressAdjuster) pressAdjuster).setPressTextColor(pressTextColor)
-          .setPressBgColor(pressBgColor);
-      pressAdjuster.adjust(this, canvas);
+      ((PressAdjuster) pressAdjuster).setPressTextColor(pressTextColor);
+      ((PressAdjuster) pressAdjuster).setPressBgColor(pressBgColor);
     }
   }
 
@@ -611,16 +624,20 @@ public class SuperTextView extends TextView {
     return drawable2Bounds;
   }
 
+
   private void isNeedToAdjust(Canvas canvas, Adjuster.Opportunity currentOpportunity) {
-    if (autoAdjust) {
-      if (adjuster == null) {
-        setAdjuster(new DefaultAdjuster());
-      } else {
-        if (currentOpportunity == adjuster.getOpportunity()) {
+
+    for (int i = 0; i < adjusterList.size(); i++) {
+      Adjuster adjuster = adjusterList.get(i);
+      if (currentOpportunity == adjuster.getOpportunity()) {
+        if (adjuster.getType() == Adjuster.TYPE_SYSTEM) {
+          adjuster.adjust(this, canvas);
+        } else if (autoAdjust) {
           adjuster.adjust(this, canvas);
         }
       }
     }
+
   }
 
   /**
@@ -697,21 +714,79 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param adjuster 设置Adjuster。{@link Adjuster}。会触发一次重绘。
+   * 该方法或许在后面版本会移除，请尽快使用{@link SuperTextView#addAdjuster(Adjuster)}来添加一个Adjuster。
+   * 
+   * @param adjuster 添加一个Adjuster。{@link SuperTextView#addAdjuster(Adjuster)}
+   *          注意最多支持添加3个Adjuster，否则新的Adjuster总是会覆盖最后一个Adjuster。
+   *          {@link Adjuster}。会触发一次重绘。
+   * 
    * @return SuperTextView
    */
+  @Deprecated
   public SuperTextView setAdjuster(Adjuster adjuster) {
-    this.adjuster = adjuster;
-    postInvalidate();
 
+    return addAdjuster(adjuster);
+  }
+
+  /**
+   * 该方法或许在后面版本会移除，请尽快使用{@link SuperTextView#addAdjuster(Adjuster)}来添加一个Adjuster。
+   * 
+   * @return 获得最后一个Adjuster，如果存在的话。
+   */
+  @Deprecated
+  public Adjuster getAdjuster() {
+    if (adjusterList.size() > SYSTEM_ADJUSTER_SIZE) {
+      return adjusterList.get(adjusterList.size() - 1);
+    }
+    return null;
+  }
+
+  /**
+   * 
+   * @param adjuster 添加一个Adjuster。{@link SuperTextView#addAdjuster(Adjuster)}
+   *          注意最多支持添加3个Adjuster，否则新的Adjuster总是会覆盖最后一个Adjuster。
+   *          {@link Adjuster}。会触发一次重绘。
+   * @return SuperTextView
+   */
+  public SuperTextView addAdjuster(Adjuster adjuster) {
+    if (adjusterList.size() < SYSTEM_ADJUSTER_SIZE + ALLOW_CUSTOM_ADJUSTER_SIZE) {
+      adjusterList.add(adjuster);
+    } else {
+      adjusterList.remove(adjusterList.size() - 1);
+      adjusterList.add(adjuster);
+    }
+    postInvalidate();
     return this;
   }
 
   /**
-   * @return 获得Adjuster，如果存在的话。
+   * 移除index对应的Adjuster。
+   * 
+   * @param index 期望移除的Adjuster的index。
+   * @return 被移除的Adjuster，如果参数错误返回null。
    */
-  public Adjuster getAdjuster() {
-    return adjuster;
+  public Adjuster removeAdjuster(int index) {
+    int realIndex = SYSTEM_ADJUSTER_SIZE + index;
+    if (realIndex > SYSTEM_ADJUSTER_SIZE - 1 && realIndex < adjusterList.size()) {
+      Adjuster remove = adjusterList.remove(realIndex);
+      postInvalidate();
+      return remove;
+    }
+    return null;
+  }
+
+  /**
+   * 获得index对应的Adjuster。
+   * 
+   * @param index 期望获得的Adjuster的index。
+   * @return index对应的Adjuster，如果参数错误返回null。
+   */
+  public Adjuster getAdjuster(int index) {
+    int realIndex = SYSTEM_ADJUSTER_SIZE + index;
+    if (realIndex > SYSTEM_ADJUSTER_SIZE - 1 && realIndex < adjusterList.size()) {
+      return adjusterList.remove(realIndex);
+    }
+    return null;
   }
 
   /**
@@ -1267,36 +1342,43 @@ public class SuperTextView extends TextView {
    * 启动动画。需要设置{@link SuperTextView#setAutoAdjust(boolean)}为true才能看到。
    */
   public void startAnim() {
-    checkWhetherNeedInitInvalidate();
     needRun = true;
     runnable = false;
     if (animThread == null) {
+      checkWhetherNeedInitInvalidate();
       needRun = true;
       runnable = true;
-      animThread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-          while (runnable) {
-            synchronized (invalidate){
-              post(invalidate);
-            }
-            try {
-              Thread.sleep(1000 / frameRate);
-            } catch (InterruptedException e) {
-              e.printStackTrace();
-              runnable = false;
-            }
-            // Log.e("SuperTextView", " -> startAnim: " + Thread.currentThread().getId() + "-> "
-            // + hashCode() + ": It's running!");
-          }
-          animThread = null;
-          if (needRun) {
-            startAnim();
-          }
-        }
-      });
+      if (handleAnim == null){
+        initHandleAnim();
+      }
+      animThread = new Thread(handleAnim);
       animThread.start();
     }
+  }
+
+  private void initHandleAnim() {
+    handleAnim = new Runnable() {
+      @Override
+      public void run() {
+        while (runnable) {
+          synchronized (invalidate) {
+            post(invalidate);
+          }
+          try {
+            Thread.sleep(1000 / frameRate);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+            runnable = false;
+          }
+          // Log.e("SuperTextView", " -> startAnim: " + Thread.currentThread().getId() + "-> "
+          // + hashCode() + ": It's running!");
+        }
+        animThread = null;
+        if (needRun) {
+          startAnim();
+        }
+      }
+    };
   }
 
   private void checkWhetherNeedInitInvalidate() {
@@ -1320,21 +1402,50 @@ public class SuperTextView extends TextView {
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    if (adjuster != null) {
-      if (adjuster.onTouch(this, event) && isAutoAdjust()) {
-        if (pressAdjuster != null) {
-          pressAdjuster.onTouch(this, event);
+
+    boolean hasConsume = false;
+    int action = event.getAction();
+    int actionMasked = action & MotionEvent.ACTION_MASK;
+    if (actionMasked == MotionEvent.ACTION_DOWN) {
+      for (int i = 0; i < adjusterList.size(); i++) {
+        Adjuster adjuster = adjusterList.get(i);
+        if (adjuster.onTouch(this, event)) {
+          if (adjuster.type == Adjuster.TYPE_SYSTEM || isAutoAdjust()) {
+            hasConsume = true;
+            touchAdjusters.add(adjuster);
+          }
         }
-        super.onTouchEvent(event);
-        return true;
+      }
+    } else {
+      for (int i = 0; i < touchAdjusters.size(); i++) {
+        Adjuster adjuster = touchAdjusters.get(i);
+        adjuster.onTouch(this, event);
+        hasConsume = true;
+      }
+      if (actionMasked == MotionEvent.ACTION_UP || actionMasked == MotionEvent.ACTION_CANCEL) {
+        touchAdjusters.clear();
       }
     }
-    if (pressAdjuster != null) {
-      pressAdjuster.onTouch(this, event);
-      super.onTouchEvent(event);
+    if (hasConsume) {
       return true;
     }
     return super.onTouchEvent(event);
+
+    // if (adjuster != null) {
+    // if (adjuster.onTouch(this, event) && isAutoAdjust()) {
+    // if (pressAdjuster != null) {
+    // pressAdjuster.onTouch(this, event);
+    // }
+    // super.onTouchEvent(event);
+    // return true;
+    // }
+    // }
+    // if (pressAdjuster != null) {
+    // pressAdjuster.onTouch(this, event);
+    // super.onTouchEvent(event);
+    // return true;
+    // }
+    // return super.onTouchEvent(event);
   }
 
   @Override
@@ -1363,7 +1474,12 @@ public class SuperTextView extends TextView {
    * {@link Opportunity}。默认为{@link Opportunity#BEFORE_TEXT}。
    */
   public static abstract class Adjuster {
+    private static final int TYPE_SYSTEM = 0x001;
+    private static final int TYPE_CUSTOM = 0x002;
+
+
     private Opportunity opportunity = Opportunity.BEFORE_TEXT;
+    private int type = TYPE_CUSTOM;
 
     /**
      * 在Canvas上绘制的东西将能够呈现在SuperTextView上。
@@ -1402,6 +1518,18 @@ public class SuperTextView extends TextView {
     public Adjuster setOpportunity(Opportunity opportunity) {
       this.opportunity = opportunity;
       return this;
+    }
+
+    /**
+     * @hide
+     */
+    private Adjuster setType(int type) {
+      this.type = type;
+      return this;
+    }
+
+    private int getType() {
+      return type;
     }
 
     /**

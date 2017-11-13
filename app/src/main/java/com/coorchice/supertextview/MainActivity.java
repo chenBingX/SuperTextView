@@ -50,8 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
     OpportunityDemoAdjuster opportunityDemoAdjuster3 = new OpportunityDemoAdjuster();
     opportunityDemoAdjuster3.setOpportunity(SuperTextView.Adjuster.Opportunity.AT_LAST);
-    stv_21.setAdjuster(opportunityDemoAdjuster3);
+    stv_21.addAdjuster(opportunityDemoAdjuster3);
     stv_21.setAutoAdjust(true);
+    stv_21.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        stv_21.removeAdjuster(0);
+      }
+    });
 
     btn_next.setFrameRate(60);
     btn_next.setShaderStartColor(Color.RED);

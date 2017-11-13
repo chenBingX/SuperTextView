@@ -371,7 +371,7 @@
       android:textSize="16dp"
       app:corner="25dp"
       app:solid="@color/purple"
-      app:drawableAsBackground="true"
+      app:drawableAsBackground="false"
       app:state_drawable="@drawable/amazing"
       />
 

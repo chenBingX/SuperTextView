@@ -16,14 +16,12 @@
 
 package com.coorchice.supertextview;
 
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.coorchice.library.SuperTextView;
-import com.coorchice.library.PressAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
 import com.coorchice.supertextview.Utils.LogUtils;
 
