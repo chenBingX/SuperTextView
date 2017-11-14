@@ -21,7 +21,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/gray"
+  android:background="@color/white"
   tools:context="com.coorchice.supertextview.SecondActivity">
 
   <com.coorchice.library.SuperTextView
@@ -46,20 +46,38 @@
     />
 
   <com.coorchice.library.SuperTextView
+    android:id="@+id/stv_3"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/stv_small_size"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center"
+    android:text="圆角图片背景"
+    android:textColor="@color/white"
+    android:textSize="16dp"
+    android:layout_below="@+id/btn"
+    app:corner="25dp"
+    app:solid="@color/purple"
+    app:drawableAsBackground="true"
+    app:state_drawable="@drawable/amazing"
+    />
+
+  <com.coorchice.library.SuperTextView
     android:id="@+id/btn_2"
     android:layout_width="100dp"
     android:layout_height="100dp"
-    android:layout_below="@+id/btn"
+    android:layout_below="@+id/stv_3"
     android:text="Homie"
     android:paddingBottom="5dp"
     android:gravity="bottom|center_horizontal"
     android:textColor="@color/black"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
     app:corner="50dp"
     app:solid="@color/white"
-    app:stroke_color="@color/main_blue"
-    app:stroke_width="20dp"
+    app:stroke_color="#F4E187"
+    app:stroke_width="4dp"
     app:isShowState="true"
     app:state_drawable="@drawable/amazing"
     app:state_drawable_mode="left"
