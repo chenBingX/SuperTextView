@@ -22,12 +22,15 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.coorchice.library.SuperTextView;
+import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
+import com.coorchice.supertextview.SuperTextView.Adjuster.Ripple2Adjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
 import com.coorchice.supertextview.Utils.LogUtils;
 
 public class SecondActivity extends AppCompatActivity {
 
   private SuperTextView btn;
+  private SuperTextView stv_2;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,11 @@ public class SecondActivity extends AppCompatActivity {
         LogUtils.e("onClick");
       }
     });
+
+    stv_2 = (SuperTextView) findViewById(R.id.stv_2);
+    stv_2.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_TEXT));
+    stv_2.addAdjuster(new Ripple2Adjuster(getResources().getColor(R.color.opacity_9_a58fed)));
+    stv_2.setAutoAdjust(true).startAnim();
 
   }
 }

@@ -19,6 +19,7 @@ package com.coorchice.supertextview.SuperTextView.Adjuster;
 import com.coorchice.library.SuperTextView;
 import com.coorchice.supertextview.R;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -36,7 +37,7 @@ import android.graphics.RectF;
 
 public class MoveEffectAdjuster extends SuperTextView.Adjuster {
 
-  private PorterDuffXfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
+  private PorterDuffXfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
   private float totalWidth = 50f;
   private float startLocation = -99999f;
   private Paint paint = new Paint();
@@ -44,6 +45,12 @@ public class MoveEffectAdjuster extends SuperTextView.Adjuster {
   private Path secondLinePath = new Path();
   private RectF rectF = new RectF();
   private float density;
+
+  private Bitmap src;
+  private Canvas srcCanvas;
+  private Bitmap dst;
+  private Canvas dstCanvas;
+
 
   @Override
   public void adjust(SuperTextView v, Canvas canvas) {
@@ -57,6 +64,14 @@ public class MoveEffectAdjuster extends SuperTextView.Adjuster {
     }
     if (startLocation < -(totalWidth * density + height * Math.tan(60))) {
       startLocation = width;
+    }
+    if (srcCanvas == null){
+      src = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+      srcCanvas = new Canvas(src);
+    }
+    if (dstCanvas == null){
+      dst = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+      dstCanvas = new Canvas(dst);
     }
     int firstLineWidth = (int) (totalWidth * density / 5 * 3);
     double velocity = 1.5 * density;
@@ -85,17 +100,22 @@ public class MoveEffectAdjuster extends SuperTextView.Adjuster {
     firstLinePath.addPath(secondLinePath);
     rectF.setEmpty();
     rectF.set(0, 0, width, height);
+
+    paint.setColor(v.getResources().getColor(R.color.white));
+    srcCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+    srcCanvas.drawRoundRect(rectF, height / 2, height / 2, paint);
+    paint.setColor(v.getResources().getColor(R.color.opacity_7_5_black));
+    dstCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+    dstCanvas.drawPath(firstLinePath, paint);
     // 创建一个图层，在图层上演示图形混合后的效果
     int sc = canvas.saveLayer(0, 0, width, height, null, Canvas.MATRIX_SAVE_FLAG |
         Canvas.CLIP_SAVE_FLAG |
         Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
         Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
         Canvas.CLIP_TO_LAYER_SAVE_FLAG);
-    paint.setColor(v.getResources().getColor(R.color.purple));
-    canvas.drawRoundRect(rectF, height / 2, height / 2, paint);
+    canvas.drawBitmap(src, 0, 0, paint);
     paint.setXfermode(xfermode);
-    paint.setColor(v.getResources().getColor(R.color.opacity_3_white));
-    canvas.drawPath(firstLinePath, paint);
+    canvas.drawBitmap(dst, 0, 0, paint);
     paint.setXfermode(null);
     canvas.restoreToCount(sc);
   }

@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         .setAutoAdjust(true)
         .startAnim();
 
-    stv_18.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
+//    stv_18.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
+    stv_18.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_9_blue)));
 
     OpportunityDemoAdjuster opportunityDemoAdjuster1 = new OpportunityDemoAdjuster();
     opportunityDemoAdjuster1.setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE);
