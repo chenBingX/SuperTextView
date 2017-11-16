@@ -147,7 +147,6 @@
     app:state_drawable2_mode="rightTop"
     app:state_drawable2_height="20dp"
     app:state_drawable2_width="20dp"
-    app:pressBgColor="@color/black"
     app:pressTextColor="@color/white"
     />
 

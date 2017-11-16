@@ -1318,6 +1318,43 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获得当前按压背景色。没有设置默认为Color.TRANSPARENT。
+   * @return
+   */
+  public int getPressBgColor() {
+    return pressBgColor;
+  }
+
+  /**
+   * 获得当前按压背景色。一旦设置，立即生效。
+   * 取消可以设置Color.TRANSPARENT。
+   *
+   * @param pressBgColor
+   */
+  public SuperTextView setPressBgColor(int pressBgColor) {
+    this.pressBgColor = pressBgColor;
+    return this;
+  }
+
+  /**
+   * 获得当前按压文字色。没有设置默认为-99。
+   * @return
+   */
+  public int getPressTextColor() {
+    return pressTextColor;
+  }
+
+  /**
+   * 获得当前按压文字色。一旦设置，立即生效。
+   * 取消可以设置-99。
+   * @param pressTextColor
+   */
+  public SuperTextView setPressTextColor(int pressTextColor) {
+    this.pressTextColor = pressTextColor;
+    return this;
+  }
+
+  /**
    * @return 帧率
    */
   public int getFrameRate() {

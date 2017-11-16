@@ -522,7 +522,7 @@
       android:paddingBottom="1dp"
       android:layout_marginTop="10dp"
       android:gravity="center"
-      android:text="shader_leftTopRight"
+      android:text="shader_leftToRight"
       android:textColor="@color/white"
       android:textSize="14sp"
       app:corner="10dp"
