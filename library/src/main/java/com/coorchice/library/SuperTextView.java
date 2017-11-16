@@ -445,9 +445,12 @@ public class SuperTextView extends TextView {
     }
 
     Shader shader = paint.getShader();
+    int color = paint.getColor();
+    paint.setColor(Color.WHITE);
     paint.setShader(drawableBackgroundShader);
     canvas.drawPath(solidPath, paint);
     paint.setShader(shader);
+    paint.setColor(color);
   }
 
   private Bitmap drawableToBitmap(Drawable drawable) {
@@ -729,11 +732,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * 该方法或许在后面版本会移除，请尽快使用{@link SuperTextView#addAdjuster(Adjuster)}来添加一个Adjuster。
-   * 
    * @return 获得最后一个Adjuster，如果存在的话。
    */
-  @Deprecated
   public Adjuster getAdjuster() {
     if (adjusterList.size() > SYSTEM_ADJUSTER_SIZE) {
       return adjusterList.get(adjusterList.size() - 1);
