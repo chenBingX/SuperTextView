@@ -1,4 +1,3 @@
-# SuperTextView
 
 [![image](http://ogemdlrap.bkt.clouddn.com/%E6%83%8A%E8%89%B3.jpeg)](https://github.com/chenBingX/SuperTextView)   
 
@@ -7,7 +6,7 @@
 
 # 近期更新
 
-## v2.0 - 未来，从现在开始
+## v2.0 - 未来，在此
 **一直以来，CoorChice都心存一个设想，期待着能够打造这样一个控件：它能满足你的大部分开发需求，展示文字、图片、几何、动画、状态，让你使用一个控件就能高效的完成大部分开发工作。它是如此的强大，仿佛有心智一般，接受着你的输入，按照你的心意，呈现出叹为观止的画面。随着【SuperTextView v2.0】的到来，我们离这个设想更近了一步。现在，来和【SuperTextView v2.0】见个面吧！**  
 
 ![SuperTextView v2.0](http://ogemdlrap.bkt.clouddn.com/stv_2.0_2.png)  
@@ -144,6 +143,12 @@
 - 修正控制Shader模式的属性 `app:shaderMode="leftToRight"` 的拼写。原来为 `app:shaderMode="leftTopRight"` 。如果你使用了该属性，在升级【SuperTextView v2.0】后请及时修正。  
 - 增加 `set/getPressBgColor()` 和 `set/getPressTextColor()` 用于在代码中控制按压背景色。
 
+### 如何开始SuperTextView v2.0
+```
+	dependencies {
+	        compile 'com.github.chenBingX:SuperTextView:v2.0'
+	}
+```
 
 ## v1.4.0
 - 千呼万唤使出来！你想要的按压变色效果在这里！ 
