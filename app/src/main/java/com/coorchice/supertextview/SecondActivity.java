@@ -60,6 +60,5 @@ public class SecondActivity extends AppCompatActivity {
     stv_2.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_TEXT));
     stv_2.addAdjuster(new Ripple2Adjuster(getResources().getColor(R.color.opacity_9_a58fed)));
     stv_2.setAutoAdjust(true).startAnim();
-
   }
 }

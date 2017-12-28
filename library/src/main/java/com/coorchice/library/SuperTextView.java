@@ -123,6 +123,7 @@ public class SuperTextView extends TextView {
   private List<Adjuster> adjusterList = new ArrayList<>();
   private List<Adjuster> touchAdjusters = new ArrayList<>();
   private Runnable handleAnim;
+  private boolean superTouchEvent;
 
 
   public SuperTextView(Context context) {
@@ -1453,36 +1454,22 @@ public class SuperTextView extends TextView {
           }
         }
       }
+      superTouchEvent = super.onTouchEvent(event);
     } else {
       for (int i = 0; i < touchAdjusters.size(); i++) {
         Adjuster adjuster = touchAdjusters.get(i);
         adjuster.onTouch(this, event);
         hasConsume = true;
       }
+      if (superTouchEvent){
+        super.onTouchEvent(event);
+      }
       if (actionMasked == MotionEvent.ACTION_UP || actionMasked == MotionEvent.ACTION_CANCEL) {
         touchAdjusters.clear();
+        superTouchEvent = false;
       }
     }
-    if (hasConsume) {
-      return true;
-    }
-    return super.onTouchEvent(event);
-
-    // if (adjuster != null) {
-    // if (adjuster.onTouch(this, event) && isAutoAdjust()) {
-    // if (pressAdjuster != null) {
-    // pressAdjuster.onTouch(this, event);
-    // }
-    // super.onTouchEvent(event);
-    // return true;
-    // }
-    // }
-    // if (pressAdjuster != null) {
-    // pressAdjuster.onTouch(this, event);
-    // super.onTouchEvent(event);
-    // return true;
-    // }
-    // return super.onTouchEvent(event);
+    return hasConsume || superTouchEvent;
   }
 
   @Override
