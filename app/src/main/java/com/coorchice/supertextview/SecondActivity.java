@@ -16,6 +16,7 @@
 
 package com.coorchice.supertextview;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -60,5 +61,12 @@ public class SecondActivity extends AppCompatActivity {
     stv_2.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_TEXT));
     stv_2.addAdjuster(new Ripple2Adjuster(getResources().getColor(R.color.opacity_9_a58fed)));
     stv_2.setAutoAdjust(true).startAnim();
+
+    findViewById(R.id.stv_3).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(SecondActivity.this, ThirdActivity.class));
+      }
+    });
   }
 }
