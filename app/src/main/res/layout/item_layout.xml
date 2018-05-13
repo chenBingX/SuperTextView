@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <com.coorchice.library.SuperTextView
+    android:id="@+id/stv_1"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_margin="10dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="220dp"
+    android:text="《复仇者联盟3》"
+    android:textColor="@color/white"
+    android:textSize="16sp"
+    app:corner="10dp"
+    app:isShowState="true"
+    app:solid="@color/opacity_2_black"
+    app:state_drawable="@drawable/loading_1"
+    app:state_drawable_height="98.6dp"
+    app:state_drawable_mode="left"
+    app:state_drawable_padding_left="16dp"
+    app:state_drawable_width="166dp"
+    />
+</RelativeLayout>
+
+

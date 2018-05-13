@@ -18,8 +18,10 @@ package com.coorchice.supertextview;
 
 import com.coorchice.library.SuperTextView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 public class ThirdActivity extends AppCompatActivity {
 
@@ -42,6 +44,13 @@ public class ThirdActivity extends AppCompatActivity {
 
     stv_1.setUrlImage(url_imag, false);
     stv_2.setUrlImage(url_avatar);
+
+    stv_2.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(ThirdActivity.this, ListActivity.class));
+      }
+    });
   }
 
 }
