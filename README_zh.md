@@ -149,7 +149,7 @@ public class STVApplication extends Application {
 ### 2. 如何开始SuperTextView v3.0
 ```
 	dependencies {
-	   compile 'com.github.chenBingX:SuperTextView:v3.0'
+	   compile 'com.github.chenBingX:SuperTextView:v3.0.0'
 	}
 ```  
 ### 3. 其它 
