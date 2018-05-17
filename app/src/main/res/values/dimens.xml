@@ -5,4 +5,5 @@
 
   <dimen name="stv_small_size">50dp</dimen>
   <dimen name="stv_normal_size">80dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
 </resources>

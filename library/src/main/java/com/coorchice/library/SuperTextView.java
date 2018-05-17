@@ -22,9 +22,12 @@ package com.coorchice.library;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.coorchice.library.image_engine.Engine;
 import com.coorchice.library.sys_adjusters.PressAdjuster;
+import com.coorchice.library.utils.STVUtils;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -34,11 +37,11 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PixelFormat;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
@@ -56,7 +59,7 @@ public class SuperTextView extends TextView {
   private static final int DEFAULT_TEXT_FILL_COLOR = Color.BLACK;
   private static final float DEFAULT_TEXT_STROKE_WIDTH = 0f;
   private static final int ALLOW_CUSTOM_ADJUSTER_SIZE = 3;
-  private static int SYSTEM_ADJUSTER_SIZE = 0;
+  private int SYSTEM_ADJUSTER_SIZE = 0;
 
   private float corner;
   private boolean leftTopCornerEnable;
@@ -124,6 +127,7 @@ public class SuperTextView extends TextView {
   private List<Adjuster> touchAdjusters = new ArrayList<>();
   private Runnable handleAnim;
   private boolean superTouchEvent;
+  private String curImageUrl;
 
 
   public SuperTextView(Context context) {
@@ -367,10 +371,8 @@ public class SuperTextView extends TextView {
     if (pressBgColor != Color.TRANSPARENT || pressTextColor != -99) {
       if (pressAdjuster == null) {
         pressAdjuster = new PressAdjuster(pressBgColor)
-            .setPressTextColor(pressTextColor)
-            .setType(Adjuster.TYPE_SYSTEM);
-        adjusterList.add(0, pressAdjuster);
-        SYSTEM_ADJUSTER_SIZE++;
+            .setPressTextColor(pressTextColor);
+        addSysAdjuster(pressAdjuster);
       }
       ((PressAdjuster) pressAdjuster).setPressTextColor(pressTextColor);
       ((PressAdjuster) pressAdjuster).setPressBgColor(pressBgColor);
@@ -439,7 +441,7 @@ public class SuperTextView extends TextView {
 
   private void drawDrawableBackground(Canvas canvas) {
     if (drawableBackgroundShader == null) {
-      Bitmap bitmap = drawableToBitmap(drawable);
+      Bitmap bitmap = STVUtils.drawableToBitmap(drawable);
       bitmap = computeSuitedBitmapSize(bitmap);
       drawableBackgroundShader =
           new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -452,19 +454,6 @@ public class SuperTextView extends TextView {
     canvas.drawPath(solidPath, paint);
     paint.setShader(shader);
     paint.setColor(color);
-  }
-
-  private Bitmap drawableToBitmap(Drawable drawable) {
-    Bitmap bitmap = Bitmap.createBitmap(
-        drawable.getIntrinsicWidth(),
-        drawable.getIntrinsicHeight(),
-        drawable.getOpacity() != PixelFormat.OPAQUE
-            ? Bitmap.Config.ARGB_8888
-            : Bitmap.Config.RGB_565);
-    Canvas canvas = new Canvas(bitmap);
-    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-    drawable.draw(canvas);
-    return bitmap;
   }
 
   private Bitmap computeSuitedBitmapSize(Bitmap bitmap) {
@@ -758,6 +747,14 @@ public class SuperTextView extends TextView {
     }
     postInvalidate();
     return this;
+  }
+
+  private void addSysAdjuster(Adjuster adjuster) {
+    if (adjuster != null) {
+      adjuster.setType(Adjuster.TYPE_SYSTEM);
+      adjusterList.add(SYSTEM_ADJUSTER_SIZE, adjuster);
+      SYSTEM_ADJUSTER_SIZE++;
+    }
   }
 
   /**
@@ -1375,6 +1372,66 @@ public class SuperTextView extends TextView {
     return this;
   }
 
+  /**
+   * 将一个网络图片作为SuperTextView的StateDrawable。
+   * 在调用这个函数前，建议开发者根据当前所使用的图片框架实现{@link com.coorchice.library.image_engine.Engine}，
+   * 然后通过{@link ImageEngine#install(Engine)}为SuperTextView的ImageEngine安装一个全局引擎，开发者可以在
+   * {@link Application#onCreate()}中进行配置（需要注意任何时候新安装的引擎总会替换掉原本的引擎）。
+   * 在未设置引擎的情况下，SuperTextView仍然会通过内置的一个十分简易引擎去下载图片。
+   *
+   * @param url 网络图片地址
+   * @param asBackground 是否将下载的图片作为Background。
+   *          - false表示下载好的图片将作为SuperTextView的StateDrawable
+   *          - true表示将下载好的图片作为背景，效果和{@link SuperTextView#setDrawableAsBackground(boolean)}
+   *          是一样的。
+   * @return SuperTextView
+   */
+  public SuperTextView setUrlImage(final String url, final boolean asBackground) {
+    // 检查是否已经安装了Engine，没有安装会安装一个默认的，后面仍然可以随时被替换
+    ImageEngine.checkEngine();
+    // 缓存当前的imageUrl，当下载完成后需要校验
+    curImageUrl = url;
+    ImageEngine.load(url, new ImageEngine.Callback() {
+      @Override
+      public void onCompleted(final Drawable drawable) {
+        if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
+          SuperTextView.this.drawable = drawable;
+          isShowState = !asBackground;
+          setDrawableAsBackground(asBackground);
+          // if (STVUtils.isOnMainThread()) {
+          // SuperTextView.this.drawable = drawable;
+          // setDrawableAsBackground(asBackground);
+          // } else {
+          // post(new Runnable() {
+          // @Override
+          // public void run() {
+          // if (getContext() != null) {
+          // SuperTextView.this.drawable = drawable;
+          // setDrawableAsBackground(asBackground);
+          // }
+          // }
+          // });
+          // }
+        }
+      }
+    });
+    return this;
+  }
+
+  /**
+   * 将一个网络图片作为SuperTextView的StateDrawable，调用这个方法StateDrawable将会被设置为背景模式。
+   * 在调用这个函数前，建议开发者根据当前所使用的图片框架实现{@link com.coorchice.library.image_engine.Engine}，
+   * 然后通过{@link ImageEngine#install(Engine)}为SuperTextView的ImageEngine安装一个全局引擎，开发者可以在
+   * {@link Application#onCreate()}中进行配置（需要注意任何时候新安装的引擎总会替换掉原本的引擎）。
+   * 在未设置引擎的情况下，SuperTextView仍然会通过内置的一个十分简易引擎去下载图片。
+   *
+   * @param url 网络图片地址
+   * @return SuperTextView
+   */
+  public SuperTextView setUrlImage(final String url) {
+    return setUrlImage(url, true);
+  }
+
 
   /**
    * 启动动画。需要设置{@link SuperTextView#setAutoAdjust(boolean)}为true才能看到。
@@ -1475,7 +1532,7 @@ public class SuperTextView extends TextView {
   @Override
   protected void onWindowVisibilityChanged(int visibility) {
     super.onWindowVisibilityChanged(visibility);
-    if (visibility != VISIBLE) {
+    if (visibility != VISIBLE && visibility != INVISIBLE) {
       cacheRunnableState = runnable;
       cacheNeedRunState = needRun;
       stopAnim();
@@ -1492,8 +1549,7 @@ public class SuperTextView extends TextView {
 
   /**
    * Adjuster被设计用来在SuperTextView的绘制过程中插入一些操作。
-   * 这具有非常重要的意义。比如，默认实现的{@link DefaultAdjuster}能够动态的调整文字的大小。
-   * 当然，你可以用它来实现各种各样的效果。
+   * 这具有非常重要的意义。你可以用它来实现各种各样的效果。
    * 你可以指定Adjuster的作用层级，通过调用{@link Adjuster#setOpportunity(Opportunity)}，
    * {@link Opportunity}。默认为{@link Opportunity#BEFORE_TEXT}。
    */
@@ -1673,54 +1729,6 @@ public class SuperTextView extends TextView {
         }
       }
       return TOP_TO_BOTTOM;
-    }
-  }
-
-  public static class DefaultAdjuster extends Adjuster {
-
-    @Override
-    public void adjust(SuperTextView v, Canvas canvas) {
-      int length = v.length();
-      float scale = v.getWidth() / (116.28f * v.getResources().getDisplayMetrics().density);
-      float[] textSizes = {
-          37.21f, 37.21f, 24.81f, 27.9f, 24.81f,
-          22.36f, 18.6f,
-          18.6f
-      };
-      switch (length) {
-        case 1:
-          v.setTextSize(textSizes[0] * scale);
-          break;
-        case 2:
-          v.setTextSize(textSizes[1] * scale);
-          break;
-        case 3:
-          v.setTextSize(textSizes[2] * scale);
-          break;
-        case 4:
-          v.setTextSize(textSizes[3] * scale);
-          break;
-        case 5:
-        case 6:
-          v.setTextSize(textSizes[4] * scale);
-          break;
-        case 7:
-        case 8:
-        case 9:
-          v.setTextSize(textSizes[5] * scale);
-          break;
-        case 10:
-        case 11:
-        case 12:
-          v.setTextSize(textSizes[6] * scale);
-          break;
-        case 13:
-        case 14:
-        case 15:
-        case 16:
-          v.setTextSize(textSizes[7] * scale);
-          break;
-      }
     }
   }
 }

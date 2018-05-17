@@ -175,9 +175,6 @@
     app:pressTextColor="@color/white"
     />
 
-
-
-
   <com.coorchice.library.SuperTextView
     android:id="@+id/stv_2"
     android:layout_width="match_parent"
@@ -198,5 +195,24 @@
     />
 
 
-
+  <com.coorchice.library.SuperTextView
+    android:id="@+id/stv_3"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/stv_small_size"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="20dp"
+    android:gravity="center"
+    android:text="Next"
+    android:textColor="@color/blue"
+    android:textStyle="bold"
+    android:textSize="18sp"
+    android:layout_below="@+id/stv_2"
+    app:corner="25dp"
+    app:solid="@color/white"
+    app:stroke_color="@color/pink"
+    app:stroke_width="3dp"
+    app:drawableAsBackground="true"
+    app:state_drawable="@drawable/bige1"
+    />
 </RelativeLayout>
