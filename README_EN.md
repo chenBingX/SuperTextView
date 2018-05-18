@@ -1,7 +1,7 @@
 
 ## [【中文文档地址请点这里：v3.0中文版已更新】](https://github.com/chenBingX/SuperTextView/blob/master/README.md)  
 
-# SuperTextView
+# Hello, SuperTextView
 
 # Update Log
 

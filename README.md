@@ -1,4 +1,4 @@
-# Hello, SuperTextView
+# 你好, SuperTextView
 
 #### [【SuperTextView english document】](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
 
@@ -6,15 +6,16 @@
   [![](https://img.shields.io/badge/SuperTextView-v3.0-brightgreen.svg)](https://github.com/chenBingX/SuperTextView)    [![](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/chenBingX/SuperTextView#license)    [![Insight.io](https://www.insight.io/repoBadge/github.com/tesseract-ocr/tesseract)](https://insight.io/github.com/chenBingX/SuperTextView)
 
 
-<img src="http://ogemdlrap.bkt.clouddn.com/SuperTextView_yuan%202.png" width=260 height=260 align=right alt="SuperTextView">
+<img src="http://ogemdlrap.bkt.clouddn.com/SuperTextView_yuan%202.png" width=130 height=130 align=right alt="SuperTextView">
 
 从 **SuperTextView** 诞生之初，便始终坚持一个愿景，即帮助 Android 开发者快速愉悦的去构建一个应用。
 
-**SuperTextView** 是一个高效的、全能的 **Android** 控件。通过 **SuperTextView** ，你可以快速实现圆角背景、渐变色背景、给控件和文字描边、为控件增加状态图、快速插入操作到控件绘制过程中、展示图片...基本上涵盖了 **Android** 日常开发中会用到的绝大部分效果。
+**SuperTextView** 是一个高效的、全能的 **Android** 控件。通过 **SuperTextView** ，你可以快速实现圆角背景，设置渐变色背景，给控件和文字描边，为控件增加状态图，添加按压时文字或背景变色效果，通过 **Adjuster** 模块快速插入操作到控件绘制过程中，展示图片，甚至可以直接从网络上下载图片展示...基本上涵盖了 **Android** 日常开发中会用到的绝大部分效果。而实现这一切的代价，仅仅是给 **SuperTextView** 设置一个属性。**SuperTextView** 可以帮助开发者高效、便捷、优雅的完成需求开发。
 
-而实现这一切的代价，仅仅是给 **SuperTextView** 设置一个属性。
 
 ![](https://gw.alicdn.com/tfs/TB1JEPSrH9YBuNjy0FgXXcxcXXa-1195-622.gif)
+
+
 
 # 近期更新
 
@@ -342,6 +343,7 @@ mSuperTextView.setFrameRate(30);
 一触即变，想象不至于此。艺术家，发挥你的创造力吧！
 
 同样，渐变效果的设置支持在xml中设置，并且能够即时预览。
+
 ```
 app:shaderEnable="true"
 // 必须设置为true才能启用渐变功能。这意味着你可以灵活的控制这一功能。
@@ -366,6 +368,7 @@ mSuperTextView.setShaderStartColor(Color.RED);
 
 - 如何使用SuperTextView 1.3
   在你的**build.gradle**中加入：
+
 ```
 allprojects {
     repositories {
@@ -411,6 +414,7 @@ mSuperTextView.setAdjuster(new MoveEffectAdjuster())
 # 使用指南
 ## 支持的属性
 **SuperTextView**十分方便的支持在xml中直接设置属性，并且你能够立即看到效果。就像你平时使用TextView一样方便。
+
 ```
 <SuperTextView
     android:layout_width="50dp"
@@ -471,11 +475,15 @@ mSuperTextView.setAdjuster(new MoveEffectAdjuster())
     />
 
 ```
+
 以上这些属性，均可以在Java中进行动态的设置。同时也能够获得它们的值。例如：
+
+
 ```
 mSuperTextView.setCorner(10);
 mSuperTextView.getCorner();
 ```
+
 ### 圆形和边框
 ![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.15.42.png)
 
@@ -516,6 +524,7 @@ public class YourAdjuster extends SuperTextView.Adjuster {
 
 }
 ```
+
 **注意，如果开启动画，你必须十分谨慎的编写adjuster()中的代码。因为动画会以60帧/每秒的速度进行绘制。这意味着，这个方法每秒会被调用60次！所以，千万不要在这个方法中重复的创建对象，会卡爆的！原因是短时间的大量将会引起【内存抖动】，导致GC频繁发生。相关知识你可以看看我的这两篇文章：**
 - [【Android内存基础——内存抖动http://www.jianshu.com/p/69e6f894c698】](http://www.jianshu.com/p/69e6f894c698)
 - [【用两张图告诉你，为什么你的App会卡顿?http://www.jianshu.com/p/df4d5ec779c8】](http://www.jianshu.com/p/df4d5ec779c8)
@@ -566,6 +575,7 @@ public enum Opportunity {
       AT_LAST          //最上层
 }
 ```
+
 三种类型的Opportunity示意图。
 
 ![image](http://ogemdlrap.bkt.clouddn.com/Opportunity.png)
