@@ -15,7 +15,7 @@
 
 ![](https://gw.alicdn.com/tfs/TB1JEPSrH9YBuNjy0FgXXcxcXXa-1195-622.gif)
 
-
+[点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
 # 近期更新
 
@@ -603,9 +603,8 @@ dependencies {
 
 现在，你可以开始使用**SuperTextView**了。
 
+> - 如果你或你的团队正在使用 **SuperTextView**，麻烦请告知我。
 > - 如果你喜欢**SuperTextView**，希望能顺手在Github点个**star**哦！
-> - 抽出空余时间写文章分享需要动力，还请各位看官动动小手点个赞，给我点鼓励😄
-> - 我一直在不定期的创作新的干货，想要上车只需进到我的【个人主页】点个关注就好了哦。发车喽～
 
 
 [**点击这里跳转SuperTextView项目地址。https://github.com/chenBingX/SuperTextView**](https://github.com/chenBingX/SuperTextView)  
