@@ -32,6 +32,9 @@ import com.coorchice.library.SuperTextView;
  * Notes:
  */
 
+/**
+ * @hide
+ */
 public class PressAdjuster extends SuperTextView.Adjuster {
 
   private int pressBgColor = Color.TRANSPARENT;

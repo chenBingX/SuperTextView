@@ -56,12 +56,20 @@ public class ImageEngine {
     }
   }
 
+  /**
+   * @hide
+   * @param url
+   * @param callback
+   */
   static void load(String url, Callback callback) {
     if (Holder.instance.engine == null)
       throw new IllegalStateException("You must first install one engine!");
     Holder.instance.engine.load(url, callback);
   }
 
+  /**
+   * @hide
+   */
   static void checkEngine() {
     if (Holder.instance.engine == null) {
       Holder.instance.engine = new DefaultEngine();

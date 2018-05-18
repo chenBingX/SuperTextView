@@ -38,6 +38,12 @@ import android.os.Looper;
  * Notes:
  */
 
+/**
+ * 在调用{@link com.coorchice.library.SuperTextView#setUrlImage(String)}后，
+ * 如果没有通过{@link ImageEngine#install(Engine)}配置过图片下载引擎，将使用这个简易版的
+ * 图片下载引擎。
+ * 建议开发者根据项目情况自行实现{@link Engine}，然后通过{@link ImageEngine#install(Engine)}配置图片下载引擎。
+ */
 public class DefaultEngine implements Engine {
   @Override
   public void load(final String url, final ImageEngine.Callback callback) {

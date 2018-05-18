@@ -26,6 +26,10 @@ import android.util.Log;
  * Date:16/8/23
  * Notes:
  */
+
+/**
+ * @hide
+ */
 public class LogUtils {
 
   public static boolean DEBUG = true;

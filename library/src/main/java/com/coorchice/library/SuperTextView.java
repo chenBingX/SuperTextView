@@ -130,21 +130,47 @@ public class SuperTextView extends TextView {
   private String curImageUrl;
 
 
+  /**
+   * 简单的构造函数
+   *
+   * @param context View运行的Context环境
+   */
   public SuperTextView(Context context) {
     super(context);
     init(null);
   }
 
+  /**
+   * inflate Xml布局文件时会被调用
+   *
+   * @param context View运行的Context环境
+   * @param attrs View在xml布局文件中配置的属性集合对象
+   */
   public SuperTextView(Context context, AttributeSet attrs) {
     super(context, attrs);
     init(attrs);
   }
 
+  /**
+   * 略
+   *
+   * @param context
+   * @param attrs
+   * @param defStyleAttr
+   */
   public SuperTextView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     init(attrs);
   }
 
+  /**
+   * 略
+   *
+   * @param context
+   * @param attrs
+   * @param defStyleAttr
+   * @param defStyleRes
+   */
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public SuperTextView(Context context, AttributeSet attrs, int defStyleAttr,
       int defStyleRes) {
@@ -360,6 +386,7 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取SuperTextView的详细圆角信息，共4个圆角，每个圆角包含两个值。
    *
    * @return 返回SuperTextView的圆角信息 {@link SuperTextView#getCorners(float)}.
    */
@@ -634,6 +661,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取SuperTextView的圆角大小
+   *
    * @return 获取Corner值。默认为0。
    */
   public float getCorner() {
@@ -642,6 +671,8 @@ public class SuperTextView extends TextView {
 
 
   /**
+   * 设置圆角大小
+   *
    * @param corner 圆角大小，默认值为0。会触发一次重绘。
    * @return SuperTextView
    */
@@ -653,6 +684,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取填充颜色
+   *
    * @return 返回控件填充颜色。
    */
   public int getSolid() {
@@ -660,6 +693,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置填充颜色
+   *
    * @param solid 控件填充颜色, 默认为{@link Color#TRANSPARENT}。会触发一次重绘。
    * @return SuperTextView
    */
@@ -671,6 +706,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取控件边框宽度
+   *
    * @return 返回控件边框的宽度。
    */
   public float getStrokeWidth() {
@@ -678,6 +715,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置控件边框宽度
+   *
    * @param strokeWidth 描边宽度。会触发一次重绘。
    * @return SuperTextView
    */
@@ -689,6 +728,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取边框颜色
+   *
    * @return 返回描边颜色。默认为{@link Color#BLACK}。
    */
   public int getStrokeColor() {
@@ -696,6 +737,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置边框颜色
+   *
    * @param strokeColor 描边颜色。默认为{@link Color#BLACK}。会触发一次重绘。
    * @return SuperTextView
    */
@@ -707,7 +750,7 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * 该方法或许在后面版本会移除，请尽快使用{@link SuperTextView#addAdjuster(Adjuster)}来添加一个Adjuster。
+   * 该方法在后续版本将会被移除，请尽快使用{@link SuperTextView#addAdjuster(Adjuster)}来添加一个Adjuster。
    * 
    * @param adjuster 添加一个Adjuster。{@link SuperTextView#addAdjuster(Adjuster)}
    *          注意最多支持添加3个Adjuster，否则新的Adjuster总是会覆盖最后一个Adjuster。
@@ -722,7 +765,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @return 获得最后一个Adjuster，如果存在的话。
+   * 获取最后一个 {@link Adjuster}
+   *
+   * @return 获得最后一个 {@link Adjuster}，如果存在的话。
    */
   public Adjuster getAdjuster() {
     if (adjusterList.size() > SYSTEM_ADJUSTER_SIZE) {
@@ -732,10 +777,10 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 添加一个Adjuster。
+   * 注意，最多支持添加3个Adjuster，否则新的Adjuster总是会覆盖最后一个Adjuster。
    * 
-   * @param adjuster 添加一个Adjuster。{@link SuperTextView#addAdjuster(Adjuster)}
-   *          注意最多支持添加3个Adjuster，否则新的Adjuster总是会覆盖最后一个Adjuster。
-   *          {@link Adjuster}。会触发一次重绘。
+   * @param adjuster {@link Adjuster}。会触发一次重绘。
    * @return SuperTextView
    */
   public SuperTextView addAdjuster(Adjuster adjuster) {
@@ -774,7 +819,7 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * 获得index对应的Adjuster。
+   * 获得index对应的 {@link Adjuster}。
    * 
    * @param index 期望获得的Adjuster的index。
    * @return index对应的Adjuster，如果参数错误返回null。
@@ -788,6 +833,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 检查是否开启了文字描边
+   *
    * @return true 表示开启了文字描边，否则表示没开启。
    */
   public boolean isTextStroke() {
@@ -795,6 +842,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置是否开启文字描边。
+   * 注意，开启文字描边后，文字颜色需要通过 {@link #setTextFillColor(int)} 设置。
+   *
    * @param textStroke true表示开启文字描边。默认为false。会触发一次重绘。
    * @return SuperTextView
    */
@@ -806,6 +856,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取文字描边的颜色
+   *
    * @return 文字描边的颜色。
    */
   public int getTextStrokeColor() {
@@ -813,6 +865,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置文字描边的颜色
+   *
    * @param textStrokeColor 设置文字描边的颜色。默认为{@link Color#BLACK}。会触发一次重绘。
    * @return SuperTextView
    */
@@ -824,6 +878,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取文字的填充颜色，在开启文字描边时 {@link #setTextStroke(boolean)} 默认为BLACK。
+   *
    * @return 文字填充颜色。
    */
   public int getTextFillColor() {
@@ -831,6 +887,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置文字的填充颜色，需要开启文字描边 {@link #setTextStroke(boolean)} 才能生效。默认为BLACK。
+   *
    * @param textFillColor 设置文字填充颜色。默认为{@link Color#BLACK}。会触发一次重绘。
    * @return SuperTextView
    */
@@ -842,6 +900,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取文字描边的宽度
+   *
    * @return 文字描边宽度。
    */
   public float getTextStrokeWidth() {
@@ -849,6 +909,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置文字描边的宽度，需要开启文字描边 {@link #setTextStroke(boolean)} 才能生效。
+   *
    * @param textStrokeWidth 设置文字描边宽度。会触发一次重绘。
    * @return SuperTextView
    */
@@ -860,6 +922,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 检查是否开启 {@link Adjuster} 功能。
+   *
    * @return true表示开启了Adjuster功能。
    */
   public boolean isAutoAdjust() {
@@ -867,6 +931,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置是否开启 {@link Adjuster} 功能。
+   *
    * @param autoAdjust true开启Adjuster功能。反之，关闭。会触发一次重绘。
    * @return SuperTextView
    */
@@ -878,6 +944,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 检查左上角是否设置成了圆角。
+   *
    * @return true表示左上角为圆角。
    */
   public boolean isLeftTopCornerEnable() {
@@ -885,6 +953,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置左上角是否为圆角，可以单独控制SuperTextView的每一个圆角。
+   *
    * @param leftTopCornerEnable true左上角圆角化。会触发一次重绘。
    * @return SuperTextView
    */
@@ -896,6 +966,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   *  检查右上角是否设置成了圆角。
+   *
    * @return true表示右上角为圆角。
    */
   public boolean isRightTopCornerEnable() {
@@ -903,6 +975,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置右上角是否为圆角，可以单独控制SuperTextView的每一个圆角。
+   *
    * @param rightTopCornerEnable true右上角圆角化。会触发一次重绘。
    * @return SuperTextView
    */
@@ -914,6 +988,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 检查左下角是否设置成了圆角。
+   *
    * @return true表示左下角为圆角。
    */
   public boolean isLeftBottomCornerEnable() {
@@ -921,6 +997,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置左下角是否为圆角，可以单独控制SuperTextView的每一个圆角。
+   *
    * @param leftBottomCornerEnable true左下角圆角化。会触发一次重绘。
    * @return SuperTextView
    */
@@ -932,6 +1010,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 检查右下角是否设置成了圆角。
+   *
    * @return true表示右下角为圆角。
    */
   public boolean isRightBottomCornerEnable() {
@@ -939,6 +1019,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 设置右下角是否为圆角，可以单独控制SuperTextView的每一个圆角。
+   *
    * @param rightBottomCornerEnable true右下角圆角化。会触发一次重绘。
    * @return SuperTextView
    */
@@ -950,6 +1032,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图，当状态图通过 {@link #setDrawableAsBackground(boolean)} 设置为背景时，获取的就是背景图了。
+   *
    * @return 状态图。
    */
   public Drawable getDrawable() {
@@ -957,6 +1041,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图2号。
+   *
    * @return 状态图2。
    */
   public Drawable getDrawable2() {
@@ -964,7 +1050,11 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawable 设置状态图。需要调用isShowState(true)才能显示。会触发一次重绘。
+   * 设置状态图。需要调用 {@link #setShowState(boolean)} 才能显示。会触发一次重绘。
+   * 当通过 {@link #setDrawableAsBackground(boolean)} 将状态图设置为背景后，将会被作为SuperTextView的背景图。
+   * 通过 {@link #isDrawableAsBackground()} 来检查状态图是否被设置成了背景。
+   *
+   * @param drawable 状态图。
    * @return SuperTextView
    */
   public SuperTextView setDrawable(Drawable drawable) {
@@ -976,7 +1066,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawable 设置状态图2。需要调用isShowState2(true)才能显示。会触发一次重绘。
+   * 设置状态图2。需要调用{@link #setShowState2(boolean)}才能显示。会触发一次重绘。
+   *
+   * @param drawable 状态图
    * @return SuperTextView
    */
   public SuperTextView setDrawable2(Drawable drawable) {
@@ -987,7 +1079,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawableRes 使用drawable资源设置状态图。需要调用isShowState(true)才能显示。会触发一次重绘。
+   * 使用drawable资源设置状态图。需要调用{@link #setShowState(boolean)}才能显示。会触发一次重绘。
+   *
+   * @param drawableRes 状态图的资源id
    * @return SuperTextView
    */
   public SuperTextView setDrawable(int drawableRes) {
@@ -999,7 +1093,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawableRes 使用drawable资源设置状态图2。需要调用isShowState2(true)才能显示。会触发一次重绘。
+   * 使用drawable资源设置状态图2。需要调用{@link #setShowState2(boolean)}才能显示。会触发一次重绘。
+   *
+   * @param drawableRes 状态图的资源id
    * @return SuperTextView
    */
   public SuperTextView setDrawable2(int drawableRes) {
@@ -1010,27 +1106,18 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @return 当前是否显示状态图。
+   * 检查是否显示状态图
+   *
+   * @return 返回true，如果当前显示状态图。
    */
   public boolean isShowState() {
     return isShowState;
   }
 
-  /**
-   * @return 当前Drawable是否作为SuperTextView的背景图。
-   */
-  public boolean isDrawableAsBackground() {
-    return drawableAsBackground;
-  }
 
   /**
-   * @return 当前是否显示状态图2。
-   */
-  public boolean isShowState2() {
-    return isShowState2;
-  }
-
-  /**
+   * 设置是否显示状态图。
+   *
    * @param showState true，表示显示状态图。反之，不显示。会触发一次重绘。
    * @return SuperTextView
    */
@@ -1042,6 +1129,20 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 检查当前状态图是否被作为SuperTextView的背景图。
+   *
+   * @return 当前Drawable是否作为SuperTextView的背景图。
+   */
+  public boolean isDrawableAsBackground() {
+    return drawableAsBackground;
+  }
+
+
+  /**
+   * 设置是否将状态图作为SuperTextView的背景图。
+   * 将状态图设置为背景图，可以将SuperTextView变成一个ImageView用来展示图片，对SuperTextView设置的圆角、边框仍然对图片
+   * 有效，这对于需要实现圆形图片、给图片加边框很有帮助。而且通过 {@link #setUrlImage(String)} 和 {@link #setUrlImage(String, boolean)}
+   * 可以使得SuperTextView能够自动下载网络图片，然后进行展示。
    *
    * @param drawableAsBackground true，表示将Drawable作为背景图，其余所有对drawable的设置都会失效，直到该项为false。
    * @return SuperTextView
@@ -1056,6 +1157,18 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 检查是否显示状态图2。
+   *
+   * @return 返回true，如果当前显示状态图2。
+   */
+  public boolean isShowState2() {
+    return isShowState2;
+  }
+
+
+  /**
+   * 设置是否显示状态图2
+   *
    * @param showState true，表示显示状态图2。反之，不显示。会触发一次重绘。
    * @return SuperTextView
    */
@@ -1067,6 +1180,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图的显示模式。在 {@link DrawableMode} 中查看所有支持的模式。
+   *
    * @return 状态图显示模式。{@link DrawableMode}
    */
   public int getStateDrawableMode() {
@@ -1074,6 +1189,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图2的显示模式。在 {@link DrawableMode} 中查看所有支持的模式。
+   *
    * @return 状态图2显示模式。{@link DrawableMode}
    */
   public int getStateDrawable2Mode() {
@@ -1081,7 +1198,10 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param stateDrawableMode 设置状态图显示模式。默认为{@link DrawableMode#CENTER}。会触发一次重绘。
+   * 设置状态图显示模式。默认为{@link DrawableMode#CENTER}。会触发一次重绘。
+   * 在 {@link DrawableMode} 中查看所有支持的模式。
+   *
+   * @param stateDrawableMode 状态图显示模式
    * @return SuperTextView
    */
   public SuperTextView setStateDrawableMode(int stateDrawableMode) {
@@ -1092,7 +1212,10 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param stateDrawableMode 设置状态图2显示模式。默认为{@link DrawableMode#CENTER}。会触发一次重绘。
+   * 设置状态图2显示模式。默认为{@link DrawableMode#CENTER}。会触发一次重绘。
+   * 在 {@link DrawableMode} 中查看所有支持的模式。
+   *
+   * @param stateDrawableMode 状态图2显示模式
    * @return SuperTextView
    */
   public SuperTextView setStateDrawable2Mode(int stateDrawableMode) {
@@ -1103,6 +1226,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图的宽度。
+   *
    * @return 状态图的宽度。
    */
   public float getDrawableWidth() {
@@ -1110,6 +1235,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图2的宽度。
+   *
    * @return 状态图2的宽度。
    */
   public float getDrawable2Width() {
@@ -1117,7 +1244,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawableWidth 设置状态图宽度。默认为控件的1／2。会触发一次重绘。
+   * 设置状态图宽度。默认为控件的1／2。会触发一次重绘。
+   *
+   * @param drawableWidth 状态图宽度
    * @return SuperTextView
    */
   public SuperTextView setDrawableWidth(float drawableWidth) {
@@ -1128,7 +1257,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawableWidth 设置状态图2宽度。默认为控件的1／2。会触发一次重绘。
+   * 设置状态图2宽度。默认为控件的1／2。会触发一次重绘。
+   *
+   * @param drawableWidth 状态图2宽度
    * @return SuperTextView
    */
   public SuperTextView setDrawable2Width(float drawableWidth) {
@@ -1139,6 +1270,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图的高度
+   *
    * @return 状态图的高度。
    */
   public float getDrawableHeight() {
@@ -1146,6 +1279,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取状态图2的高度
+   *
    * @return 状态图2的高度。
    */
   public float getDrawable2Height() {
@@ -1153,7 +1288,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawableHeight 设置状态图高度。默认为控件的1／2。会触发一次重绘。
+   * 设置状态图高度。默认为控件的1／2。会触发一次重绘。
+   *
+   * @param drawableHeight 状态图高度
    * @return SuperTextView
    */
   public SuperTextView setDrawableHeight(float drawableHeight) {
@@ -1164,7 +1301,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawableHeight 设置状态图2高度。默认为控件的1／2。会触发一次重绘。
+   * 设置状态图2高度。默认为控件的1／2。会触发一次重绘。
+   *
+   * @param drawableHeight 状态图2高度
    * @return SuperTextView
    */
   public SuperTextView setDrawable2Height(float drawableHeight) {
@@ -1175,21 +1314,27 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @return 状态图相对于左边相对位置的左边距。
+   * 获取状态图相对于控件左边的边距。
+   *
+   * @return 状态图左边距
    */
   public float getDrawablePaddingLeft() {
     return drawablePaddingLeft;
   }
 
   /**
-   * @return 状态图2相对于左边相对位置的左边距。
+   * 获取状态图2相对于控件左边的边距。
+   *
+   * @return 状态图2左边距
    */
   public float getDrawable2PaddingLeft() {
     return drawable2PaddingLeft;
   }
 
   /**
-   * @param drawablePaddingLeft 设置状态图相对于左边相对位置的左边距。会触发一次重绘。
+   * 设置状态图相对于控件左边的边距。会触发一次重绘。
+   *
+   * @param drawablePaddingLeft 状态图左边距。
    * @return SuperTextView
    */
   public SuperTextView setDrawablePaddingLeft(float drawablePaddingLeft) {
@@ -1200,7 +1345,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawablePaddingLeft 设置状态图2相对于左边相对位置的左边距。会触发一次重绘。
+   * 设置状态图2相对于控件左边的边距。会触发一次重绘。
+
+   * @param drawablePaddingLeft 状态图左边距。
    * @return SuperTextView
    */
   public SuperTextView setDrawable2PaddingLeft(float drawablePaddingLeft) {
@@ -1211,21 +1358,27 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @return 状态图相对于上边相对位置的上边距。
+   * 获取状态图相对于控件上边的边距。
+   *
+   * @return 状态图上边距。
    */
   public float getDrawablePaddingTop() {
     return drawablePaddingTop;
   }
 
   /**
-   * @return 状态图2相对于上边相对位置的上边距。
+   * 获取状态图2相对于控件上边的边距。
+   *
+   * @return 状态图2上边距。
    */
   public float getDrawable2PaddingTop() {
     return drawable2PaddingTop;
   }
 
   /**
-   * @param drawablePaddingTop 设置状态图相对于上边相对位置的上边距。会触发一次重绘。
+   * 设置状态图相对于控件上边的边距。会触发一次重绘。
+   *
+   * @param drawablePaddingTop 状态图上边距。
    * @return SuperTextView
    */
   public SuperTextView setDrawablePaddingTop(float drawablePaddingTop) {
@@ -1235,7 +1388,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param drawablePaddingTop 设置状态图相对于上边相对位置的上边距。会触发一次重绘。
+   * 设置状态图2相对于控件上边的边距。会触发一次重绘。
+   *
+   * @param drawablePaddingTop 状态图2上边距。
    * @return SuperTextView
    */
   public SuperTextView setDrawable2PaddingTop(float drawablePaddingTop) {
@@ -1245,6 +1400,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取渐变色的起始颜色。
+   *
    * @return 渐变起始色。
    */
   public int getShaderStartColor() {
@@ -1252,7 +1409,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param shaderStartColor 设置渐变起始色。需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。会触发一次重绘。
+   *  设置渐变起始色。需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。会触发一次重绘。
+   *
+   * @param shaderStartColor 渐变起始色
    * @return SuperTextView
    */
   public SuperTextView setShaderStartColor(int shaderStartColor) {
@@ -1263,6 +1422,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取渐变色的结束颜色。
+   *
    * @return 渐变结束色。
    */
   public int getShaderEndColor() {
@@ -1270,7 +1431,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param shaderEndColor 设置渐变结束色。需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。会触发一次重绘。
+   * 设置渐变结束色。需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。会触发一次重绘。
+   *
+   * @param shaderEndColor 渐变结束色
    * @return SuperTextView
    */
   public SuperTextView setShaderEndColor(int shaderEndColor) {
@@ -1281,14 +1444,20 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @return 渐变模式。{@link ShaderMode}。
+   * 获取渐变色模式。在{@link ShaderMode}中可以查看所有支持的模式。
+   * 需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。
+   *
+   * @return 渐变模式。
    */
   public int getShaderMode() {
     return shaderMode;
   }
 
   /**
-   * @param shaderMode 设置渐变模式。{@link ShaderMode}。
+   * 设置渐变模式。在{@link ShaderMode}中可以查看所有支持的模式。
+   * 需要调用{@link SuperTextView#setShaderEnable(boolean)}后才能生效。
+   *
+   * @param shaderMode 渐变模式
    * @return SuperTextView
    */
   public SuperTextView setShaderMode(int shaderMode) {
@@ -1299,13 +1468,17 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @return 是否启用了渐变功能。
+   * 检查是否启用了渐变功能。
+   *
+   * @return 返回true，如果启用了渐变功能。
    */
   public boolean isShaderEnable() {
     return shaderEnable;
   }
 
   /**
+   * 设置是否启用渐变色功能。
+   *
    * @param shaderEnable true启用渐变功能。反之，停用。
    * @return SuperTextView
    */
@@ -1316,18 +1489,21 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   *
    * 获得当前按压背景色。没有设置默认为Color.TRANSPARENT。
-   * @return
+   *
+   * @return 按压时的背景色
    */
   public int getPressBgColor() {
     return pressBgColor;
   }
 
   /**
+   *
    * 获得当前按压背景色。一旦设置，立即生效。
    * 取消可以设置Color.TRANSPARENT。
    *
-   * @param pressBgColor
+   * @param pressBgColor 按压背景色
    */
   public SuperTextView setPressBgColor(int pressBgColor) {
     this.pressBgColor = pressBgColor;
@@ -1335,8 +1511,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * 获得当前按压文字色。没有设置默认为-99。
-   * @return
+   * 获得当前按压文字颜色色。没有设置默认为-99。
+   *
+   * @return 按压时文字颜色
    */
   public int getPressTextColor() {
     return pressTextColor;
@@ -1345,7 +1522,8 @@ public class SuperTextView extends TextView {
   /**
    * 获得当前按压文字色。一旦设置，立即生效。
    * 取消可以设置-99。
-   * @param pressTextColor
+   *
+   * @param pressTextColor 按压时文字颜色
    */
   public SuperTextView setPressTextColor(int pressTextColor) {
     this.pressTextColor = pressTextColor;
@@ -1353,6 +1531,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
+   * 获取当前SuperTextView在播放 {@link Adjuster} 时的帧率。默认为60fps
+   *
    * @return 帧率
    */
   public int getFrameRate() {
@@ -1360,7 +1540,9 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * @param frameRate 设置帧率，即每秒帧数。可在动画过程中随时改变。
+   * 设置帧率，即每秒帧数。可在动画过程中随时改变。默认为60fps
+   *
+   * @param frameRate 帧率
    * @return SuperTextView
    */
   public SuperTextView setFrameRate(int frameRate) {
@@ -1549,9 +1731,10 @@ public class SuperTextView extends TextView {
 
   /**
    * Adjuster被设计用来在SuperTextView的绘制过程中插入一些操作。
-   * 这具有非常重要的意义。你可以用它来实现各种各样的效果。
+   * 这具有非常重要的意义。你可以用它来实现各种各样的效果。比如插入动画、修改状态。
    * 你可以指定Adjuster的作用层级，通过调用{@link Adjuster#setOpportunity(Opportunity)}，
    * {@link Opportunity}。默认为{@link Opportunity#BEFORE_TEXT}。
+   * 在Adjuster中，可以获取到控件的触摸事件，这对于实现一些复杂的交互效果很有帮助。
    */
   public static abstract class Adjuster {
     private static final int TYPE_SYSTEM = 0x001;
@@ -1585,6 +1768,8 @@ public class SuperTextView extends TextView {
     };
 
     /**
+     * 获取当前Adjuster的层级。
+     *
      * @return Adjuster的作用层级。
      */
     public Opportunity getOpportunity() {
@@ -1592,7 +1777,9 @@ public class SuperTextView extends TextView {
     }
 
     /**
-     * @param opportunity 设置Adjuster的作用层级。{@link Opportunity}
+     * 设置Adjuster的作用层级。在 {@link Opportunity} 中可以查看所有支持的层级。
+     *
+     * @param opportunity Adjuster的作用层级
      * @return 返回Adjuster本身，方便调用。
      */
     public Adjuster setOpportunity(Opportunity opportunity) {
@@ -1628,7 +1815,7 @@ public class SuperTextView extends TextView {
        */
       BEFORE_TEXT,
       /**
-       * 最上层
+       * 最顶层
        */
       AT_LAST
     }
@@ -1696,7 +1883,8 @@ public class SuperTextView extends TextView {
   }
 
   /**
-   * 渐变模式。
+   * SuperTextView的渐变模式。
+   * 可以通过 {@link SuperTextView#setStateDrawableMode(int)}设置控件的Shader模式
    */
   public static enum ShaderMode {
     /**

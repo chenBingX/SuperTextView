@@ -29,6 +29,9 @@ import android.os.Looper;
  * Notes:
  */
 
+/**
+ * @hide
+ */
 public class STVUtils {
 
   /**
