@@ -497,4 +497,16 @@ stv.setPressTextColor(-99);
 ## 4.9 展示图片
 ### 4.9.1 展示本地图片
 
+前面有提到过，**SuperTextView** 可以通过状态图1变成一个`ImageView`。在设置好状态图1后，只需开启图片展示功能即可。
+
+```
+<com.coorchice.library.SuperTextView
+    ...
+    app:state_drawable="@drawable/avatar1"
+    # 开启图片展示功能
+    app:drawableAsBackground="true"
+    ...
+ />
+```
+
 
