@@ -15,6 +15,8 @@
 
 ![](https://gw.alicdn.com/tfs/TB1JEPSrH9YBuNjy0FgXXcxcXXa-1195-622.gif)
 
+[点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/develop_guide.html)
+
 [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
 # 近期更新
@@ -603,9 +605,8 @@ dependencies {
 
 现在，你可以开始使用**SuperTextView**了。
 
-> - 如果你或你的团队正在使用 **SuperTextView**，麻烦请告知我。
-> - 如果你喜欢**SuperTextView**，希望能顺手在Github点个**star**哦！
-
+> - 如果你或你的团队正在使用 **SuperTextView**，可以通过邮箱 [`coorchice.cb@alibaba-inc.com`](coorchice.cb@alibaba-inc.com) 告知我。
+> - 如果你喜欢**SuperTextView**，希望能顺手在 [**Github**](https://github.com/chenBingX/SuperTextView) 点个**star**哦！
 
 [**点击这里跳转SuperTextView项目地址。https://github.com/chenBingX/SuperTextView**](https://github.com/chenBingX/SuperTextView)  
 

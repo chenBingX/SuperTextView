@@ -794,6 +794,16 @@ public class SuperTextView extends TextView {
         return this;
     }
 
+  public SuperTextView addAdjuster(Adjuster adjuster, int index) {
+        adjusterList.add(index, adjuster);
+
+
+
+
+
+    return this;
+  }
+
     private void addSysAdjuster(Adjuster adjuster) {
         if (adjuster != null) {
             adjuster.setType(Adjuster.TYPE_SYSTEM);
@@ -803,11 +813,11 @@ public class SuperTextView extends TextView {
     }
 
     /**
-     * 移除index对应的Adjuster。
-     *
-     * @param index 期望移除的Adjuster的index。
-     * @return 被移除的Adjuster，如果参数错误返回null。
-     */
+   * 移除指定位置的Adjuster。
+   *
+   * @param index 期望移除的Adjuster的位置。
+   * @return 被移除的Adjuster，如果参数错误返回null。
+   */
     public Adjuster removeAdjuster(int index) {
         int realIndex = SYSTEM_ADJUSTER_SIZE + index;
         if (realIndex > SYSTEM_ADJUSTER_SIZE - 1 && realIndex < adjusterList.size()) {
@@ -817,6 +827,22 @@ public class SuperTextView extends TextView {
         }
         return null;
     }
+
+  /**
+   * 移除指定的Adjuster，如果包含的话。
+   *
+   * @param adjuster 需要被移除的Adjuster
+   * @return 被移除Adjuster在移除前在Adjuster列表中的位置。如果没有包含，返回-1。
+   */
+  public int removeAdjuster(Adjuster adjuster) {
+    if (adjuster.type != Adjuster.TYPE_SYSTEM && adjusterList.contains(adjuster)) {
+      int index = adjusterList.indexOf(adjuster);
+      adjusterList.remove(adjuster);
+      postInvalidate();
+      return index;
+    }
+    return -1;
+  }
 
     /**
      * 获得index对应的 {@link Adjuster}。

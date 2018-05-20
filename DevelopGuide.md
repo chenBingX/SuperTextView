@@ -6,6 +6,8 @@
 
 **SuperTextView** 是一个高效的、全能的 **Android** 控件。通过 **SuperTextView** ，你可以快速实现圆角背景，设置渐变色背景，给控件和文字描边，为控件增加状态图，添加按压时文字或背景变色效果，通过 **Adjuster** 模块快速插入操作到控件绘制过程中，展示图片，甚至可以直接从网络上下载图片展示...基本上涵盖了 **Android** 日常开发中会用到的绝大部分效果。而实现这一切的代价，仅仅是给 **SuperTextView** 设置一个属性。**SuperTextView** 可以帮助开发者高效、便捷、优雅的完成需求开发。
 
+本篇文档将详细的讲解目前 **SuperTextView** 的每一个功能，以便开发者能够快速上手。
+
 # 1. 获取 SuperTextView
 
 
@@ -212,7 +214,7 @@ app:drawableAsBackground="true"
 
 如果你希望实现圆形头像，或者圆角背景图的效果，那最适合不过了。
 
-# 4.3 逐个控制圆角
+# 4.3 控制每一个圆角
  默认情况下，对 **SuperTextView** 设置`corner`会对控件的4个角都有效。当然也可以单独指定那些角需要圆角化。
 
 
@@ -508,5 +510,228 @@ stv.setPressTextColor(-99);
     ...
  />
 ```
+
+![](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-05-20%2011.52.22.png)
+
+需要注意的是，当将状态图1用于展示图片后，状态图1将不再具备状态图的功能，直到你关闭了图片展示功能，通过`stv.setDrawableAsBackground(false)`。
+
+### 4.9.2 展示网络图片
+
+```
+stv.setUrlImage(url);
+```
+
+在 **SuperTextView** 中，通过上面简单的一句即可将 **SuperTextView** 作为一个可以展示网络图片的ImageView。
+
+调用上面的方法会默认开启 **SuperTextView** 的图片展示功能，因此，此时状态图1的状态图功能会被停用。你也可以通过以下方法，使得能够从网络中下载状态图1：
+
+```
+stv.setUrlImage(url, false);
+```
+
+第二个参数表示关闭图片展示功能。
+
+![](http://ogemdlrap.bkt.clouddn.com/%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD%E6%BC%94%E7%A4%BA2.gif)
+
+上图中，第一个例子是从网络中下载图片用作状态图，第二个例子是用作展示图片。
+
+**SuperTextView** 为了保持依赖库的纯净和尽可能小的体积，并没有内置任何的图片加载框架。所以默认情况，将使用内置的一个简易图片引擎去下载图片，确保开发者能够正常使用展示网络图片的功能。
+
+**SuperTextView** 具备兼容任意第三方图片下载框架的能力，建议开发者根据项目的具体情况，选择一个目前正在使用的图片加载框架，设置到 **SuperTextView** 中，以用来加载图片。 下面将通过几个的例子展示如何将现有的图片框架安装到 **SuperTextView** 中。
+
+**第一步：实现图片引擎Engine**
+
+在 **SuperTextView** 中，核心的图片加载引擎被抽象成接口 **Engine** ，开发者需要根据所用的图片框架，实现一个 **Engine**。
+
+- **Glide图片加载框架**
+
+```
+public class GlideEngine implements Engine {
+
+  private Context context;
+
+  public GlideEngine(Context context) {
+        this.context = context;
+  }
+
+  @Override
+  public void load(String url, final ImageEngine.Callback callback) {
+        Glide.with(context).load(url).into(new SimpleTarget<GlideDrawable>() {
+        @Override
+        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+            // 主要是通过callback返回Drawable对象给SuperTextView
+            callback.onCompleted(resource);
+        }
+        });
+    }
+}
+```
+
+- **Picasso图片加载框架**
+
+```
+public class PicassoEngine implements Engine {
+
+  private Context context;
+
+  public PicassoEngine(Context context) {
+        this.context = context;
+  }
+
+  @Override
+  public void load(String url, final ImageEngine.Callback callback) {
+        Picasso.with(context).load(url).into(new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            // 主要是通过callback返回Drawable对象给SuperTextView
+            callback.onCompleted(new BitmapDrawable(Resources.getSystem(), bitmap));
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+        }
+    });
+  }
+}
+```
+
+**第二步：安装图片引擎Engine**
+
+实现好 **Engine** 后，下一步就是要将其安装到 **SuperTextView** 中。
+
+建议可以在 Application的`onCreate()`中进行安装，这样当需要使用 **SuperTextView** 加载显示网络图片的时候，就能够用到三方图片框架了。
+
+```
+public class STVApplication extends Application {
+
+  @Override
+  public void onCreate() {
+    super.onCreate();
+    // 安装图片引擎
+    ImageEngine.install(new GlideEngine(this));
+    // ImageEngine.install(new PicassoEngine(this));
+  }
+}
+```
+
+一行代码，轻松安装。
+
+需要注意的是，任何时候，后安装的 **Engine** 实例总是会替换掉先前安装的 **Engine** 实例，即 **SuperTextView** 只允许全局存在一个 **Engine** 实例。
+
+只需简单两步，即可完成任意三方图片加载框架的适配。
+
+## 4.10 Adjuster
+
+**Adjuster** 被设计用来在 **SuperTextView** 的绘制过程中插入一些操作。这具有非常重要的意义。比如，实时的改变控件的状态，制作复杂的动画效果或者交互效果。
+
+```
+public class YourAdjuster extends SuperTextView.Adjuster {
+
+  @Override
+  protected void adjust(SuperTextView v, Canvas canvas) {
+    //do your business。
+  }
+
+  @Override
+  public boolean onTouch(SuperTextView v, MotionEvent event) {
+    //you can get the touch event.
+    //If want to get a series of touch event, you must return true here.
+  }
+
+}
+```
+
+通过重写 **Adjuster** 的 `adjust()` 方法，可以获取每次绘制过程中控件的`Canvas`对象，这意味着可以在绘制过程中从外部插入一些新的元素。当然，单单通过 **SuperTextView** 的实例修改其状态也是可以的。
+
+通过重写 **Adjuster** 的 `onTouch()` 方法，可以获取每一次控件的触摸事件，如果在该方法中返回true，表明该 **Adjuster** 需要获取后续的触摸事件，同时也会使得 **SuperTextView** 在整个控件树中回去拦截触摸事件。配合 `adjust()` 可以实现一些复杂的交互效果。值得注意的是，如果在 **SuperTextView** 之前，已经有控件拦截的触摸事件，那么其中的 **Adjuster** 将无法获取到触摸事件。
+
+![link](http://ogemdlrap.bkt.clouddn.com/SuperTextView.gif)
+
+当装载 **Adjuster** 到  **SuperTextView** 之后，需要调用以下方法来开启 **Adjuster** 的功能：
+
+```
+stv.setAutoAdjust(true);
+```
+
+当然，停止 **Adjuster** 只需要设置为false即可。
+
+### 4.10.1 如何装载Adjuster到SuperTextView
+
+```
+stv.addAdjuster(mAdjuster);
+```
+
+通过上面方法可以将一个 **Adjuster** 添加到 **SuperTextView** 中，最多支持添加3个 **Adjuster** 。超过3个的部分，将会始终覆盖最后一个 **Adjuster**。
+
+如果你想要移除一个 **Adjuster**，通过下面方法来实现。
+
+```
+stv.removeAdjuster(index)
+```
+
+### 4.10.2 设置Adjuster的层级
+
+前面有描述过 **SuperTextView** 的层级划分，**Adjuster** 可以通过配置，将其插入到指定的层级。
+
+```
+mAdjuster.setOpportunity(opportunity);
+```
+
+层级定义了如下几个枚举变量：
+
+```
+public enum Opportunity {
+      // 背景层和Drawable层之间
+      BEFORE_DRAWABLE,
+      // Drawable层和文字层之间
+      BEFORE_TEXT,
+      // 最上层
+      AT_LAST
+}
+```
+
+分别对应如下几种场景，其中Emoji图是StateDrawable状态图，蓝色圆形就是一个 **Adjuster** ：
+
+![image](http://ogemdlrap.bkt.clouddn.com/Opportunity.png)
+
+### 4.10.3 开启动画
+
+在 **SuperTextView** 中，可以通过以下方法触发 **SuperTextView** 的定时绘制：
+
+```
+stv.startAnim();
+```
+
+启动动画后， **SuperTextView** 将会以默认 **60fps** 的帧率进行刷新。配合 **Adjuster** 可以十分简单的实现动画效果。
+
+当 **SuperTextView** 离开屏幕后，将会自动停止正在播放的动画，当在次进入屏幕时，又会自动启动。所以开发者可以无需担心动画在后台消耗资源。
+
+当然，开发者也可以随时停止动画，通过调用以下方法：
+
+```
+stv.stopAnim();
+```
+
+通过以下方法，开发者可以随时修改 **SuperTextView** 的刷新频率：
+
+```
+// 每秒30帧
+stv.setFrameRate(30);
+```
+
+
+---
+
+> - 如果你或你的团队正在使用 **SuperTextView**，可以通过邮箱 [`coorchice.cb@alibaba-inc.com`](coorchice.cb@alibaba-inc.com) 告知我。
+> - 如果你喜欢**SuperTextView**，希望能顺手在 [**Github**](https://github.com/chenBingX/SuperTextView) 点个**star**哦！
+
+**文档结束。更多例子可以Clone项目到本地学习，祝你使用愉快！**
+
 
 

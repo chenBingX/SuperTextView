@@ -82,22 +82,5 @@ public class MainActivity extends AppCompatActivity {
         stv_21 = (SuperTextView) findViewById(R.id.stv_21);
         stv_22 = (SuperTextView) findViewById(R.id.stv_22);
         btn_next = (SuperTextView) findViewById(R.id.btn_next);
-
-        // 开启渐变色功能
-        stv_17.setShaderEnable(true);
-        // 设置起始颜色
-        stv_17.setShaderStartColor(Color.BLUE);
-        // 设置结束颜色
-        stv_17.setShaderEndColor(Color.RED);
-        // 设置模式
-        stv_17.setShaderMode(SuperTextView.ShaderMode.LEFT_TO_RIGHT);
-
-        stv_17.setStateDrawableMode(SuperTextView.DrawableMode.CENTER);
-
-        // 设置按压背景变色
-        stv_17.setPressBgColor(Color.RED);
-        // 取消按压文字变色
-        stv_17.setPressTextColor(-99);
-
     }
 }
