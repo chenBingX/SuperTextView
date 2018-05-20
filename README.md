@@ -1,10 +1,13 @@
 # 你好, SuperTextView
 
-#### [【SuperTextView english document】](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
-
-
   [![](https://img.shields.io/badge/SuperTextView-v3.0-brightgreen.svg)](https://github.com/chenBingX/SuperTextView)    [![](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/chenBingX/SuperTextView#license)    [![Insight.io](https://www.insight.io/repoBadge/github.com/tesseract-ocr/tesseract)](https://insight.io/github.com/chenBingX/SuperTextView)
 
+
+#### [【SuperTextView english document】](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
+
+#### [点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/develop_guide.html)
+
+#### [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
 <img src="http://ogemdlrap.bkt.clouddn.com/SuperTextView_yuan%202.png" width=130 height=130 align=right alt="SuperTextView">
 
@@ -15,9 +18,6 @@
 
 ![](https://gw.alicdn.com/tfs/TB1JEPSrH9YBuNjy0FgXXcxcXXa-1195-622.gif)
 
-[点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/develop_guide.html)
-
-[点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
 # 近期更新
 
