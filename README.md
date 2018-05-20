@@ -15,7 +15,7 @@
 
 ![](https://gw.alicdn.com/tfs/TB1JEPSrH9YBuNjy0FgXXcxcXXa-1195-622.gif)
 
-[点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/develop_guide.html)
+[点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/develop_guide.html)
 
 [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
