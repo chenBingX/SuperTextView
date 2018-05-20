@@ -608,5 +608,4 @@ dependencies {
 > - 如果你或你的团队正在使用 **SuperTextView**，可以通过邮箱 [`coorchice.cb@alibaba-inc.com`](coorchice.cb@alibaba-inc.com) 告知我。
 > - 如果你喜欢**SuperTextView**，希望能顺手在 [**Github**](https://github.com/chenBingX/SuperTextView) 点个**star**哦！
 
-[**点击这里跳转SuperTextView项目地址。https://github.com/chenBingX/SuperTextView**](https://github.com/chenBingX/SuperTextView)  
 
