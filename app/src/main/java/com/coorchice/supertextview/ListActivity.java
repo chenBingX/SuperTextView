@@ -21,16 +21,16 @@ import java.util.List;
 
 import com.coorchice.library.SuperTextView;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends Activity {
 
   private RecyclerView rv;
 

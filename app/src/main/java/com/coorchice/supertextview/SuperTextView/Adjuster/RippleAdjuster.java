@@ -18,7 +18,6 @@ package com.coorchice.supertextview.SuperTextView.Adjuster;
 
 import com.coorchice.library.SuperTextView;
 import com.coorchice.supertextview.R;
-import com.coorchice.supertextview.Utils.LogUtils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -141,7 +140,6 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
   @Override
   public boolean onTouch(SuperTextView v, MotionEvent event) {
     int action = event.getAction();
-    LogUtils.e("action = " + action);
     switch (action) {
       case MotionEvent.ACTION_DOWN:
         x = event.getX();
@@ -154,7 +152,6 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
       case MotionEvent.ACTION_CANCEL:
         v.stopAnim();
         v.setAutoAdjust(false);
-        LogUtils.e("stopAnim()");
         break;
     }
     return true;

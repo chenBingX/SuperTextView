@@ -15,14 +15,14 @@
     android:text="《复仇者联盟3》"
     android:textColor="@color/white"
     android:textSize="16sp"
-    app:corner="10dp"
-    app:isShowState="true"
-    app:solid="@color/opacity_2_black"
-    app:state_drawable="@drawable/loading_1"
-    app:state_drawable_height="98.6dp"
-    app:state_drawable_mode="left"
-    app:state_drawable_padding_left="16dp"
-    app:state_drawable_width="166dp"
+    app:stv_corner="10dp"
+    app:stv_isShowState="true"
+    app:stv_solid="@color/opacity_2_black"
+    app:stv_state_drawable="@drawable/loading_1"
+    app:stv_state_drawable_height="98.6dp"
+    app:stv_state_drawable_mode="left"
+    app:stv_state_drawable_padding_left="16dp"
+    app:stv_state_drawable_width="166dp"
     />
 </RelativeLayout>
 

@@ -18,12 +18,12 @@ package com.coorchice.supertextview;
 
 import com.coorchice.library.SuperTextView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class ThirdActivity extends AppCompatActivity {
+public class ThirdActivity extends Activity {
 
   private SuperTextView stv_1;
   private SuperTextView stv_2;

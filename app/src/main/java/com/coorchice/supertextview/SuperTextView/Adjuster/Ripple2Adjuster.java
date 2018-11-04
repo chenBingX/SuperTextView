@@ -140,7 +140,6 @@ public class Ripple2Adjuster extends SuperTextView.Adjuster {
   @Override
   public boolean onTouch(SuperTextView v, MotionEvent event) {
     int action = event.getAction();
-    LogUtils.e("action = " + action);
     switch (action) {
       case MotionEvent.ACTION_DOWN:
         x = event.getX();
@@ -152,7 +151,6 @@ public class Ripple2Adjuster extends SuperTextView.Adjuster {
       case MotionEvent.ACTION_UP:
       case MotionEvent.ACTION_CANCEL:
         radius = 0;
-        LogUtils.e("stopAnim()");
         break;
     }
     return true;

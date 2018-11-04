@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 
 import com.coorchice.library.ImageEngine;
 
+
 /**
  * Project Name:SuperTextView
  * Author:CoorChice

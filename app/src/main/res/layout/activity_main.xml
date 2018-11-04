@@ -32,8 +32,8 @@
         android:text="圆角矩形"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:corner="10dp"
-        app:solid="@color/opacity_5_red"
+        app:stv_corner="10dp"
+        app:stv_solid="@color/opacity_5_red"
         />
 
       <com.coorchice.library.SuperTextView
@@ -45,8 +45,8 @@
         android:text="全圆角矩形"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:corner="40dp"
-        app:solid="#85219E"
+        app:stv_corner="40dp"
+        app:stv_solid="#85219E"
         />
 
       <com.coorchice.library.SuperTextView
@@ -58,9 +58,9 @@
         android:text="方形边框"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:solid="#78C3ED"
-        app:stroke_color="#5166ED"
-        app:stroke_width="5dp"
+        app:stv_solid="#78C3ED"
+        app:stv_stroke_color="#5166ED"
+        app:stv_stroke_width="5dp"
         />
 
       <com.coorchice.library.SuperTextView
@@ -72,10 +72,10 @@
         android:text="圆角边框"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:corner="10dp"
-        app:solid="#228609"
-        app:stroke_color="#FE4926"
-        app:stroke_width="5dp"
+        app:stv_corner="10dp"
+        app:stv_solid="#228609"
+        app:stv_stroke_color="#FE4926"
+        app:stv_stroke_width="5dp"
         />
 
     </LinearLayout>
@@ -96,8 +96,8 @@
         android:text="圆形"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:corner="40dp"
-        app:solid="#008673"
+        app:stv_corner="40dp"
+        app:stv_solid="#008673"
         />
 
       <com.coorchice.library.SuperTextView
@@ -109,10 +109,10 @@
         android:text="圆形边框"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:corner="40dp"
-        app:solid="#5D4FB0"
-        app:stroke_color="#BDAB96"
-        app:stroke_width="5dp"
+        app:stv_corner="40dp"
+        app:stv_solid="#5D4FB0"
+        app:stv_stroke_color="#BDAB96"
+        app:stv_stroke_width="5dp"
         />
 
       <com.coorchice.library.SuperTextView
@@ -124,10 +124,10 @@
         android:text="圆形边框"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:corner="40dp"
-        app:solid="@color/transparent"
-        app:stroke_color="@color/a233be"
-        app:stroke_width="5dp"
+        app:stv_corner="40dp"
+        app:stv_solid="@color/transparent"
+        app:stv_stroke_color="@color/a233be"
+        app:stv_stroke_width="5dp"
         />
     </LinearLayout>
 
@@ -147,9 +147,9 @@
         android:text="左上圆角"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:corner="15dp"
-        app:left_top_corner="true"
-        app:solid="#ed652f"
+        app:stv_corner="15dp"
+        app:stv_left_top_corner="true"
+        app:stv_solid="#ed652f"
         />
 
       <com.coorchice.library.SuperTextView
@@ -162,9 +162,9 @@
         android:text="右上圆角"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:corner="15dp"
-        app:right_top_corner="true"
-        app:solid="#ff443f"
+        app:stv_corner="15dp"
+        app:stv_right_top_corner="true"
+        app:stv_solid="#ff443f"
         />
 
       <com.coorchice.library.SuperTextView
@@ -178,9 +178,9 @@
         android:text="左下圆角"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:corner="15dp"
-        app:left_bottom_corner="true"
-        app:solid="#ed50a2"
+        app:stv_corner="15dp"
+        app:stv_left_bottom_corner="true"
+        app:stv_solid="#ed50a2"
         />
 
       <com.coorchice.library.SuperTextView
@@ -195,9 +195,9 @@
         android:text="右下圆角"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:corner="15dp"
-        app:right_bottom_corner="true"
-        app:solid="#c12ded"
+        app:stv_corner="15dp"
+        app:stv_right_bottom_corner="true"
+        app:stv_solid="#c12ded"
         />
 
       <com.coorchice.library.SuperTextView
@@ -210,10 +210,10 @@
         android:text="设置两个圆角"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:corner="15dp"
-        app:left_top_corner="true"
-        app:right_top_corner="true"
-        app:solid="#ed9581"
+        app:stv_corner="15dp"
+        app:stv_left_top_corner="true"
+        app:stv_right_top_corner="true"
+        app:stv_solid="#ed9581"
         />
 
       <com.coorchice.library.SuperTextView
@@ -228,11 +228,11 @@
         android:text="设置三个圆角"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:corner="15dp"
-        app:left_bottom_corner="true"
-        app:right_bottom_corner="true"
-        app:right_top_corner="true"
-        app:solid="#EDD315"
+        app:stv_corner="15dp"
+        app:stv_left_bottom_corner="true"
+        app:stv_right_bottom_corner="true"
+        app:stv_right_top_corner="true"
+        app:stv_solid="#EDD315"
         />
     </RelativeLayout>
 
@@ -253,11 +253,11 @@
         android:gravity="center"
         android:text="空心文字"
         android:textSize="18sp"
-        app:solid="#EEF3E2"
-        app:text_fill_color="@color/transparent"
-        app:text_stroke="true"
-        app:text_stroke_color="#811D99"
-        app:text_stroke_width="1dp"
+        app:stv_solid="#EEF3E2"
+        app:stv_text_fill_color="@color/transparent"
+        app:stv_text_stroke="true"
+        app:stv_text_stroke_color="#811D99"
+        app:stv_text_stroke_width="1dp"
         />
 
       <com.coorchice.library.SuperTextView
@@ -269,11 +269,11 @@
         android:gravity="center"
         android:text="文字描边"
         android:textSize="18sp"
-        app:solid="#D9B0E2"
-        app:text_fill_color="@color/white"
-        app:text_stroke="true"
-        app:text_stroke_color="#461B50"
-        app:text_stroke_width="1dp"
+        app:stv_solid="#D9B0E2"
+        app:stv_text_fill_color="@color/white"
+        app:stv_text_stroke="true"
+        app:stv_text_stroke_color="#461B50"
+        app:stv_text_stroke_width="1dp"
         />
     </LinearLayout>
 
@@ -295,10 +295,10 @@
         android:text="状态图 1"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:corner="10dp"
-        app:isShowState="true"
-        app:solid="#4CBDD2"
-        app:state_drawable="@drawable/emoji_kiss"
+        app:stv_corner="10dp"
+        app:stv_isShowState="true"
+        app:stv_solid="#4CBDD2"
+        app:stv_state_drawable="@drawable/emoji_kiss"
         />
 
       <com.coorchice.library.SuperTextView
@@ -311,12 +311,12 @@
         android:text="状态图 2"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:corner="10dp"
-        app:isShowState="true"
-        app:solid="#4CBDD2"
-        app:state_drawable="@drawable/emoji_kiss"
-        app:state_drawable_height="20dp"
-        app:state_drawable_width="20dp"
+        app:stv_corner="10dp"
+        app:stv_isShowState="true"
+        app:stv_solid="#4CBDD2"
+        app:stv_state_drawable="@drawable/emoji_kiss"
+        app:stv_state_drawable_height="20dp"
+        app:stv_state_drawable_width="20dp"
         />
 
       <com.coorchice.library.SuperTextView
@@ -324,19 +324,19 @@
         android:layout_width="@dimen/stv_normal_size"
         android:layout_height="40dp"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
+        android:gravity="center|center_horizontal"
         android:paddingLeft="23dp"
         android:text="状态图 3"
         android:textColor="@color/white"
         android:textSize="10sp"
-        app:corner="40dp"
-        app:isShowState="true"
-        app:solid="#4CBDD2"
-        app:state_drawable="@drawable/emoji_kiss"
-        app:state_drawable_height="20dp"
-        app:state_drawable_mode="left"
-        app:state_drawable_padding_left="10dp"
-        app:state_drawable_width="20dp"
+        app:stv_corner="40dp"
+        app:stv_isShowState="true"
+        app:stv_solid="#4CBDD2"
+        app:stv_state_drawable="@drawable/emoji_kiss"
+        app:stv_state_drawable_height="20dp"
+        app:stv_state_drawable_mode="left"
+        app:stv_state_drawable_padding_left="10dp"
+        app:stv_state_drawable_width="20dp"
         />
 
       <com.coorchice.library.SuperTextView
@@ -349,12 +349,12 @@
         android:text="状态图 4"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:isShowState="true"
-        app:solid="#4CBDD2"
-        app:state_drawable="@drawable/triangle"
-        app:state_drawable_height="30dp"
-        app:state_drawable_width="30dp"
-        app:state_drawable_mode="leftTop"
+        app:stv_isShowState="true"
+        app:stv_solid="#4CBDD2"
+        app:stv_state_drawable="@drawable/triangle"
+        app:stv_state_drawable_height="30dp"
+        app:stv_state_drawable_width="30dp"
+        app:stv_state_drawable_mode="leftTop"
         />
     </LinearLayout>
 
@@ -369,10 +369,10 @@
       android:text="使用Adjuster实现动画效果"
       android:textColor="@color/white"
       android:textSize="16dp"
-      app:corner="25dp"
-      app:solid="@color/purple"
-      app:drawableAsBackground="false"
-      app:state_drawable="@drawable/amazing"
+      app:stv_corner="25dp"
+      app:stv_solid="@color/purple"
+      app:stv_drawableAsBackground="false"
+      app:stv_state_drawable="@drawable/amazing"
       />
 
     <com.coorchice.library.SuperTextView
@@ -386,8 +386,8 @@
       android:text="使用Adjuster实现Ripple效果"
       android:textColor="@color/white"
       android:textSize="16dp"
-      app:corner="25dp"
-      app:solid="#ED86AE"
+      app:stv_corner="25dp"
+      app:stv_solid="#ED86AE"
       />
 
     <LinearLayout
@@ -409,12 +409,12 @@
       android:textColor="@color/black"
       android:textSize="7dp"
       android:textStyle="bold"
-      app:corner="20dp"
-      app:isShowState="true"
-      app:solid="#A58FED"
-      app:state_drawable="@drawable/emoji_kiss"
-      app:state_drawable_height="30dp"
-      app:state_drawable_width="30dp"
+      app:stv_corner="20dp"
+      app:stv_isShowState="true"
+      app:stv_solid="#A58FED"
+      app:stv_state_drawable="@drawable/emoji_kiss"
+      app:stv_state_drawable_height="30dp"
+      app:stv_state_drawable_width="30dp"
       />
 
       <com.coorchice.library.SuperTextView
@@ -428,12 +428,12 @@
         android:textColor="@color/black"
         android:textSize="8dp"
         android:textStyle="bold"
-        app:corner="20dp"
-        app:isShowState="true"
-        app:solid="#A58FED"
-        app:state_drawable="@drawable/emoji_kiss"
-        app:state_drawable_height="30dp"
-        app:state_drawable_width="30dp"
+        app:stv_corner="20dp"
+        app:stv_isShowState="true"
+        app:stv_solid="#A58FED"
+        app:stv_state_drawable="@drawable/emoji_kiss"
+        app:stv_state_drawable_height="30dp"
+        app:stv_state_drawable_width="30dp"
         />
 
       <com.coorchice.library.SuperTextView
@@ -447,12 +447,12 @@
         android:textColor="@color/black"
         android:textSize="8dp"
         android:textStyle="bold"
-        app:corner="20dp"
-        app:isShowState="true"
-        app:solid="#A58FED"
-        app:state_drawable="@drawable/emoji_kiss"
-        app:state_drawable_height="30dp"
-        app:state_drawable_width="30dp"
+        app:stv_corner="20dp"
+        app:stv_isShowState="true"
+        app:stv_solid="#A58FED"
+        app:stv_state_drawable="@drawable/emoji_kiss"
+        app:stv_state_drawable_height="30dp"
+        app:stv_state_drawable_width="30dp"
       />
     </LinearLayout>
 
@@ -468,9 +468,9 @@
       <!--android:layout_gravity="center"-->
       <!--android:layout_marginTop="20dp"-->
       <!--android:textStyle="bold"-->
-      <!--app:isShowState="true"-->
-      <!--app:solid="#4CBDD2"-->
-      <!--app:state_drawable="@drawable/emoji_kiss"-->
+      <!--app:stv_isShowState="true"-->
+      <!--app:stv_solid="#4CBDD2"-->
+      <!--app:stv_state_drawable="@drawable/emoji_kiss"-->
       <!--/>-->
 
     <com.coorchice.library.SuperTextView
@@ -485,12 +485,12 @@
       android:text="shader_topToBottom"
       android:textColor="@color/white"
       android:textSize="14sp"
-      app:corner="10dp"
-      app:shaderEnable="true"
-      app:shaderStartColor="@color/main_blue"
-      app:shaderEndColor="@color/pink"
-      app:shaderMode="topToBottom"
-      app:solid="@color/main_blue"
+      app:stv_corner="10dp"
+      app:stv_shaderEnable="true"
+      app:stv_shaderStartColor="@color/main_blue"
+      app:stv_shaderEndColor="@color/pink"
+      app:stv_shaderMode="topToBottom"
+      app:stv_solid="@color/main_blue"
       />
 
     <com.coorchice.library.SuperTextView
@@ -505,12 +505,12 @@
       android:text="shader_bottomToTop"
       android:textColor="@color/white"
       android:textSize="14sp"
-      app:corner="10dp"
-      app:shaderEnable="true"
-      app:shaderStartColor="@color/main_blue"
-      app:shaderEndColor="@color/pink"
-      app:shaderMode="bottomToTop"
-      app:solid="@color/main_blue"
+      app:stv_corner="10dp"
+      app:stv_shaderEnable="true"
+      app:stv_shaderStartColor="@color/main_blue"
+      app:stv_shaderEndColor="@color/pink"
+      app:stv_shaderMode="bottomToTop"
+      app:stv_solid="@color/main_blue"
       />
 
     <com.coorchice.library.SuperTextView
@@ -525,12 +525,12 @@
       android:text="shader_leftToRight"
       android:textColor="@color/white"
       android:textSize="14sp"
-      app:corner="10dp"
-      app:shaderEnable="true"
-      app:shaderStartColor="@color/main_blue"
-      app:shaderEndColor="@color/pink"
-      app:shaderMode="leftToRight"
-      app:solid="@color/main_blue"
+      app:stv_corner="10dp"
+      app:stv_shaderEnable="true"
+      app:stv_shaderStartColor="@color/main_blue"
+      app:stv_shaderEndColor="@color/pink"
+      app:stv_shaderMode="leftToRight"
+      app:stv_solid="@color/main_blue"
       />
 
     <com.coorchice.library.SuperTextView
@@ -545,12 +545,12 @@
       android:text="shader_rightToLeft"
       android:textColor="@color/white"
       android:textSize="14sp"
-      app:corner="10dp"
-      app:shaderEnable="true"
-      app:shaderStartColor="@color/main_blue"
-      app:shaderEndColor="@color/pink"
-      app:shaderMode="rightToLeft"
-      app:solid="@color/main_blue"
+      app:stv_corner="10dp"
+      app:stv_shaderEnable="true"
+      app:stv_shaderStartColor="@color/main_blue"
+      app:stv_shaderEndColor="@color/pink"
+      app:stv_shaderMode="rightToLeft"
+      app:stv_solid="@color/main_blue"
       />
 
 
@@ -566,12 +566,12 @@
       android:text="Next"
       android:textColor="@color/white"
       android:textSize="14sp"
-      app:corner="10dp"
-      app:shaderEnable="true"
-      app:shaderStartColor="@color/blue"
-      app:shaderEndColor="@color/yellow"
-      app:shaderMode="topToBottom"
-      app:solid="@color/main_blue"
+      app:stv_corner="10dp"
+      app:stv_shaderEnable="true"
+      app:stv_shaderStartColor="@color/blue"
+      app:stv_shaderEndColor="@color/yellow"
+      app:stv_shaderMode="topToBottom"
+      app:stv_solid="@color/main_blue"
       />
 
   </LinearLayout>
