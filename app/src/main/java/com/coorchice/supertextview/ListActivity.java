@@ -43,11 +43,11 @@ public class ListActivity extends Activity {
 
     final List<String> datas = new ArrayList<>();
     for (int i = 0; i < 20; i++) {
-      datas.add("http://ogemdlrap.bkt.clouddn.com/revanger_4.jpeg");
-      datas.add("http://ogemdlrap.bkt.clouddn.com/timg-2.jpeg");
-      datas.add("http://ogemdlrap.bkt.clouddn.com/rebanger_3.jpg");
-      datas.add("http://ogemdlrap.bkt.clouddn.com/revanger_2.jpeg");
-      datas.add("http://ogemdlrap.bkt.clouddn.com/revanger_1.jpg");
+      datas.add("https://raw.githubusercontent.com/chenBingX/img/master/其它/u=343452579,826911251&fm=26&gp=0.jpg");
+      datas.add("https://raw.githubusercontent.com/chenBingX/img/master/其它/u=2111584605,3825924903&fm=26&gp=0.jpg");
+      datas.add("https://raw.githubusercontent.com/chenBingX/img/master/其它/u=2294437324,1126471106&fm=26&gp=0.jpg");
+      datas.add("https://raw.githubusercontent.com/chenBingX/img/master/其它/u=2294437324,1126471106&fm=26&gp=0.jpg");
+      datas.add("https://raw.githubusercontent.com/chenBingX/img/master/其它/u=3680923293,1495896930&fm=26&gp=0.jpg");
     }
     rv.setLayoutManager(new LinearLayoutManager(this));
     rv.setItemAnimator(new DefaultItemAnimator());

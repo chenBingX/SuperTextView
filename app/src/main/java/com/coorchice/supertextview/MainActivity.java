@@ -33,8 +33,6 @@ public class MainActivity extends Activity {
     private void initView() {
         findViews();
 
-        stv_0.setSolid(Color.BLACK);
-
         stv_17.setAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
                 .setAutoAdjust(true)
                 .startAnim();
@@ -85,6 +83,8 @@ public class MainActivity extends Activity {
         stv_20 = (SuperTextView) findViewById(R.id.stv_20);
         stv_21 = (SuperTextView) findViewById(R.id.stv_21);
         stv_22 = (SuperTextView) findViewById(R.id.stv_22);
+//        SuperTextView stv_30 = (SuperTextView) findViewById(R.id.stv_30);
+//        stv_30.setTextShaderMode(SuperTextView.ShaderMode.LEFT_TO_RIGHT);
         btn_next = (SuperTextView) findViewById(R.id.btn_next);
     }
 }

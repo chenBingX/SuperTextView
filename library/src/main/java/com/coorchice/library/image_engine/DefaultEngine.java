@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import com.coorchice.library.ImageEngine;
 import com.coorchice.library.utils.ThreadPool;
@@ -28,6 +29,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -70,7 +72,7 @@ public class DefaultEngine implements Engine {
 
   private static byte[] getBytesArrayFromNet(String path) throws Exception {
     // 1.实例化URL对象并指定网址
-    URL url = new URL(path);
+    URL url = new URL(Uri.encode(path,":/-![].,%?&="));
     // 2.打开连接并返回HttpURLConnection对象
     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
     // 3.设置相关参数

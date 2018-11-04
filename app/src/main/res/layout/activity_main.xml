@@ -358,6 +358,149 @@
         />
     </LinearLayout>
 
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="10dp"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_31"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:gravity="bottom|center"
+        android:paddingBottom="6dp"
+        android:text="原图"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        app:stv_isShowState="true"
+        app:stv_state_drawable="@drawable/arrow"
+        app:stv_state_drawable_padding_top="-10dp"
+        />
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_32"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:layout_marginLeft="9dp"
+        android:gravity="bottom|center"
+        android:paddingBottom="6dp"
+        android:text="变为 Gray"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        app:stv_isShowState="true"
+        app:stv_state_drawable="@drawable/arrow"
+        app:stv_state_drawable_padding_top="-10dp"
+        app:stv_state_drawable_tint="@color/gray"
+        />
+
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_33"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:layout_marginLeft="36dp"
+        android:gravity="bottom|center"
+        android:paddingBottom="6dp"
+        android:text="原图"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        app:stv_isShowState="true"
+        app:stv_state_drawable="@drawable/like"
+        app:stv_state_drawable_padding_top="-10dp"
+        />
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_34"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:layout_marginLeft="9dp"
+        android:gravity="bottom|center"
+        android:paddingBottom="6dp"
+        android:text="变为 Red"
+        android:textColor="@color/black"
+        android:textSize="9sp"
+        app:stv_isShowState="true"
+        app:stv_state_drawable="@drawable/like"
+        app:stv_state_drawable_padding_top="-10dp"
+        app:stv_state_drawable_tint="@color/red"
+        />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="10dp"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_36"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:gravity="bottom|center"
+        android:paddingBottom="16dp"
+        android:textColor="@color/black"
+        app:stv_isShowState="true"
+        app:stv_solid="#A58FED"
+        app:stv_state_drawable="@drawable/arrow"
+        app:stv_state_drawable_tint="@color/white"
+        />
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_37"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:layout_marginLeft="16dp"
+        android:gravity="bottom|center"
+        android:paddingBottom="6dp"
+        android:textColor="@color/black"
+        app:stv_isShowState="true"
+        app:stv_solid="#A58FED"
+        app:stv_state_drawable="@drawable/arrow"
+        app:stv_state_drawable_rotate="90"
+        app:stv_state_drawable_tint="@color/white"
+        />
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_38"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:layout_marginLeft="16dp"
+        android:gravity="bottom|center"
+        android:paddingBottom="6dp"
+        android:textColor="@color/black"
+        app:stv_isShowState="true"
+        app:stv_solid="#A58FED"
+        app:stv_state_drawable="@drawable/arrow"
+        app:stv_state_drawable_rotate="180"
+        app:stv_state_drawable_tint="@color/white"
+        />
+
+      <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_39"
+        android:layout_width="@dimen/stv_small_size"
+        android:layout_height="@dimen/stv_small_size"
+        android:layout_marginLeft="16dp"
+        android:gravity="bottom|center"
+        android:paddingBottom="6dp"
+        android:textColor="@color/black"
+        app:stv_isShowState="true"
+        app:stv_solid="#A58FED"
+        app:stv_state_drawable="@drawable/arrow"
+        app:stv_state_drawable_rotate="-90"
+        app:stv_state_drawable_tint="@color/white"
+        />
+
+    </LinearLayout>
+
     <com.coorchice.library.SuperTextView
       android:id="@+id/stv_17"
       android:layout_width="match_parent"
@@ -551,6 +694,89 @@
       app:stv_shaderEndColor="@color/pink"
       app:stv_shaderMode="rightToLeft"
       app:stv_solid="@color/main_blue"
+      />
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_27"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:paddingBottom="1dp"
+      android:text="渐变色文字渐变色文字 leftToRight"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:stv_corner="10dp"
+      app:stv_solid="@color/black"
+      app:stv_textShaderEnable="true"
+      app:stv_textShaderEndColor="@color/yellow"
+      app:stv_textShaderMode="leftToRight"
+      app:stv_textShaderStartColor="@color/red"
+      />
+
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_28"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:paddingBottom="1dp"
+      android:text="渐变色文字渐变色文字 leftToRight"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:stv_corner="10dp"
+      app:stv_solid="@color/black"
+      app:stv_textShaderEnable="true"
+      app:stv_textShaderEndColor="@color/yellow"
+      app:stv_textShaderMode="rightToLeft"
+      app:stv_textShaderStartColor="@color/red"
+      />
+
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_29"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:paddingBottom="1dp"
+      android:text="渐变色文字渐变色文字 leftToRight"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:stv_corner="10dp"
+      app:stv_solid="@color/black"
+      app:stv_textShaderEnable="true"
+      app:stv_textShaderEndColor="@color/blue"
+      app:stv_textShaderMode="topToBottom"
+      app:stv_textShaderStartColor="@color/pink"
+      />
+
+
+    <com.coorchice.library.SuperTextView
+      android:id="@+id/stv_30"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/stv_small_size"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:paddingBottom="1dp"
+      android:text="渐变色文字渐变色文字 leftToRight"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:stv_corner="10dp"
+      app:stv_solid="@color/black"
+      app:stv_textShaderEnable="true"
+      app:stv_textShaderEndColor="@color/blue"
+      app:stv_textShaderMode="bottomToTop"
+      app:stv_textShaderStartColor="@color/pink"
       />
 
 

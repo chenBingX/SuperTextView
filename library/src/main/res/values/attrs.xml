@@ -16,11 +16,15 @@
     <attr name="stv_state_drawable_height" format="dimension"/>
     <attr name="stv_state_drawable_padding_left" format="dimension"/>
     <attr name="stv_state_drawable_padding_top" format="dimension"/>
+    <attr name="stv_state_drawable_tint" format="reference|color"/>
+    <attr name="stv_state_drawable_rotate" format="float"/>
     <attr name="stv_state_drawable2" format="reference"/>
     <attr name="stv_state_drawable2_width" format="dimension"/>
     <attr name="stv_state_drawable2_height" format="dimension"/>
     <attr name="stv_state_drawable2_padding_left" format="dimension"/>
     <attr name="stv_state_drawable2_padding_top" format="dimension"/>
+    <attr name="stv_state_drawable2_tint" format="reference|color"/>
+    <attr name="stv_state_drawable2_rotate" format="float"/>
     <attr name="stv_isShowState" format="boolean"/>
     <attr name="stv_drawableAsBackground" format="boolean"/>
     <attr name="stv_isShowState2" format="boolean"/>
@@ -62,6 +66,15 @@
       <enum name="rightToLeft" value="3"/>
     </attr>
     <attr name="stv_shaderEnable" format="boolean"/>
+    <attr name="stv_textShaderStartColor" format="reference|color"/>
+    <attr name="stv_textShaderEndColor" format="reference|color"/>
+    <attr name="stv_textShaderMode" format="enum">
+      <enum name="topToBottom" value="0"/>
+      <enum name="bottomToTop" value="1"/>
+      <enum name="leftToRight" value="2"/>
+      <enum name="rightToLeft" value="3"/>
+    </attr>
+    <attr name="stv_textShaderEnable" format="boolean"/>
     <attr name="stv_pressBgColor" format="reference|color"/>
     <attr name="stv_pressTextColor" format="reference|color"/>
   </declare-styleable>

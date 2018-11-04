@@ -15,7 +15,7 @@
   ~ Last modified 18-5-13 下午6:28
   -->
 
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -30,4 +30,4 @@
     android:overScrollMode="never"
     ></android.support.v7.widget.RecyclerView>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

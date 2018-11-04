@@ -37,9 +37,9 @@ public class ThirdActivity extends Activity {
 
 
     String url_imag =
-      "http://ogemdlrap.bkt.clouddn.com/revanger_4.jpeg";
+      "https://raw.githubusercontent.com/chenBingX/img/master/其它/u=2051975322,3785503293&fm=26&gp=0.jpg";
     String url_avatar =
-        "http://ogemdlrap.bkt.clouddn.com/timg-2.jpeg";
+        "https://raw.githubusercontent.com/chenBingX/img/master/其它/download.jpg";
 
 
     stv_1.setUrlImage(url_imag, false);
