@@ -33,21 +33,21 @@ public class MainActivity extends Activity {
     private void initView() {
         findViews();
 
-        stv_17.setAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
+        stv_17.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
                 .setAutoAdjust(true)
                 .startAnim();
 
-//    stv_18.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
-        stv_18.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_9_blue)));
+//    stv_18.addAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
+        stv_18.addAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_9_blue)));
 
         OpportunityDemoAdjuster opportunityDemoAdjuster1 = new OpportunityDemoAdjuster();
         opportunityDemoAdjuster1.setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE);
-        stv_19.setAdjuster(opportunityDemoAdjuster1);
+        stv_19.addAdjuster(opportunityDemoAdjuster1);
         stv_19.setAutoAdjust(true);
 
         OpportunityDemoAdjuster opportunityDemoAdjuster2 = new OpportunityDemoAdjuster();
         opportunityDemoAdjuster2.setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_TEXT);
-        stv_20.setAdjuster(opportunityDemoAdjuster2);
+        stv_20.addAdjuster(opportunityDemoAdjuster2);
         stv_20.setAutoAdjust(true);
 
         OpportunityDemoAdjuster opportunityDemoAdjuster3 = new OpportunityDemoAdjuster();

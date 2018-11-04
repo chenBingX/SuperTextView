@@ -846,19 +846,6 @@ public class SuperTextView extends TextView {
     }
 
     /**
-     * 该方法在后续版本将会被移除，请尽快使用{@link SuperTextView#addAdjuster(Adjuster)}来添加一个Adjuster。
-     *
-     * @param adjuster 添加一个Adjuster。{@link SuperTextView#addAdjuster(Adjuster)}
-     *                 注意最多支持添加3个Adjuster，否则新的Adjuster总是会覆盖最后一个Adjuster。
-     *                 {@link Adjuster}。会触发一次重绘。
-     * @return SuperTextView
-     */
-    @Deprecated
-    public SuperTextView setAdjuster(Adjuster adjuster) {
-        return addAdjuster(adjuster);
-    }
-
-    /**
      * 获取最后一个 {@link Adjuster}
      *
      * @return 获得最后一个 {@link Adjuster}，如果存在的话。

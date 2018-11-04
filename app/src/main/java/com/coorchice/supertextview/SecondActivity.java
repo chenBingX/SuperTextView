@@ -40,7 +40,7 @@ public class SecondActivity extends Activity {
     btn = (SuperTextView) findViewById(R.id.btn);
 
 //    btn.setAutoAdjust(true);
-    btn.setAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
+    btn.addAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
 
     btn.setOnTouchListener(new View.OnTouchListener() {
       @Override
