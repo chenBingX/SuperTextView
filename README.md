@@ -1,6 +1,7 @@
 # 你好, SuperTextView
 
-  [![](https://img.shields.io/badge/SuperTextView-v3.0-brightgreen.svg)](https://github.com/chenBingX/SuperTextView)    [![](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/chenBingX/SuperTextView#license)    [![Insight.io](https://www.insight.io/repoBadge/github.com/tesseract-ocr/tesseract)](https://insight.io/github.com/chenBingX/SuperTextView)
+  [![](https://img.shields.io/badge/SuperTextView-v3.1-red.svg)](https://github.com/chenBingX/SuperTextView)    [![](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/chenBingX/SuperTextView#license)   
+
 
 
 #### [【SuperTextView english document】](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
@@ -9,11 +10,11 @@
 
 #### [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
-<img src="http://ogemdlrap.bkt.clouddn.com/SuperTextView_yuan%202.png" width=130 height=130 align=right alt="SuperTextView">
+<img src="http://ogemdlrap.bkt.clouddn.com/SuperTextView_yuan%202.png" width=230 height=230 align=right alt="SuperTextView">
 
-从 **SuperTextView** 诞生之初，便始终坚持一个愿景，即帮助 Android 开发者快速愉悦的去构建一个应用。
+**SuperTextView** 出现的唯一目的，就是帮助 Android 开发者得心应手的构建 Android 应用。
 
-**SuperTextView** 是一个高效的、全能的 **Android** 控件。通过 **SuperTextView** ，你可以快速实现圆角背景，设置渐变色背景，给控件和文字描边，为控件增加状态图，添加按压时文字或背景变色效果，通过 **Adjuster** 模块快速插入操作到控件绘制过程中，展示图片，甚至可以直接从网络上下载图片展示...基本上涵盖了 **Android** 日常开发中会用到的绝大部分效果。而实现这一切的代价，仅仅是给 **SuperTextView** 设置一个属性。**SuperTextView** 可以帮助开发者高效、便捷、优雅的完成需求开发。
+**SuperTextView** 是一个高效的、全能的、优雅的 **Android** 控件。通过 **SuperTextView** ，你可以快速实现圆角背景，设置渐变色背景，给控件和文字描边，为控件增加状态图，添加按压时文字或背景变色效果，通过 **Adjuster** 模块快速插入操作到控件绘制过程中，展示图片，甚至可以直接从网络上下载图片展示...基本上涵盖了 **Android** 日常开发中会用到的绝大部分效果。而实现这一切的代价，仅仅是给 **SuperTextView** 设置一个属性。**SuperTextView** 可以帮助开发者高效、便捷、优雅的完成 Android 应用的开发。
 
 
 ![](https://gw.alicdn.com/tfs/TB1JEPSrH9YBuNjy0FgXXcxcXXa-1195-622.gif)
