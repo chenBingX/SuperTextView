@@ -21,13 +21,13 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="#FAF4FF"
   tools:context="com.coorchice.supertextview.ListActivity">
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:overScrollMode="never"
-    ></android.support.v7.widget.RecyclerView>
+    android:overScrollMode="never"/>
 
 </RelativeLayout>

@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="16dp"
-  android:background="#D6E3F4"
+  android:background="#FAF4FF"
   tools:context="com.coorchice.supertextview.ThirdActivity">
 
   <com.coorchice.library.SuperTextView
@@ -18,8 +18,8 @@
     android:textSize="16sp"
     android:gravity="center_vertical"
     android:paddingLeft="220dp"
-    app:stv_solid="@color/opacity_2_black"
-    app:stv_corner="10dp"
+    app:stv_solid="@color/opacity_1_black"
+    app:stv_corner="2dp"
     app:stv_isShowState="true"
     app:stv_state_drawable="@drawable/loading_1"
     app:stv_state_drawable_mode="left"
@@ -34,7 +34,7 @@
     android:layout_height="150dp"
     android:layout_below="@+id/stv_1"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="32dp"
     app:stv_corner="100dp"
     app:stv_stroke_color="@color/gray_4c"
     app:stv_stroke_width="2dp"

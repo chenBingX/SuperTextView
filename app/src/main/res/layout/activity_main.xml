@@ -753,7 +753,7 @@
       app:stv_corner="10dp"
       app:stv_solid="@color/black"
       app:stv_textShaderEnable="true"
-      app:stv_textShaderEndColor="@color/blue"
+      app:stv_textShaderEndColor="@color/red"
       app:stv_textShaderMode="topToBottom"
       app:stv_textShaderStartColor="@color/pink"
       />
@@ -774,7 +774,7 @@
       app:stv_corner="10dp"
       app:stv_solid="@color/black"
       app:stv_textShaderEnable="true"
-      app:stv_textShaderEndColor="@color/blue"
+      app:stv_textShaderEndColor="@color/red"
       app:stv_textShaderMode="bottomToTop"
       app:stv_textShaderStartColor="@color/pink"
       />
