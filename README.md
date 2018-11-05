@@ -10,7 +10,7 @@
 
 ##### [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
-<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextView_yuan 2.png" width=230 height=230 align=right alt="SuperTextView">
+<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextViewyuan.png" width=230 height=230 align=right alt="SuperTextView">
 
 一直以来 **SuperTextView** 的使命，就是帮助 Android 开发者得心应手的构建 Android 应用。
 

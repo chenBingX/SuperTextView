@@ -1,6 +1,6 @@
 # SuperTextView 开发参考文档
 
-<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextView_yuan 2.png" width=230 height=230 align=right alt="SuperTextView">
+<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextViewyuan.png" width=230 height=230 align=right alt="SuperTextView">
 
   一直以来 **SuperTextView** 的使命，就是帮助 Android 开发者得心应手的构建 Android 应用。
 
