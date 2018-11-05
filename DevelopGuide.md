@@ -189,7 +189,7 @@
 ## 4.1 SuperTextView中的层级
   在 **SuperTextView** 中，有层级划分的概念。
 
-  ![](https://raw.githubusercontent.com/chenBingX/img/master/stv/Opportunity.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextView层级.png)
 
   **1.Background层**：View的`Background`背景层。
 
