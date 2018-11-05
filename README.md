@@ -1,6 +1,6 @@
 # 你好, SuperTextView
 
-  [![](https://img.shields.io/badge/SuperTextView-v3.1-red.svg)](https://github.com/chenBingX/SuperTextView)    [![](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/chenBingX/SuperTextView#license)   
+  [![](https://img.shields.io/badge/SuperTextView-v3.1.1-red.svg)](https://github.com/chenBingX/SuperTextView)    [![](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](https://github.com/chenBingX/SuperTextView#license)   
 
 
 
