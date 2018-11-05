@@ -4,32 +4,186 @@
 
 
 
-#### [【SuperTextView english document】](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
+##### [【SuperTextView english document】](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
 
-#### [点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/develop_guide.html)
+##### [点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/develop_guide.html)
 
-#### [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
+##### [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
-<img src="http://ogemdlrap.bkt.clouddn.com/SuperTextView_yuan%202.png" width=230 height=230 align=right alt="SuperTextView">
+<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextView_yuan 2.png" width=230 height=230 align=right alt="SuperTextView">
 
-**SuperTextView** 出现的唯一目的，就是帮助 Android 开发者得心应手的构建 Android 应用。
+一直以来 **SuperTextView** 的使命，就是帮助 Android 开发者得心应手的构建 Android 应用。
 
 **SuperTextView** 是一个高效的、全能的、优雅的 **Android** 控件。通过 **SuperTextView** ，你可以快速实现圆角背景，设置渐变色背景，给控件和文字描边，为控件增加状态图，添加按压时文字或背景变色效果，通过 **Adjuster** 模块快速插入操作到控件绘制过程中，展示图片，甚至可以直接从网络上下载图片展示...基本上涵盖了 **Android** 日常开发中会用到的绝大部分效果。而实现这一切的代价，仅仅是给 **SuperTextView** 设置一个属性。**SuperTextView** 可以帮助开发者高效、便捷、优雅的完成 Android 应用的开发。
 
 
-![](https://gw.alicdn.com/tfs/TB1JEPSrH9YBuNjy0FgXXcxcXXa-1195-622.gif)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/演示.gif)
 
 
 # 近期更新
 
-## v3.0 - 你期待已久的SuperTextView
+## v3.1.1 - 诚意之作，SuperTextView 
+
+SuperTextView 被打造来帮助 Android 开发者更高效、更便捷、更优雅的开发 Android 应用。
+
+现在，这一诚意之作再次升级。全新的 SuperTextView 将向 Android 开发者开放更多可能性，当然一如既往，SuperTextView 也带来了更多高效的功能。  
+
+### 神奇的着色
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/着色.png)  
+
+SuperTextView 此次的升级，为 StateDrawable 增加了神奇而强大的着色能力。开发者可以轻松的改变一个图标的颜色，而不用再增加一个仅仅是颜色不同的图标到项目中。这项技术将为你的 Android 应用程序带来一次瘦身的机遇。  
+
+```
+# 修改 drawable 的颜色
+app:stv_state_drawable_tint="@color/gray"
+
+# 修改 drawable2 的颜色
+app:stv_state_drawable2_tint="@color/red"
+```
+
+只需要如此一行简单的代码，就能瞬间赋予一张图片千变万化的能力。想要任何色彩，当然是你说了算。而这一切的发生，无需再引进另外一张图片。
+
+在 Java 代码中，有与之对应 set/get 函数，让开发者可以在任何时候都能施展魔法，改变一张图片的色彩。
+
+### 七十二般变化
+
+对 StateDrawable 的增强，不仅仅限于颜色的变换。SuperTextView 更被赋予了改变 StateDrawable 形态的能力。同样的一张图，开发者可以组合出无数种可能。  
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/旋转.png)  
+
+只需简单的几行代码，你便可以随心所欲的变换任何一张图片。  
+
+```
+# 修改 drawable 的旋转角度
+app:stv_state_drawable_rotate="90"
+
+# 修改 drawable2 的旋转角度
+app:stv_state_drawable2_rotate="90"
+```
+
+无需复杂的代码，SuperTextView 一如既往的简洁、优雅。  
+
+同样，在 Java 代码中，也提供了对应的 set/get 函数。
+
+这项能力，可以有效的帮助开发者将 Android 应用的体积向着极致的方向压缩。
+
+
+### 精彩远不止于此
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/文字渐变色.png)  
+
+这就是渐变文字！  
+
+SuperTextView 所提供的可能是目前为止实现渐变文字最简洁、优雅的解决方案。只需要简单的配置，就能实现酷炫的渐变文字效果。
+
+```
+# 是否启用渐变色文字
+app:stv_textShaderEnable="true"
+
+# 设置文字的起始渐变色
+app:stv_textShaderStartColor="@color/red"
+
+# 设置文字的结束渐变色
+app:stv_textShaderEndColor="@color/yellow"
+
+# 设置文字的渐变的模式
+# leftToRight：左 -> 右
+# rightToLeft：右 -> 左
+# topToBottom：上 -> 下
+# bottomToTop：下 -> 上
+app:stv_textShaderMode="leftToRight"
+```
+
+这些属性也在 Java 中开放了 set/get 接口，便于开发者随时动态的修改它们。
+
+
+### 开放了新的 API
+
+#### 1. Adjuster 增加 onAttach、onDetach
+
+Adjuster 增加了两个新的函数：
+
+- `onAttach()`：当 Adjuster 被设置到一个 SuperTextView 中时会被调用。
+- `onDetach()`：当 Adjuster 被从一个 SuperTextView 中移除时会被调用。
+
+通过在 Adjuster 中重写这两个函数，开发者可以在正确的时机进行状态注册、初始化，或者取消注册、释放资源等操作。  
+
+```
+public class MyAdjuster extends SuperTextView.Adjuster{
+
+    @Override
+    protected void adjust(SuperTextView superTextView, Canvas canvas) {
+      
+    }
+
+    @Override
+    public void onAttach(SuperTextView stv) {
+      // 当 Adjuster 被加入一个 SuperTextView 时会被调用
+    }
+
+    @Override
+    public void onDetach(SuperTextView stv) {
+      // 当 Adjuster 被从 SuperTextView 移除时会被调用
+    }
+}
+```
+
+#### 2. 提供 getAdjusterList() 函数
+
+这个函数可以让开发者获得一个 SuperTextView 中的所有 Adjuster。如果 SuperTextView 中没有 Adjuster 的话，将会返回 null。  
+
+### ⚠️ 你必须重视这些变化
+
+#### 1. 属性增加了 stv_ 前缀
+
+现在，SuperTextView 的所有属性都加上了前缀 `stv_`。  
+
+这样做可以避免当开发者引入的其它第三方库时，与 SuperTextView 可能产生的属性名冲突。  
+
+如果开发者目前正在使用一个此前版本的 SuperTextView，那么当升级到新的版本后，需要在所有 xml 中的属性前加上 `stv_` 前缀。  
+
+得益于现代 IDE 的强大，开发者可以轻松的完成这些工作。就像下面这样。  
+
+```
+app:corner="10dp"
+```
+
+corner 是旧版本中的属性名称，升级到新版本后，需要在前面增加 `stv_` 前缀，变为 `stv_corner`。  
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/replace.png)
+
+如果开发者使用的是 AndroidStudio，从 `Edit > Find > Replace` 打开批量替换对话框，然后按照下图操作即可。 
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/属性替换.png)  
+
+如果开发者的项目中只有 SuperTextView 使用了相同的命名空间（如 `app`），那么很幸运，你可以直接将 `app:` 替换为 `app:stv_` 即可。
+
+#### 2. setAdjuster(Adjuster) 已被移除
+ 
+从 SuperTextView v2.0 版本开始，`setAdjuster(Adjuster)` 函数就被标记为了将被移除的状态，同时加入了新的函数 `addAdjuster(Adjuster)` 作为替代。  
+
+在新的版本中，`setAdjuster(Adjuster)` 函数将被正式移除，如果开发者此前使用了该方法，请将其修改为 `addAdjuster(Adjuster)`。
+
+
+
+
+### 如何开始 SuperTextView v3.1.1
+```
+dependencies {
+	 compile 'com.github.chenBingX:SuperTextView:v3.1.1'
+}
+```  
+ 
+
+## v3.0 - 你期待已久的 SuperTextView
 经过一年多的不断的聆听、思考、探索、验证， **SuperTextView** 完成了多次迭代，改善了一些问题，新增了一些功能，不断的完善，以带给开发者更好的开发体验。
 
 如今， **SuperTextView** 已经具备了诸如圆角、边框、描边、按压变色、多状态图、圆角图、万能的 **Adjuster** 、加载网络图片等一系列的常用功能。得益于此，开发者能够轻松实现各种原本十分麻烦的效果，节省大量的开发时间，有效减少页面的复杂度，降低项目维护成本。
 
 写代码，本应如此愉悦！
 
-### 1. 链接云端的SuperTextView
+### 1. 链接云端的 SuperTextView
 
 早在几个月前，就开始有很多开发者向 **CoorChice** 建议，是否能够让 **SuperTextView** 具备加载网络图片的功能。其实这也是 **CoorChice** 很久之前就有考虑过的，但在 **SuperTextView** 的早期，完善其核心功能仍然是首要目标，所以一直没涉猎到图片相关的功能。
 
@@ -41,7 +195,7 @@
 
 那么，现在，你所期待已久的 **SuperTextView** 在此！
 
-![](http://ogemdlrap.bkt.clouddn.com/%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD%E6%BC%94%E7%A4%BA2.gif)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/图片下载演示2.gif)
 
 #### 1.1 加载一张网络图片
 显示一张网络图片，在 **SuperTextView** 中只需要如下代码：
@@ -63,12 +217,12 @@ stv_1.setUrlImage(url, false);
 
 第二个参数为 **false** 表示网络图片将不会被作为背景充满整个 **SuperTextView**，而是作为一个状态图。当然，有关状态图的一切配置都将运用到此。就像上图中的第一个例子一样，整个布局包括图片、文字、背景都在一个 **SuperTextView** 中被处理，从网络下载的图片被作为 **StateDrawable** 放到了图中的位置。
 
-#### 1.2 SuperTextView中图片引擎
+#### 1.2 SuperTextView 中图片引擎
 **SuperTextView** 为了保持依赖库的纯净和尽可能小的体积，并没有内置任何的图片加载框架。所以默认情况，将使用内置的一个简易图片引擎去下载图片，确保开发者能够正常使用展示网络图片的功能。
 
 但 **CoorChice** 仍然建议开发者根据项目的具体情况，选择一个目前正在使用的图片加载框架，设置到 **SuperTextView** 中，以用来加载图片。 **SuperTextView** 具备适配任意图片加载框架的能力。下面 **CoorChice** 将通过 Glide 和 Picasso 的例子展示如何将现有的图片框架安装到 **SuperTextView** 中。
 
-##### 1.2.1 实现图片引擎Engine
+##### 1.2.1 实现图片引擎 Engine
 在 **SuperTextView** 中，核心的图片加载引擎被抽象成接口 **Engine** ，开发者需要根据所用的图片框架，实现一个 **Engine**。
 
 - **Glide图片加载框架**
@@ -129,7 +283,7 @@ public class PicassoEngine implements Engine {
 }
 ```
 
-##### 1.2.2 安装图片引擎Engine
+##### 1.2.2 安装图片引擎 Engine
 实现好 **Engine** 后，下一步就是要将其安装到 **SuperTextView** 中。
 
 **CoorChice** 建议可以在 Application的`onCreate()`中进行安装，这样当需要使用 **SuperTextView** 加载显示网络图片的时候，就能够用到三方图片框架了。
@@ -153,10 +307,10 @@ public class STVApplication extends Application {
 
 现在，你可以让 **SuperTextView** 使用指定的三方图片加载框架去加载图片了。
 
-![](http://ogemdlrap.bkt.clouddn.com/%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD%E5%88%97%E8%A1%A8%E6%BC%94%E7%A4%BA.gif)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/图片下载列表演示.gif)
 
 
-### 2. 如何开始SuperTextView v3.0
+### 2. 如何开始 SuperTextView v3.0
 ```
 	dependencies {
 	   compile 'com.github.chenBingX:SuperTextView:v3.0.0'
@@ -169,12 +323,12 @@ public class STVApplication extends Application {
 ## v2.0 - 未来，从现在开始
 **一直以来，CoorChice都心存一个设想，期待着能够打造这样一个控件：它能满足你的大部分开发需求，展示文字、图片、几何、动画、状态，让你使用一个控件就能高效的完成大部分开发工作。它是如此的强大，仿佛有心智一般，接受着你的输入，按照你的心意，呈现出叹为观止的画面。随着【SuperTextView v2.0】的到来，我们离这个设想更近了一步。现在，来和【SuperTextView v2.0】见个面吧！**
 
-![SuperTextView v2.0](http://ogemdlrap.bkt.clouddn.com/stv_2.0_2.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_2.0_2.png)
 
 ### 图片，就是现在
 在【SuperTextView v2.0】中，增加了对图片展示的支持。但不仅仅止于展示图片，它还能智能的根据你的输入将图片剪裁为你期望的形状。
 
-![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-11-16%2001.51.33.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-11-16 01.51.33.png)
 
 给图片加上圆角，加上边框，或者直接变成圆形，所有的一切只需要设置几个简单的属性，即刻呈现在你的眼前。
 
@@ -233,7 +387,7 @@ public class STVApplication extends Application {
 面对复杂的需求变化，【SuperTextView】为应对这种复杂性，孕育出了第二个状态图 `state_drawable2` 。
 
 
-![](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-11-16%2001.46.23.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-11-16 01.46.23.png)
 
 现在，CoorChice将向你展示，上图中的两种效果是如何实现的。
 
@@ -284,12 +438,12 @@ public class STVApplication extends Application {
 
 就如你所熟悉的一样，`state_drawable2` 延续了第一代一切流畅的操作。在聪明的你合理的使用下，【SuperTextView】一定能够大放异彩！😉
 
-### 属于Adjuster的时代
+### 属于 Adjuster 的时代
 此前，`Adjuster` 的设计使得【SuperTextView】具有了灵魂，成为更聪明的控件。对绘制过程的插入，触摸事件的捕捉，使得你能轻松的从外部改变一个控件的状态。创意始于心，而行于此。
 
 现在，【SuperTextView】能够同时承载最多3个 `Adjuster` ！也许，你的创意会更加的炫目。
 
-![](http://ogemdlrap.bkt.clouddn.com/%E5%A4%9AAdjuster%E6%BC%94%E7%A4%BA4.gif)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/多Adjuster演示.gif)
 
 在上面这个示例中，CoorChice将早起的两个【扫光】和【涟漪】特效都加入到了一个【SuperTextView】中，结果就是你看到的这样。
 
@@ -307,7 +461,7 @@ public class STVApplication extends Application {
 ## v1.4.0
 - 千呼万唤使出来！你想要的按压变色效果在这里！
 
-![image](http://ogemdlrap.bkt.clouddn.com/%E6%8C%89%E5%8E%8B%E5%8F%98%E8%89%B2.gif)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/按压变色.gif)
 
 只需在xml文件中设置以下两个属性就能轻松实现按压变色效果，例如上图那样的：
 
@@ -341,7 +495,7 @@ mSuperTextView.setFrameRate(30);
 - 优化动画驱动的性能。
 - 酷炫不止，渐变来袭！
 
-![link](http://ogemdlrap.bkt.clouddn.com/%E6%B8%90%E5%8F%98%E8%89%B2.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/渐变色.png)
 
 一触即变，想象不至于此。艺术家，发挥你的创造力吧！
 
@@ -401,7 +555,8 @@ mSuperTextView.setAdjuster(new MoveEffectAdjuster())
 
 # 简介
 欢迎使用**SuperTextView**，这篇文档将会向你展示如何使用这个控件来提高你构建项目的效率。
-![Cover](http://ogemdlrap.bkt.clouddn.com/SuperTextView_cover0.png)
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextView_cover0.png)
 
 **SuperTextView**继承自TextView，它能够大量的减少布局的复杂程度，并且使得一些常见的效果变得十分容易实现且高效。同时，它内置了动画驱动，你只需要合理编写**Adjuster**，然后`startAnim()`就可以看到预期的动画效果。它仅仅是一个控件，所以你可以不费吹灰之力的在你的项目中集成使用。
 
@@ -488,28 +643,28 @@ mSuperTextView.getCorner();
 ```
 
 ### 圆形和边框
-![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.15.42.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.15.42.png)
 
 为了实现上图效果，通常你需要编写和管理大量的<shape>文件。现在你只需要在xml或代码中对**SuperTextView**直接进行设置即可。
 
 ### 不简单的圆角
-![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.15.59.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.15.59.png)
 
 不同于简单的圆角，**SuperTextView**支持精确的控制圆角的位置。一个、两个、三个都没问题。一切由你掌控。
 
 ### 神奇的文字描边
-![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.16.13.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.16.13.png)
 
 文字描边从未如此简单！
 
 ### 高效的状态图
-![image](http://ogemdlrap.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-18%2008.16.22.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.16.22.png)
 
 不同于原生的Drawable，**SuperTextView**对于Drawable提供了更多精细化的控制操作。你能够轻松的指定Drawable大小以及位置，只需一个属性就能搞定。
 
 相信你一定深有感触，想要实现上图中的效果，往往需要嵌套多层布局(一般3层吧？)。而**SuperTextView**只需一个控件，并且十分简单高效的就能实现。它能够大量的减少你的App中的布局复杂程度，减少视图树的绘制时间。
 
-## 炸裂的Adjuster
+## 炸裂的 Adjuster
 **Adjuster**被设计用来在**SuperTextView**的绘制过程中插入一些操作。这具有非常重要的意义。比如，默认实现的**DefaultAdjuster**能够动态的调整文字的大小。当然，你可以用它来实现各种各样的效果。
 
 **想要Adjuster生效，你必须调用`SuperTextView.setAutoAdjust(true)`来启用Adjuster功能。当然，你可以所以方便的停止，通过调用`SuperTextView.setAutoAdjust(false)`。并且，你需要注意调用顺序，因为一旦调用了`SuperTextView.setAutoAdjust(true)`，而Adjuster没有被设置的话，将会启用默认的`DefaultAdjuster`(它能够动态的调整文字大小)，直到你设置了你自己的Adjuster**
@@ -558,7 +713,7 @@ public class YourAdjuster extends SuperTextView.Adjuster {
 
 得益于**SuperTextView**内置的动画驱动，你能够结合Adjuster来实现难以置信的动画效果。一切只需要在你合理的编写好Adjuster后，调用`startAnim()`和`stopAnim()`来启动／停止动画。
 
-![link](http://ogemdlrap.bkt.clouddn.com/SuperTextView.gif)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextView.gif)
 
 如你所见，上面的效果就是通过Adjuster来实现的。并且这种**拔插式**的设计，使得你能够随时在同一个**SuperTextView**上使用新的Adjuster，你所有需要做的事情就是创建一个新的Adjuster，然后调用`setAdjuster()`。
 
@@ -566,7 +721,7 @@ public class YourAdjuster extends SuperTextView.Adjuster {
 
 看，你可以使用Adjuster实现自己的Ripple效果。
 
-### 指定Adjuster的层级
+### 指定 Adjuster 的层级
 **Adjuster**贴心的设计了控制作用层级的功能。你可以通过`Adjuster.setOpportunity(Opportunity opportunity)`来指定Adjuster的绘制层级。
 
 在**SuperTextView**中，绘制层级被从下到上分为：背景层、Drawable层、文字层3个层级。通过Opportunity来指定你的Adjuster想要插入到那个层级间。
@@ -581,7 +736,7 @@ public enum Opportunity {
 
 三种类型的Opportunity示意图。
 
-![image](http://ogemdlrap.bkt.clouddn.com/Opportunity.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/Opportunity.png)
 
 默认值是`Opportunity.BEFORE_TEXT`。即第二张图的示例。
 
@@ -600,13 +755,14 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.chenBingX:SuperTextView:v3.0.0'
+    compile 'com.github.chenBingX:SuperTextView:v3.1.1'
 }
 ```
 
-现在，你可以开始使用**SuperTextView**了。
+现在，开始使用 **SuperTextView** 吧。  
 
-> - 如果你或你的团队正在使用 **SuperTextView**，可以通过邮箱 [`coorchice.cb@alibaba-inc.com`](coorchice.cb@alibaba-inc.com) 告知我。
-> - 如果你喜欢**SuperTextView**，希望能顺手在 [**Github**](https://github.com/chenBingX/SuperTextView) 点个**star**哦！
+> - 如果你喜欢 [**SuperTextView**](https://github.com/chenBingX/SuperTextView)，希望能到 [**Github**](https://github.com/chenBingX/SuperTextView) 点个 **star** [🌟](https://github.com/chenBingX/SuperTextView) 哦！
+
+> - **CoorChice** 会不定期的在博客平台分享干货，快进入 [CoorChice的【个人主页】](https://juejin.im/user/57fc43b67db2a200595ffd94) 关注一波吧。
 
 
