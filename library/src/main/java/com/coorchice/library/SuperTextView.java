@@ -132,8 +132,8 @@ public class SuperTextView extends TextView {
     private ShaderMode textShaderMode;
     private boolean textShaderEnable;
     private LinearGradient textShader;
-    private int pressBgColor;
-    private int pressTextColor;
+    private int pressBgColor = Color.TRANSPARENT;
+    private int pressTextColor = -99;
     private boolean drawableAsBackground;
     private BitmapShader drawableBackgroundShader;
 
