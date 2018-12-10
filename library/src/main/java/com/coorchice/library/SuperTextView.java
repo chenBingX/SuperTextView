@@ -133,7 +133,7 @@ public class SuperTextView extends TextView {
     private boolean textShaderEnable;
     private LinearGradient textShader;
     private int pressBgColor = Color.TRANSPARENT;
-    private int pressTextColor = -99;
+    private int pressTextColor = NO_COLOR;
     private boolean drawableAsBackground;
     private BitmapShader drawableBackgroundShader;
 
@@ -143,10 +143,10 @@ public class SuperTextView extends TextView {
     private boolean superTouchEvent;
     private String curImageUrl;
 
-    private int drawableTint;
-    private float drawableRotate;
-    private int drawable2Tint;
-    private float drawable2Rotate;
+    private int drawableTint = NO_COLOR;
+    private float drawableRotate = NO_ROTATE;
+    private int drawable2Tint = NO_COLOR;
+    private float drawable2Rotate = NO_ROTATE;
 
 
     /**
@@ -1471,7 +1471,7 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable2PaddingLeft(float drawablePaddingLeft) {
-        this.drawable2PaddingLeft = drawable2PaddingLeft;
+        this.drawable2PaddingLeft = drawablePaddingLeft;
         postInvalidate();
 
         return this;
