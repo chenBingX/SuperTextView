@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.bumptech.glide.util.Util;
 import com.coorchice.library.SuperTextView;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.Ripple2Adjuster;
@@ -62,11 +63,14 @@ public class SecondActivity extends Activity {
     stv_2.addAdjuster(new Ripple2Adjuster(getResources().getColor(R.color.opacity_9_a58fed)));
     stv_2.setAutoAdjust(true).startAnim();
 
-    findViewById(R.id.stv_3).setOnClickListener(new View.OnClickListener() {
+    SuperTextView stv_3 = (SuperTextView) findViewById(R.id.stv_3);
+    stv_3.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         startActivity(new Intent(SecondActivity.this, ThirdActivity.class));
       }
     });
+    stv_3.setStateDrawable2Mode(SuperTextView.DrawableMode.LEFT);
+    stv_3.setDrawable2PaddingLeft(150);
   }
 }

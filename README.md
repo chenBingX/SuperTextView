@@ -6,7 +6,7 @@
 
 #### [【SuperTextView english document】](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
 
-#### [点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/SuperTextView/develop_guide.html)
+#### [点击此处，查看《SuperTextView 开发参考文档》](https://chenbingx.github.io/temp_html/)
 
 #### [点击此处，查看详细的《SuperTextView API文档》](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
