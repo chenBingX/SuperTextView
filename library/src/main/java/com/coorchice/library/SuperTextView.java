@@ -31,6 +31,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
@@ -42,6 +43,7 @@ import android.widget.TextView;
 
 import com.coorchice.library.image_engine.Engine;
 import com.coorchice.library.sys_adjusters.PressAdjuster;
+import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
 
 import java.util.ArrayList;
@@ -311,21 +313,30 @@ public class SuperTextView extends TextView {
     protected void onDraw(Canvas canvas) {
         width = getWidth();
         height = getHeight();
+
+        boolean needScroll = getScrollX() != 0 || getScrollY() != 0;
+        if (needScroll){
+            canvas.translate(getScrollX(), getScrollY());
+        }
         drawStrokeLine(canvas);
         drawSolid(canvas);
         checkPressColor(canvas);
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_DRAWABLE);
         drawStateDrawable(canvas);
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_TEXT);
+        if (needScroll){
+            canvas.translate(-getScrollX(), -getScrollY());
+        }
         if (textStroke) {
             drawTextStroke(canvas);
         }
         if (textShaderEnable) {
             drawShaderText(canvas);
         } else {
-            super.onDraw(canvas);
+            sdkOnDraw(canvas);
         }
         isNeedToAdjust(canvas, Adjuster.Opportunity.AT_LAST);
+        LogUtils.e("canvas.h = " + canvas.getHeight());
     }
 
     private void drawStrokeLine(Canvas canvas) {
@@ -723,7 +734,7 @@ public class SuperTextView extends TextView {
         setTextColor(textStrokeColor);
         getPaint().setFakeBoldText(true);
         getPaint().setStrokeWidth(textStrokeWidth);
-        super.onDraw(canvas);
+        sdkOnDraw(canvas);
         getPaint().setStyle(Paint.Style.FILL);
         getPaint().setFakeBoldText(false);
         setTextColor(textFillColor);
@@ -751,9 +762,13 @@ public class SuperTextView extends TextView {
                   x0, y0, x1, y1);
             }
             getPaint().setShader(textShader);
+            sdkOnDraw(canvas);
         }
-        super.onDraw(canvas);
         getPaint().setShader(tempShader);
+    }
+
+    private void sdkOnDraw(Canvas canvas){
+        super.onDraw(canvas);
     }
 
     /**
