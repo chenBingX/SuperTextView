@@ -292,7 +292,7 @@
         android:layout_height="@dimen/stv_normal_size"
         android:gravity="bottom|center"
         android:paddingBottom="1dp"
-        android:text="状态图 1 状态图 1状态图 1状态图 1"
+        android:text="状态图 1"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:stv_corner="10dp"

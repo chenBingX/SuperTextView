@@ -28,15 +28,22 @@
         android:layout_height="@dimen/stv_normal_size"
         android:paddingBottom="1dp"
         android:gravity="bottom|center"
-        android:text="状态图 1asdfasdfasdf"
+        android:text="Test Test Test Test"
         android:textColor="@color/black"
         android:layout_centerInParent="true"
         android:singleLine="true"
         android:textSize="14sp"
+        android:ellipsize="end"
         app:stv_corner="10dp"
         app:stv_isShowState="true"
         app:stv_solid="#4CBDD2"
         app:stv_state_drawable="@drawable/emoji_kiss"
+        app:stv_textShaderEnable="true"
+        app:stv_textShaderStartColor="@color/red"
+        app:stv_textShaderEndColor="@color/white"
+        app:stv_text_stroke="true"
+        app:stv_text_stroke_color="@color/black"
+        app:stv_text_stroke_width="2dp"
         />
 
 </RelativeLayout>
