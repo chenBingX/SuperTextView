@@ -253,8 +253,8 @@ public class SuperTextView extends TextView {
                     typedArray.getDimension(R.styleable.SuperTextView_stv_state_drawable2_padding_left, 0);
             drawable2PaddingTop =
                     typedArray.getDimension(R.styleable.SuperTextView_stv_state_drawable2_padding_top, 0);
-            drawable2Tint = typedArray.getColor(R.styleable.SuperTextView_stv_state_drawable_tint, NO_COLOR);
-            drawable2Rotate = typedArray.getFloat(R.styleable.SuperTextView_stv_state_drawable_rotate, NO_ROTATE);
+            drawable2Tint = typedArray.getColor(R.styleable.SuperTextView_stv_state_drawable2_tint, NO_COLOR);
+            drawable2Rotate = typedArray.getFloat(R.styleable.SuperTextView_stv_state_drawable2_rotate, NO_ROTATE);
 
             isShowState = typedArray.getBoolean(R.styleable.SuperTextView_stv_isShowState, false);
             drawableAsBackground =
