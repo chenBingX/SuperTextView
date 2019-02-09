@@ -45,6 +45,12 @@ public class ThirdActivity extends Activity {
     stv_1.setUrlImage(url_imag, false);
     stv_2.setUrlImage(url_avatar);
 
+    stv_1.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(ThirdActivity.this, TestActivity.class));
+      }
+    });
     stv_2.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {

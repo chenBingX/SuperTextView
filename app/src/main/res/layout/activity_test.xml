@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2019 CoorChice <icechen_@outlook.com>
+  ~ <p>
+  ~ Licensed under the Apache License, Version 2.0 (the "License");you may not use this file except
+  ~ in compliance with the License. You may obtain a copy of the License at
+  ~ <p>
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~ <p>
+  ~ Unless required by applicable law or agreed to in writing, software distributed under the License
+  ~ is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+  ~ or implied. See the License for the specific language governing permissions and limitations under
+  ~ the License.
+  ~ <p>
+  ~ Last modified 1/21/19 3:31 PM
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TestActivity">
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_14"
+        android:layout_width="@dimen/stv_normal_size"
+        android:layout_height="@dimen/stv_normal_size"
+        android:paddingBottom="1dp"
+        android:gravity="bottom|center"
+        android:text="Test Test Test Test"
+        android:textColor="@color/black"
+        android:layout_centerInParent="true"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:ellipsize="end"
+        app:stv_corner="10dp"
+        app:stv_isShowState="true"
+        app:stv_solid="#4CBDD2"
+        app:stv_state_drawable="@drawable/emoji_kiss"
+        app:stv_textShaderEnable="true"
+        app:stv_textShaderStartColor="@color/red"
+        app:stv_textShaderEndColor="@color/white"
+        app:stv_text_stroke="true"
+        app:stv_text_stroke_color="@color/black"
+        app:stv_text_stroke_width="2dp"
+        />
+
+</RelativeLayout>
