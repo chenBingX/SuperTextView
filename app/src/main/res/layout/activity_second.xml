@@ -61,7 +61,7 @@
             app:stv_drawableAsBackground="true"
             app:stv_pressBgColor="@color/black"
             app:stv_pressTextColor="@color/white"
-            app:stv_solid="@color/black"
+            app:stv_solid="@color/red"
             app:stv_state_drawable="@drawable/avatar1" />
 
         <com.coorchice.library.SuperTextView
