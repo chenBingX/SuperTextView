@@ -763,3 +763,4 @@ dependencies {
 
 > - 此外，**CoorChice** 会不定期的在博客平台分享干货，内容包括 **Android 相关技术**、**机器学习**、**算法**、**新的技术**，以及**一些对个人发展提升的感悟和思考**。快进入 [CoorChice的【个人主页】](https://juejin.im/user/57fc43b67db2a200595ffd94) 关注一波吧。
 
+> - SuperTextView 指定官方交流群：775951525
