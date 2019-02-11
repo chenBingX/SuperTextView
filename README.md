@@ -1,7 +1,7 @@
 # Hello, Developer！Welcome to use SuperTextView
 
 
- [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.1.4-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-14+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
+[![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.1.4-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-14+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ--Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
 
 # **English** | [**中文**](https://github.com/chenBingX/SuperTextView/blob/master/README_CN.md)
@@ -780,9 +780,9 @@ In fact, **SuperTextView** like a canvas, and you can draw your creative on it. 
 
 Now you can start using **SuperTextView**.
 
-> - If you like [**SuperTextView**] (https://github.com/chenBingX/SuperTextView), I thank you to go to the [**Github**] (https://github.com/chenBingX/SuperTextView) to give me a  [**star** 🌟](https://github.com/chenBingX/SuperTextView) !
+> - If you like [**SuperTextView**](https://github.com/chenBingX/SuperTextView), I thank you to go to the [**Github**](https://github.com/chenBingX/SuperTextView) to give me a  [**star** 🌟](https://github.com/chenBingX/SuperTextView) !
 
-> - In addition, **CoorChice** will occasionally share dry goods on the blog platform, including **Android related technology**, **machine learning**, **algorithm**,**new technology**, And ** some insights and thoughts about personal development and improvement**. Go to [CoorChice's [Personal Homepage]] (https://juejin.im/user/57fc43b67db2a200595ffd94)  to give me a follow.
+> - In addition, **CoorChice** will occasionally share dry goods on the blog platform, including **Android related technology**, **machine learning**, **algorithm**,**new technology**, And ** some insights and thoughts about personal development and improvement**. Go to [CoorChice's 【Personal Homepage】](https://juejin.im/user/57fc43b67db2a200595ffd94)  to give me a follow.
 
 > - SuperTextView QQ Group：***775951525***
 
