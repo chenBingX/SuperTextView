@@ -74,7 +74,7 @@ dependencies {
 [用这里的真实发行版本号, 替换 VERSION_CODE](https://github.com/chenBingX/SuperTextView/releases)
 
 
-# 近期更
+# 近期更新
 
 ![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv全集3.1.3.gif)
 
