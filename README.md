@@ -381,14 +381,14 @@ Now you can have **SuperTextView** load the picture using the specified three-pa
 
 
 ## v2.0 - The future, from now on
-** All along, CoorChice has a vision and expects to be able to create such a control: it can meet most of your development needs, display text, pictures, geometry, animation, state, so that you can use a control to be efficient Complete most of the development work. It is so powerful, as if it is mentally minded, accepting your input, and presenting a stunning picture according to your mind. With the arrival of 【SuperTextView v2.0】, we are one step closer to this idea. Now, come and see 【SuperTextView v2.0】! **
+**All along, CoorChice has a vision and expects to be able to create such a control: it can meet most of your development needs, display text, pictures, geometry, animation, state, so that you can use a control to be efficient Complete most of the development work. It is so powerful, as if it is mentally minded, accepting your input, and presenting a stunning picture according to your mind. With the arrival of 【SuperTextView v2.0】, we are one step closer to this idea. Now, come and see 【SuperTextView v2.0】!**
 
 ![SuperTextView v2.0](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_2.0_2.png)
 
 ### 1 Now, Picture
 In 【SuperTextView v2.0】, support for image display has been added. But it's not just about displaying pictures, it's also smart to crop the image to your desired shape based on your input.
 
-![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-11-16 01.51.33.png)
+![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-11-16%2001.51.33.png)
 
 Add a rounded corner to the picture, add a border, or turn it directly into a circle. All you need to do is set a few simple properties that are instantly visible in front of your eyes.
 
@@ -451,7 +451,7 @@ In the face of complex changes in demand, 【SuperTextView】gave birth to a sec
 `state_drawable2` .
 
 
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-11-16 01.46.23.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-11-16%2001.46.23.png)
 
 Now, CoorChice will show you how the two effects in the above picture are implemented.
 
@@ -683,22 +683,22 @@ mSuperTextView.setCorner(10);
 mSuperTextView.getCorner();
 ```
 #### 1.1 Corner And Border
-![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.15.42.png)
+![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.15.42.png)
 
 Usually, you have to write and manage a lot of <shape> file to implement the effect of the above chart. But now, you can easy to do this in the XML.
 
 #### 1.2 Not Simple Corner
-![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.15.59.png)
+![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.15.59.png)
 
 Different from general Corner, **SuperTextView** can support to precise control the location of corner. One, two , three, what ever you want.
 
 #### 1.3 Amazing Stroke Text
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.16.13.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.16.13.png)
 
 Use Stroke text is so easily！
 
 #### 1.4 High-Efficient State Drawable
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.16.22.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.16.22.png)
 
 Different from general state drawable, **SuperTextView** supports more precise control options. You can easy to set state drawable, just to use one attribute.
 

@@ -385,7 +385,7 @@ public class STVApplication extends Application {
 ### 1 图片，就是现在
 在【SuperTextView v2.0】中，增加了对图片展示的支持。但不仅仅止于展示图片，它还能智能的根据你的输入将图片剪裁为你期望的形状。
 
-![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-11-16 01.51.33.png)
+![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-11-16%2001.51.33.png)
 
 给图片加上圆角，加上边框，或者直接变成圆形，所有的一切只需要设置几个简单的属性，即刻呈现在你的眼前。
 
@@ -444,7 +444,7 @@ public class STVApplication extends Application {
 面对复杂的需求变化，【SuperTextView】为应对这种复杂性，孕育出了第二个状态图 `state_drawable2` 。
 
 
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-11-16 01.46.23.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-11-16%2001.46.23.png)
 
 现在，CoorChice将向你展示，上图中的两种效果是如何实现的。
 
@@ -684,24 +684,24 @@ mSuperTextView.getCorner();
 
 #### 1.1 圆形和边框
 
-![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.15.42.png)
+![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.15.42.png)
 
 为了实现上图效果，通常你需要编写和管理大量的<shape>文件。现在你只需要在xml或代码中对**SuperTextView**直接进行设置即可。
 
 #### 1.2 不简单的圆角
-![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.15.59.png)
+![image](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.15.59.png)
 
 不同于简单的圆角，**SuperTextView**支持精确的控制圆角的位置。一个、两个、三个都没问题。一切由你掌控。
 
 #### 1.3 神奇的文字描边
 
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.16.13.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.16.13.png)
 
 文字描边从未如此简单！
 
 #### 1.4 高效的状态图
 
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照 2017-04-18 08.16.22.png)
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/屏幕快照%202017-04-18%2008.16.22.png)
 
 不同于原生的Drawable，**SuperTextView**对于Drawable提供了更多精细化的控制操作。你能够轻松的指定Drawable大小以及位置，只需一个属性就能搞定。
 
