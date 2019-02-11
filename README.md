@@ -1,29 +1,87 @@
 # 你好, 开发者！欢迎使用 SuperTextView
+-------
 
 
  [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.1.3-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-14+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/交流群-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
-#### [Portal：《SuperTextView english document》](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md)
 
-#### [传送门：《SuperTextView 开发参考文档》- 你可以学习到如何使用 SuperTextView 来提高你的应用的构建效率](https://chenbingx.github.io/temp_html/)
+# [**English**](https://github.com/chenBingX/SuperTextView/blob/master/README_EN.md) | **中文**
 
-#### [传送门：《SuperTextView API文档》— 你可以查看 SuperTextView 所有可用 API 及属性](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
+<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextViewyuan.png" width=150 height=150 align=right alt="SuperTextView">
 
-#### [ 📲 点击链接，下载体验 **Demo**](https://raw.githubusercontent.com/chenBingX/img/master/%E5%85%B6%E5%AE%83%E6%96%87%E4%BB%B6/STVDemo.apk)
+嘿，开发者您好，欢迎使用 **SuperTextView** ！感谢您及数万位 **Android** 开发者的信赖 😘
+
+**SuperTextView** 是一个专注于服务 **Android**  开发者的组件。意在帮助您构建精彩绝伦的 **Android** 应用。
+
+在过去 1 年半的时间里，**SuperTextView** 经过了多次迭代和上百次的 **commit**，已经被广泛应用于各类型商业 App 中，经受住了千万级日活的考验。相信  **SuperTextView**  也能为您带来开发体验上的提升，以及协助您构建或改进出更加精美的应用。
+
+**SuperTextView** 正在以一种更加简洁的方式来提升 **Android** 开发者们的开发体验。在大家的支持下，未来，**SuperTextView** 会持续服务于开发者，为开发者带来更多的惊喜。
+
+# 特性
+------
+- 为 **View** 设置圆角
+- 支持单独控制每一个圆角
+- 为 **View** 添加边框
+- 为文字增加描边或空心效果
+- 支持最多 2 个 **Drawable** 展示
+- 可准确控制 **Drawable** 大小及位置
+- 支持渐变色背景
+- 触摸变色
+- 展示图片，包括网络图片
+- 为图片设置圆角
+- 为图片增加边框
+- 可插入操作的 **Adjuster** 模块
+- 修改 **Drawable** 的颜色
+- 修改 **Drawable** 的旋转角度
+- 支持文字渐变色效果
+- ...
+
+# Demo 和演示
+-------
+
+[ 📲 点击此处（或扫描下方二维码），下载体验 **Demo**](https://raw.githubusercontent.com/chenBingX/img/master/%E5%85%B6%E5%AE%83%E6%96%87%E4%BB%B6/STVDemo.apk)
+
+<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_Demo_url.png" width=150 height=150 align=center alt="SuperTextView">
+
+|One|Two|Three|
+|:---:|:---:|:---:|
+|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv演示1.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv演示2.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv演示3.gif)|
 
 
-<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextViewyuan.png" width=130 height=130 align=right alt="SuperTextView">
+# 传送门区
+-------
 
-**SuperTextView** 一个专注于服务 **Android**  开发者的组件。意在帮助  **Android**  开发者构建精彩绝伦的 **Android** 应用。
+- [【传送门】：《SuperTextView 开发参考文档》- 你可以学习到如何使用 SuperTextView 来提高你的应用的构建效率](https://chenbingx.github.io/temp_html/)
 
-**SuperTextView** 是一个高效的、灵活的 **Android** 组件。使用 **SuperTextView** ，你可以快速实现诸如圆角背景、设置渐变色背景、给控件和文字增加边框、为控件增加状态图、添加按压时文字或背景变色效果、用于展示图片、处理图片的边框和圆角，甚至可以直接从网络中下载图片展示...基本上涵盖了 **Android** 日常开发中会遇到的绝大部分需求。其中专为 **SuperTextView** 而设计的 **Adjuster** 模块，能够快速插入操作到控件绘制过程中，以及能够捕捉触摸事件，可以使 **Android** 开发者用一种全新的方式编写出充满想象力的特效。
-
-**SuperTextView** 正在以一种更加简洁的方式来提升 **Android** 开发者们的开发体验。在大家的支持下，未来，**SuperTextView** 会持续服务于开发者，为开发者们带来更多的惊喜。
+- [【传送门】：《SuperTextView API文档》— 你可以查看 SuperTextView 所有可用 API 及属性](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 
 
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv全集3.1.3.gif)
+# 如何开始使用
+
+-----
+
+在你的**build.gradle**中加入：
+
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    compile 'com.github.chenBingX:SuperTextView:VERSION_CODE'
+}
+```
+
+[用这里的真实发行版本号, 替换 VERSION_CODE](https://github.com/chenBingX/SuperTextView/releases)
+
 
 # 近期更新
+-------
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv全集3.1.3.gif)
 
 ## v3.1.1 - 诚意之作，SuperTextView
 
@@ -742,23 +800,6 @@ public enum Opportunity {
 
 事实上，只要你愿意，**SuperTextView**就相当于一张画布，你可以在上面任意的挥洒你的创意。它能够让你专注于创作，而不用去在意编写那些无用麻烦的代码。
 
-# 如何开始使用
-
-在你的**build.gradle**中加入：
-
-```
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-
-dependencies {
-    compile 'com.github.chenBingX:SuperTextView:v3.1.3'
-}
-```
-
 现在，你可以开始使用**SuperTextView**了。
 
 > - 如果你喜欢 [**SuperTextView**](https://github.com/chenBingX/SuperTextView)，希望能到 [**Github**](https://github.com/chenBingX/SuperTextView) 点个 **star** [🌟](https://github.com/chenBingX/SuperTextView) 哦！
@@ -766,4 +807,23 @@ dependencies {
 > - 此外，**CoorChice** 会不定期的在博客平台分享干货，内容包括 **Android 相关技术**、**机器学习**、**算法**、**新的技术**，以及**一些对个人发展提升的感悟和思考**。快进入 [CoorChice的【个人主页】](https://juejin.im/user/57fc43b67db2a200595ffd94) 关注一波吧。
 
 > - SuperTextView 指定官方交流群：***775951525***
+
+# License
+
+-------
+
+
+    Copyright 2017 CoorChice
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
 

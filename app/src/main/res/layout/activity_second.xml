@@ -198,7 +198,7 @@
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:text="Next"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:stv_corner="25dp"
@@ -220,6 +220,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             app:stv_drawableAsBackground="true"
-            app:stv_state_drawable="@drawable/revanger_4" />
+            app:stv_state_drawable="@drawable/bige3"
+            android:layout_marginBottom="16dp"
+            />
     </RelativeLayout>
 </ScrollView>
