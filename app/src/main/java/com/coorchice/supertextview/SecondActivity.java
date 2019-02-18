@@ -33,6 +33,7 @@ public class SecondActivity extends Activity {
 
     private SuperTextView btn;
     private SuperTextView stv_2;
+    private SuperTextView stv_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +73,13 @@ public class SecondActivity extends Activity {
         });
         stv_3.setStateDrawable2Mode(SuperTextView.DrawableMode.LEFT);
         stv_3.setDrawable2PaddingLeft(150);
+
+        stv_1 = (SuperTextView) findViewById(R.id.stv_1);
+        stv_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SecondActivity.this, TestActivity.class));
+            }
+        });
     }
 }

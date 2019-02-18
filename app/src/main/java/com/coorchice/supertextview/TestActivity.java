@@ -16,8 +16,13 @@
 
 package com.coorchice.supertextview;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.View;
+
+import com.coorchice.library.SuperTextView;
 
 public class TestActivity extends ActionBarActivity {
 
@@ -25,5 +30,8 @@ public class TestActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        SuperTextView stv1 = (SuperTextView)findViewById(R.id.stv_1);
+//        stv1.setDrawable(new ColorDrawable(Color.parseColor("#4CBDD2")));
     }
 }

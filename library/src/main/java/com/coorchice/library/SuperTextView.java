@@ -226,7 +226,7 @@ public class SuperTextView extends TextView {
                     typedArray.getColor(R.styleable.SuperTextView_stv_stroke_color, DEFAULT_STROKE_COLOR);
 
             drawable = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable);
-            if (drawable != null){
+            if (drawable != null) {
                 drawable = drawable.mutate();
             }
             drawableWidth =
@@ -242,7 +242,7 @@ public class SuperTextView extends TextView {
 
 
             drawable2 = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable2);
-            if (drawable2 != null){
+            if (drawable2 != null) {
                 drawable2 = drawable2.mutate();
             }
             drawable2Width =
@@ -280,12 +280,12 @@ public class SuperTextView extends TextView {
             shaderEnable = typedArray.getBoolean(R.styleable.SuperTextView_stv_shaderEnable, false);
 
             textShaderStartColor =
-              typedArray.getColor(R.styleable.SuperTextView_stv_textShaderStartColor, 0);
+                    typedArray.getColor(R.styleable.SuperTextView_stv_textShaderStartColor, 0);
             textShaderEndColor =
-              typedArray.getColor(R.styleable.SuperTextView_stv_textShaderEndColor, 0);
+                    typedArray.getColor(R.styleable.SuperTextView_stv_textShaderEndColor, 0);
             textShaderMode =
-              ShaderMode.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_textShaderMode,
-                ShaderMode.TOP_TO_BOTTOM.code));
+                    ShaderMode.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_textShaderMode,
+                            ShaderMode.TOP_TO_BOTTOM.code));
             textShaderEnable = typedArray.getBoolean(R.styleable.SuperTextView_stv_textShaderEnable, false);
 
             pressBgColor = typedArray.getColor(R.styleable.SuperTextView_stv_pressBgColor, Color.TRANSPARENT);
@@ -315,7 +315,7 @@ public class SuperTextView extends TextView {
         height = getHeight();
 
         boolean needScroll = getScrollX() != 0 || getScrollY() != 0;
-        if (needScroll){
+        if (needScroll) {
             canvas.translate(getScrollX(), getScrollY());
         }
         drawStrokeLine(canvas);
@@ -324,7 +324,7 @@ public class SuperTextView extends TextView {
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_DRAWABLE);
         drawStateDrawable(canvas);
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_TEXT);
-        if (needScroll){
+        if (needScroll) {
             canvas.translate(-getScrollX(), -getScrollY());
         }
         if (textStroke) {
@@ -498,14 +498,14 @@ public class SuperTextView extends TextView {
                 getDrawableBounds();
                 drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1],
                         (int) drawableBounds[2], (int) drawableBounds[3]);
-                if (drawableTint != NO_COLOR){
+                if (drawableTint != NO_COLOR) {
                     drawable.setColorFilter(drawableTint, PorterDuff.Mode.SRC_IN);
                 }
-                if (drawableRotate != NO_ROTATE){
+                if (drawableRotate != NO_ROTATE) {
                     canvas.save();
                     canvas.rotate(drawableRotate,
-                      drawableBounds[0] + (drawableBounds[2] - drawableBounds[0]) / 2,
-                      drawableBounds[1] + (drawableBounds[3] - drawableBounds[1]) / 2);
+                            drawableBounds[0] + (drawableBounds[2] - drawableBounds[0]) / 2,
+                            drawableBounds[1] + (drawableBounds[3] - drawableBounds[1]) / 2);
                     drawable.draw(canvas);
                     canvas.restore();
                 } else {
@@ -518,14 +518,14 @@ public class SuperTextView extends TextView {
             getDrawable2Bounds();
             drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1],
                     (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
-            if (drawable2Tint != NO_COLOR){
+            if (drawable2Tint != NO_COLOR) {
                 drawable2.setColorFilter(drawable2Tint, PorterDuff.Mode.SRC_IN);
             }
-            if (drawable2Rotate != NO_ROTATE){
+            if (drawable2Rotate != NO_ROTATE) {
                 canvas.save();
                 canvas.rotate(drawable2Rotate,
-                  drawable2Bounds[0] + (drawable2Bounds[2] - drawable2Bounds[0]) / 2,
-                  drawable2Bounds[1] + (drawable2Bounds[3] - drawable2Bounds[1]) / 2);
+                        drawable2Bounds[0] + (drawable2Bounds[2] - drawable2Bounds[0]) / 2,
+                        drawable2Bounds[1] + (drawable2Bounds[3] - drawable2Bounds[1]) / 2);
                 drawable2.draw(canvas);
                 canvas.restore();
             } else {
@@ -536,7 +536,11 @@ public class SuperTextView extends TextView {
 
     private void drawDrawableBackground(Canvas canvas) {
         if (drawableBackgroundShader == null) {
-            Bitmap bitmap = STVUtils.drawableToBitmap(drawable);
+            if (!(drawable.getIntrinsicHeight() > 0)
+                    || !(drawable.getIntrinsicWidth() > 0)) {
+                drawable.setBounds(0, 0, width, height);
+            }
+            Bitmap bitmap = STVUtils.drawableToBitmap(drawable, width, height);
             bitmap = computeSuitedBitmapSize(bitmap);
             drawableBackgroundShader =
                     new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -759,7 +763,7 @@ public class SuperTextView extends TextView {
             }
             if (textShader == null) {
                 textShader = createShader(textShaderStartColor, textShaderEndColor, textShaderMode,
-                  x0, y0, x1, y1);
+                        x0, y0, x1, y1);
             }
             getPaint().setShader(textShader);
             sdkOnDraw(canvas);
@@ -767,7 +771,7 @@ public class SuperTextView extends TextView {
         getPaint().setShader(tempShader);
     }
 
-    private void sdkOnDraw(Canvas canvas){
+    private void sdkOnDraw(Canvas canvas) {
         super.onDraw(canvas);
     }
 
@@ -872,34 +876,33 @@ public class SuperTextView extends TextView {
         return null;
     }
 
-  /**
-   * 获得index对应的 {@link Adjuster}。
-   *
-   * @param index
-   *          期望获得的Adjuster的index。
-   * @return index对应的Adjuster，如果参数错误返回null。
-   */
-  public Adjuster getAdjuster(int index) {
-    int realIndex = SYSTEM_ADJUSTER_SIZE + index;
-    if (realIndex > SYSTEM_ADJUSTER_SIZE - 1 && realIndex < adjusterList.size()) {
-      return adjusterList.get(realIndex);
+    /**
+     * 获得index对应的 {@link Adjuster}。
+     *
+     * @param index 期望获得的Adjuster的index。
+     * @return index对应的Adjuster，如果参数错误返回null。
+     */
+    public Adjuster getAdjuster(int index) {
+        int realIndex = SYSTEM_ADJUSTER_SIZE + index;
+        if (realIndex > SYSTEM_ADJUSTER_SIZE - 1 && realIndex < adjusterList.size()) {
+            return adjusterList.get(realIndex);
+        }
+        return null;
     }
-    return null;
-  }
 
-  /**
-   * 获得SuperTextView中的所有Adjuster，如果没有返回null
-   *
-   * @return 如果SuperTextView有Adjuster，返回List<Adjuster>；否则返回null
-   */
-  public List<Adjuster> getAdjusterList() {
-    if (adjusterList.size() > SYSTEM_ADJUSTER_SIZE) {
-      ArrayList<Adjuster> r = new ArrayList<>();
-      r.addAll(SYSTEM_ADJUSTER_SIZE, adjusterList);
-      return r;
+    /**
+     * 获得SuperTextView中的所有Adjuster，如果没有返回null
+     *
+     * @return 如果SuperTextView有Adjuster，返回List<Adjuster>；否则返回null
+     */
+    public List<Adjuster> getAdjusterList() {
+        if (adjusterList.size() > SYSTEM_ADJUSTER_SIZE) {
+            ArrayList<Adjuster> r = new ArrayList<>();
+            r.addAll(SYSTEM_ADJUSTER_SIZE, adjusterList);
+            return r;
+        }
+        return null;
     }
-    return null;
-  }
 
     /**
      * 添加一个Adjuster。
@@ -910,13 +913,13 @@ public class SuperTextView extends TextView {
      */
     public SuperTextView addAdjuster(Adjuster adjuster) {
         if (adjusterList.size() < SYSTEM_ADJUSTER_SIZE + ALLOW_CUSTOM_ADJUSTER_SIZE) {
-      innerAddAdjuster(adjuster);
+            innerAddAdjuster(adjuster);
         } else {
-      removeAdjuster(adjusterList.size() - 1);
-      innerAddAdjuster(adjuster);
+            removeAdjuster(adjusterList.size() - 1);
+            innerAddAdjuster(adjuster);
         }
-    return this;
-  }
+        return this;
+    }
 
     private void addSysAdjuster(Adjuster adjuster) {
         if (adjuster != null) {
@@ -926,46 +929,45 @@ public class SuperTextView extends TextView {
         }
     }
 
-  private void innerAddAdjuster(Adjuster adjuster) {
-    adjusterList.add(adjuster);
-    adjuster.attach(this);
-    postInvalidate();
-  }
+    private void innerAddAdjuster(Adjuster adjuster) {
+        adjusterList.add(adjuster);
+        adjuster.attach(this);
+        postInvalidate();
+    }
 
-  /**
-   * 移除指定位置的Adjuster。
-   *
-   * @param index
-   *          期望移除的Adjuster的位置。
-   * @return 被移除的Adjuster，如果参数错误返回null。
-   */
+    /**
+     * 移除指定位置的Adjuster。
+     *
+     * @param index 期望移除的Adjuster的位置。
+     * @return 被移除的Adjuster，如果参数错误返回null。
+     */
     public Adjuster removeAdjuster(int index) {
         int realIndex = SYSTEM_ADJUSTER_SIZE + index;
         if (realIndex > SYSTEM_ADJUSTER_SIZE - 1 && realIndex < adjusterList.size()) {
             Adjuster remove = adjusterList.remove(realIndex);
-      remove.detach(this);
-      postInvalidate();
+            remove.detach(this);
+            postInvalidate();
             return remove;
         }
         return null;
     }
 
-  /**
-   * 移除指定的Adjuster，如果包含的话。
-   *
-   * @param adjuster 需要被移除的Adjuster
-   * @return 被移除Adjuster在移除前在Adjuster列表中的位置。如果没有包含，返回-1。
-   */
-  public int removeAdjuster(Adjuster adjuster) {
-    if (adjuster.type != Adjuster.TYPE_SYSTEM && adjusterList.contains(adjuster)) {
-      int index = adjusterList.indexOf(adjuster);
-      adjusterList.remove(adjuster);
-      adjuster.detach(this);
-      postInvalidate();
-      return index;
+    /**
+     * 移除指定的Adjuster，如果包含的话。
+     *
+     * @param adjuster 需要被移除的Adjuster
+     * @return 被移除Adjuster在移除前在Adjuster列表中的位置。如果没有包含，返回-1。
+     */
+    public int removeAdjuster(Adjuster adjuster) {
+        if (adjuster.type != Adjuster.TYPE_SYSTEM && adjusterList.contains(adjuster)) {
+            int index = adjusterList.indexOf(adjuster);
+            adjusterList.remove(adjuster);
+            adjuster.detach(this);
+            postInvalidate();
+            return index;
+        }
+        return -1;
     }
-    return -1;
-  }
 
     /**
      * 检查是否开启了文字描边
@@ -1536,13 +1538,13 @@ public class SuperTextView extends TextView {
 
     /**
      * 设置第一个状态图的混合颜色。可以修改原本的drawable的颜色。
-     *
+     * <p>
      * 如果需要还原为原来的颜色只需要设置颜色为 {@link SuperTextView#NO_COLOR}.
      *
      * @param tintColor 目标混合颜色
      * @return
      */
-    public SuperTextView setDrawableTint(int tintColor){
+    public SuperTextView setDrawableTint(int tintColor) {
         this.drawableTint = tintColor;
         postInvalidate();
         return this;
@@ -1550,7 +1552,7 @@ public class SuperTextView extends TextView {
 
     /**
      * 获得第一个状态图的混合颜色。
-     *
+     * <p>
      * 默认为 {@link SuperTextView#NO_COLOR}
      *
      * @return
@@ -1562,13 +1564,13 @@ public class SuperTextView extends TextView {
 
     /**
      * 设置第二个状态图的混合颜色。可以修改原本的drawable的颜色。
-     *
+     * <p>
      * 如果需要还原为原来的颜色只需要设置颜色为 {@link SuperTextView#NO_COLOR}.
      *
      * @param tintColor 目标混合颜色
      * @return
      */
-    public SuperTextView setDrawable2Tint(int tintColor){
+    public SuperTextView setDrawable2Tint(int tintColor) {
         this.drawable2Tint = tintColor;
         postInvalidate();
         return this;
@@ -1576,7 +1578,7 @@ public class SuperTextView extends TextView {
 
     /**
      * 获得第二个状态图的混合颜色。
-     *
+     * <p>
      * 默认为 {@link SuperTextView#NO_COLOR}
      *
      * @return
@@ -1587,13 +1589,13 @@ public class SuperTextView extends TextView {
 
     /**
      * 设置第一个状态图的旋转角度。
-     *
+     * <p>
      * 如果需要恢复默认角度只需要设置为 {@link SuperTextView#NO_ROTATE}.
      *
      * @param rotate 需要旋转的角度
      * @return
      */
-    public SuperTextView setDrawableRotate(float rotate){
+    public SuperTextView setDrawableRotate(float rotate) {
         this.drawableRotate = rotate;
         postInvalidate();
         return this;
@@ -1601,7 +1603,7 @@ public class SuperTextView extends TextView {
 
     /**
      * 获得第一个状态图的旋转角度。
-     *
+     * <p>
      * 默认为 {@link SuperTextView#NO_ROTATE}
      *
      * @return
@@ -1612,13 +1614,13 @@ public class SuperTextView extends TextView {
 
     /**
      * 设置第二个状态图的旋转角度。
-     *
+     * <p>
      * 如果需要恢复默认角度只需要设置为 {@link SuperTextView#NO_ROTATE}.
      *
      * @param rotate 需要旋转的角度
      * @return
      */
-    public SuperTextView setDrawable2Rotate(float rotate){
+    public SuperTextView setDrawable2Rotate(float rotate) {
         this.drawable2Rotate = rotate;
         postInvalidate();
         return this;
@@ -1626,7 +1628,7 @@ public class SuperTextView extends TextView {
 
     /**
      * 获得第二个状态图的旋转角度。
-     *
+     * <p>
      * 默认为 {@link SuperTextView#NO_ROTATE}
      *
      * @return
@@ -1634,7 +1636,6 @@ public class SuperTextView extends TextView {
     public float getDrawable2Rotate() {
         return drawable2Rotate;
     }
-
 
 
     /**
@@ -2067,10 +2068,10 @@ public class SuperTextView extends TextView {
         private Opportunity opportunity = Opportunity.BEFORE_TEXT;
         private int type = TYPE_CUSTOM;
 
-    /**
-     * 当前Adjuster被设置到的SuperTextView
-     */
-    public SuperTextView host;
+        /**
+         * 当前Adjuster被设置到的SuperTextView
+         */
+        public SuperTextView host;
 
         /**
          * 在Canvas上绘制的东西将能够呈现在SuperTextView上。
@@ -2095,55 +2096,51 @@ public class SuperTextView extends TextView {
             return false;
         }
 
-    /**
-     * 当Adjuster被通过 {@link SuperTextView#addAdjuster(Adjuster)} 设置到一个SuperTextView中时，
-     * 会被调用。用于建立Adjuster与宿主SuperTextView之间的关系。
-     *
-     * @param stv
-     *          当前被设置到的SuperTextView对象
-     * @return
-     */
-    private void attach(SuperTextView stv) {
-      this.host = stv;
-      onAttach(this.host);
-    }
+        /**
+         * 当Adjuster被通过 {@link SuperTextView#addAdjuster(Adjuster)} 设置到一个SuperTextView中时，
+         * 会被调用。用于建立Adjuster与宿主SuperTextView之间的关系。
+         *
+         * @param stv 当前被设置到的SuperTextView对象
+         * @return
+         */
+        private void attach(SuperTextView stv) {
+            this.host = stv;
+            onAttach(this.host);
+        }
 
-    /**
-     * 当Adjuster被通过 {@link SuperTextView#addAdjuster(Adjuster)} 设置到一个SuperTextView中时， 会被调用。
-     *
-     * 在这个方法中，开发者可以根据当前所处的SuperTextView环境，进行一些初始化的配置。
-     *
-     * @param stv
-     *          当前被设置到的SuperTextView对象
-     */
-    public void onAttach(SuperTextView stv) {
+        /**
+         * 当Adjuster被通过 {@link SuperTextView#addAdjuster(Adjuster)} 设置到一个SuperTextView中时， 会被调用。
+         * <p>
+         * 在这个方法中，开发者可以根据当前所处的SuperTextView环境，进行一些初始化的配置。
+         *
+         * @param stv 当前被设置到的SuperTextView对象
+         */
+        public void onAttach(SuperTextView stv) {
 
-    }
+        }
 
-    /**
-     * 当Adjuster被从一个SuperTextView中移除时会被调用，用于解除Adjuster与宿主SuperTextView之间的关系。
-     *
-     * @param stv
-     *          当前被从那个SuperTextView中移除
-     * @return
-     */
-    private void detach(SuperTextView stv) {
-      this.host = null;
-      onDetach(stv);
-    }
+        /**
+         * 当Adjuster被从一个SuperTextView中移除时会被调用，用于解除Adjuster与宿主SuperTextView之间的关系。
+         *
+         * @param stv 当前被从那个SuperTextView中移除
+         * @return
+         */
+        private void detach(SuperTextView stv) {
+            this.host = null;
+            onDetach(stv);
+        }
 
-    /**
-     * 当Adjuster被从一个SuperTextView中移除时会被调用，用于解除Adjuster与宿主SuperTextView之间的关系。
-     *
-     * 需要注意，在这个方法中，成员变量 {@link Adjuster#host} 已经被释放，不要直接使用该成员变量，而是使用 参数 stv。
-     *
-     * @param stv
-     *          当前被从那个SuperTextView中移除
-     * @return
-     */
-    public void onDetach(SuperTextView stv) {
+        /**
+         * 当Adjuster被从一个SuperTextView中移除时会被调用，用于解除Adjuster与宿主SuperTextView之间的关系。
+         * <p>
+         * 需要注意，在这个方法中，成员变量 {@link Adjuster#host} 已经被释放，不要直接使用该成员变量，而是使用 参数 stv。
+         *
+         * @param stv 当前被从那个SuperTextView中移除
+         * @return
+         */
+        public void onDetach(SuperTextView stv) {
 
-    }
+        }
 
         /**
          * 获取当前Adjuster的层级。

@@ -34,26 +34,30 @@ import android.os.Looper;
  */
 public class STVUtils {
 
-  /**
-   * 把Drawable转换成一个Bitmap
-   *
-   * @param drawable drawable对象
-   * @return
-   */
-  public static final Bitmap drawableToBitmap(Drawable drawable) {
-    Bitmap bitmap = Bitmap.createBitmap(
-      drawable.getIntrinsicWidth(),
-      drawable.getIntrinsicHeight(),
-      drawable.getOpacity() != PixelFormat.OPAQUE
-        ? Bitmap.Config.ARGB_8888
-        : Bitmap.Config.RGB_565);
-    Canvas canvas = new Canvas(bitmap);
-    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-    drawable.draw(canvas);
-    return bitmap;
-  }
+    /**
+     * 把Drawable转换成一个Bitmap
+     *
+     * @param drawable      drawable对象
+     * @param defaultWidth  默认width，如果没有固有width
+     * @param defaultHeight 默认Height，如果没有固有Height
+     * @return
+     */
+    public static final Bitmap drawableToBitmap(Drawable drawable, int defaultWidth, int defaultHeight) {
+        int intrinsicWidth = drawable.getIntrinsicWidth() > 0 ? drawable.getIntrinsicWidth() : defaultWidth;
+        int intrinsicHeight = drawable.getIntrinsicHeight() > 0 ? drawable.getIntrinsicHeight() : defaultHeight;
+        Bitmap bitmap = Bitmap.createBitmap(
+                intrinsicWidth,
+                intrinsicHeight,
+                drawable.getOpacity() != PixelFormat.OPAQUE
+                        ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, intrinsicWidth, intrinsicHeight);
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
-  public static boolean isOnMainThread() {
-    return Looper.myLooper() == Looper.getMainLooper();
-  }
+    public static boolean isOnMainThread() {
+        return Looper.myLooper() == Looper.getMainLooper();
+    }
 }
