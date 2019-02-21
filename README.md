@@ -49,7 +49,7 @@ In the past one and a half years, **SuperTextView** has gone through many iterat
 # Portal Area
 
 
-- [【Portal】：《SuperTextView Development Reference Document》- You can learn how to use SuperTextView to build your application more efficiently](https://chenbingx.github.io/temp_html/)
+- [【Portal】：《SuperTextView Development Reference Document》- You can learn how to use SuperTextView to build your application more efficiently](https://github.com/chenBingX/SuperTextView/wiki)
 
 - [【Portal】：《SuperTextView API Document》— You can view all of the SuperTextView's available apis and properties](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 

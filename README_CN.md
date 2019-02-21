@@ -48,7 +48,7 @@
 
 # 传送门区
 
-- [【传送门】：《SuperTextView 开发参考文档》- 你可以学习到如何使用 SuperTextView 来提高你的应用的构建效率](https://chenbingx.github.io/temp_html/)
+- [【传送门】：《SuperTextView 开发参考文档》- 你可以学习到如何使用 SuperTextView 来提高你的应用的构建效率](https://github.com/chenBingX/SuperTextView/wiki/%E9%A6%96%E9%A1%B5)
 
 - [【传送门】：《SuperTextView API文档》— 你可以查看 SuperTextView 所有可用 API 及属性](https://chenbingx.github.io/SuperTextView/SuperTextView-doc/index.html)
 

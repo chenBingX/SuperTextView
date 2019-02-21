@@ -31,7 +31,8 @@ public class TestActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        SuperTextView stv1 = (SuperTextView)findViewById(R.id.stv_1);
-//        stv1.setDrawable(new ColorDrawable(Color.parseColor("#4CBDD2")));
+        SuperTextView stv = (SuperTextView)findViewById(R.id.stv_1);
+//        stv.setDrawable(new ColorDrawable(Color.parseColor("#4CBDD2")));
+
     }
 }
