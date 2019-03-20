@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:padding="16dp"
-  android:background="#FAF4FF"
-  tools:context="com.coorchice.supertextview.ThirdActivity">
-
-  <com.coorchice.library.SuperTextView
-    android:id="@+id/stv_1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:textColor="@color/white"
-    android:text="下载网络图片"
-    android:textSize="16sp"
-    android:gravity="center_vertical"
-    android:paddingLeft="220dp"
-    app:stv_solid="@color/opacity_1_black"
-    app:stv_corner="2dp"
-    app:stv_isShowState="true"
-    app:stv_state_drawable="@drawable/loading_1"
-    app:stv_state_drawable_mode="left"
-    app:stv_state_drawable_padding_left="16dp"
-    app:stv_state_drawable_width="166dp"
-    app:stv_state_drawable_height="98.6dp"
-    />
+    android:layout_height="match_parent"
+    android:background="#FAF4FF"
+    android:padding="16dp"
+    tools:context="com.coorchice.supertextview.ThirdActivity">
 
-  <com.coorchice.library.SuperTextView
-    android:id="@+id/stv_2"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:layout_below="@+id/stv_1"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="32dp"
-    app:stv_corner="100dp"
-    app:stv_stroke_color="@color/gray_4c"
-    app:stv_stroke_width="2dp"
-    app:stv_isShowState2="true"
-    app:stv_state_drawable2="@drawable/recousers"
-    app:stv_state_drawable2_mode="rightTop"
-    app:stv_state_drawable2_height="35dp"
-    app:stv_state_drawable2_width="35dp"
-    />
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_1"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="220dp"
+        android:text="下载网络图片"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:stv_corner="2dp"
+        app:stv_isShowState="true"
+        app:stv_solid="@color/opacity_1_black"
+        app:stv_state_drawable="@drawable/loading_1"
+        app:stv_state_drawable_height="98.6dp"
+        app:stv_state_drawable_mode="left"
+        app:stv_state_drawable_padding_left="16dp"
+        app:stv_state_drawable_width="166dp" />
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/stv_2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/stv_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        app:stv_corner="100dp"
+        app:stv_isShowState2="true"
+        app:stv_state_drawable="@drawable/loading_1"
+        app:stv_isShowState="true"
+        app:stv_drawableAsBackground="true"
+        app:stv_state_drawable2="@drawable/recousers"
+        app:stv_state_drawable2_height="35dp"
+        app:stv_state_drawable2_mode="rightTop"
+        app:stv_state_drawable2_width="35dp"
+        app:stv_stroke_color="@color/gray_4c"
+        app:stv_stroke_width="2dp" />
 
 
 </RelativeLayout>

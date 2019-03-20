@@ -16,6 +16,7 @@
 
 package com.coorchice.supertextview;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import com.coorchice.library.SuperTextView;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -64,13 +66,25 @@ public class ListActivity extends Activity {
             }
 
             @Override
-            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
                 if (position == 0) {
-                    ((SuperTextView) (holder.itemView.findViewById(R.id.stv))).setUrlImage(datas.get(position));
+                    SuperTextView stv = ((SuperTextView) (holder.itemView.findViewById(R.id.stv)))
+                            .setDrawable(R.drawable.loading_1)
+                            .setUrlImage(datas.get(position));
+                    try {
+                        Field drawableBackgroundShader = SuperTextView.class.getDeclaredField("drawableBackgroundShader");
+                        drawableBackgroundShader.setAccessible(true);
+                        drawableBackgroundShader.set(stv, null);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
                     SuperTextView stv = (SuperTextView) (holder.itemView.findViewById(R.id.stv_1));
-                    stv.setDrawable(ListActivity.this.getResources().getDrawable(R.drawable.loading_1));
-                    stv.setUrlImage(datas.get(position), false);
+//                    stv.setDrawable(ListActivity.this.getResources().getDrawable(R.drawable.loading_1));
+//                    stv.setUrlImage(datas.get(position), false);
                 }
             }
 

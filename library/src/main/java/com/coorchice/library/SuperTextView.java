@@ -1904,23 +1904,8 @@ public class SuperTextView extends TextView {
             @Override
             public void onCompleted(final Drawable drawable) {
                 if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
-                    SuperTextView.this.drawable = drawable;
-                    isShowState = !asBackground;
-                    setDrawableAsBackground(asBackground);
-                    // if (STVUtils.isOnMainThread()) {
-                    // SuperTextView.this.drawable = drawable;
-                    // setDrawableAsBackground(asBackground);
-                    // } else {
-                    // post(new Runnable() {
-                    // @Override
-                    // public void run() {
-                    // if (getContext() != null) {
-                    // SuperTextView.this.drawable = drawable;
-                    // setDrawableAsBackground(asBackground);
-                    // }
-                    // }
-                    // });
-                    // }
+                    SuperTextView.this.drawableAsBackground = asBackground;
+                    setDrawable(drawable);
                 }
             }
         });
