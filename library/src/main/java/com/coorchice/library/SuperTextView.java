@@ -313,7 +313,10 @@ public class SuperTextView extends TextView {
     protected void onDraw(Canvas canvas) {
         width = getWidth();
         height = getHeight();
-
+        // 9.0 出现2次测量，首次测量 width = 0，height = 0，但仍然进行绘制流程
+        if (width <= 0 || height <= 0) {
+            return;
+        }
         boolean needScroll = getScrollX() != 0 || getScrollY() != 0;
         if (needScroll) {
             canvas.translate(getScrollX(), getScrollY());
