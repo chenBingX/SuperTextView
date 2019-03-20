@@ -1908,6 +1908,7 @@ public class SuperTextView extends TextView {
             public void onCompleted(final Drawable drawable) {
                 if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
                     SuperTextView.this.drawableAsBackground = asBackground;
+                    SuperTextView.this.isShowState = !asBackground;
                     setDrawable(drawable);
                 }
             }
