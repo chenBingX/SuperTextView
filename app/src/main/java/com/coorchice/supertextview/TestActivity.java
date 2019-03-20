@@ -32,6 +32,10 @@ public class TestActivity extends ActionBarActivity {
         setContentView(R.layout.activity_test);
 
         SuperTextView stv = (SuperTextView)findViewById(R.id.stv_1);
+        stv.setTextColor(getResources().getColor(R.color.a233be));
+        stv.setStrokeColor(getResources().getColor(R.color.a233be));
+        stv.setStrokeWidth(3);
+        stv.setText("测试文字是否显示");
 //        stv.setDrawable(new ColorDrawable(Color.parseColor("#4CBDD2")));
 
     }
