@@ -143,6 +143,8 @@ public class SuperTextView extends TextView {
     private List<Adjuster> touchAdjusters = new ArrayList<>();
     private Runnable handleAnim;
     private boolean superTouchEvent;
+    private boolean drawable1Clicked = false;
+    private boolean drawable2Clicked = false;
     private String curImageUrl;
 
     private int drawableTint = NO_COLOR;
@@ -150,6 +152,7 @@ public class SuperTextView extends TextView {
     private int drawable2Tint = NO_COLOR;
     private float drawable2Rotate = NO_ROTATE;
 
+    private OnDrawableClickedListener onDrawableClickedListener;
 
     /**
      * 简单的构造函数
@@ -2003,7 +2006,22 @@ public class SuperTextView extends TextView {
                     }
                 }
             }
-            superTouchEvent = super.onTouchEvent(event);
+            if (onDrawableClickedListener != null) {
+                if (drawableClickedListenerEnable(drawable, event.getX(), event.getY()) && !drawableAsBackground) {
+                    drawable1Clicked = true;
+                }
+                if (drawableClickedListenerEnable(drawable2, event.getX(), event.getY())) {
+                    drawable2Clicked = true;
+                }
+            }
+            if (drawable1Clicked || drawable2Clicked) {
+                hasConsume = true;
+            } else {
+                /**
+                 * 触发 Drawable 事件，就禁止控件处理事件了
+                 */
+                superTouchEvent = super.onTouchEvent(event);
+            }
         } else {
             for (int i = 0; i < touchAdjusters.size(); i++) {
                 Adjuster adjuster = touchAdjusters.get(i);
@@ -2014,11 +2032,29 @@ public class SuperTextView extends TextView {
                 super.onTouchEvent(event);
             }
             if (actionMasked == MotionEvent.ACTION_UP || actionMasked == MotionEvent.ACTION_CANCEL) {
+                if (onDrawableClickedListener != null) {
+                    if (drawable1Clicked) {
+                        onDrawableClickedListener.onDrawable1Clicked(this);
+                    }
+                    if (drawable2Clicked) {
+                        onDrawableClickedListener.onDrawable2Clicked(this);
+                    }
+                }
                 touchAdjusters.clear();
+                drawable1Clicked = false;
+                drawable2Clicked = false;
                 superTouchEvent = false;
             }
         }
         return hasConsume || superTouchEvent;
+    }
+
+    private boolean drawableClickedListenerEnable(Drawable drawable, float x, float y) {
+        boolean r = false;
+        if (drawable != null && drawable.getBounds().contains((int) x, (int) y)) {
+            r = true;
+        }
+        return r;
     }
 
     @Override
@@ -2037,6 +2073,16 @@ public class SuperTextView extends TextView {
     protected void onDetachedFromWindow() {
         stopAnim();
         super.onDetachedFromWindow();
+    }
+
+    /**
+     * 设置一个监听器，用于监听 Drawable1 或者 Drawable2 的点击事件。
+     * 需要注意，对于 Drawable1，只有在它不作为背景图使用使，才能触发点击事件。
+     *
+     * @param onDrawableClickedListener
+     */
+    public void setOnDrawableClickedListener(OnDrawableClickedListener onDrawableClickedListener) {
+        this.onDrawableClickedListener = onDrawableClickedListener;
     }
 
     /**
@@ -2279,5 +2325,26 @@ public class SuperTextView extends TextView {
             }
             return TOP_TO_BOTTOM;
         }
+    }
+
+    /**
+     * 用于监听 Drawable1 和 Drawable2 被点击的事件
+     * 需要注意，对于 Drawable1，只有在它不作为背景图使用使，才能触发点击事件。
+     */
+    public static interface OnDrawableClickedListener {
+        /**
+         * 当 Drawable1 被点击时触发。
+         * 需要注意，对于 Drawable1，只有在它不作为背景图使用使，才能触发点击事件。
+         *
+         * @param stv
+         */
+        void onDrawable1Clicked(SuperTextView stv);
+
+        /**
+         * 当 Drawable2 被点击时触发。
+         *
+         * @param stv
+         */
+        void onDrawable2Clicked(SuperTextView stv);
     }
 }

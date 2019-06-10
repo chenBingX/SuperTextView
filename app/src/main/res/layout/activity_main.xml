@@ -1,804 +1,863 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/activity_main"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  >
-
-  <LinearLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.coorchice.supertextview.MainActivity"
-    >
+    android:layout_height="match_parent">
 
     <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:orientation="horizontal"
-      >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="com.coorchice.supertextview.MainActivity">
 
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_0"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:gravity="center"
-        android:text="圆角矩形"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_corner="10dp"
-        app:stv_solid="@color/opacity_5_red"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="边框和圆角混搭"
+            android:textSize="20sp" />
 
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_2_1"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:text="全圆角矩形"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_corner="40dp"
-        app:stv_solid="#85219E"
-        />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_1"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:text="方形边框"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_solid="#78C3ED"
-        app:stv_stroke_color="#5166ED"
-        app:stv_stroke_width="5dp"
-        />
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_0"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:gravity="center"
+                android:text="圆角矩形"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_corner="10dp"
+                app:stv_solid="@color/opacity_5_red" />
 
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_2"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:text="圆角边框"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_corner="10dp"
-        app:stv_solid="#228609"
-        app:stv_stroke_color="#FE4926"
-        app:stv_stroke_width="5dp"
-        />
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_2_1"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="全圆角矩形"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_corner="40dp"
+                app:stv_solid="#85219E" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_1"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="方形边框"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_solid="#78C3ED"
+                app:stv_stroke_color="#5166ED"
+                app:stv_stroke_width="5dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_2"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="圆角边框"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_corner="10dp"
+                app:stv_solid="#228609"
+                app:stv_stroke_color="#FE4926"
+                app:stv_stroke_width="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_3"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:gravity="center"
+                android:text="圆形"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_corner="40dp"
+                app:stv_solid="#008673" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_4"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="圆形边框"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_corner="40dp"
+                app:stv_solid="#5D4FB0"
+                app:stv_stroke_color="#BDAB96"
+                app:stv_stroke_width="5dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_5"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="圆形边框"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:stv_corner="40dp"
+                app:stv_solid="@color/transparent"
+                app:stv_stroke_color="@color/a233be"
+                app:stv_stroke_width="5dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="你可以控制每一个圆角"
+            android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_6"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:gravity="center"
+                android:text="左上圆角"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:stv_corner="15dp"
+                app:stv_left_top_corner="true"
+                app:stv_solid="#ed652f" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_7"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/stv_6"
+                android:gravity="center"
+                android:text="右上圆角"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:stv_corner="15dp"
+                app:stv_right_top_corner="true"
+                app:stv_solid="#ff443f" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_8"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_below="@+id/stv_6"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="左下圆角"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:stv_corner="15dp"
+                app:stv_left_bottom_corner="true"
+                app:stv_solid="#ed50a2" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_9"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_below="@+id/stv_6"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/stv_6"
+                android:gravity="center"
+                android:text="右下圆角"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:stv_corner="15dp"
+                app:stv_right_bottom_corner="true"
+                app:stv_solid="#c12ded" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_10"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/stv_9"
+                android:gravity="center"
+                android:text="设置两个圆角"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:stv_corner="15dp"
+                app:stv_left_top_corner="true"
+                app:stv_right_top_corner="true"
+                app:stv_solid="#ed9581" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_11"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/stv_10"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/stv_9"
+                android:gravity="center"
+                android:text="设置三个圆角"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:stv_corner="15dp"
+                app:stv_left_bottom_corner="true"
+                app:stv_right_bottom_corner="true"
+                app:stv_right_top_corner="true"
+                app:stv_solid="#EDD315" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="文字边框"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_12"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="空心文字"
+                android:textSize="18sp"
+                app:stv_solid="#EEF3E2"
+                app:stv_text_fill_color="@color/transparent"
+                app:stv_text_stroke="true"
+                app:stv_text_stroke_color="#811D99"
+                app:stv_text_stroke_width="1.5dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_13"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="文字描边"
+                android:textSize="18sp"
+                app:stv_solid="#D9B0E2"
+                app:stv_text_fill_color="@color/white"
+                app:stv_text_stroke="true"
+                app:stv_text_stroke_color="#461B50"
+                app:stv_text_stroke_width="1dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="状态图"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_14"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:gravity="bottom|center"
+                android:paddingBottom="1dp"
+                android:text="状态图 1"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_corner="10dp"
+                app:stv_isShowState="true"
+                app:stv_solid="#4CBDD2"
+                app:stv_state_drawable="@drawable/emoji_kiss" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_15"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:gravity="bottom|center_horizontal"
+                android:paddingBottom="1dp"
+                android:text="状态图 2"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_corner="10dp"
+                app:stv_isShowState="true"
+                app:stv_solid="#4CBDD2"
+                app:stv_state_drawable="@drawable/emoji_kiss"
+                app:stv_state_drawable_height="20dp"
+                app:stv_state_drawable_width="20dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_16"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center|center_horizontal"
+                android:paddingLeft="23dp"
+                android:text="状态图 3"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:stv_corner="40dp"
+                app:stv_isShowState="true"
+                app:stv_solid="#4CBDD2"
+                app:stv_state_drawable="@drawable/emoji_kiss"
+                app:stv_state_drawable_height="20dp"
+                app:stv_state_drawable_mode="left"
+                app:stv_state_drawable_padding_left="10dp"
+                app:stv_state_drawable_width="20dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_16_1"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:paddingBottom="1dp"
+                android:text="状态图 4"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:stv_isShowState="true"
+                app:stv_solid="#4CBDD2"
+                app:stv_state_drawable="@drawable/triangle"
+                app:stv_state_drawable_height="30dp"
+                app:stv_state_drawable_mode="leftTop"
+                app:stv_state_drawable_width="30dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="改变状态图的颜色和角度"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_31"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:gravity="bottom|center"
+                android:paddingBottom="6dp"
+                android:text="原图"
+                android:textColor="@color/black"
+                android:textSize="9sp"
+                app:stv_isShowState="true"
+                app:stv_state_drawable="@drawable/arrow"
+                app:stv_state_drawable_padding_top="-10dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_32"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_marginLeft="9dp"
+                android:gravity="bottom|center"
+                android:paddingBottom="6dp"
+                android:text="变为 Gray"
+                android:textColor="@color/black"
+                android:textSize="9sp"
+                app:stv_isShowState="true"
+                app:stv_state_drawable="@drawable/arrow"
+                app:stv_state_drawable_padding_top="-10dp"
+                app:stv_state_drawable_tint="@color/gray" />
+
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_33"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_marginLeft="36dp"
+                android:gravity="bottom|center"
+                android:paddingBottom="6dp"
+                android:text="原图"
+                android:textColor="@color/black"
+                android:textSize="9sp"
+                app:stv_isShowState="true"
+                app:stv_state_drawable="@drawable/like"
+                app:stv_state_drawable_padding_top="-10dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_34"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_marginLeft="9dp"
+                android:gravity="bottom|center"
+                android:paddingBottom="6dp"
+                android:text="变为 Red"
+                android:textColor="@color/black"
+                android:textSize="9sp"
+                app:stv_isShowState="true"
+                app:stv_state_drawable="@drawable/like"
+                app:stv_state_drawable_padding_top="-10dp"
+                app:stv_state_drawable_tint="@color/red" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_36"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:gravity="bottom|center"
+                android:paddingBottom="16dp"
+                android:textColor="@color/black"
+                app:stv_isShowState="true"
+                app:stv_solid="#A58FED"
+                app:stv_state_drawable="@drawable/arrow"
+                app:stv_state_drawable_tint="@color/white" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_37"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_marginLeft="16dp"
+                android:gravity="bottom|center"
+                android:paddingBottom="6dp"
+                android:textColor="@color/black"
+                app:stv_isShowState="true"
+                app:stv_solid="#A58FED"
+                app:stv_state_drawable="@drawable/arrow"
+                app:stv_state_drawable_rotate="90"
+                app:stv_state_drawable_tint="@color/white" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_38"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_marginLeft="16dp"
+                android:gravity="bottom|center"
+                android:paddingBottom="6dp"
+                android:textColor="@color/black"
+                app:stv_isShowState="true"
+                app:stv_solid="#A58FED"
+                app:stv_state_drawable="@drawable/arrow"
+                app:stv_state_drawable_rotate="180"
+                app:stv_state_drawable_tint="@color/white" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_39"
+                android:layout_width="@dimen/stv_small_size"
+                android:layout_height="@dimen/stv_small_size"
+                android:layout_marginLeft="16dp"
+                android:gravity="bottom|center"
+                android:paddingBottom="6dp"
+                android:textColor="@color/black"
+                app:stv_isShowState="true"
+                app:stv_solid="#A58FED"
+                app:stv_state_drawable="@drawable/arrow"
+                app:stv_state_drawable_rotate="-90"
+                app:stv_state_drawable_tint="@color/white" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Adjuster制作的动画"
+            android:textSize="20sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_17"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="使用Adjuster实现动画效果"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:stv_corner="25dp"
+            app:stv_drawableAsBackground="false"
+            app:stv_solid="@color/purple"
+            app:stv_state_drawable="@drawable/amazing" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_18"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="使用Adjuster实现Ripple效果"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:stv_corner="25dp"
+            app:stv_solid="#ED86AE" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="层级关系"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_19"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="BEFORE_DRAWABLE"
+                android:textColor="@color/black"
+                android:textSize="7dp"
+                android:textStyle="bold"
+                app:stv_corner="20dp"
+                app:stv_isShowState="true"
+                app:stv_solid="#A58FED"
+                app:stv_state_drawable="@drawable/emoji_kiss"
+                app:stv_state_drawable_height="30dp"
+                app:stv_state_drawable_width="30dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_20"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="BEFORE_TEXT"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                android:textStyle="bold"
+                app:stv_corner="20dp"
+                app:stv_isShowState="true"
+                app:stv_solid="#A58FED"
+                app:stv_state_drawable="@drawable/emoji_kiss"
+                app:stv_state_drawable_height="30dp"
+                app:stv_state_drawable_width="30dp" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/stv_21"
+                android:layout_width="@dimen/stv_normal_size"
+                android:layout_height="@dimen/stv_normal_size"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="AT_LAST"
+                android:textColor="@color/black"
+                android:textSize="8dp"
+                android:textStyle="bold"
+                app:stv_corner="20dp"
+                app:stv_isShowState="true"
+                app:stv_solid="#A58FED"
+                app:stv_state_drawable="@drawable/emoji_kiss"
+                app:stv_state_drawable_height="30dp"
+                app:stv_state_drawable_width="30dp" />
+        </LinearLayout>
+
+
+        <!--<com.coorchice.library.SuperTextView-->
+        <!--android:layout_width="115dp"-->
+        <!--android:layout_height="115dp"-->
+        <!--android:gravity="bottom|center"-->
+        <!--android:paddingBottom="3dp"-->
+        <!--android:text="SuperTextView"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="14sp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:textStyle="bold"-->
+        <!--app:stv_isShowState="true"-->
+        <!--app:stv_solid="#4CBDD2"-->
+        <!--app:stv_state_drawable="@drawable/emoji_kiss"-->
+        <!--/>-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="背景渐变色"
+            android:textSize="20sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_22"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="shader_topToBottom"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_shaderEnable="true"
+            app:stv_shaderEndColor="@color/pink"
+            app:stv_shaderMode="topToBottom"
+            app:stv_shaderStartColor="@color/main_blue"
+            app:stv_solid="@color/main_blue" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_23"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="shader_bottomToTop"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_shaderEnable="true"
+            app:stv_shaderEndColor="@color/pink"
+            app:stv_shaderMode="bottomToTop"
+            app:stv_shaderStartColor="@color/main_blue"
+            app:stv_solid="@color/main_blue" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_24"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="shader_leftToRight"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_shaderEnable="true"
+            app:stv_shaderEndColor="@color/pink"
+            app:stv_shaderMode="leftToRight"
+            app:stv_shaderStartColor="@color/main_blue"
+            app:stv_solid="@color/main_blue" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_26"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="shader_rightToLeft"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_shaderEnable="true"
+            app:stv_shaderEndColor="@color/pink"
+            app:stv_shaderMode="rightToLeft"
+            app:stv_shaderStartColor="@color/main_blue"
+            app:stv_solid="@color/main_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="文字渐变色"
+            android:textSize="20sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_27"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="渐变色文字渐变色文字 leftToRight"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_solid="@color/black"
+            app:stv_textShaderEnable="true"
+            app:stv_textShaderEndColor="@color/yellow"
+            app:stv_textShaderMode="leftToRight"
+            app:stv_textShaderStartColor="@color/red" />
+
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_28"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="渐变色文字渐变色文字 leftToRight"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_solid="@color/black"
+            app:stv_textShaderEnable="true"
+            app:stv_textShaderEndColor="@color/yellow"
+            app:stv_textShaderMode="rightToLeft"
+            app:stv_textShaderStartColor="@color/red" />
+
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_29"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="渐变色文字渐变色文字 leftToRight"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_solid="@color/black"
+            app:stv_textShaderEnable="true"
+            app:stv_textShaderEndColor="@color/red"
+            app:stv_textShaderMode="topToBottom"
+            app:stv_textShaderStartColor="@color/pink" />
+
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="渐变色文字渐变色文字 leftToRight"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_solid="@color/black"
+            app:stv_textShaderEnable="true"
+            app:stv_textShaderEndColor="@color/red"
+            app:stv_textShaderMode="bottomToTop"
+            app:stv_textShaderStartColor="@color/pink" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="Drawable点击事件"
+            android:textSize="20sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_click_demo1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            app:stv_corner="25dp"
+            app:stv_isShowState="true"
+            app:stv_isShowState2="true"
+            app:stv_solid="#fcec3b"
+            app:stv_state_drawable="@drawable/circle_f9ad36"
+            app:stv_state_drawable2="@drawable/circle_f9ad36"
+            app:stv_state_drawable2_height="40dp"
+            app:stv_state_drawable2_mode="right"
+            app:stv_state_drawable2_padding_left="-5dp"
+            app:stv_state_drawable2_width="40dp"
+            app:stv_state_drawable2_tint="#f65917"
+            app:stv_state_drawable_height="40dp"
+            app:stv_state_drawable_mode="left"
+            app:stv_state_drawable_padding_left="5dp"
+            app:stv_state_drawable_width="40dp"
+            android:text="你可以点击左边，或者右边的圆形试试？"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="#000000"
+            />
+
+        <!--Next-->
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stv_small_size"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:paddingBottom="1dp"
+            android:text="Next"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_shaderEnable="true"
+            app:stv_shaderEndColor="@color/yellow"
+            app:stv_shaderMode="topToBottom"
+            app:stv_shaderStartColor="@color/blue"
+            app:stv_solid="@color/main_blue"
+
+            />
 
     </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="10dp"
-      android:orientation="horizontal"
-      >
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_3"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:gravity="center"
-        android:text="圆形"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_corner="40dp"
-        app:stv_solid="#008673"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_4"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:text="圆形边框"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_corner="40dp"
-        app:stv_solid="#5D4FB0"
-        app:stv_stroke_color="#BDAB96"
-        app:stv_stroke_width="5dp"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_5"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:gravity="center"
-        android:text="圆形边框"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:stv_corner="40dp"
-        app:stv_solid="@color/transparent"
-        app:stv_stroke_color="@color/a233be"
-        app:stv_stroke_width="5dp"
-        />
-    </LinearLayout>
-
-
-    <RelativeLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="10dp"
-      >
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_6"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:gravity="center"
-        android:text="左上圆角"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:stv_corner="15dp"
-        app:stv_left_top_corner="true"
-        app:stv_solid="#ed652f"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_7"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/stv_6"
-        android:gravity="center"
-        android:text="右上圆角"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:stv_corner="15dp"
-        app:stv_right_top_corner="true"
-        app:stv_solid="#ff443f"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_8"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_below="@+id/stv_6"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="左下圆角"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:stv_corner="15dp"
-        app:stv_left_bottom_corner="true"
-        app:stv_solid="#ed50a2"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_9"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_below="@+id/stv_6"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/stv_6"
-        android:gravity="center"
-        android:text="右下圆角"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:stv_corner="15dp"
-        app:stv_right_bottom_corner="true"
-        app:stv_solid="#c12ded"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_10"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/stv_9"
-        android:gravity="center"
-        android:text="设置两个圆角"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:stv_corner="15dp"
-        app:stv_left_top_corner="true"
-        app:stv_right_top_corner="true"
-        app:stv_solid="#ed9581"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_11"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_below="@+id/stv_10"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/stv_9"
-        android:gravity="center"
-        android:text="设置三个圆角"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:stv_corner="15dp"
-        app:stv_left_bottom_corner="true"
-        app:stv_right_bottom_corner="true"
-        app:stv_right_top_corner="true"
-        app:stv_solid="#EDD315"
-        />
-    </RelativeLayout>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginTop="10dp"
-      android:orientation="horizontal"
-      >
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_12"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="空心文字"
-        android:textSize="18sp"
-        app:stv_solid="#EEF3E2"
-        app:stv_text_fill_color="@color/transparent"
-        app:stv_text_stroke="true"
-        app:stv_text_stroke_color="#811D99"
-        app:stv_text_stroke_width="1dp"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_13"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="文字描边"
-        android:textSize="18sp"
-        app:stv_solid="#D9B0E2"
-        app:stv_text_fill_color="@color/white"
-        app:stv_text_stroke="true"
-        app:stv_text_stroke_color="#461B50"
-        app:stv_text_stroke_width="1dp"
-        />
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="10dp"
-      android:gravity="center_vertical"
-      android:orientation="horizontal"
-      >
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_14"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:gravity="bottom|center"
-        android:paddingBottom="1dp"
-        android:text="状态图 1"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_corner="10dp"
-        app:stv_isShowState="true"
-        app:stv_solid="#4CBDD2"
-        app:stv_state_drawable="@drawable/emoji_kiss"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_15"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:gravity="bottom|center_horizontal"
-        android:paddingBottom="1dp"
-        android:text="状态图 2"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_corner="10dp"
-        app:stv_isShowState="true"
-        app:stv_solid="#4CBDD2"
-        app:stv_state_drawable="@drawable/emoji_kiss"
-        app:stv_state_drawable_height="20dp"
-        app:stv_state_drawable_width="20dp"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_16"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:gravity="center|center_horizontal"
-        android:paddingLeft="23dp"
-        android:text="状态图 3"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        app:stv_corner="40dp"
-        app:stv_isShowState="true"
-        app:stv_solid="#4CBDD2"
-        app:stv_state_drawable="@drawable/emoji_kiss"
-        app:stv_state_drawable_height="20dp"
-        app:stv_state_drawable_mode="left"
-        app:stv_state_drawable_padding_left="10dp"
-        app:stv_state_drawable_width="20dp"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_16_1"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:paddingBottom="1dp"
-        android:gravity="center"
-        android:text="状态图 4"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:stv_isShowState="true"
-        app:stv_solid="#4CBDD2"
-        app:stv_state_drawable="@drawable/triangle"
-        app:stv_state_drawable_height="30dp"
-        app:stv_state_drawable_width="30dp"
-        app:stv_state_drawable_mode="leftTop"
-        />
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="10dp"
-      android:gravity="center_vertical"
-      android:orientation="horizontal"
-      >
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_31"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:gravity="bottom|center"
-        android:paddingBottom="6dp"
-        android:text="原图"
-        android:textColor="@color/black"
-        android:textSize="9sp"
-        app:stv_isShowState="true"
-        app:stv_state_drawable="@drawable/arrow"
-        app:stv_state_drawable_padding_top="-10dp"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_32"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_marginLeft="9dp"
-        android:gravity="bottom|center"
-        android:paddingBottom="6dp"
-        android:text="变为 Gray"
-        android:textColor="@color/black"
-        android:textSize="9sp"
-        app:stv_isShowState="true"
-        app:stv_state_drawable="@drawable/arrow"
-        app:stv_state_drawable_padding_top="-10dp"
-        app:stv_state_drawable_tint="@color/gray"
-        />
-
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_33"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_marginLeft="36dp"
-        android:gravity="bottom|center"
-        android:paddingBottom="6dp"
-        android:text="原图"
-        android:textColor="@color/black"
-        android:textSize="9sp"
-        app:stv_isShowState="true"
-        app:stv_state_drawable="@drawable/like"
-        app:stv_state_drawable_padding_top="-10dp"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_34"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_marginLeft="9dp"
-        android:gravity="bottom|center"
-        android:paddingBottom="6dp"
-        android:text="变为 Red"
-        android:textColor="@color/black"
-        android:textSize="9sp"
-        app:stv_isShowState="true"
-        app:stv_state_drawable="@drawable/like"
-        app:stv_state_drawable_padding_top="-10dp"
-        app:stv_state_drawable_tint="@color/red"
-        />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="10dp"
-      android:gravity="center_vertical"
-      android:orientation="horizontal"
-      >
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_36"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:gravity="bottom|center"
-        android:paddingBottom="16dp"
-        android:textColor="@color/black"
-        app:stv_isShowState="true"
-        app:stv_solid="#A58FED"
-        app:stv_state_drawable="@drawable/arrow"
-        app:stv_state_drawable_tint="@color/white"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_37"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_marginLeft="16dp"
-        android:gravity="bottom|center"
-        android:paddingBottom="6dp"
-        android:textColor="@color/black"
-        app:stv_isShowState="true"
-        app:stv_solid="#A58FED"
-        app:stv_state_drawable="@drawable/arrow"
-        app:stv_state_drawable_rotate="90"
-        app:stv_state_drawable_tint="@color/white"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_38"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_marginLeft="16dp"
-        android:gravity="bottom|center"
-        android:paddingBottom="6dp"
-        android:textColor="@color/black"
-        app:stv_isShowState="true"
-        app:stv_solid="#A58FED"
-        app:stv_state_drawable="@drawable/arrow"
-        app:stv_state_drawable_rotate="180"
-        app:stv_state_drawable_tint="@color/white"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_39"
-        android:layout_width="@dimen/stv_small_size"
-        android:layout_height="@dimen/stv_small_size"
-        android:layout_marginLeft="16dp"
-        android:gravity="bottom|center"
-        android:paddingBottom="6dp"
-        android:textColor="@color/black"
-        app:stv_isShowState="true"
-        app:stv_solid="#A58FED"
-        app:stv_state_drawable="@drawable/arrow"
-        app:stv_state_drawable_rotate="-90"
-        app:stv_state_drawable_tint="@color/white"
-        />
-
-    </LinearLayout>
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_17"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:text="使用Adjuster实现动画效果"
-      android:textColor="@color/white"
-      android:textSize="16dp"
-      app:stv_corner="25dp"
-      app:stv_solid="@color/purple"
-      app:stv_drawableAsBackground="false"
-      app:stv_state_drawable="@drawable/amazing"
-      />
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_18"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:text="使用Adjuster实现Ripple效果"
-      android:textColor="@color/white"
-      android:textSize="16dp"
-      app:stv_corner="25dp"
-      app:stv_solid="#ED86AE"
-      />
-
-    <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="10dp"
-      android:gravity="center_vertical"
-      android:orientation="horizontal"
-      >
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_19"
-      android:layout_width="@dimen/stv_normal_size"
-      android:layout_height="@dimen/stv_normal_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:gravity="center"
-      android:text="BEFORE_DRAWABLE"
-      android:textColor="@color/black"
-      android:textSize="7dp"
-      android:textStyle="bold"
-      app:stv_corner="20dp"
-      app:stv_isShowState="true"
-      app:stv_solid="#A58FED"
-      app:stv_state_drawable="@drawable/emoji_kiss"
-      app:stv_state_drawable_height="30dp"
-      app:stv_state_drawable_width="30dp"
-      />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_20"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:text="BEFORE_TEXT"
-        android:textColor="@color/black"
-        android:textSize="8dp"
-        android:textStyle="bold"
-        app:stv_corner="20dp"
-        app:stv_isShowState="true"
-        app:stv_solid="#A58FED"
-        app:stv_state_drawable="@drawable/emoji_kiss"
-        app:stv_state_drawable_height="30dp"
-        app:stv_state_drawable_width="30dp"
-        />
-
-      <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_21"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:gravity="center"
-        android:text="AT_LAST"
-        android:textColor="@color/black"
-        android:textSize="8dp"
-        android:textStyle="bold"
-        app:stv_corner="20dp"
-        app:stv_isShowState="true"
-        app:stv_solid="#A58FED"
-        app:stv_state_drawable="@drawable/emoji_kiss"
-        app:stv_state_drawable_height="30dp"
-        app:stv_state_drawable_width="30dp"
-      />
-    </LinearLayout>
-
-
-    <!--<com.coorchice.library.SuperTextView-->
-      <!--android:layout_width="115dp"-->
-      <!--android:layout_height="115dp"-->
-      <!--android:gravity="bottom|center"-->
-      <!--android:paddingBottom="3dp"-->
-      <!--android:text="SuperTextView"-->
-      <!--android:textColor="@color/black"-->
-      <!--android:textSize="14sp"-->
-      <!--android:layout_gravity="center"-->
-      <!--android:layout_marginTop="20dp"-->
-      <!--android:textStyle="bold"-->
-      <!--app:stv_isShowState="true"-->
-      <!--app:stv_solid="#4CBDD2"-->
-      <!--app:stv_state_drawable="@drawable/emoji_kiss"-->
-      <!--/>-->
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_22"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:paddingBottom="1dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:text="shader_topToBottom"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_shaderEnable="true"
-      app:stv_shaderStartColor="@color/main_blue"
-      app:stv_shaderEndColor="@color/pink"
-      app:stv_shaderMode="topToBottom"
-      app:stv_solid="@color/main_blue"
-      />
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_23"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:paddingBottom="1dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:text="shader_bottomToTop"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_shaderEnable="true"
-      app:stv_shaderStartColor="@color/main_blue"
-      app:stv_shaderEndColor="@color/pink"
-      app:stv_shaderMode="bottomToTop"
-      app:stv_solid="@color/main_blue"
-      />
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_24"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:paddingBottom="1dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:text="shader_leftToRight"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_shaderEnable="true"
-      app:stv_shaderStartColor="@color/main_blue"
-      app:stv_shaderEndColor="@color/pink"
-      app:stv_shaderMode="leftToRight"
-      app:stv_solid="@color/main_blue"
-      />
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_26"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:paddingBottom="1dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:text="shader_rightToLeft"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_shaderEnable="true"
-      app:stv_shaderStartColor="@color/main_blue"
-      app:stv_shaderEndColor="@color/pink"
-      app:stv_shaderMode="rightToLeft"
-      app:stv_solid="@color/main_blue"
-      />
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_27"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:paddingBottom="1dp"
-      android:text="渐变色文字渐变色文字 leftToRight"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_solid="@color/black"
-      app:stv_textShaderEnable="true"
-      app:stv_textShaderEndColor="@color/yellow"
-      app:stv_textShaderMode="leftToRight"
-      app:stv_textShaderStartColor="@color/red"
-      />
-
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_28"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:paddingBottom="1dp"
-      android:text="渐变色文字渐变色文字 leftToRight"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_solid="@color/black"
-      app:stv_textShaderEnable="true"
-      app:stv_textShaderEndColor="@color/yellow"
-      app:stv_textShaderMode="rightToLeft"
-      app:stv_textShaderStartColor="@color/red"
-      />
-
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_29"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:paddingBottom="1dp"
-      android:text="渐变色文字渐变色文字 leftToRight"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_solid="@color/black"
-      app:stv_textShaderEnable="true"
-      app:stv_textShaderEndColor="@color/red"
-      app:stv_textShaderMode="topToBottom"
-      app:stv_textShaderStartColor="@color/pink"
-      />
-
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/stv_30"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:paddingBottom="1dp"
-      android:text="渐变色文字渐变色文字 leftToRight"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_solid="@color/black"
-      app:stv_textShaderEnable="true"
-      app:stv_textShaderEndColor="@color/red"
-      app:stv_textShaderMode="bottomToTop"
-      app:stv_textShaderStartColor="@color/pink"
-      />
-
-
-    <com.coorchice.library.SuperTextView
-      android:id="@+id/btn_next"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/stv_small_size"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-      android:paddingBottom="1dp"
-      android:layout_marginTop="10dp"
-      android:gravity="center"
-      android:text="Next"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      app:stv_corner="10dp"
-      app:stv_shaderEnable="true"
-      app:stv_shaderStartColor="@color/blue"
-      app:stv_shaderEndColor="@color/yellow"
-      app:stv_shaderMode="topToBottom"
-      app:stv_solid="@color/main_blue"
-      />
-
-  </LinearLayout>
 </ScrollView>

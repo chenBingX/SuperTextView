@@ -83,8 +83,8 @@ public class ListActivity extends Activity {
 
                 } else {
                     SuperTextView stv = (SuperTextView) (holder.itemView.findViewById(R.id.stv_1));
-//                    stv.setDrawable(ListActivity.this.getResources().getDrawable(R.drawable.loading_1));
-//                    stv.setUrlImage(datas.get(position), false);
+                    stv.setDrawable(ListActivity.this.getResources().getDrawable(R.drawable.loading_1));
+                    stv.setUrlImage(datas.get(position), false);
                 }
             }
 

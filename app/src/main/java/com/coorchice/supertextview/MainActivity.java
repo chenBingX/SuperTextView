@@ -1,15 +1,21 @@
 package com.coorchice.supertextview;
 
 import com.coorchice.library.SuperTextView;
+import com.coorchice.library.utils.STVUtils;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.OpportunityDemoAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -22,9 +28,13 @@ public class MainActivity extends Activity {
     private SuperTextView stv_22;
     private SuperTextView btn_next;
     private SuperTextView stv_0;
+    private SuperTextView stv_clickDemo1;
+    private float density;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        density = getResources().getDisplayMetrics().density;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
@@ -61,6 +71,45 @@ public class MainActivity extends Activity {
             }
         });
 
+
+        stv_clickDemo1.setOnDrawableClickedListener(new SuperTextView.OnDrawableClickedListener() {
+            @Override
+            public void onDrawable1Clicked(SuperTextView stv) {
+                ObjectAnimator anim = ObjectAnimator.ofFloat(stv_clickDemo1, "drawablePaddingLeft", density * 3, density * 7);
+                anim.setDuration(50);
+                anim.setRepeatCount(6);
+                anim.setRepeatMode(ValueAnimator.REVERSE);
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        stv_clickDemo1.setDrawablePaddingLeft(5 * density);
+                    }
+                });
+                anim.start();
+            }
+
+            @Override
+            public void onDrawable2Clicked(SuperTextView stv) {
+                ObjectAnimator anim = ObjectAnimator.ofFloat(stv_clickDemo1, "drawable2PaddingLeft", density * -7, density * -3);
+                anim.setDuration(50);
+                anim.setRepeatCount(6);
+                anim.setRepeatMode(ValueAnimator.REVERSE);
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        stv_clickDemo1.setDrawable2PaddingLeft(-5 * density);
+                    }
+                });
+                anim.start();
+            }
+        });
+        stv_clickDemo1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "非 Drawable 区域被点击", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         btn_next.setFrameRate(60);
         btn_next.setShaderStartColor(Color.RED);
 
@@ -73,6 +122,7 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, SecondActivity.class));
             }
         });
+
     }
 
     private void findViews() {
@@ -83,6 +133,7 @@ public class MainActivity extends Activity {
         stv_20 = (SuperTextView) findViewById(R.id.stv_20);
         stv_21 = (SuperTextView) findViewById(R.id.stv_21);
         stv_22 = (SuperTextView) findViewById(R.id.stv_22);
+        stv_clickDemo1 = (SuperTextView) findViewById(R.id.stv_click_demo1);
 //        SuperTextView stv_30 = (SuperTextView) findViewById(R.id.stv_30);
 //        stv_30.setTextShaderMode(SuperTextView.ShaderMode.LEFT_TO_RIGHT);
         btn_next = (SuperTextView) findViewById(R.id.btn_next);
