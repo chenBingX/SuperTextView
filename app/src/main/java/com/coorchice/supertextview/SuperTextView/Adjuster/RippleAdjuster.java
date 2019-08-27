@@ -16,18 +16,28 @@
 
 package com.coorchice.supertextview.SuperTextView.Adjuster;
 
+import com.bumptech.glide.gifdecoder.GifDecoder;
+import com.bumptech.glide.gifdecoder.GifHeader;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.coorchice.library.SuperTextView;
 import com.coorchice.supertextview.R;
+import com.coorchice.supertextview.SuperTextView.gifsupport.ImageDecoder;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Movie;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.graphics.drawable.AnimatedImageDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.MotionEvent;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Project Name:SuperTextView
@@ -123,11 +133,12 @@ public class RippleAdjuster extends SuperTextView.Adjuster {
     dstCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
     dstCanvas.drawCircle(x, y, radius * density, paint);
     // 创建一个图层，在图层上演示图形混合后的效果
-    int sc = canvas.saveLayer(0, 0, width, height, null, Canvas.MATRIX_SAVE_FLAG |
-      Canvas.CLIP_SAVE_FLAG |
-      Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
-      Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
-      Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+    int sc = 0;
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+      sc = canvas.saveLayer(0, 0, width, height, null);
+    } else {
+      sc = canvas.saveLayer(0, 0, width, height, null, 0);
+    }
 
     canvas.drawBitmap(src, 0, 0, paint);
     paint.setXfermode(xfermode);
