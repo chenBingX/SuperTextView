@@ -307,7 +307,7 @@
                 app:stv_corner="10dp"
                 app:stv_isShowState="true"
                 app:stv_solid="#4CBDD2"
-                app:stv_state_drawable="@drawable/emoji_kiss" />
+                app:stv_state_drawable="@drawable/flag" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/stv_15"

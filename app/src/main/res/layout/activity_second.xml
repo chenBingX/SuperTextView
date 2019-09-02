@@ -213,6 +213,7 @@
             app:stv_stroke_width="3dp" />
 
         <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_4"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_below="@+id/stv_3"

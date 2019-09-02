@@ -18,22 +18,28 @@ package com.coorchice.supertextview;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.bumptech.glide.util.Util;
 import com.coorchice.library.SuperTextView;
+import com.coorchice.library.gifdecoder.GifDecoder;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.Ripple2Adjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
 import com.coorchice.supertextview.Utils.LogUtils;
+
+import java.io.InputStream;
 
 public class SecondActivity extends Activity {
 
     private SuperTextView btn;
     private SuperTextView stv_2;
     private SuperTextView stv_1;
+    private SuperTextView stv_4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,29 @@ public class SecondActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SecondActivity.this, TestActivity.class));
+            }
+        });
+
+        stv_4 = (SuperTextView) findViewById(R.id.stv_4);
+        stv_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    InputStream is = getResources().openRawResource(R.drawable.gif_2);
+                    byte[] bytes = new byte[is.available()];
+                    is.read(bytes);
+                    final GifDecoder gifDecoder = GifDecoder.openBytes(bytes);
+                    gifDecoder.setOnFrameListener(new GifDecoder.OnFrameListener() {
+                        @Override
+                        public void onFrame(GifDecoder gd, Bitmap bitmap) {
+                            if (bitmap != null)
+                                stv_4.setDrawable(new BitmapDrawable(bitmap));
+                        }
+                    });
+                    gifDecoder.play();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -339,7 +339,7 @@ public class SuperTextView extends TextView {
             sdkOnDraw(canvas);
         }
         isNeedToAdjust(canvas, Adjuster.Opportunity.AT_LAST);
-        LogUtils.e("canvas.h = " + canvas.getHeight());
+//        LogUtils.e("canvas.h = " + canvas.getHeight());
     }
 
     private void drawStrokeLine(Canvas canvas) {

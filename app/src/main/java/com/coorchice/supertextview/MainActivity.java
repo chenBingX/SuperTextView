@@ -1,6 +1,8 @@
 package com.coorchice.supertextview;
 
+import com.bumptech.glide.gifdecoder.GifDecoder;
 import com.coorchice.library.SuperTextView;
+import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.OpportunityDemoAdjuster;
@@ -12,10 +14,19 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.math.BigInteger;
 
 
 public class MainActivity extends Activity {
@@ -28,6 +39,7 @@ public class MainActivity extends Activity {
     private SuperTextView stv_22;
     private SuperTextView btn_next;
     private SuperTextView stv_0;
+    private SuperTextView stv_14;
     private SuperTextView stv_clickDemo1;
     private float density;
 
@@ -123,10 +135,33 @@ public class MainActivity extends Activity {
             }
         });
 
+        stv_14.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                try {
+//                    AssetFileDescriptor assetFileDescriptor = getResources().openRawResourceFd(R.drawable.flag);
+//                    FileInputStream fis = assetFileDescriptor.createInputStream();
+////                    LogUtils.e(String.format("gif大小：%d" + fis.available()));
+//                    byte[] data = new byte[fis.available()];
+//                    for (int i = 0; i < data.length; i++) {
+//                        LogUtils.e("data：" + data[i]);
+//                    }
+//                    fis.read(data);
+//                    LogUtils.e(data.toString());
+//                    LogUtils.e(new String(data, "utf-8"));
+//                    LogUtils.e(new BigInteger(1, data).toString(16));
+//                    stv_14.setDrawable(new BitmapDrawable(BitmapFactory.decodeByteArray(data, 0 ,data.length)));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+            }
+        });
+
     }
 
     private void findViews() {
         stv_0 = (SuperTextView) findViewById(R.id.stv_0);
+        stv_14 = (SuperTextView) findViewById(R.id.stv_14);
         stv_17 = (SuperTextView) findViewById(R.id.stv_17);
         stv_18 = (SuperTextView) findViewById(R.id.stv_18);
         stv_19 = (SuperTextView) findViewById(R.id.stv_19);
