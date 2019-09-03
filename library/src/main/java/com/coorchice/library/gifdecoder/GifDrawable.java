@@ -41,7 +41,7 @@ public class GifDrawable extends Drawable implements Gif {
                 invalidateSelf();
             }
         });
-        play();
+//        play();
     }
 
     public static GifDrawable createDrawable(String filePath) {
@@ -93,11 +93,21 @@ public class GifDrawable extends Drawable implements Gif {
     }
 
     @Override
+    public int getIntrinsicWidth() {
+        return getWidth();
+    }
+
+    @Override
     public int getHeight() {
         if (isValid()) {
             return gifDecoder.getHeight();
         }
         return 0;
+    }
+
+    @Override
+    public int getIntrinsicHeight() {
+        return getHeight();
     }
 
     @Override

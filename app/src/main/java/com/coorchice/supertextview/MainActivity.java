@@ -144,12 +144,22 @@ public class MainActivity extends Activity {
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
-        stv_14.setDrawable(R.drawable.gif_emoji_1);
+//        stv_14.setDrawable(R.drawable.gif_emoji_1);
         stv_14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((GifDrawable)stv_14.getDrawable()).play();
             }
         });
+
+        // 进入测试Activity
+      stv_0.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          Intent intent = new Intent(MainActivity.this, TestActivity.class);
+          startActivity(intent);
+        }
+      });
 
     }
 

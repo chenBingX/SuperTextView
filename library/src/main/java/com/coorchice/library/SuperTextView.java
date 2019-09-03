@@ -19,6 +19,16 @@
 package com.coorchice.library;
 
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.coorchice.library.gifdecoder.GifDecoder;
+import com.coorchice.library.gifdecoder.GifDrawable;
+import com.coorchice.library.image_engine.Engine;
+import com.coorchice.library.sys_adjusters.PressAdjuster;
+import com.coorchice.library.utils.STVUtils;
+
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
@@ -40,17 +50,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
-
-import com.coorchice.library.gifdecoder.GifDecoder;
-import com.coorchice.library.gifdecoder.GifDrawable;
-import com.coorchice.library.image_engine.Engine;
-import com.coorchice.library.sys_adjusters.PressAdjuster;
-import com.coorchice.library.utils.STVUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class SuperTextView extends TextView {
@@ -157,6 +156,8 @@ public class SuperTextView extends TextView {
 
     private OnDrawableClickedListener onDrawableClickedListener;
 
+    private int[] suitedSize;
+
     /**
      * 简单的构造函数
      *
@@ -231,9 +232,16 @@ public class SuperTextView extends TextView {
             strokeColor =
                     typedArray.getColor(R.styleable.SuperTextView_stv_stroke_color, DEFAULT_STROKE_COLOR);
 
-            drawable = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable);
-            if (drawable != null) {
-                drawable = drawable.mutate();
+            if (isInEditMode()){
+                drawable = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable);
+                if (drawable != null) {
+                    drawable = drawable.mutate();
+                }
+            } else {
+                int drawableId = typedArray.getResourceId(R.styleable.SuperTextView_stv_state_drawable, 0);
+                if (drawableId != 0){
+                   innerSetDrawable(drawableId);
+                }
             }
             drawableWidth =
                     typedArray.getDimension(R.styleable.SuperTextView_stv_state_drawable_width, 0);
@@ -246,10 +254,16 @@ public class SuperTextView extends TextView {
             drawableTint = typedArray.getColor(R.styleable.SuperTextView_stv_state_drawable_tint, NO_COLOR);
             drawableRotate = typedArray.getFloat(R.styleable.SuperTextView_stv_state_drawable_rotate, NO_ROTATE);
 
-
-            drawable2 = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable2);
-            if (drawable2 != null) {
-                drawable2 = drawable2.mutate();
+            if (isInEditMode()){
+                drawable2 = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable2);
+                if (drawable2 != null) {
+                   drawable2 = drawable2.mutate();
+                }
+            } else {
+                int drawable2Id = typedArray.getResourceId(R.styleable.SuperTextView_stv_state_drawable2, 0);
+                if (drawable2Id != 0){
+                    innerSetDrawable2(drawable2Id);
+                }
             }
             drawable2Width =
                     typedArray.getDimension(R.styleable.SuperTextView_stv_state_drawable2_width, 0);
@@ -315,10 +329,10 @@ public class SuperTextView extends TextView {
         }
     }
 
-//    @Override
-//    public void invalidateDrawable(Drawable drawable) {
-//        invalidate();
-//    }
+    @Override
+    public void invalidateDrawable(Drawable drawable) {
+        invalidate();
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -551,8 +565,19 @@ public class SuperTextView extends TextView {
                     || !(drawable.getIntrinsicWidth() > 0)) {
                 drawable.setBounds(0, 0, width, height);
             }
-            Bitmap bitmap = STVUtils.drawableToBitmap(drawable, width, height);
-            bitmap = computeSuitedBitmapSize(bitmap);
+            Bitmap bitmap;
+            if (drawable instanceof GifDrawable || drawable instanceof BitmapDrawable){
+                int[] size = computeSuitedBitmapSize(drawable);
+                drawable.setBounds(0,0,size[0], size[1]);
+                if (drawable instanceof GifDrawable){
+                    bitmap = ((GifDrawable) drawable).getBitmap();
+                } else {
+                    bitmap = ((BitmapDrawable) drawable).getBitmap();
+                }
+            } else {
+                bitmap = STVUtils.drawableToBitmap(drawable, width, height);
+                bitmap = computeSuitedBitmapSize(bitmap);
+            }
             drawableBackgroundShader =
                     new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         }
@@ -581,6 +606,35 @@ public class SuperTextView extends TextView {
         bitmap = Bitmap.createBitmap(bitmap, bitmap.getWidth() / 2 - width / 2,
                 bitmap.getHeight() / 2 - height / 2, width, height);
         return bitmap;
+    }
+
+    private int[] computeSuitedBitmapSize(Drawable drawable){
+        int suitedWidth = width;
+        int suitedHeight = height;
+        Bitmap bitmap = null;
+        if (drawable instanceof BitmapDrawable){
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof GifDrawable){
+            bitmap = ((GifDrawable) drawable).getBitmap();
+        } else if (drawable != null){
+            bitmap = STVUtils.drawableToBitmap(drawable, width, height);
+        }
+        if (bitmap != null){
+            if ((float) bitmap.getWidth() / (float) width > (float) bitmap.getHeight()
+              / (float) height) {
+                suitedWidth = (int) (((float) bitmap.getWidth() / (float) bitmap.getHeight())
+                  * (float) suitedHeight);
+            } else {
+                suitedHeight = (int) ((float) suitedWidth
+                  / ((float) bitmap.getWidth() / (float) bitmap.getHeight()));
+            }
+        }
+        if (suitedSize == null){
+            suitedSize = new int[2];
+        }
+        suitedSize[0] = suitedWidth;
+        suitedSize[1] = suitedHeight;
+        return suitedSize;
     }
 
     private float[] getDrawableBounds() {
@@ -1206,7 +1260,9 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable(Drawable drawable) {
+        resetGifDrawable(this.drawable);
         this.drawable = drawable;
+        this.drawable.setCallback(this);
         drawableBackgroundShader = null;
         postInvalidate();
 
@@ -1220,7 +1276,9 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable2(Drawable drawable) {
+        resetGifDrawable(this.drawable2);
         this.drawable2 = drawable;
+        this.drawable.setCallback(this);
         postInvalidate();
 
         return this;
@@ -1261,6 +1319,20 @@ public class SuperTextView extends TextView {
         return setDrawable(getResources().getDrawable(drawableRes).mutate());
     }
 
+    private SuperTextView innerSetDrawable(int drawableRes){
+        try {
+            byte[] bytes = getResBytes(drawableRes);
+            if (bytes != null && GifDecoder.isGif(bytes)){
+                drawable = GifDrawable.createDrawable(bytes);
+            }else {
+                drawable = getResources().getDrawable(drawableRes).mutate();
+            }
+        } catch (Exception e){
+
+        }
+        return this;
+    }
+
     /**
      * 使用drawable资源设置状态图2。需要调用{@link #setShowState2(boolean)}才能显示。会触发一次重绘。
      *
@@ -1273,6 +1345,27 @@ public class SuperTextView extends TextView {
             return setDrawable2(GifDrawable.createDrawable(bytes));
         }
         return setDrawable2(getResources().getDrawable(drawableRes).mutate());
+    }
+
+    private SuperTextView innerSetDrawable2(int drawableRes){
+        try {
+            byte[] bytes = getResBytes(drawableRes);
+            if (bytes != null && GifDecoder.isGif(bytes)){
+                drawable2 = GifDrawable.createDrawable(bytes);
+            }else {
+                drawable2 = getResources().getDrawable(drawableRes).mutate();
+            }
+        } catch (Exception e) {
+        }
+        return this;
+    }
+
+    private void resetGifDrawable(Drawable drawable){
+        if (drawable != null) drawable.setCallback(null);
+        if (drawable instanceof GifDrawable){
+            ((GifDrawable)drawable).stop();
+            ((GifDrawable)drawable).destroy();
+        }
     }
 
     /**
@@ -1303,7 +1396,6 @@ public class SuperTextView extends TextView {
     public boolean isShowState() {
         return isShowState;
     }
-
 
     /**
      * 设置是否显示状态图。
@@ -2121,6 +2213,8 @@ public class SuperTextView extends TextView {
 
     @Override
     protected void onDetachedFromWindow() {
+        resetGifDrawable(drawable);
+        resetGifDrawable(drawable2);
         stopAnim();
         super.onDetachedFromWindow();
     }

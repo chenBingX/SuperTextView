@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+  android:id="@+id/activity_main"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -306,7 +306,8 @@
                 android:textSize="14sp"
                 app:stv_corner="10dp"
                 app:stv_isShowState="true"
-                app:stv_solid="#4CBDD2"/>
+              app:stv_solid="#4CBDD2"
+              app:stv_state_drawable="@drawable/gif_emoji_1"/>
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/stv_15"

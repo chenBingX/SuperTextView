@@ -16,23 +16,18 @@
 
 package com.coorchice.supertextview;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-
-import com.bumptech.glide.util.Util;
 import com.coorchice.library.SuperTextView;
-import com.coorchice.library.gifdecoder.GifDecoder;
+import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.Ripple2Adjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
 import com.coorchice.supertextview.Utils.LogUtils;
 
-import java.io.InputStream;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class SecondActivity extends Activity {
 
@@ -93,18 +88,14 @@ public class SecondActivity extends Activity {
             @Override
             public void onClick(View view) {
                 try {
-                    InputStream is = getResources().openRawResource(R.drawable.gif_2);
-                    byte[] bytes = new byte[is.available()];
-                    is.read(bytes);
-                    final GifDecoder gifDecoder = GifDecoder.openBytes(bytes);
-                    gifDecoder.setOnFrameListener(new GifDecoder.OnFrameListener() {
+                    stv_4.setDrawable(R.drawable.gif_2);
+                    stv_4.postDelayed(new Runnable() {
                         @Override
-                        public void onFrame(GifDecoder gd, Bitmap bitmap) {
-                            if (bitmap != null)
-                                stv_4.setDrawable(new BitmapDrawable(bitmap));
+                        public void run() {
+                            ((GifDrawable)stv_4.getDrawable()).play();
                         }
-                    });
-                    gifDecoder.play();
+                    },2000);
+//                    gifDecoder.play();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

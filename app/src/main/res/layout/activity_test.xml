@@ -15,36 +15,68 @@
   ~ Last modified 1/21/19 3:31 PM
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TestActivity">
 
-    <com.coorchice.library.SuperTextView
-        android:id="@+id/stv_1"
-        android:layout_width="@dimen/stv_normal_size"
-        android:layout_height="@dimen/stv_normal_size"
-        android:paddingBottom="1dp"
-        android:gravity="center"
-        android:text="Test Test Test Test"
-        android:textColor="@color/black"
-        android:layout_centerInParent="true"
-        android:singleLine="true"
-        android:textSize="18sp"
-        android:ellipsize="end"
-        app:stv_corner="10dp"
-        app:stv_textShaderEnable="true"
-        app:stv_isShowState="true"
-        app:stv_state_drawable="#000000"
-        app:stv_state_drawable_width="80dp"
-        app:stv_state_drawable_height="1dp"
-        app:stv_textShaderStartColor="@color/red"
-        app:stv_textShaderEndColor="@color/white"
-        app:stv_text_stroke="true"
-        app:stv_text_stroke_color="@color/black"
-        app:stv_text_stroke_width="2dp"
-        />
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
 
-</RelativeLayout>
+        <com.coorchice.library.SuperTextView
+          android:id="@+id/stv_0"
+          android:layout_width="wrap_content"
+          android:layout_height="45dp"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="10dp"
+          app:stv_corner="30dp"
+          app:stv_isShowState="true"
+          app:stv_solid="#ffd54f"
+          app:stv_state_drawable="@drawable/close"
+          app:stv_state_drawable_height="25dp"
+          app:stv_state_drawable_width="25dp"
+          app:stv_state_drawable_mode="right"
+          app:stv_state_drawable_padding_left="-7dp"
+          android:text="中间、x可以分别设置点击事件"
+          android:textColor="@color/black"
+          android:gravity="center_vertical"
+          android:paddingLeft="10dp"
+          android:textSize="12dp"
+          android:paddingRight="44dp"
+          />
+
+        <com.coorchice.library.SuperTextView
+          android:id="@+id/stv_1"
+          android:layout_width="@dimen/stv_normal_size"
+          android:layout_height="@dimen/stv_normal_size"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="150dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:paddingBottom="1dp"
+          android:singleLine="true"
+          android:text="Test Test Test Test"
+          android:textColor="@color/black"
+          android:textSize="18sp"
+          app:stv_corner="10dp"
+          app:stv_isShowState="true"
+          app:stv_state_drawable="#000000"
+          app:stv_state_drawable_height="1dp"
+          app:stv_state_drawable_width="80dp"
+          app:stv_textShaderEnable="true"
+          app:stv_textShaderEndColor="@color/white"
+          app:stv_textShaderStartColor="@color/red"
+          app:stv_text_stroke="true"
+          app:stv_text_stroke_color="@color/black"
+          app:stv_text_stroke_width="2dp"
+          />
+
+    </LinearLayout>
+
+
+</ScrollView>

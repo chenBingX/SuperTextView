@@ -33,7 +33,7 @@ public class GifDecoder implements Gif {
     private long ptr;
     private Bitmap frameCanvas;
     private Rect bounds;
-    private boolean canPlay = true;
+    private boolean canPlay = false;
     private OnFrameListener onFrameListener;
 
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -153,8 +153,11 @@ public class GifDecoder implements Gif {
 
     public void play() {
         if (isDestroy()) return;
-        canPlay = true;
-        innerPlay(0);
+        if (!canPlay){
+            canPlay = true;
+            handler.removeCallbacksAndMessages(null);
+            innerPlay(0);
+        }
     }
 
     private void innerPlay(int delay) {
