@@ -40,10 +40,25 @@ public class JNI {
 
     /**
      * 通过byte数组打开 gif 图
+     *
      * @param bytes
      * @return
      */
     public static native long openBytes(byte[] bytes);
+
+    /**
+     * 判断是否是gif
+     * @param path
+     * @return
+     */
+    public static native boolean fileIsGif(String path);
+
+    /**
+     * 判断是否是gif
+     * @param bytes
+     * @return
+     */
+    public static native boolean bytesIsGif(byte[] bytes);
 
     /**
      * 更新一帧
@@ -72,11 +87,11 @@ public class JNI {
 
     /**
      * 获取帧数
+     *
      * @param ptr
      * @return
      */
     public static native int getFrameCount(long ptr);
-
 
     /**
      * 获取当前帧间隔
@@ -124,6 +139,7 @@ public class JNI {
 
     /**
      * 销毁
+     *
      * @param ptr
      * @return
      */

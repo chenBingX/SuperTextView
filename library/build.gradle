@@ -27,9 +27,6 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
-        ndk {
-            abiFilters "armeabi-v7a"
-        }
     }
     buildTypes {
         release {
@@ -39,13 +36,14 @@ android {
     }
     productFlavors {
     }
+
     sourceSets {
         main {
-            jniLibs.srcDirs = ['libs']
+            jniLibs.srcDirs 'src/main/jniLibs'
         }
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 }

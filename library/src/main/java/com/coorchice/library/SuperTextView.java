@@ -31,9 +31,9 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
@@ -41,11 +41,14 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import com.coorchice.library.gifdecoder.GifDecoder;
+import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.image_engine.Engine;
 import com.coorchice.library.sys_adjusters.PressAdjuster;
-import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -311,6 +314,11 @@ public class SuperTextView extends TextView {
             drawableBackgroundShader = null;
         }
     }
+
+//    @Override
+//    public void invalidateDrawable(Drawable drawable) {
+//        invalidate();
+//    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -1218,6 +1226,27 @@ public class SuperTextView extends TextView {
         return this;
     }
 
+    private byte[] getResBytes(int drawableRes) {
+        InputStream is = null;
+        try {
+            is = getResources().openRawResource(drawableRes);
+            byte[] bytes = new byte[is.available()];
+            is.read(bytes);
+            return bytes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * 使用drawable资源设置状态图。需要调用{@link #setShowState(boolean)}才能显示。会触发一次重绘。
      *
@@ -1225,11 +1254,11 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable(int drawableRes) {
-        this.drawable = getResources().getDrawable(drawableRes).mutate();
-        drawableBackgroundShader = null;
-        postInvalidate();
-
-        return this;
+        byte[] bytes = getResBytes(drawableRes);
+        if (bytes != null && GifDecoder.isGif(bytes)){
+            return setDrawable(GifDrawable.createDrawable(bytes));
+        }
+        return setDrawable(getResources().getDrawable(drawableRes).mutate());
     }
 
     /**
@@ -1239,10 +1268,31 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable2(int drawableRes) {
-        this.drawable2 = getResources().getDrawable(drawableRes).mutate();
-        postInvalidate();
+        byte[] bytes = getResBytes(drawableRes);
+        if (bytes != null && GifDecoder.isGif(bytes)){
+            return setDrawable2(GifDrawable.createDrawable(bytes));
+        }
+        return setDrawable2(getResources().getDrawable(drawableRes).mutate());
+    }
 
-        return this;
+    /**
+     * 使用bitmap资源设置状态图1。需要调用{@link #setShowState(boolean)}才能显示。会触发一次重绘。
+     *
+     * @param bitmap 要设置的图片
+     * @return
+     */
+    public SuperTextView setDrawable(Bitmap bitmap) {
+        return setDrawable(new BitmapDrawable(bitmap));
+    }
+
+    /**
+     * 使用bitmap资源设置状态图2。需要调用{@link #setShowState2(boolean)}才能显示。会触发一次重绘。
+     *
+     * @param bitmap 要设置的图片
+     * @return
+     */
+    public SuperTextView setDrawable2(Bitmap bitmap) {
+        return setDrawable2(new BitmapDrawable(bitmap));
     }
 
     /**

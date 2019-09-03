@@ -2,6 +2,7 @@ package com.coorchice.supertextview;
 
 import com.bumptech.glide.gifdecoder.GifDecoder;
 import com.coorchice.library.SuperTextView;
+import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
@@ -134,26 +135,19 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, SecondActivity.class));
             }
         });
-
+//        try {
+//            InputStream is = getResources().openRawResource(R.drawable.gif_emoji_1);
+//            byte[] bytes = new byte[is.available()];
+//            is.read(bytes);
+//            GifDrawable drawable = GifDrawable.createDrawable(bytes);
+//            stv_14.setDrawable(drawable);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+        stv_14.setDrawable(R.drawable.gif_emoji_1);
         stv_14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                try {
-//                    AssetFileDescriptor assetFileDescriptor = getResources().openRawResourceFd(R.drawable.flag);
-//                    FileInputStream fis = assetFileDescriptor.createInputStream();
-////                    LogUtils.e(String.format("gif大小：%d" + fis.available()));
-//                    byte[] data = new byte[fis.available()];
-//                    for (int i = 0; i < data.length; i++) {
-//                        LogUtils.e("data：" + data[i]);
-//                    }
-//                    fis.read(data);
-//                    LogUtils.e(data.toString());
-//                    LogUtils.e(new String(data, "utf-8"));
-//                    LogUtils.e(new BigInteger(1, data).toString(16));
-//                    stv_14.setDrawable(new BitmapDrawable(BitmapFactory.decodeByteArray(data, 0 ,data.length)));
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
             }
         });
 

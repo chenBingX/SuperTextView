@@ -306,8 +306,7 @@
                 android:textSize="14sp"
                 app:stv_corner="10dp"
                 app:stv_isShowState="true"
-                app:stv_solid="#4CBDD2"
-                app:stv_state_drawable="@drawable/flag" />
+                app:stv_solid="#4CBDD2"/>
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/stv_15"
