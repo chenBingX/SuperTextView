@@ -84,21 +84,11 @@ public class SecondActivity extends Activity {
         });
 
         stv_4 = (SuperTextView) findViewById(R.id.stv_4);
+        stv_4.setDrawable(R.drawable.gif_2);
         stv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    stv_4.setDrawable(R.drawable.gif_2);
-                    stv_4.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((GifDrawable)stv_4.getDrawable()).play();
-                        }
-                    },2000);
-//                    gifDecoder.play();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                ((GifDrawable) stv_4.getDrawable()).play();
             }
         });
     }

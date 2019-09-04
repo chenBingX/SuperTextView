@@ -20,7 +20,14 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.text.TextUtils;
+
+import com.coorchice.library.utils.LogUtils;
+import com.coorchice.library.utils.ThreadPool;
+
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Project Name:CoorChiceLibOne
@@ -35,16 +42,29 @@ public class GifDecoder implements Gif {
     private Rect bounds;
     private boolean canPlay = false;
     private OnFrameListener onFrameListener;
-
     private Handler handler = new Handler(Looper.getMainLooper());
+    private ScheduledFuture<?> onceRenderSchedule;
+    private Runnable onFrameRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (onFrameListener != null && !isDestroy() && getBitmap() != null) {
+                onFrameListener.onFrame(GifDecoder.this, getBitmap());
+            }
+        }
+    };
     private Runnable playRunnable = new Runnable() {
         @Override
         public void run() {
-            if (isDestroy() || !canPlay) return;
-            int d = updateFrame();
-            if (onFrameListener != null) {
-                onFrameListener.onFrame(GifDecoder.this, getBitmap());
+            if (isDestroy() || !canPlay) {
+                handler.removeCallbacksAndMessages(null);
+                ThreadPool.globleExecutor().remove(playRunnable);
+                if (onceRenderSchedule != null) {
+                    onceRenderSchedule.cancel(false);
+                }
+                return;
             }
+            int d = updateFrame();
+            handler.postAtTime(onFrameRunnable, SystemClock.uptimeMillis() + d);
             innerPlay(d);
         }
     };
@@ -69,6 +89,7 @@ public class GifDecoder implements Gif {
     private GifDecoder(byte[] bytes) {
         if (bytes != null) {
             ptr = JNI.openBytes(bytes);
+            setFrameDuration(200);
         } else {
             throw new IllegalArgumentException("File path can not be null or empty!");
         }
@@ -152,16 +173,28 @@ public class GifDecoder implements Gif {
     }
 
     public void play() {
-        if (isDestroy()) return;
-        if (!canPlay){
+        if (isDestroy()) {
+            canPlay = false;
+            handler.removeCallbacksAndMessages(null);
+            ThreadPool.globleExecutor().remove(playRunnable);
+            if (onceRenderSchedule != null) {
+                onceRenderSchedule.cancel(false);
+            }
+            return;
+        }
+        if (!canPlay) {
             canPlay = true;
             handler.removeCallbacksAndMessages(null);
+            if (onceRenderSchedule != null) {
+                onceRenderSchedule.cancel(false);
+            }
             innerPlay(0);
         }
     }
 
     private void innerPlay(int delay) {
-        handler.postDelayed(playRunnable, delay);
+        ThreadPool.globleExecutor().remove(playRunnable);
+        onceRenderSchedule = ThreadPool.globleExecutor().schedule(playRunnable, delay, TimeUnit.MILLISECONDS);
     }
 
     public boolean isPlaying() {
@@ -170,6 +203,11 @@ public class GifDecoder implements Gif {
 
     public void stop() {
         canPlay = false;
+        handler.removeCallbacksAndMessages(null);
+        ThreadPool.globleExecutor().remove(playRunnable);
+        if (onceRenderSchedule != null) {
+            onceRenderSchedule.cancel(false);
+        }
     }
 
     public boolean isDestroy() {
@@ -179,6 +217,10 @@ public class GifDecoder implements Gif {
     public void destroy() {
         canPlay = false;
         handler.removeCallbacksAndMessages(null);
+        ThreadPool.globleExecutor().remove(playRunnable);
+        if (onceRenderSchedule != null){
+            onceRenderSchedule.cancel(false);
+        }
         check();
         JNI.destroy(ptr);
         ptr = 0;

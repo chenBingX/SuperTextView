@@ -27,8 +27,8 @@ import com.coorchice.library.gifdecoder.GifDecoder;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.image_engine.Engine;
 import com.coorchice.library.sys_adjusters.PressAdjuster;
-import com.coorchice.library.utils.STVUtils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
@@ -41,6 +41,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
@@ -157,6 +158,7 @@ public class SuperTextView extends TextView {
     private OnDrawableClickedListener onDrawableClickedListener;
 
     private int[] suitedSize;
+    private Canvas drawableBgCanvas;
 
     /**
      * 简单的构造函数
@@ -232,15 +234,15 @@ public class SuperTextView extends TextView {
             strokeColor =
                     typedArray.getColor(R.styleable.SuperTextView_stv_stroke_color, DEFAULT_STROKE_COLOR);
 
-            if (isInEditMode()){
+            if (isInEditMode()) {
                 drawable = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable);
                 if (drawable != null) {
                     drawable = drawable.mutate();
                 }
             } else {
                 int drawableId = typedArray.getResourceId(R.styleable.SuperTextView_stv_state_drawable, 0);
-                if (drawableId != 0){
-                   innerSetDrawable(drawableId);
+                if (drawableId != 0) {
+                    innerSetDrawable(drawableId);
                 }
             }
             drawableWidth =
@@ -254,14 +256,14 @@ public class SuperTextView extends TextView {
             drawableTint = typedArray.getColor(R.styleable.SuperTextView_stv_state_drawable_tint, NO_COLOR);
             drawableRotate = typedArray.getFloat(R.styleable.SuperTextView_stv_state_drawable_rotate, NO_ROTATE);
 
-            if (isInEditMode()){
+            if (isInEditMode()) {
                 drawable2 = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable2);
                 if (drawable2 != null) {
-                   drawable2 = drawable2.mutate();
+                    drawable2 = drawable2.mutate();
                 }
             } else {
                 int drawable2Id = typedArray.getResourceId(R.styleable.SuperTextView_stv_state_drawable2, 0);
-                if (drawable2Id != 0){
+                if (drawable2Id != 0) {
                     innerSetDrawable2(drawable2Id);
                 }
             }
@@ -331,11 +333,14 @@ public class SuperTextView extends TextView {
 
     @Override
     public void invalidateDrawable(Drawable drawable) {
+//        postInvalidate();
         invalidate();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (getVisibility() != VISIBLE || !isAttachedToWindow() || getWidth() < 0 || getHeight() < 0)
+            return;
         width = getWidth();
         height = getHeight();
 
@@ -361,7 +366,6 @@ public class SuperTextView extends TextView {
             sdkOnDraw(canvas);
         }
         isNeedToAdjust(canvas, Adjuster.Opportunity.AT_LAST);
-//        LogUtils.e("canvas.h = " + canvas.getHeight());
     }
 
     private void drawStrokeLine(Canvas canvas) {
@@ -565,30 +569,30 @@ public class SuperTextView extends TextView {
                     || !(drawable.getIntrinsicWidth() > 0)) {
                 drawable.setBounds(0, 0, width, height);
             }
-            Bitmap bitmap;
-            if (drawable instanceof GifDrawable || drawable instanceof BitmapDrawable){
-                int[] size = computeSuitedBitmapSize(drawable);
-                drawable.setBounds(0,0,size[0], size[1]);
-                if (drawable instanceof GifDrawable){
-                    bitmap = ((GifDrawable) drawable).getBitmap();
-                } else {
-                    bitmap = ((BitmapDrawable) drawable).getBitmap();
-                }
-            } else {
-                bitmap = STVUtils.drawableToBitmap(drawable, width, height);
-                bitmap = computeSuitedBitmapSize(bitmap);
+            int[] size = computeSuitedBitmapSize(drawable);
+            if (drawableBgCanvas == null
+                    || (drawableBgCanvas.getWidth() != size[0] || drawableBgCanvas.getHeight() != size[1])) {
+                Bitmap bitmap = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
+                drawableBgCanvas = new Canvas(bitmap);
+                drawableBackgroundShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             }
-            drawableBackgroundShader =
-                    new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         }
-
-        Shader shader = paint.getShader();
-        int color = paint.getColor();
-        paint.setColor(Color.WHITE);
-        paint.setShader(drawableBackgroundShader);
-        canvas.drawPath(solidPath, paint);
-        paint.setShader(shader);
-        paint.setColor(color);
+        if (drawableBgCanvas != null) {
+            Rect orgBounds = drawable.getBounds();
+            drawable.setBounds(-suitedSize[2], -suitedSize[3], drawableBgCanvas.getWidth(), drawableBgCanvas.getHeight());
+            drawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            drawable.draw(drawableBgCanvas);
+            drawable.setBounds(orgBounds);
+        }
+        if (drawableBackgroundShader != null) {
+            Shader shader = paint.getShader();
+            int color = paint.getColor();
+            paint.setColor(Color.WHITE);
+            paint.setShader(drawableBackgroundShader);
+            canvas.drawPath(solidPath, paint);
+            paint.setShader(shader);
+            paint.setColor(color);
+        }
     }
 
     private Bitmap computeSuitedBitmapSize(Bitmap bitmap) {
@@ -608,32 +612,29 @@ public class SuperTextView extends TextView {
         return bitmap;
     }
 
-    private int[] computeSuitedBitmapSize(Drawable drawable){
+    private int[] computeSuitedBitmapSize(Drawable drawable) {
+        int dWidth = drawable.getIntrinsicWidth();
+        int dHeight = drawable.getIntrinsicHeight();
+        if (!(dWidth > 0)) {
+            dWidth = width;
+        }
+        if (!(dHeight > 0)) {
+            dHeight = height;
+        }
         int suitedWidth = width;
         int suitedHeight = height;
-        Bitmap bitmap = null;
-        if (drawable instanceof BitmapDrawable){
-            bitmap = ((BitmapDrawable) drawable).getBitmap();
-        } else if (drawable instanceof GifDrawable){
-            bitmap = ((GifDrawable) drawable).getBitmap();
-        } else if (drawable != null){
-            bitmap = STVUtils.drawableToBitmap(drawable, width, height);
+        if ((float) dWidth / (float) width > (float) dHeight / (float) height) {
+            suitedWidth = (int) (((float) dWidth / (float) dHeight) * (float) suitedHeight);
+        } else {
+            suitedHeight = (int) ((float) suitedWidth / ((float) dWidth / (float) dHeight));
         }
-        if (bitmap != null){
-            if ((float) bitmap.getWidth() / (float) width > (float) bitmap.getHeight()
-              / (float) height) {
-                suitedWidth = (int) (((float) bitmap.getWidth() / (float) bitmap.getHeight())
-                  * (float) suitedHeight);
-            } else {
-                suitedHeight = (int) ((float) suitedWidth
-                  / ((float) bitmap.getWidth() / (float) bitmap.getHeight()));
-            }
-        }
-        if (suitedSize == null){
-            suitedSize = new int[2];
+        if (suitedSize == null) {
+            suitedSize = new int[4];
         }
         suitedSize[0] = suitedWidth;
         suitedSize[1] = suitedHeight;
+        suitedSize[2] = suitedSize[0] / 2 - width / 2;
+        suitedSize[3] = suitedSize[1] / 2 - height / 2;
         return suitedSize;
     }
 
@@ -836,6 +837,7 @@ public class SuperTextView extends TextView {
         getPaint().setShader(tempShader);
     }
 
+    @SuppressLint("WrongCall")
     private void sdkOnDraw(Canvas canvas) {
         super.onDraw(canvas);
     }
@@ -1313,21 +1315,21 @@ public class SuperTextView extends TextView {
      */
     public SuperTextView setDrawable(int drawableRes) {
         byte[] bytes = getResBytes(drawableRes);
-        if (bytes != null && GifDecoder.isGif(bytes)){
+        if (bytes != null && GifDecoder.isGif(bytes)) {
             return setDrawable(GifDrawable.createDrawable(bytes));
         }
         return setDrawable(getResources().getDrawable(drawableRes).mutate());
     }
 
-    private SuperTextView innerSetDrawable(int drawableRes){
+    private SuperTextView innerSetDrawable(int drawableRes) {
         try {
             byte[] bytes = getResBytes(drawableRes);
-            if (bytes != null && GifDecoder.isGif(bytes)){
+            if (bytes != null && GifDecoder.isGif(bytes)) {
                 drawable = GifDrawable.createDrawable(bytes);
-            }else {
+            } else {
                 drawable = getResources().getDrawable(drawableRes).mutate();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         return this;
@@ -1341,18 +1343,18 @@ public class SuperTextView extends TextView {
      */
     public SuperTextView setDrawable2(int drawableRes) {
         byte[] bytes = getResBytes(drawableRes);
-        if (bytes != null && GifDecoder.isGif(bytes)){
+        if (bytes != null && GifDecoder.isGif(bytes)) {
             return setDrawable2(GifDrawable.createDrawable(bytes));
         }
         return setDrawable2(getResources().getDrawable(drawableRes).mutate());
     }
 
-    private SuperTextView innerSetDrawable2(int drawableRes){
+    private SuperTextView innerSetDrawable2(int drawableRes) {
         try {
             byte[] bytes = getResBytes(drawableRes);
-            if (bytes != null && GifDecoder.isGif(bytes)){
+            if (bytes != null && GifDecoder.isGif(bytes)) {
                 drawable2 = GifDrawable.createDrawable(bytes);
-            }else {
+            } else {
                 drawable2 = getResources().getDrawable(drawableRes).mutate();
             }
         } catch (Exception e) {
@@ -1360,11 +1362,11 @@ public class SuperTextView extends TextView {
         return this;
     }
 
-    private void resetGifDrawable(Drawable drawable){
+    private void resetGifDrawable(Drawable drawable) {
         if (drawable != null) drawable.setCallback(null);
-        if (drawable instanceof GifDrawable){
-            ((GifDrawable)drawable).stop();
-            ((GifDrawable)drawable).destroy();
+        if (drawable instanceof GifDrawable) {
+            ((GifDrawable) drawable).stop();
+            ((GifDrawable) drawable).destroy();
         }
     }
 

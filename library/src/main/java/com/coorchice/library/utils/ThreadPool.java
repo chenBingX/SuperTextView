@@ -20,6 +20,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @hide
@@ -28,9 +30,12 @@ public class ThreadPool {
 
   private ExecutorService threadPool;
 
+  private ScheduledThreadPoolExecutor globleExecutor;
+
   private ThreadPool() {
     if (threadPool == null) {
       threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+      globleExecutor = new ScheduledThreadPoolExecutor(1, new ThreadPoolExecutor.DiscardPolicy());
     }
   }
 
@@ -50,11 +55,16 @@ public class ThreadPool {
     return ThreadPool.get().threadPool.submit(call);
   }
 
+  public static final ScheduledThreadPoolExecutor globleExecutor(){
+    return Holder.instance.globleExecutor;
+  }
+
   /**
    * 关闭线程池,这将导致改线程池立即停止接受新的线程请求,但已经存在的任务仍然会执行,直到完成。
    */
   public synchronized void shutDown() {
     ThreadPool.get().threadPool.shutdownNow();
+    ThreadPool.get().globleExecutor.shutdownNow();
   }
 
 }

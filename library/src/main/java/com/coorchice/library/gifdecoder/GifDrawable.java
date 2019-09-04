@@ -41,7 +41,7 @@ public class GifDrawable extends Drawable implements Gif {
                 invalidateSelf();
             }
         });
-//        play();
+        play();
     }
 
     public static GifDrawable createDrawable(String filePath) {
@@ -56,9 +56,7 @@ public class GifDrawable extends Drawable implements Gif {
     public void draw(Canvas canvas) {
         if (gifDecoder == null || gifDecoder.isDestroy()) return;
         if (gifDecoder.getBitmap() != null) {
-//            synchronized (gifDecoder.getBitmap()) {
-                canvas.drawBitmap(gifDecoder.getBitmap(), gifDecoder.getBounds(), getBounds(), paint);
-//            }
+            canvas.drawBitmap(gifDecoder.getBitmap(), gifDecoder.getBounds(), getBounds(), paint);
         }
     }
 
