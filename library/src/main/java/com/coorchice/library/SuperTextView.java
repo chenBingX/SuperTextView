@@ -1326,10 +1326,11 @@ public class SuperTextView extends TextView {
             byte[] bytes = getResBytes(drawableRes);
             if (bytes != null && GifDecoder.isGif(bytes)) {
                 drawable = GifDrawable.createDrawable(bytes);
+                drawable.setCallback(this);
             } else {
                 drawable = getResources().getDrawable(drawableRes).mutate();
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return this;
@@ -1354,6 +1355,7 @@ public class SuperTextView extends TextView {
             byte[] bytes = getResBytes(drawableRes);
             if (bytes != null && GifDecoder.isGif(bytes)) {
                 drawable2 = GifDrawable.createDrawable(bytes);
+                drawable2.setCallback(this);
             } else {
                 drawable2 = getResources().getDrawable(drawableRes).mutate();
             }

@@ -23,6 +23,8 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
+import com.coorchice.library.utils.LogUtils;
+
 /**
  * @author coorchice
  * @date 2019/09/03
@@ -31,6 +33,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     private final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.DITHER_FLAG);
     private GifDecoder gifDecoder;
+    private Bitmap frame;
 
     private GifDrawable(GifDecoder gifDecoder) {
         this.gifDecoder = gifDecoder;
@@ -38,6 +41,7 @@ public class GifDrawable extends Drawable implements Gif {
         gifDecoder.setOnFrameListener(new GifDecoder.OnFrameListener() {
             @Override
             public void onFrame(GifDecoder gd, Bitmap bitmap) {
+                frame = bitmap;
                 invalidateSelf();
             }
         });
@@ -55,8 +59,11 @@ public class GifDrawable extends Drawable implements Gif {
     @Override
     public void draw(Canvas canvas) {
         if (gifDecoder == null || gifDecoder.isDestroy()) return;
-        if (gifDecoder.getBitmap() != null) {
-            canvas.drawBitmap(gifDecoder.getBitmap(), gifDecoder.getBounds(), getBounds(), paint);
+        synchronized (gifDecoder.lock) {
+            if (frame != null) {
+                LogUtils.e("GifDecoder -> 绘制视图");
+                canvas.drawBitmap(frame, gifDecoder.getBounds(), getBounds(), paint);
+            }
         }
     }
 

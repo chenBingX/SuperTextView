@@ -17,6 +17,10 @@
 package com.coorchice.library.gifdecoder;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,6 +32,7 @@ import com.coorchice.library.utils.ThreadPool;
 
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Project Name:CoorChiceLibOne
@@ -38,17 +43,20 @@ import java.util.concurrent.TimeUnit;
 public class GifDecoder implements Gif {
 
     private long ptr;
-    private Bitmap frameCanvas;
+    private Bitmap frame, buffer;
+    private Canvas bufferCanvas;
+    private final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.DITHER_FLAG);
     private Rect bounds;
     private boolean canPlay = false;
     private OnFrameListener onFrameListener;
     private Handler handler = new Handler(Looper.getMainLooper());
     private ScheduledFuture<?> onceRenderSchedule;
+    protected final Object lock = new Object();
     private Runnable onFrameRunnable = new Runnable() {
         @Override
         public void run() {
-            if (onFrameListener != null && !isDestroy() && getBitmap() != null) {
-                onFrameListener.onFrame(GifDecoder.this, getBitmap());
+            if (onFrameListener != null && !isDestroy() && buffer != null) {
+                onFrameListener.onFrame(GifDecoder.this, buffer);
             }
         }
     };
@@ -100,7 +108,8 @@ public class GifDecoder implements Gif {
         if (ptr == 0) {
             throw new NullPointerException("Init Failure！");
         }
-        frameCanvas = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        frame = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        bufferCanvas = new Canvas(buffer = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888));
     }
 
     public int getWidth() {
@@ -141,15 +150,17 @@ public class GifDecoder implements Gif {
 
     public Bitmap getFrame(int frame) {
         check();
-        JNI.getFrame(ptr, frame, frameCanvas);
-        return frameCanvas;
+        JNI.getFrame(ptr, frame, this.frame);
+        copyFrameToBuffer();
+        return buffer;
     }
 
     public int updateFrame() {
         check();
         int r = 1;
-        if (frameCanvas != null) {
-            r = JNI.updateFrame(ptr, frameCanvas);
+        if (frame != null) {
+            r = JNI.updateFrame(ptr, frame);
+            copyFrameToBuffer();
         }
         return r;
     }
@@ -159,7 +170,7 @@ public class GifDecoder implements Gif {
     }
 
     public Bitmap getBitmap() {
-        return frameCanvas;
+        return buffer;
     }
 
     private void check() {
@@ -218,14 +229,17 @@ public class GifDecoder implements Gif {
         canPlay = false;
         handler.removeCallbacksAndMessages(null);
         ThreadPool.globleExecutor().remove(playRunnable);
-        if (onceRenderSchedule != null){
+        if (onceRenderSchedule != null) {
             onceRenderSchedule.cancel(false);
         }
         check();
         JNI.destroy(ptr);
         ptr = 0;
-        frameCanvas.recycle();
-        frameCanvas = null;
+        frame.recycle();
+        frame = null;
+        bufferCanvas = null;
+        buffer.recycle();
+        buffer = null;
     }
 
     public void setOnFrameListener(OnFrameListener onFrameListener) {
@@ -234,13 +248,23 @@ public class GifDecoder implements Gif {
 
     public Rect getBounds() {
         if (bounds == null || bounds.isEmpty()) {
-            if (!isDestroy() && frameCanvas != null) {
+            if (!isDestroy() && frame != null) {
                 bounds = new Rect(0, 0, getWidth(), getHeight());
             } else {
                 bounds = new Rect(0, 0, 1, 1);
             }
         }
         return bounds;
+    }
+
+    private void copyFrameToBuffer() {
+        synchronized (lock) {
+            if (buffer != null && bufferCanvas != null && frame != null) {
+                bufferCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                bufferCanvas.drawBitmap(frame, 0, 0, paint);
+                LogUtils.e("GifDecoder -> 拷贝视图");
+            }
+        }
     }
 
     @Override
