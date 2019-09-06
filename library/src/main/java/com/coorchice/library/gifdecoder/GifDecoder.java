@@ -28,6 +28,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 
 import com.coorchice.library.utils.LogUtils;
+import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
 
 import java.util.concurrent.ScheduledFuture;
@@ -280,12 +281,6 @@ public class GifDecoder implements Gif {
     }
 
     public static boolean isGif(Object o) {
-        boolean r = false;
-        if (o instanceof String) {
-            r = ((String) o).toUpperCase().endsWith(".gif");
-        } else if (o instanceof byte[]) {
-            r = JNI.bytesIsGif((byte[]) o);
-        }
-        return r;
+        return STVUtils.isGif(o);
     }
 }

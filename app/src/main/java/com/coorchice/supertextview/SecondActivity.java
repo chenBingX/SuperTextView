@@ -88,7 +88,7 @@ public class SecondActivity extends Activity {
         stv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((GifDrawable) stv_4.getDrawable()).play();
+                stv_4.setUrlImage("http://5b0988e595225.cdn.sohucs.com/images/20171128/bc6d5905a2524c2a8bde25e6a765aa2d.gif");
             }
         });
     }

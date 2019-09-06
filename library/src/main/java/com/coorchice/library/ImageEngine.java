@@ -18,9 +18,11 @@ package com.coorchice.library;
 
 import com.coorchice.library.image_engine.DefaultEngine;
 import com.coorchice.library.image_engine.Engine;
+import com.coorchice.library.utils.STVUtils;
 
 import android.app.Application;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 
 /**
  * Project Name:SuperTextView
@@ -35,9 +37,10 @@ import android.graphics.drawable.Drawable;
 public class ImageEngine {
 
   private Engine engine;
+  private final DefaultEngine defaultEngine;
 
   private ImageEngine() {
-
+      defaultEngine = new DefaultEngine();
   }
 
   private static final class Holder {
@@ -62,9 +65,14 @@ public class ImageEngine {
    * @param callback
    */
   static void load(String url, Callback callback) {
+    if (TextUtils.isEmpty(url)) return;
     if (Holder.instance.engine == null)
       throw new IllegalStateException("You must first install one engine!");
-    Holder.instance.engine.load(url, callback);
+    if (STVUtils.isGif(url)){
+        Holder.instance.defaultEngine.load(url, callback);
+    }else {
+        Holder.instance.engine.load(url, callback);
+    }
   }
 
   /**
@@ -72,7 +80,7 @@ public class ImageEngine {
    */
   static void checkEngine() {
     if (Holder.instance.engine == null) {
-      Holder.instance.engine = new DefaultEngine();
+      Holder.instance.engine = Holder.instance.defaultEngine;
     }
   }
 

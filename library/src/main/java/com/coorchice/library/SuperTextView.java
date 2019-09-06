@@ -159,6 +159,7 @@ public class SuperTextView extends TextView {
 
     private int[] suitedSize;
     private Canvas drawableBgCanvas;
+    private Bitmap drawableBgCanvasBitmap;
 
     /**
      * 简单的构造函数
@@ -572,10 +573,14 @@ public class SuperTextView extends TextView {
             int[] size = computeSuitedBitmapSize(drawable);
             if (drawableBgCanvas == null
                     || (drawableBgCanvas.getWidth() != size[0] || drawableBgCanvas.getHeight() != size[1])) {
-                Bitmap bitmap = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
-                drawableBgCanvas = new Canvas(bitmap);
-                drawableBackgroundShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+                if (drawableBgCanvasBitmap != null) {
+                    drawableBgCanvasBitmap.recycle();
+                    drawableBgCanvasBitmap = null;
+                }
+                drawableBgCanvasBitmap = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
+                drawableBgCanvas = new Canvas(drawableBgCanvasBitmap);
             }
+            drawableBackgroundShader = new BitmapShader(drawableBgCanvasBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         }
         if (drawableBgCanvas != null) {
             Rect orgBounds = drawable.getBounds();
@@ -1262,12 +1267,12 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable(Drawable drawable) {
-        resetGifDrawable(this.drawable);
+        Drawable temp = this.drawable;
         this.drawable = drawable;
         this.drawable.setCallback(this);
         drawableBackgroundShader = null;
         postInvalidate();
-
+        resetGifDrawable(temp);
         return this;
     }
 
@@ -1278,11 +1283,11 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable2(Drawable drawable) {
-        resetGifDrawable(this.drawable2);
+        Drawable temp = this.drawable2;
         this.drawable2 = drawable;
-        this.drawable.setCallback(this);
+        this.drawable2.setCallback(this);
         postInvalidate();
-
+        resetGifDrawable(temp);
         return this;
     }
 

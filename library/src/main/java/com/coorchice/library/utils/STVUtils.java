@@ -22,6 +22,11 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Looper;
 
+import com.coorchice.library.gifdecoder.JNI;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * Project Name:SuperTextView
  * Author:CoorChice
@@ -59,5 +64,42 @@ public class STVUtils {
 
     public static boolean isOnMainThread() {
         return Looper.myLooper() == Looper.getMainLooper();
+    }
+
+    public static boolean isGif(Object o) {
+        boolean r = false;
+        try {
+            if (o instanceof String) {
+                r = ((String) o).toUpperCase().endsWith(".gif".toUpperCase());
+            } else if (o instanceof byte[]) {
+                r = JNI.bytesIsGif((byte[]) o);
+            }
+        } catch (Exception ignored) {
+
+        }
+        return r;
+    }
+
+
+    public static String MD5(String str) {
+        if (str == null || str.length() == 0) {
+            throw new IllegalArgumentException("String to encript cannot be null or zero length");
+        }
+        StringBuffer hexString = new StringBuffer();
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(str.getBytes());
+            byte[] hash = md.digest();
+            for (int i = 0; i < hash.length; i++) {
+                if ((0xff & hash[i]) < 0x10) {
+                    hexString.append("0" + Integer.toHexString((0xFF & hash[i])));
+                } else {
+                    hexString.append(Integer.toHexString(0xFF & hash[i]));
+                }
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return hexString.toString();
     }
 }
