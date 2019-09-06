@@ -23,8 +23,6 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 
-import com.coorchice.library.utils.LogUtils;
-
 /**
  * @author coorchice
  * @date 2019/09/03
@@ -61,7 +59,6 @@ public class GifDrawable extends Drawable implements Gif {
         if (gifDecoder == null || gifDecoder.isDestroy()) return;
         synchronized (gifDecoder.lock) {
             if (frame != null) {
-                LogUtils.e("GifDecoder -> 绘制视图");
                 canvas.drawBitmap(frame, gifDecoder.getBounds(), getBounds(), paint);
             }
         }

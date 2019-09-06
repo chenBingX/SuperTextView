@@ -33,7 +33,6 @@ import com.coorchice.library.utils.ThreadPool;
 
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Project Name:CoorChiceLibOne
@@ -73,6 +72,8 @@ public class GifDecoder implements Gif {
                 return;
             }
             int d = updateFrame();
+//            LogUtils.e("当前帧间隔 = " + getFrameDuration());
+//            LogUtils.e("native本帧剩余时间 = " + d);
             handler.postAtTime(onFrameRunnable, SystemClock.uptimeMillis() + d);
             innerPlay(d);
         }
@@ -98,7 +99,6 @@ public class GifDecoder implements Gif {
     private GifDecoder(byte[] bytes) {
         if (bytes != null) {
             ptr = JNI.openBytes(bytes);
-            setFrameDuration(200);
         } else {
             throw new IllegalArgumentException("File path can not be null or empty!");
         }
@@ -160,8 +160,12 @@ public class GifDecoder implements Gif {
         check();
         int r = 1;
         if (frame != null) {
+//            long startTime0 = System.currentTimeMillis();
             r = JNI.updateFrame(ptr, frame);
+//            LogUtils.e("native绘制函数耗时 = " + (System.currentTimeMillis() - startTime0));
+//            long startTime = System.currentTimeMillis();
             copyFrameToBuffer();
+//            LogUtils.e("拷贝函数耗时 = " + (System.currentTimeMillis() - startTime));
         }
         return r;
     }
@@ -261,9 +265,10 @@ public class GifDecoder implements Gif {
     private void copyFrameToBuffer() {
         synchronized (lock) {
             if (buffer != null && bufferCanvas != null && frame != null) {
+//                long startTime = System.currentTimeMillis();
                 bufferCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 bufferCanvas.drawBitmap(frame, 0, 0, paint);
-                LogUtils.e("GifDecoder -> 拷贝视图");
+//                LogUtils.e("GifDecoder -> 拷贝视图 end = " + (System.currentTimeMillis() - startTime));
             }
         }
     }

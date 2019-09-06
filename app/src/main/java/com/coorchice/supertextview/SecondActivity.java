@@ -84,7 +84,7 @@ public class SecondActivity extends Activity {
         });
 
         stv_4 = (SuperTextView) findViewById(R.id.stv_4);
-        stv_4.setDrawable(R.drawable.gif_2);
+        stv_4.setDrawable(R.drawable.gif_3);
         stv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

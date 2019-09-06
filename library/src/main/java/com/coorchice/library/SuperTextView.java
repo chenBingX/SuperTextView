@@ -27,6 +27,7 @@ import com.coorchice.library.gifdecoder.GifDecoder;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.image_engine.Engine;
 import com.coorchice.library.sys_adjusters.PressAdjuster;
+import com.coorchice.library.utils.LogUtils;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -38,6 +39,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -50,6 +52,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -160,6 +163,7 @@ public class SuperTextView extends TextView {
     private int[] suitedSize;
     private Canvas drawableBgCanvas;
     private Bitmap drawableBgCanvasBitmap;
+    private ScaleType backgroundScaleType = ScaleType.CENTER;
 
     /**
      * 简单的构造函数
@@ -334,7 +338,6 @@ public class SuperTextView extends TextView {
 
     @Override
     public void invalidateDrawable(Drawable drawable) {
-//        postInvalidate();
         invalidate();
     }
 
@@ -342,9 +345,9 @@ public class SuperTextView extends TextView {
     protected void onDraw(Canvas canvas) {
         if (getVisibility() != VISIBLE || !isAttachedToWindow() || getWidth() < 0 || getHeight() < 0)
             return;
+//        long startDrawTime = System.currentTimeMillis();
         width = getWidth();
         height = getHeight();
-
         boolean needScroll = getScrollX() != 0 || getScrollY() != 0;
         if (needScroll) {
             canvas.translate(getScrollX(), getScrollY());
@@ -367,6 +370,7 @@ public class SuperTextView extends TextView {
             sdkOnDraw(canvas);
         }
         isNeedToAdjust(canvas, Adjuster.Opportunity.AT_LAST);
+//        LogUtils.e("SuperTextView 绘制耗时 = " + (System.currentTimeMillis() - startDrawTime));
     }
 
     private void drawStrokeLine(Canvas canvas) {
@@ -571,20 +575,32 @@ public class SuperTextView extends TextView {
                 drawable.setBounds(0, 0, width, height);
             }
             int[] size = computeSuitedBitmapSize(drawable);
-            if (drawableBgCanvas == null
-                    || (drawableBgCanvas.getWidth() != size[0] || drawableBgCanvas.getHeight() != size[1])) {
-                if (drawableBgCanvasBitmap != null) {
-                    drawableBgCanvasBitmap.recycle();
-                    drawableBgCanvasBitmap = null;
+            if (backgroundScaleType == ScaleType.FIT_CENTER) {
+                if (drawableBgCanvas == null
+                        || (drawableBgCanvas.getWidth() != width || drawableBgCanvas.getHeight() != height)) {
+                    if (drawableBgCanvasBitmap != null) {
+                        drawableBgCanvasBitmap.recycle();
+                        drawableBgCanvasBitmap = null;
+                    }
+                    drawableBgCanvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                    drawableBgCanvas = new Canvas(drawableBgCanvasBitmap);
                 }
-                drawableBgCanvasBitmap = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
-                drawableBgCanvas = new Canvas(drawableBgCanvasBitmap);
+            } else {
+                if (drawableBgCanvas == null
+                        || (drawableBgCanvas.getWidth() != size[0] || drawableBgCanvas.getHeight() != size[1])) {
+                    if (drawableBgCanvasBitmap != null) {
+                        drawableBgCanvasBitmap.recycle();
+                        drawableBgCanvasBitmap = null;
+                    }
+                    drawableBgCanvasBitmap = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
+                    drawableBgCanvas = new Canvas(drawableBgCanvasBitmap);
+                }
             }
             drawableBackgroundShader = new BitmapShader(drawableBgCanvasBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         }
         if (drawableBgCanvas != null) {
             Rect orgBounds = drawable.getBounds();
-            drawable.setBounds(-suitedSize[2], -suitedSize[3], drawableBgCanvas.getWidth(), drawableBgCanvas.getHeight());
+            drawable.setBounds(suitedSize[2], suitedSize[3], suitedSize[2] + suitedSize[0], suitedSize[3] + suitedSize[1]);
             drawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             drawable.draw(drawableBgCanvas);
             drawable.setBounds(orgBounds);
@@ -628,18 +644,35 @@ public class SuperTextView extends TextView {
         }
         int suitedWidth = width;
         int suitedHeight = height;
-        if ((float) dWidth / (float) width > (float) dHeight / (float) height) {
-            suitedWidth = (int) (((float) dWidth / (float) dHeight) * (float) suitedHeight);
-        } else {
-            suitedHeight = (int) ((float) suitedWidth / ((float) dWidth / (float) dHeight));
-        }
         if (suitedSize == null) {
             suitedSize = new int[4];
         }
-        suitedSize[0] = suitedWidth;
-        suitedSize[1] = suitedHeight;
-        suitedSize[2] = suitedSize[0] / 2 - width / 2;
-        suitedSize[3] = suitedSize[1] / 2 - height / 2;
+        if (backgroundScaleType == ScaleType.FIT_CENTER) {
+            if ((float) dWidth / (float) width > (float) dHeight / (float) height) {
+                suitedHeight = (int) ((float) suitedWidth / ((float) dWidth / (float) dHeight));
+            } else {
+                suitedWidth = (int) (((float) dWidth / (float) dHeight) * (float) suitedHeight);
+            }
+            suitedSize[0] = suitedWidth;
+            suitedSize[1] = suitedHeight;
+            suitedSize[2] = width / 2 - suitedSize[0] / 2;
+            suitedSize[3] = height / 2 - suitedSize[1] / 2;
+        } else if (backgroundScaleType == ScaleType.FIT_XY) {
+            suitedSize[0] = suitedWidth;
+            suitedSize[1] = suitedHeight;
+            suitedSize[2] = 0;
+            suitedSize[3] = 0;
+        } else {
+            if ((float) dWidth / (float) width > (float) dHeight / (float) height) {
+                suitedWidth = (int) (((float) dWidth / (float) dHeight) * (float) suitedHeight);
+            } else {
+                suitedHeight = (int) ((float) suitedWidth / ((float) dWidth / (float) dHeight));
+            }
+            suitedSize[0] = suitedWidth;
+            suitedSize[1] = suitedHeight;
+            suitedSize[2] = -(suitedSize[0] / 2 - width / 2);
+            suitedSize[3] = -(suitedSize[1] / 2 - height / 2);
+        }
         return suitedSize;
     }
 
@@ -2478,6 +2511,30 @@ public class SuperTextView extends TextView {
             }
             return TOP_TO_BOTTOM;
         }
+    }
+
+    /**
+     * 当 Drawable1 作为背景图时的剪裁模式
+     */
+    public enum ScaleType {
+        /**
+         * 将图片拉伸平铺，充满 SuperTextView
+         */
+        FIT_XY(1),
+        /**
+         *
+         */
+        FIT_CENTER(3),
+        /**
+         *
+         */
+        CENTER(5);
+
+        ScaleType(int ni) {
+            nativeInt = ni;
+        }
+
+        final int nativeInt;
     }
 
     /**
