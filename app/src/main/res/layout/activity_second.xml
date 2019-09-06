@@ -185,7 +185,8 @@
             app:stv_corner="25dp"
             app:stv_drawableAsBackground="true"
             app:stv_solid="@color/white"
-            app:stv_state_drawable="@drawable/bige3" />
+            app:stv_state_drawable="@drawable/bige3"
+            />
 
 
         <com.coorchice.library.SuperTextView
@@ -223,6 +224,7 @@
             app:stv_drawableAsBackground="true"
             app:stv_state_drawable="@drawable/bige3"
             android:layout_marginBottom="16dp"
+            app:stv_scaleType="fitCenter"
             />
     </RelativeLayout>
 </ScrollView>

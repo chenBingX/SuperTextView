@@ -286,6 +286,7 @@ public class SuperTextView extends TextView {
             isShowState = typedArray.getBoolean(R.styleable.SuperTextView_stv_isShowState, false);
             drawableAsBackground =
                     typedArray.getBoolean(R.styleable.SuperTextView_stv_drawableAsBackground, false);
+            backgroundScaleType = ScaleType.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_scaleType, ScaleType.CENTER.code));
             isShowState2 = typedArray.getBoolean(R.styleable.SuperTextView_stv_isShowState2, false);
             stateDrawableMode = DrawableMode.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_state_drawable_mode,
                     DEFAULT_STATE_DRAWABLE_MODE));
@@ -2271,6 +2272,15 @@ public class SuperTextView extends TextView {
         this.onDrawableClickedListener = onDrawableClickedListener;
     }
 
+    public SuperTextView setScaleType(ScaleType scaleType) {
+        this.backgroundScaleType = scaleType;
+        return this;
+    }
+
+    public ScaleType getScaleType(){
+        return backgroundScaleType;
+    }
+
     /**
      * Adjuster被设计用来在SuperTextView的绘制过程中插入一些操作。
      * 这具有非常重要的意义。你可以用它来实现各种各样的效果。比如插入动画、修改状态。
@@ -2520,21 +2530,30 @@ public class SuperTextView extends TextView {
         /**
          * 将图片拉伸平铺，充满 SuperTextView
          */
-        FIT_XY(1),
+        FIT_XY(0),
         /**
          *
          */
-        FIT_CENTER(3),
+        FIT_CENTER(1),
         /**
          *
          */
-        CENTER(5);
+        CENTER(2);
 
-        ScaleType(int ni) {
-            nativeInt = ni;
+        public int code;
+
+        ScaleType(int code) {
+            this.code = code;
         }
 
-        final int nativeInt;
+        public static ScaleType valueOf(int code) {
+            for (ScaleType mode : ScaleType.values()) {
+                if (mode.code == code) {
+                    return mode;
+                }
+            }
+            return CENTER;
+        }
     }
 
     /**

@@ -27,6 +27,11 @@
     <attr name="stv_state_drawable2_rotate" format="float"/>
     <attr name="stv_isShowState" format="boolean"/>
     <attr name="stv_drawableAsBackground" format="boolean"/>
+    <attr name="stv_scaleType" format="enum">
+      <enum name="fitXY" value="0"/>
+      <enum name="fitCenter" value="1"/>
+      <enum name="center" value="2"/>
+    </attr>
     <attr name="stv_isShowState2" format="boolean"/>
     <attr name="stv_text_stroke" format="boolean"/>
     <attr name="stv_text_stroke_color" format="reference|color"/>
