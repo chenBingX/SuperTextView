@@ -55,6 +55,8 @@ public class Ripple2Adjuster extends SuperTextView.Adjuster {
   private Canvas srcCanvas;
   private Bitmap dst;
   private Canvas dstCanvas;
+  private Bitmap render;
+  private Canvas renderCanvas;
 
 
   public Ripple2Adjuster(int rippleColor) {
@@ -73,6 +75,10 @@ public class Ripple2Adjuster extends SuperTextView.Adjuster {
   protected void adjust(SuperTextView v, Canvas canvas) {
     int width = v.getWidth();
     int height = v.getHeight();
+    if (renderCanvas == null){
+      render = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+      renderCanvas = new Canvas(render);
+    }
     if (srcCanvas == null){
       src = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
       srcCanvas = new Canvas(src);
@@ -94,48 +100,42 @@ public class Ripple2Adjuster extends SuperTextView.Adjuster {
     if (radius < ((float) width) * 1.1) {
       radius = (radius + velocity);
     } else {
-      v.stopAnim();
+//      v.stopAnim();
     }
     rectF.setEmpty();
     rectF.set(0, 0, width, height);
-
-    if (solidPath == null) {
-      solidPath = new Path();
-    } else {
-      solidPath.reset();
-    }
     if (solidRectF == null) {
       solidRectF = new RectF();
     } else {
       solidRectF.setEmpty();
     }
-    float strokeWidth = v.getStrokeWidth();
-    solidRectF.set(strokeWidth, strokeWidth, v.getWidth() - strokeWidth,
-      v.getHeight() - strokeWidth);
-    solidPath.addRoundRect(solidRectF, v.getCorners(), Path.Direction.CW);
+    if (solidPath == null) {
+      solidPath = new Path();
 
-    paint.setColor(Color.WHITE);
-    paint.setStyle(Paint.Style.FILL);
-    srcCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-    srcCanvas.drawPath(solidPath, paint);
+      float strokeWidth = v.getStrokeWidth();
+      solidRectF.set(strokeWidth, strokeWidth, v.getWidth() - strokeWidth,
+        v.getHeight() - strokeWidth);
+      solidPath.addRoundRect(solidRectF, v.getCorners(), Path.Direction.CW);
+
+      paint.setColor(Color.WHITE);
+      paint.setStyle(Paint.Style.FILL);
+      srcCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+      srcCanvas.drawPath(solidPath, paint);
+    } else {
+      solidPath.reset();
+    }
+
+
 
     paint.setColor(rippleColor);
     dstCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
     dstCanvas.drawCircle(x, y, radius * density, paint);
-    // 创建一个图层，在图层上演示图形混合后的效果
-    int sc = 0;
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-      sc = canvas.saveLayer(0, 0, width, height, null);
-    } else {
-      sc = canvas.saveLayer(0, 0, width, height, null, 0);
-    }
 
-    canvas.drawBitmap(src, 0, 0, paint);
+    renderCanvas.drawBitmap(src, 0, 0, paint);
     paint.setXfermode(xfermode);
-    canvas.drawBitmap(dst, 0, 0, paint);
-
+    renderCanvas.drawBitmap(dst, 0, 0, paint);
     paint.setXfermode(null);
-    canvas.restoreToCount(sc);
+    canvas.drawBitmap(render, 0, 0, paint);
   }
 
   @Override

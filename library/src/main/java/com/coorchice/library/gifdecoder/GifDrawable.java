@@ -159,6 +159,21 @@ public class GifDrawable extends Drawable implements Gif {
     }
 
     @Override
+    public void setStrict(boolean strict) {
+        if (isValid()) {
+            gifDecoder.setStrict(strict);
+        }
+    }
+
+    @Override
+    public boolean isStrict() {
+        if (isValid()) {
+            return gifDecoder.isStrict();
+        }
+        return false;
+    }
+
+    @Override
     public int updateFrame() {
         if (isValid()) {
             return gifDecoder.updateFrame();

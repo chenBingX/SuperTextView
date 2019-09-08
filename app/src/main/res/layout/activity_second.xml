@@ -211,7 +211,7 @@
             app:stv_state_drawable2_height="20dp"
             app:stv_state_drawable2_width="20dp"
             app:stv_stroke_color="@color/pink"
-            app:stv_stroke_width="3dp" />
+          app:stv_stroke_width="3dp" />
 
         <com.coorchice.library.SuperTextView
             android:id="@+id/stv_4"

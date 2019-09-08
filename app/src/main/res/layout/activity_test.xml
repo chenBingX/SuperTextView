@@ -33,7 +33,7 @@
           android:layout_width="wrap_content"
           android:layout_height="45dp"
           android:layout_gravity="center_horizontal"
-          android:layout_marginTop="10dp"
+          android:layout_marginTop="20dp"
           app:stv_corner="30dp"
           app:stv_isShowState="true"
           app:stv_solid="#ffd54f"
@@ -74,6 +74,7 @@
           app:stv_text_stroke="true"
           app:stv_text_stroke_color="@color/black"
           app:stv_text_stroke_width="2dp"
+          android:visibility="gone"
           />
 
     </LinearLayout>

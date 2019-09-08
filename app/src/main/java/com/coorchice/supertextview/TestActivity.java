@@ -52,12 +52,11 @@ public class TestActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(TestActivity.this, "点击右边可以关闭哦👉", Toast.LENGTH_SHORT).show();
-                PopupWindow popupWindow = new PopupWindow();
-                popupWindow.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                SuperTextView contentView = new SuperTextView(TestActivity.this);
-//                contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ));
-                popupWindow.setContentView(contentView);
-                popupWindow.showAsDropDown(stv_0);
+//                PopupWindow popupWindow = new PopupWindow();
+//                popupWindow.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//                SuperTextView contentView = new SuperTextView(TestActivity.this);
+//                popupWindow.setContentView(contentView);
+//                popupWindow.showAsDropDown(stv_0);
             }
         });
         stv_0.setOnDrawableClickedListener(new SuperTextView.OnDrawableClickedListener() {

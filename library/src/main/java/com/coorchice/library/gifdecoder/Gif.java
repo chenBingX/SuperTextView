@@ -61,4 +61,8 @@ public interface Gif {
     void destroy();
 
     void setOnFrameListener(GifDecoder.OnFrameListener onFrameListener);
+
+    void setStrict(boolean strict);
+
+    boolean isStrict();
 }

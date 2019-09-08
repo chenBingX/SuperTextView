@@ -50,6 +50,8 @@ public class MoveEffectAdjuster extends SuperTextView.Adjuster {
   private Canvas srcCanvas;
   private Bitmap dst;
   private Canvas dstCanvas;
+  private Bitmap render;
+  private Canvas renderCanvas;
 
 
   @Override
@@ -65,10 +67,11 @@ public class MoveEffectAdjuster extends SuperTextView.Adjuster {
     if (startLocation < -(totalWidth * density + height * Math.tan(60))) {
       startLocation = width;
     }
-    if (srcCanvas == null){
-      src = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-      srcCanvas = new Canvas(src);
+    if (renderCanvas == null){
+      render = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+      renderCanvas = new Canvas(render);
     }
+
     if (dstCanvas == null){
       dst = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
       dstCanvas = new Canvas(dst);
@@ -101,23 +104,23 @@ public class MoveEffectAdjuster extends SuperTextView.Adjuster {
     rectF.setEmpty();
     rectF.set(0, 0, width, height);
 
-    paint.setColor(v.getResources().getColor(R.color.white));
-    srcCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-    srcCanvas.drawRoundRect(rectF, height / 2, height / 2, paint);
+    if (srcCanvas == null){
+      src = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+      srcCanvas = new Canvas(src);
+
+      paint.setColor(v.getResources().getColor(R.color.white));
+      srcCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+      srcCanvas.drawRoundRect(rectF, height / 2, height / 2, paint);
+    }
+
     paint.setColor(v.getResources().getColor(R.color.opacity_7_5_black));
     dstCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
     dstCanvas.drawPath(firstLinePath, paint);
-    // 创建一个图层，在图层上演示图形混合后的效果
-    int sc = 0;
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-      sc = canvas.saveLayer(0, 0, width, height, null);
-    } else {
-      sc = canvas.saveLayer(0, 0, width, height, null, 0);
-    }
-    canvas.drawBitmap(src, 0, 0, paint);
+
+    renderCanvas.drawBitmap(src, 0, 0, paint);
     paint.setXfermode(xfermode);
-    canvas.drawBitmap(dst, 0, 0, paint);
+    renderCanvas.drawBitmap(dst, 0, 0, paint);
     paint.setXfermode(null);
-    canvas.restoreToCount(sc);
+    canvas.drawBitmap(render, 0, 0, paint);
   }
 }

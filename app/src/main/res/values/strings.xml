@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">STV</string>
-    <string name="title_activity_third">ThirdActivity</string>
+  <string name="app_name">STV</string>
+  <string name="title_activity_third">ThirdActivity</string>
 </resources>

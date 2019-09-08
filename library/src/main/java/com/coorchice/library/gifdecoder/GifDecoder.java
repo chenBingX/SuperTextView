@@ -51,6 +51,7 @@ public class GifDecoder implements Gif {
     private OnFrameListener onFrameListener;
     private Handler handler = new Handler(Looper.getMainLooper());
     private ScheduledFuture<?> onceRenderSchedule;
+    private ScheduledFuture<?> gotoFrameSchedule;
     protected final Object lock = new Object();
     private Runnable onFrameRunnable = new Runnable() {
         @Override
@@ -72,12 +73,14 @@ public class GifDecoder implements Gif {
                 return;
             }
             int d = updateFrame();
-//            LogUtils.e("当前帧间隔 = " + getFrameDuration());
-//            LogUtils.e("native本帧剩余时间 = " + d);
+            LogUtils.e("当前帧 = " + getCurrentFrame());
+            LogUtils.e("当前帧间隔 = " + getFrameDuration());
+            LogUtils.e("native本帧剩余时间 = " + d);
             handler.postAtTime(onFrameRunnable, SystemClock.uptimeMillis() + d);
             innerPlay(d);
         }
     };
+    private Runnable gotoFrameRunnable;
 
     public static GifDecoder openFile(String filePtah) {
         return new GifDecoder(filePtah);
@@ -143,29 +146,55 @@ public class GifDecoder implements Gif {
         return JNI.getCurrentFrame(ptr);
     }
 
-
-    public void gotoFrame(int frame) {
+    public void gotoFrame(final int frame) {
         check();
-        JNI.gotoFrame(ptr, frame);
+        if (canPlay) {
+            synchronized (lock) {
+                JNI.gotoFrame(ptr, frame, GifDecoder.this.frame);
+            }
+        } else {
+            if (gotoFrameRunnable != null) {
+                ThreadPool.globleExecutor().remove(gotoFrameRunnable);
+            }
+            if (gotoFrameSchedule != null) {
+                gotoFrameSchedule.cancel(true);
+            }
+            gotoFrameSchedule = ThreadPool.globleExecutor().schedule(gotoFrameRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    JNI.gotoFrame(ptr, frame, GifDecoder.this.frame);
+                    copyFrameToBuffer();
+                    handler.postAtTime(onFrameRunnable, SystemClock.uptimeMillis());
+                }
+            }, 0, TimeUnit.MILLISECONDS);
+        }
     }
 
     public Bitmap getFrame(int frame) {
         check();
-        JNI.getFrame(ptr, frame, this.frame);
-        copyFrameToBuffer();
-        return buffer;
+        Bitmap tempFrame = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        JNI.getFrame(ptr, frame, tempFrame);
+        return tempFrame;
+    }
+
+    @Override
+    public void setStrict(boolean strict) {
+        check();
+        JNI.setStrict(ptr, strict);
+    }
+
+    @Override
+    public boolean isStrict() {
+        check();
+        return JNI.getStrict(ptr);
     }
 
     public int updateFrame() {
         check();
         int r = 1;
         if (frame != null) {
-//            long startTime0 = System.currentTimeMillis();
             r = JNI.updateFrame(ptr, frame);
-//            LogUtils.e("native绘制函数耗时 = " + (System.currentTimeMillis() - startTime0));
-//            long startTime = System.currentTimeMillis();
             copyFrameToBuffer();
-//            LogUtils.e("拷贝函数耗时 = " + (System.currentTimeMillis() - startTime));
         }
         return r;
     }
@@ -265,10 +294,8 @@ public class GifDecoder implements Gif {
     private void copyFrameToBuffer() {
         synchronized (lock) {
             if (buffer != null && bufferCanvas != null && frame != null) {
-//                long startTime = System.currentTimeMillis();
                 bufferCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 bufferCanvas.drawBitmap(frame, 0, 0, paint);
-//                LogUtils.e("GifDecoder -> 拷贝视图 end = " + (System.currentTimeMillis() - startTime));
             }
         }
     }

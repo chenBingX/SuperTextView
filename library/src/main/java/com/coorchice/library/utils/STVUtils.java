@@ -16,6 +16,7 @@
 
 package com.coorchice.library.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
@@ -24,6 +25,7 @@ import android.os.Looper;
 
 import com.coorchice.library.gifdecoder.JNI;
 
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -101,5 +103,27 @@ public class STVUtils {
             e.printStackTrace();
         }
         return hexString.toString();
+    }
+
+    public static byte[] getResBytes(Context context, int drawableRes) {
+        if (context == null || drawableRes == 0) return null;
+        InputStream is = null;
+        try {
+            is = context.getResources().openRawResource(drawableRes);
+            byte[] bytes = new byte[is.available()];
+            is.read(bytes);
+            return bytes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }

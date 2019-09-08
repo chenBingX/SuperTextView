@@ -18,6 +18,9 @@ package com.coorchice.supertextview;
 
 import com.coorchice.library.SuperTextView;
 import com.coorchice.library.gifdecoder.GifDrawable;
+import com.coorchice.library.utils.track.Event;
+import com.coorchice.library.utils.track.TimeEvent;
+import com.coorchice.library.utils.track.Tracker;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.Ripple2Adjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
@@ -60,16 +63,79 @@ public class SecondActivity extends Activity {
             }
         });
 
+        findViewById(R.id.btn_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SecondActivity.this, ListActivity.class));
+            }
+        });
+
         stv_2 = (SuperTextView) findViewById(R.id.stv_2);
         stv_2.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_TEXT));
         stv_2.addAdjuster(new Ripple2Adjuster(getResources().getColor(R.color.opacity_9_a58fed)));
         stv_2.setAutoAdjust(true).startAnim();
+        Tracker stv_2_tracker = new Tracker("stv_2");
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnDrawSolidEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnDrawSolidEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnCreateDrawableBackgroundShaderEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnCreateDrawableBackgroundShaderEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnCopyDrawableBackgroundToShaderEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnCopyDrawableBackgroundToShaderEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnUpdateDrawableBackgroundShaderEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnUpdateDrawableBackgroundShaderEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnDrawDrawableBackgroundShaderEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnDrawDrawableBackgroundShaderEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnDrawDrawableBackgroundEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnDrawDrawableBackgroundEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnDrawDrawableEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnDrawDrawableEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnDrawAdjustersEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnDrawAdjustersEnd + " = " + event.time);
+            }
+        });
+        stv_2_tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnDrawEnd) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e(Event.OnDrawEnd + " = " + event.time);
+            }
+        });
+//        stv_2.setTracker(stv_2_tracker);
 
         SuperTextView stv_3 = (SuperTextView) findViewById(R.id.stv_3);
         stv_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SecondActivity.this, ListActivity.class));
+                startActivity(new Intent(SecondActivity.this, GifListActivity.class));
             }
         });
         stv_3.setStateDrawable2Mode(SuperTextView.DrawableMode.LEFT);
@@ -84,7 +150,7 @@ public class SecondActivity extends Activity {
         });
 
         stv_4 = (SuperTextView) findViewById(R.id.stv_4);
-        stv_4.setDrawable(R.drawable.gif_3);
+//        stv_4.setDrawable(R.drawable.gif_3);
         stv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

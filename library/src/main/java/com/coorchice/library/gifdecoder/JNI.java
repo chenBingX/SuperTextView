@@ -124,18 +124,33 @@ public class JNI {
      * @param ptr
      * @param frame
      */
-    public static native void gotoFrame(long ptr, int frame);
-
+    public static native void gotoFrame(long ptr, int frame, Bitmap bitmap);
 
     /**
-     * 获取指定帧图像
+     * 获得指定帧图像
      *
      * @param ptr
      * @param frame
-     * @param bitmap
      */
     public static native void getFrame(long ptr, int frame, Bitmap bitmap);
 
+    public static native void setFrame(long ptr, int frame);
+
+    /**
+     * 启用/停止严格模式
+     *
+     * @param ptr
+     * @param strict
+     */
+    public static native void setStrict(long ptr, boolean strict);
+
+
+    /**
+     * 是否启用严格模式
+     *
+     * @param ptr
+     */
+    public static native boolean getStrict(long ptr);
 
     /**
      * 销毁

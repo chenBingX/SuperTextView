@@ -19,16 +19,6 @@
 package com.coorchice.library;
 
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.coorchice.library.gifdecoder.GifDecoder;
-import com.coorchice.library.gifdecoder.GifDrawable;
-import com.coorchice.library.image_engine.Engine;
-import com.coorchice.library.sys_adjusters.PressAdjuster;
-import com.coorchice.library.utils.LogUtils;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Application;
@@ -39,7 +29,6 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -52,8 +41,19 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.coorchice.library.gifdecoder.GifDecoder;
+import com.coorchice.library.gifdecoder.GifDrawable;
+import com.coorchice.library.image_engine.Engine;
+import com.coorchice.library.sys_adjusters.PressAdjuster;
+import com.coorchice.library.utils.STVUtils;
+import com.coorchice.library.utils.track.Event;
+import com.coorchice.library.utils.track.TimeEvent;
+import com.coorchice.library.utils.track.Tracker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SuperTextView extends TextView {
@@ -126,7 +126,7 @@ public class SuperTextView extends TextView {
     private float drawable2Height;
     private float drawable2PaddingLeft;
     private float drawable2PaddingTop;
-    private boolean cacheRunnableState;
+    private boolean cacheRunnableState, cacheDrawablePlaying, cacheDrawable2Playing;
     private boolean cacheNeedRunState;
     private int frameRate = 60;
     private Runnable invalidate;
@@ -161,9 +161,10 @@ public class SuperTextView extends TextView {
     private OnDrawableClickedListener onDrawableClickedListener;
 
     private int[] suitedSize;
-    private Canvas drawableBgCanvas;
-    private Bitmap drawableBgCanvasBitmap;
+    private Canvas drawableBgCanvas, tempDrawableBgCanvas;
+    private Bitmap drawableBgCanvasBitmap, tempDrawableBgCanvasBitmap;
     private ScaleType backgroundScaleType = ScaleType.CENTER;
+    private Tracker tracker;
 
     /**
      * 简单的构造函数
@@ -346,18 +347,25 @@ public class SuperTextView extends TextView {
     protected void onDraw(Canvas canvas) {
         if (getVisibility() != VISIBLE || !isAttachedToWindow() || getWidth() < 0 || getHeight() < 0)
             return;
-//        long startDrawTime = System.currentTimeMillis();
+        long startDrawTime = System.currentTimeMillis();
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawStart, startDrawTime));
         width = getWidth();
         height = getHeight();
         boolean needScroll = getScrollX() != 0 || getScrollY() != 0;
         if (needScroll) {
             canvas.translate(getScrollX(), getScrollY());
         }
+        long startDrawStrokeTime = System.currentTimeMillis();
         drawStrokeLine(canvas);
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawStrokeEnd, System.currentTimeMillis() - startDrawStrokeTime));
+        long startDrawSolidTime = System.currentTimeMillis();
         drawSolid(canvas);
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawSolidEnd, System.currentTimeMillis() - startDrawSolidTime));
         checkPressColor(canvas);
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_DRAWABLE);
+        long startDrawDrawableTime = System.currentTimeMillis();
         drawStateDrawable(canvas);
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableEnd, System.currentTimeMillis() - startDrawDrawableTime));
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_TEXT);
         if (needScroll) {
             canvas.translate(-getScrollX(), -getScrollY());
@@ -371,7 +379,7 @@ public class SuperTextView extends TextView {
             sdkOnDraw(canvas);
         }
         isNeedToAdjust(canvas, Adjuster.Opportunity.AT_LAST);
-//        LogUtils.e("SuperTextView 绘制耗时 = " + (System.currentTimeMillis() - startDrawTime));
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawEnd, System.currentTimeMillis() - startDrawTime));
     }
 
     private void drawStrokeLine(Canvas canvas) {
@@ -528,7 +536,9 @@ public class SuperTextView extends TextView {
     private void drawStateDrawable(Canvas canvas) {
         if (drawable != null) {
             if (drawableAsBackground) {
+                long startDrawDrawableBackgroundTime = System.currentTimeMillis();
                 drawDrawableBackground(canvas);
+                Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableBackgroundEnd, System.currentTimeMillis() - startDrawDrawableBackgroundTime));
             } else if (isShowState) {
                 getDrawableBounds();
                 drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1],
@@ -570,6 +580,8 @@ public class SuperTextView extends TextView {
     }
 
     private void drawDrawableBackground(Canvas canvas) {
+        long startCreateDrawableBackgroundShaderTime = System.currentTimeMillis();
+        boolean needCopyDrawableToShader = false;
         if (drawableBackgroundShader == null) {
             if (!(drawable.getIntrinsicHeight() > 0)
                     || !(drawable.getIntrinsicWidth() > 0)) {
@@ -582,9 +594,17 @@ public class SuperTextView extends TextView {
                     if (drawableBgCanvasBitmap != null) {
                         drawableBgCanvasBitmap.recycle();
                         drawableBgCanvasBitmap = null;
+                        drawableBgCanvas = null;
+                    }
+                    if (tempDrawableBgCanvasBitmap != null) {
+                        tempDrawableBgCanvasBitmap.recycle();
+                        tempDrawableBgCanvasBitmap = null;
+                        tempDrawableBgCanvas = null;
                     }
                     drawableBgCanvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                     drawableBgCanvas = new Canvas(drawableBgCanvasBitmap);
+                    tempDrawableBgCanvasBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                    tempDrawableBgCanvas = new Canvas(tempDrawableBgCanvasBitmap);
                 }
             } else {
                 if (drawableBgCanvas == null
@@ -592,20 +612,45 @@ public class SuperTextView extends TextView {
                     if (drawableBgCanvasBitmap != null) {
                         drawableBgCanvasBitmap.recycle();
                         drawableBgCanvasBitmap = null;
+                        drawableBgCanvas = null;
+                    }
+                    if (tempDrawableBgCanvasBitmap != null) {
+                        tempDrawableBgCanvasBitmap.recycle();
+                        tempDrawableBgCanvasBitmap = null;
+                        tempDrawableBgCanvas = null;
                     }
                     drawableBgCanvasBitmap = Bitmap.createBitmap(size[0], size[1], Bitmap.Config.ARGB_8888);
                     drawableBgCanvas = new Canvas(drawableBgCanvasBitmap);
                 }
             }
+            drawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            if (tempDrawableBgCanvas != null){
+                tempDrawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            }
             drawableBackgroundShader = new BitmapShader(drawableBgCanvasBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            needCopyDrawableToShader = true;
         }
-        if (drawableBgCanvas != null) {
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnCreateDrawableBackgroundShaderEnd, System.currentTimeMillis() - startCreateDrawableBackgroundShaderTime));
+        long startUpdateDrawableBackgroundShaderTime = System.currentTimeMillis();
+        if (drawableBgCanvas != null && (needCopyDrawableToShader || drawable instanceof GifDrawable)) {
             Rect orgBounds = drawable.getBounds();
             drawable.setBounds(suitedSize[2], suitedSize[3], suitedSize[2] + suitedSize[0], suitedSize[3] + suitedSize[1]);
-            drawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-            drawable.draw(drawableBgCanvas);
+            long startCopyDrawableBackgroundToShaderTime = System.currentTimeMillis();
+            if (backgroundScaleType == ScaleType.FIT_CENTER && tempDrawableBgCanvas != null) {
+                tempDrawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                drawable.draw(tempDrawableBgCanvas);
+                int color = paint.getColor();
+                paint.setColor(Color.WHITE);
+                drawableBgCanvas.drawBitmap(tempDrawableBgCanvasBitmap, 0, 0, paint);
+                paint.setColor(color);
+            } else {
+                drawable.draw(drawableBgCanvas);
+            }
+            Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnCopyDrawableBackgroundToShaderEnd, System.currentTimeMillis() - startCopyDrawableBackgroundToShaderTime));
             drawable.setBounds(orgBounds);
         }
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnUpdateDrawableBackgroundShaderEnd, System.currentTimeMillis() - startUpdateDrawableBackgroundShaderTime));
+        long startDrawDrawableBackgroundShaderTime = System.currentTimeMillis();
         if (drawableBackgroundShader != null) {
             Shader shader = paint.getShader();
             int color = paint.getColor();
@@ -615,6 +660,7 @@ public class SuperTextView extends TextView {
             paint.setShader(shader);
             paint.setColor(color);
         }
+        Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableBackgroundShaderEnd, System.currentTimeMillis() - startDrawDrawableBackgroundShaderTime));
     }
 
     private Bitmap computeSuitedBitmapSize(Bitmap bitmap) {
@@ -823,18 +869,18 @@ public class SuperTextView extends TextView {
 
 
     private void isNeedToAdjust(Canvas canvas, Adjuster.Opportunity currentOpportunity) {
-
         for (int i = 0; i < adjusterList.size(); i++) {
             Adjuster adjuster = adjusterList.get(i);
             if (currentOpportunity == adjuster.getOpportunity()) {
+                long startDrawAdjustersTime = System.currentTimeMillis();
                 if (adjuster.getType() == Adjuster.TYPE_SYSTEM) {
                     adjuster.adjust(this, canvas);
                 } else if (autoAdjust) {
                     adjuster.adjust(this, canvas);
                 }
+                Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawAdjustersEnd, System.currentTimeMillis() - startDrawAdjustersTime));
             }
         }
-
     }
 
 
@@ -1325,25 +1371,9 @@ public class SuperTextView extends TextView {
         return this;
     }
 
+
     private byte[] getResBytes(int drawableRes) {
-        InputStream is = null;
-        try {
-            is = getResources().openRawResource(drawableRes);
-            byte[] bytes = new byte[is.available()];
-            is.read(bytes);
-            return bytes;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
+        return STVUtils.getResBytes(getContext(), drawableRes);
     }
 
     /**
@@ -1418,7 +1448,7 @@ public class SuperTextView extends TextView {
      * @return
      */
     public SuperTextView setDrawable(Bitmap bitmap) {
-        return setDrawable(new BitmapDrawable(bitmap));
+        return setDrawable(new BitmapDrawable(getResources(), bitmap));
     }
 
     /**
@@ -1428,7 +1458,7 @@ public class SuperTextView extends TextView {
      * @return
      */
     public SuperTextView setDrawable2(Bitmap bitmap) {
-        return setDrawable2(new BitmapDrawable(bitmap));
+        return setDrawable2(new BitmapDrawable(getResources(), bitmap));
     }
 
     /**
@@ -2249,8 +2279,25 @@ public class SuperTextView extends TextView {
             cacheRunnableState = runnable;
             cacheNeedRunState = needRun;
             stopAnim();
+            if (drawable instanceof GifDrawable && ((GifDrawable) drawable).isPlaying()) {
+                cacheDrawablePlaying = true;
+                ((GifDrawable) drawable).stop();
+            }
+            if (drawable2 instanceof GifDrawable && ((GifDrawable) drawable2).isPlaying()) {
+                cacheDrawable2Playing = true;
+                ((GifDrawable) drawable2).stop();
+            }
         } else if (cacheRunnableState && cacheNeedRunState) {
             startAnim();
+        } else {
+            if (drawable instanceof GifDrawable && cacheDrawablePlaying) {
+                cacheDrawablePlaying = false;
+                ((GifDrawable) drawable).play();
+            }
+            if (drawable2 instanceof GifDrawable && cacheDrawable2Playing) {
+                cacheDrawable2Playing = false;
+                ((GifDrawable) drawable2).play();
+            }
         }
     }
 
@@ -2273,12 +2320,19 @@ public class SuperTextView extends TextView {
     }
 
     public SuperTextView setScaleType(ScaleType scaleType) {
+        if (backgroundScaleType == scaleType) return this;
         this.backgroundScaleType = scaleType;
+        drawableBackgroundShader = null;
+        invalidate();
         return this;
     }
 
     public ScaleType getScaleType(){
         return backgroundScaleType;
+    }
+
+    public void setTracker(Tracker tracker) {
+        this.tracker = tracker;
     }
 
     /**
