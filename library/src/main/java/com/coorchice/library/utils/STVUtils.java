@@ -68,6 +68,12 @@ public class STVUtils {
         return Looper.myLooper() == Looper.getMainLooper();
     }
 
+    /**
+     * 判断是否是 Gif。支持判断文件url路径字符串，文件byte数组数据，其它情况返回false。
+     *
+     * @param o
+     * @return
+     */
     public static boolean isGif(Object o) {
         boolean r = false;
         try {
@@ -83,6 +89,12 @@ public class STVUtils {
     }
 
 
+    /**
+     * 字符串转 MD5
+     *
+     * @param str
+     * @return
+     */
     public static String MD5(String str) {
         if (str == null || str.length() == 0) {
             throw new IllegalArgumentException("String to encript cannot be null or zero length");
@@ -105,6 +117,13 @@ public class STVUtils {
         return hexString.toString();
     }
 
+    /**
+     * 获取指定 Drawable 资源的 byte 数组
+     *
+     * @param context
+     * @param drawableRes
+     * @return
+     */
     public static byte[] getResBytes(Context context, int drawableRes) {
         if (context == null || drawableRes == 0) return null;
         InputStream is = null;
