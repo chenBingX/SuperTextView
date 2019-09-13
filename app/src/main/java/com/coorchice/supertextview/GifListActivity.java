@@ -41,6 +41,9 @@ public class GifListActivity extends Activity {
   }
 
   private void initView() {
+    stv_1.setDrawableAsBackground(true);
+    stv_1.setDrawable(R.drawable.gif_avatar_2);
+
     stv_1 = (SuperTextView) findViewById(R.id.stv_1);
     stv_4 = (SuperTextView) findViewById(R.id.stv_4);
     stv_5 = (SuperTextView) findViewById(R.id.stv_5);
