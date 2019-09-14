@@ -32,6 +32,7 @@ public class GifDrawable extends Drawable implements Gif {
     private final Paint paint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.DITHER_FLAG);
     private GifDecoder gifDecoder;
     private Bitmap frame;
+    private GifDecoder.OnFrameListener onFrameListener;
 
     private GifDrawable(GifDecoder gifDecoder) {
         this.gifDecoder = gifDecoder;
@@ -39,6 +40,9 @@ public class GifDrawable extends Drawable implements Gif {
         gifDecoder.setOnFrameListener(new GifDecoder.OnFrameListener() {
             @Override
             public void onFrame(GifDecoder gd, Bitmap bitmap) {
+                if (onFrameListener != null){
+                    onFrameListener.onFrame(gd, bitmap);
+                }
                 frame = bitmap;
                 invalidateSelf();
             }
@@ -236,9 +240,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     @Override
     public void setOnFrameListener(GifDecoder.OnFrameListener onFrameListener) {
-        if (isValid()) {
-            gifDecoder.setOnFrameListener(onFrameListener);
-        }
+        this.onFrameListener = onFrameListener;
     }
 
     @Override
