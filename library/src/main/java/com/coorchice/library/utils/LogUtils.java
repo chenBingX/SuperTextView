@@ -32,13 +32,7 @@ import android.util.Log;
  */
 public class LogUtils {
 
-  public static boolean DEBUG = true;
-  /**
-   * 该参数需要根据实际情况来设置才能准确获取期望的调用信息，比如：
-   * 在Java中，该参数应该为3
-   * 在一般Android中，该参数为4
-   * 你需要自己打印的看看，调用showAllElementsInfo()就可以了。
-   */
+  public static boolean DEBUG = false;
   private static final int INDEX = 4;
 
   private static String getPrefix() {

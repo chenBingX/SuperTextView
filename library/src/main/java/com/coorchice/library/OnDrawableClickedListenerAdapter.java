@@ -24,11 +24,20 @@ package com.coorchice.library;
  * @date 2019/06/10
  */
 public class OnDrawableClickedListenerAdapter implements SuperTextView.OnDrawableClickedListener {
+
+    /**
+     * 当 Drawable1 被点击时触发
+     * @param stv
+     */
     @Override
     public void onDrawable1Clicked(SuperTextView stv){
 
     }
 
+    /**
+     * 当 Drawable2 被点击时触发
+     * @param stv
+     */
     @Override
     public void onDrawable2Clicked(SuperTextView stv){
 

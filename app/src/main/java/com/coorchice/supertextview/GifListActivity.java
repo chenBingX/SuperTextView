@@ -48,7 +48,7 @@ public class GifListActivity extends Activity {
 
     if (stv_1.getDrawable() instanceof GifDrawable) {
       GifDrawable gifDrawable = (GifDrawable) stv_1.getDrawable();
-      gifDrawable.setFrameDuration(25);
+//      gifDrawable.setFrameDuration(25);
     }
 
     stv_5.setSelected(true);

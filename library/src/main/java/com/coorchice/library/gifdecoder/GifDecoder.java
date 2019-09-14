@@ -116,36 +116,69 @@ public class GifDecoder implements Gif {
         bufferCanvas = new Canvas(buffer = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888));
     }
 
+    /**
+     * 获取 Gif 的宽
+     * @return
+     */
     public int getWidth() {
         check();
         return JNI.getWidth(ptr);
     }
 
+    /**
+     * 获取 Gif 的高
+     * @return
+     */
     public int getHeight() {
         check();
         return JNI.getHeight(ptr);
     }
 
+    /**
+     * 获取 Gif 总帧数
+     * @return 返回 Gif 总帧数
+     */
     public int getFrameCount() {
         check();
         return JNI.getFrameCount(ptr);
     }
 
+    /**
+     * 获取 Gif 当前帧间隔，单位毫秒（ms）
+     * @return
+     */
     public int getFrameDuration() {
         check();
         return JNI.getFrameDuration(ptr);
     }
 
+    /**
+     * 设置 Gif 帧间隔
+     *
+     * @param duration 帧间隔，单位毫秒（ms）
+     */
     public void setFrameDuration(int duration) {
         check();
         JNI.setFrameDuration(ptr, duration);
     }
 
+    /**
+     * 获得 Gif 当前帧位置
+     *
+     * @return
+     */
     public int getCurrentFrame() {
         check();
         return JNI.getCurrentFrame(ptr);
     }
 
+    /**
+     * 跳转到 Gif 指定帧。
+     *
+     * 指定帧取值范围为 [0, 帧总数) 之间。
+     *
+     * @param frame 指定帧位置。
+     */
     public void gotoFrame(final int frame) {
         check();
         if (canPlay) {
@@ -170,6 +203,13 @@ public class GifDecoder implements Gif {
         }
     }
 
+    /**
+     * 提取 Gif 指定帧图像。
+     *
+     * 指定帧取值范围为 [0, 帧总数) 之间。
+     *
+     * @param frame 指定帧位置。
+     */
     public Bitmap getFrame(int frame) {
         check();
         Bitmap tempFrame = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
@@ -177,18 +217,33 @@ public class GifDecoder implements Gif {
         return tempFrame;
     }
 
+    /**
+     * 设置是否启用严格模式。
+     * 严格模式在支持局部更新的 Gif 图中十分有用，能够避免 {@link Gif#gotoFrame(int)} 和 {@link Gif#getFrame(int)} 产生错误的结果。
+     * 启用严格模式会带来一些性能损耗！
+     *
+     * @param strict true - 启用严格模式；false - 关闭严格模式。
+     */
     @Override
     public void setStrict(boolean strict) {
         check();
         JNI.setStrict(ptr, strict);
     }
 
+    /**
+     * 是否启用了严格模式
+     * @return
+     */
     @Override
     public boolean isStrict() {
         check();
         return JNI.getStrict(ptr);
     }
 
+    /**
+     * 渲染一帧
+     * @return
+     */
     public int updateFrame() {
         check();
         int r = 1;
@@ -199,10 +254,18 @@ public class GifDecoder implements Gif {
         return r;
     }
 
+    /**
+     * 获取 Gif 底层指针地址
+     * @return
+     */
     public long getPtr() {
         return ptr;
     }
 
+    /**
+     * 获取用于渲染 Gif 的 Bitmap 内存
+     * @return
+     */
     public Bitmap getBitmap() {
         return buffer;
     }
@@ -217,6 +280,9 @@ public class GifDecoder implements Gif {
         }
     }
 
+    /**
+     * 播放
+     */
     public void play() {
         if (isDestroy()) {
             canPlay = false;
@@ -242,10 +308,17 @@ public class GifDecoder implements Gif {
         onceRenderSchedule = ThreadPool.globleExecutor().schedule(playRunnable, delay, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * 是否在播放
+     * @return
+     */
     public boolean isPlaying() {
         return canPlay;
     }
 
+    /**
+     * 暂停播放
+     */
     public void stop() {
         canPlay = false;
         handler.removeCallbacksAndMessages(null);
@@ -255,10 +328,19 @@ public class GifDecoder implements Gif {
         }
     }
 
+    /**
+     * 是否被销毁
+     * @return
+     */
     public boolean isDestroy() {
         return ptr == 0;
     }
 
+    /**
+     * 销毁。
+     *
+     * 你不能使用一个以及被销毁的 Gif。
+     */
     public void destroy() {
         canPlay = false;
         handler.removeCallbacksAndMessages(null);
@@ -276,6 +358,12 @@ public class GifDecoder implements Gif {
         buffer = null;
     }
 
+    /**
+     * 设置帧绘制监听器。
+     * 当一帧将要被绘制时，会进行回调。
+     *
+     * @param onFrameListener
+     */
     public void setOnFrameListener(OnFrameListener onFrameListener) {
         this.onFrameListener = onFrameListener;
     }
@@ -312,6 +400,12 @@ public class GifDecoder implements Gif {
         void onFrame(GifDecoder gd, Bitmap bitmap);
     }
 
+    /**
+     * 判断是否是 Gif
+     *
+     * @param o
+     * @return
+     */
     public static boolean isGif(Object o) {
         return STVUtils.isGif(o);
     }

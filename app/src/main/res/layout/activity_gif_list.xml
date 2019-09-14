@@ -56,7 +56,6 @@
             android:text="小火箭发射了！啦啦啦啦啦啦..."
             android:textColor="#ffffff"
             android:textSize="22dp"
-            app:stv_state_drawable_rotate="90"
             app:stv_corner="6dp"
             app:stv_isShowState="true"
             app:stv_solid="#0D1831"

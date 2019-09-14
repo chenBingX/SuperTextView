@@ -50,10 +50,22 @@ public class GifDrawable extends Drawable implements Gif {
         play();
     }
 
+    /**
+     * 使用文件绝对路径创建一个 GifDrawable
+     *
+     * @param filePath 文件绝对路径
+     * @return
+     */
     public static GifDrawable createDrawable(String filePath) {
         return new GifDrawable(GifDecoder.openFile(filePath));
     }
 
+    /**
+     * 使用二进制数组创建一个 GifDrawable
+     *
+     * @param bytes 二进制数组
+     * @return
+     */
     public static GifDrawable createDrawable(byte[] bytes) {
         return new GifDrawable(GifDecoder.openBytes(bytes));
     }
@@ -90,6 +102,10 @@ public class GifDrawable extends Drawable implements Gif {
         return gifDecoder != null && !gifDecoder.isDestroy();
     }
 
+    /**
+     * 获取 Gif 的宽
+     * @return
+     */
     @Override
     public int getWidth() {
         if (isValid()) {
@@ -100,9 +116,13 @@ public class GifDrawable extends Drawable implements Gif {
 
     @Override
     public int getIntrinsicWidth() {
-        return getWidth();
+        return getBounds() == null? getWidth() : getBounds().width();
     }
 
+    /**
+     * 获取 Gif 的高
+     * @return
+     */
     @Override
     public int getHeight() {
         if (isValid()) {
@@ -113,9 +133,13 @@ public class GifDrawable extends Drawable implements Gif {
 
     @Override
     public int getIntrinsicHeight() {
-        return getHeight();
+        return getBounds() == null ? getHeight() : getBounds().height();
     }
 
+    /**
+     * 获取 Gif 总帧数
+     * @return 返回 Gif 总帧数
+     */
     @Override
     public int getFrameCount() {
         if (isValid()) {
@@ -124,6 +148,10 @@ public class GifDrawable extends Drawable implements Gif {
         return 0;
     }
 
+    /**
+     * 获取 Gif 当前帧间隔，单位毫秒（ms）
+     * @return
+     */
     @Override
     public int getFrameDuration() {
         if (isValid()) {
@@ -132,6 +160,11 @@ public class GifDrawable extends Drawable implements Gif {
         return 0;
     }
 
+    /**
+     * 设置 Gif 帧间隔
+     *
+     * @param duration 帧间隔，单位毫秒（ms）
+     */
     @Override
     public void setFrameDuration(int duration) {
         if (isValid()) {
@@ -139,6 +172,11 @@ public class GifDrawable extends Drawable implements Gif {
         }
     }
 
+    /**
+     * 获得 Gif 当前帧位置
+     *
+     * @return
+     */
     @Override
     public int getCurrentFrame() {
         if (isValid()) {
@@ -147,6 +185,13 @@ public class GifDrawable extends Drawable implements Gif {
         return 0;
     }
 
+    /**
+     * 跳转到 Gif 指定帧。
+     *
+     * 指定帧取值范围为 [0, 帧总数) 之间。
+     *
+     * @param frame 指定帧位置。
+     */
     @Override
     public void gotoFrame(int frame) {
         if (isValid()) {
@@ -154,6 +199,13 @@ public class GifDrawable extends Drawable implements Gif {
         }
     }
 
+    /**
+     * 提取 Gif 指定帧图像。
+     *
+     * 指定帧取值范围为 [0, 帧总数) 之间。
+     *
+     * @param frame 指定帧位置。
+     */
     @Override
     public Bitmap getFrame(int frame) {
         if (isValid()) {
@@ -162,6 +214,13 @@ public class GifDrawable extends Drawable implements Gif {
         return null;
     }
 
+    /**
+     * 设置是否启用严格模式。
+     * 严格模式在支持局部更新的 Gif 图中十分有用，能够避免 {@link Gif#gotoFrame(int)} 和 {@link Gif#getFrame(int)} 产生错误的结果。
+     * 启用严格模式会带来一些性能损耗！
+     *
+     * @param strict true - 启用严格模式；false - 关闭严格模式。
+     */
     @Override
     public void setStrict(boolean strict) {
         if (isValid()) {
@@ -169,6 +228,10 @@ public class GifDrawable extends Drawable implements Gif {
         }
     }
 
+    /**
+     * 是否启用了严格模式
+     * @return
+     */
     @Override
     public boolean isStrict() {
         if (isValid()) {
@@ -185,6 +248,10 @@ public class GifDrawable extends Drawable implements Gif {
         return 0;
     }
 
+    /**
+     * 获取 Gif 底层指针地址
+     * @return
+     */
     @Override
     public long getPtr() {
         if (isValid()) {
@@ -193,6 +260,10 @@ public class GifDrawable extends Drawable implements Gif {
         return 0;
     }
 
+    /**
+     * 获取用于渲染 Gif 的 Bitmap 内存
+     * @return
+     */
     @Override
     public Bitmap getBitmap() {
         if (isValid()) {
@@ -201,6 +272,9 @@ public class GifDrawable extends Drawable implements Gif {
         return null;
     }
 
+    /**
+     * 播放
+     */
     @Override
     public void play() {
         if (isValid()) {
@@ -208,6 +282,10 @@ public class GifDrawable extends Drawable implements Gif {
         }
     }
 
+    /**
+     * 是否在播放
+     * @return
+     */
     @Override
     public boolean isPlaying() {
         if (isValid()) {
@@ -216,6 +294,9 @@ public class GifDrawable extends Drawable implements Gif {
         return false;
     }
 
+    /**
+     * 暂停播放
+     */
     @Override
     public void stop() {
         if (isValid()) {
@@ -223,6 +304,10 @@ public class GifDrawable extends Drawable implements Gif {
         }
     }
 
+    /**
+     * 是否被销毁
+     * @return
+     */
     @Override
     public boolean isDestroy() {
         if (isValid()) {
@@ -231,6 +316,11 @@ public class GifDrawable extends Drawable implements Gif {
         return false;
     }
 
+    /**
+     * 销毁。
+     *
+     * 你不能使用一个以及被销毁的 Gif。
+     */
     @Override
     public void destroy() {
         if (isValid()) {
@@ -238,6 +328,12 @@ public class GifDrawable extends Drawable implements Gif {
         }
     }
 
+    /**
+     * 设置帧绘制监听器。
+     * 当一帧将要被绘制时，会进行回调。
+     *
+     * @param onFrameListener
+     */
     @Override
     public void setOnFrameListener(GifDecoder.OnFrameListener onFrameListener) {
         this.onFrameListener = onFrameListener;

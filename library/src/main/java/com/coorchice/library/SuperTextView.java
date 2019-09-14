@@ -161,8 +161,8 @@ public class SuperTextView extends TextView {
     private OnDrawableClickedListener onDrawableClickedListener;
 
     private int[] suitedSize;
-    private Canvas drawableBgCanvas, tempDrawableBgCanvas;
-    private Bitmap drawableBgCanvasBitmap, tempDrawableBgCanvasBitmap;
+    private Canvas drawableBgCanvas, tempDrawableBgCanvas, drawable1Canvas, drawable2Canvas;
+    private Bitmap drawableBgCanvasBitmap, tempDrawableBgCanvasBitmap, drawable1CanvasBitmap, drawable2CanvasBitmap;
     private ScaleType backgroundScaleType = ScaleType.CENTER;
     private Tracker tracker;
 
@@ -541,40 +541,88 @@ public class SuperTextView extends TextView {
                 Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableBackgroundEnd, System.currentTimeMillis() - startDrawDrawableBackgroundTime));
             } else if (isShowState) {
                 getDrawableBounds();
-                drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1],
-                        (int) drawableBounds[2], (int) drawableBounds[3]);
+                if (drawable instanceof GifDrawable){
+                    drawable.setBounds(0, 0, (int)(drawableBounds[2] - drawableBounds[0]), (int)(drawableBounds[3] - drawableBounds[1]));
+                } else {
+                    drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1],
+                            (int) drawableBounds[2], (int) drawableBounds[3]);
+                }
                 if (drawableTint != NO_COLOR) {
                     drawable.setColorFilter(drawableTint, PorterDuff.Mode.SRC_IN);
+                }
+                if (drawable instanceof GifDrawable) {
+                    if (drawable1Canvas == null || drawable1Canvas.getWidth() != drawable.getIntrinsicWidth() || drawable1Canvas.getHeight() != drawable.getIntrinsicHeight()) {
+                        if (drawable1Canvas != null) {
+                            drawable1CanvasBitmap.recycle();
+                            drawable1CanvasBitmap = null;
+                            drawable1Canvas = null;
+                        }
+                        drawable1CanvasBitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                        drawable1Canvas = new Canvas(drawable1CanvasBitmap);
+                    }
+                    drawable.draw(drawable1Canvas);
                 }
                 if (drawableRotate != NO_ROTATE) {
                     canvas.save();
                     canvas.rotate(drawableRotate,
                             drawableBounds[0] + (drawableBounds[2] - drawableBounds[0]) / 2,
                             drawableBounds[1] + (drawableBounds[3] - drawableBounds[1]) / 2);
-                    drawable.draw(canvas);
+                    if (drawable instanceof GifDrawable && drawable1CanvasBitmap != null) {
+                        canvas.drawBitmap(drawable1CanvasBitmap, drawableBounds[0], drawableBounds[1], paint);
+                    } else {
+                        drawable.draw(canvas);
+                    }
                     canvas.restore();
                 } else {
-                    drawable.draw(canvas);
+                    if (drawable instanceof GifDrawable && drawable1CanvasBitmap != null) {
+                        canvas.drawBitmap(drawable1CanvasBitmap, drawableBounds[0], drawableBounds[1], paint);
+                    } else {
+                        drawable.draw(canvas);
+                    }
                 }
             }
         }
 
         if (drawable2 != null && isShowState2) {
             getDrawable2Bounds();
-            drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1],
-                    (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
+            if (drawable2 instanceof GifDrawable){
+                drawable2.setBounds(0, 0, (int)(drawable2Bounds[2] - drawable2Bounds[0]), (int)(drawable2Bounds[3] - drawable2Bounds[1]));
+            } else {
+                drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1],
+                        (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
+            }
             if (drawable2Tint != NO_COLOR) {
                 drawable2.setColorFilter(drawable2Tint, PorterDuff.Mode.SRC_IN);
+            }
+            if (drawable2 instanceof GifDrawable) {
+                if (drawable2Canvas == null || drawable2Canvas.getWidth() != drawable2.getIntrinsicWidth() || drawable2Canvas.getHeight() != drawable2.getIntrinsicHeight()) {
+                    if (drawable2Canvas != null) {
+                        drawable2CanvasBitmap.recycle();
+                        drawable2CanvasBitmap = null;
+                        drawable2Canvas = null;
+                    }
+                    drawable2CanvasBitmap = Bitmap.createBitmap(drawable2.getIntrinsicWidth(), drawable2.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                    drawable2Canvas = new Canvas(drawable2CanvasBitmap);
+                }
+                drawable2.draw(drawable2Canvas);
             }
             if (drawable2Rotate != NO_ROTATE) {
                 canvas.save();
                 canvas.rotate(drawable2Rotate,
                         drawable2Bounds[0] + (drawable2Bounds[2] - drawable2Bounds[0]) / 2,
                         drawable2Bounds[1] + (drawable2Bounds[3] - drawable2Bounds[1]) / 2);
-                drawable2.draw(canvas);
+                if (drawable2 instanceof GifDrawable && drawable2CanvasBitmap != null) {
+                    canvas.drawBitmap(drawable2CanvasBitmap, drawable2Bounds[0], drawable2Bounds[1], paint);
+                } else {
+                    drawable2.draw(canvas);
+                }
                 canvas.restore();
             } else {
-                drawable2.draw(canvas);
+                if (drawable2 instanceof GifDrawable && drawable2CanvasBitmap != null) {
+                    canvas.drawBitmap(drawable2CanvasBitmap, drawable2Bounds[0], drawable2Bounds[1], paint);
+                } else {
+                    drawable2.draw(canvas);
+                }
             }
         }
     }
@@ -624,7 +672,7 @@ public class SuperTextView extends TextView {
                 }
             }
             drawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-            if (tempDrawableBgCanvas != null){
+            if (tempDrawableBgCanvas != null) {
                 tempDrawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             }
             drawableBackgroundShader = new BitmapShader(drawableBgCanvasBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -2302,6 +2350,14 @@ public class SuperTextView extends TextView {
         this.onDrawableClickedListener = onDrawableClickedListener;
     }
 
+    /**
+     * 当 Drawable1 被作为背景图时，设置其缩放模式。
+     * <p>
+     * 具体请参考 {@link ScaleType}，默认缩放模式为 {@link ScaleType#CENTER}
+     *
+     * @param scaleType
+     * @return
+     */
     public SuperTextView setScaleType(ScaleType scaleType) {
         if (backgroundScaleType == scaleType) return this;
         this.backgroundScaleType = scaleType;
@@ -2310,10 +2366,21 @@ public class SuperTextView extends TextView {
         return this;
     }
 
-    public ScaleType getScaleType(){
+    /**
+     * 当 Drawable1 被作为背景图时，获取其缩放模式。
+     *
+     * @return
+     */
+    public ScaleType getScaleType() {
         return backgroundScaleType;
     }
 
+    /**
+     * 设置一个跟踪器，用于追踪 SuperTextView 绘制
+     *
+     * @param tracker
+     * @hide
+     */
     public void setTracker(Tracker tracker) {
         this.tracker = tracker;
     }
@@ -2569,11 +2636,11 @@ public class SuperTextView extends TextView {
          */
         FIT_XY(0),
         /**
-         *
+         * 将图片剪裁居中
          */
         FIT_CENTER(1),
         /**
-         *
+         * 将图片自适应居中。默认值。
          */
         CENTER(2);
 
