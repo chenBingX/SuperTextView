@@ -6,7 +6,7 @@
 
 # **English** | [**中文**](https://github.com/chenBingX/SuperTextView/blob/master/README_CN.md)
 
-<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/SuperTextViewyuan.png" width=150 height=150 align=right alt="SuperTextView">
+<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/STV_icon.png" width=200 height=200 align=right alt="SuperTextView">
 
 Hi，Developer，Welcome to use **SuperTextView** ！Thank you and tens of thousands of Android developers for  your trust in me 😘
 
@@ -41,9 +41,9 @@ In the past one and a half years, **SuperTextView** has gone through many iterat
 
 <img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_Demo_url.png" width=150 height=150 align=center alt="SuperTextView">
 
-|One|Two|Three|
-|:---:|:---:|:---:|
-|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv演示1.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv演示2.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv演示3.gif)|
+|||||
+|:---:|:---:|:---:|:---:|
+|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page1.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page2.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page3.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page4.gif)|
 
 
 # Portal Area
