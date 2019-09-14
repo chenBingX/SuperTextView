@@ -2636,11 +2636,11 @@ public class SuperTextView extends TextView {
          */
         FIT_XY(0),
         /**
-         * 将图片剪裁居中
+         * 将图片自适应居中。
          */
         FIT_CENTER(1),
         /**
-         * 将图片自适应居中。默认值。
+         * 将图片剪裁居中。默认值。
          */
         CENTER(2);
 
