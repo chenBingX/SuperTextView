@@ -541,12 +541,7 @@ public class SuperTextView extends TextView {
                 Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableBackgroundEnd, System.currentTimeMillis() - startDrawDrawableBackgroundTime));
             } else if (isShowState) {
                 getDrawableBounds();
-                if (drawable instanceof GifDrawable){
-                    drawable.setBounds(0, 0, (int)(drawableBounds[2] - drawableBounds[0]), (int)(drawableBounds[3] - drawableBounds[1]));
-                } else {
-                    drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1],
-                            (int) drawableBounds[2], (int) drawableBounds[3]);
-                }
+                drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1], (int) drawableBounds[2], (int) drawableBounds[3]);
                 if (drawableTint != NO_COLOR) {
                     drawable.setColorFilter(drawableTint, PorterDuff.Mode.SRC_IN);
                 }
@@ -560,7 +555,9 @@ public class SuperTextView extends TextView {
                         drawable1CanvasBitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
                         drawable1Canvas = new Canvas(drawable1CanvasBitmap);
                     }
+                    drawable.getBounds().offset(-(int) drawableBounds[0], -(int) drawableBounds[1]);
                     drawable.draw(drawable1Canvas);
+                    drawable.getBounds().offset((int) drawableBounds[0], (int) drawableBounds[1]);
                 }
                 if (drawableRotate != NO_ROTATE) {
                     canvas.save();
@@ -585,12 +582,7 @@ public class SuperTextView extends TextView {
 
         if (drawable2 != null && isShowState2) {
             getDrawable2Bounds();
-            if (drawable2 instanceof GifDrawable){
-                drawable2.setBounds(0, 0, (int)(drawable2Bounds[2] - drawable2Bounds[0]), (int)(drawable2Bounds[3] - drawable2Bounds[1]));
-            } else {
-                drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1],
-                        (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
-            }
+            drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1], (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
             if (drawable2Tint != NO_COLOR) {
                 drawable2.setColorFilter(drawable2Tint, PorterDuff.Mode.SRC_IN);
             }
@@ -604,7 +596,9 @@ public class SuperTextView extends TextView {
                     drawable2CanvasBitmap = Bitmap.createBitmap(drawable2.getIntrinsicWidth(), drawable2.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
                     drawable2Canvas = new Canvas(drawable2CanvasBitmap);
                 }
+                drawable2.getBounds().offset(-(int) drawable2Bounds[0], -(int) drawable2Bounds[1]);
                 drawable2.draw(drawable2Canvas);
+                drawable2.getBounds().offset((int) drawable2Bounds[0], (int) drawable2Bounds[1]);
             }
             if (drawable2Rotate != NO_ROTATE) {
                 canvas.save();

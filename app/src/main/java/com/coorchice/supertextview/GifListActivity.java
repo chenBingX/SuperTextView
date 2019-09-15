@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.coorchice.library.OnDrawableClickedListenerAdapter;
 import com.coorchice.library.SuperTextView;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.STVUtils;
@@ -16,6 +18,7 @@ public class GifListActivity extends Activity {
   private SuperTextView stv_1;
   private SuperTextView stv_4;
   private SuperTextView stv_5;
+  private SuperTextView stv_6;
   private SuperTextView stv_next;
 
   @Override
@@ -44,6 +47,7 @@ public class GifListActivity extends Activity {
     stv_1 = (SuperTextView) findViewById(R.id.stv_1);
     stv_4 = (SuperTextView) findViewById(R.id.stv_4);
     stv_5 = (SuperTextView) findViewById(R.id.stv_5);
+    stv_6 = (SuperTextView) findViewById(R.id.stv_6);
     stv_next = (SuperTextView) findViewById(R.id.stv_next);
 
     if (stv_1.getDrawable() instanceof GifDrawable) {
@@ -72,6 +76,28 @@ public class GifListActivity extends Activity {
       @Override
       public void onClick(View v) {
         startActivity(new Intent(GifListActivity.this, GifActivity.class));
+      }
+    });
+
+    stv_6.setOnDrawableClickedListener(new OnDrawableClickedListenerAdapter(){
+      /**
+       * 当 Drawable1 被点击时触发
+       *
+       * @param stv
+       */
+      @Override
+      public void onDrawable1Clicked(SuperTextView stv) {
+        Toast.makeText(GifListActivity.this, "Drawable1 区域被点击", Toast.LENGTH_SHORT).show();
+      }
+
+      /**
+       * 当 Drawable2 被点击时触发
+       *
+       * @param stv
+       */
+      @Override
+      public void onDrawable2Clicked(SuperTextView stv) {
+        Toast.makeText(GifListActivity.this, "Drawable2 区域被点击", Toast.LENGTH_SHORT).show();
       }
     });
   }
