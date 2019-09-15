@@ -1,4 +1,6 @@
 com.coorchice.library
+com.coorchice.library.gifdecoder
 com.coorchice.library.image_engine
 com.coorchice.library.sys_adjusters
 com.coorchice.library.utils
+com.coorchice.library.utils.track
