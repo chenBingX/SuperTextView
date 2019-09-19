@@ -8,15 +8,20 @@
 
 <img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/STV_icon.png" width=200 height=200 align=right alt="SuperTextView">
 
-Hi，Developer，Welcome to use **SuperTextView** ！Thank you and tens of thousands of Android developers for  your trust in me 😘
+Hi，Developer，Welcome to use **SuperTextView** ！
 
-**SuperTextView** is a component that focuses on serving Android developers, designed to help you build amazing **Android** applications.
+Thank you and tens of thousands of Android developers for  your trust in me 😘。
 
-In the past one and a half years, **SuperTextView** has gone through many iterations and hundreds of times of **commit**, which has been widely used in various types of commercial apps, and has withstood the test of tens of millions of users. I believe that **SuperTextView** can bring you to improve the development experience, and help you build or improve a more beautiful application.
+**SuperTextView** is different in that it is just a simple view element, but not just a view.
 
-**SuperTextView** is improving the development experience for **Android** developers in a more concise way. With everyone's support, in the future, **SuperTextView** will continue to serve developers and bring more surprises to developers.
+It's alive and dynamic, with powerful embedded logic that continues to provide you with rich but exceptionally simple development support.
+
+**SuperTextView** saves you from complex rendering logic. A simple **API** method call, the dazzling rendering effects are instantly available.
+
+You just enjoy the amazing visual effects you have written, and the rest will be handed over to **SuperTextView**.
 
 # Feature
+
 - set rounded corners for **View**
 - supports separate control of each rounded corner
 - add border for **View**
@@ -32,6 +37,11 @@ In the past one and a half years, **SuperTextView** has gone through many iterat
 - change the color of **Drawable**
 - change the rotation of **Drawable**
 - support text gradient effect
+- support for setting click events separately for the **Drawable** zone
+- support **Gif** display
+- support for adding borders to **Gif**, as well as rounded corners
+- support **Gif** pause/play, modify frame rate
+- support for extracting the specified **Gif** frame
 - ...
 
 # Demo
@@ -78,7 +88,395 @@ dependencies {
 # Update Log
 
 
-![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv全集3.1.3.gif)
+## v3.2.1 - Great，SuperTextView
+
+In the new `v3.2.0` version, **SuperTextView** redefines itself again. Developers, take a look at the surprises prepared for you!🎉🎉🎉
+
+### this is... Gif ？
+
+This time, **SuperTextView** brings powerful **Gif** driver support to developers.
+
+If in the past, you have been upset about how to display a **Gif** chart on the Android platform, or you are stuck in the performance abyss of some three-party **Gif** libraries. But now, **SuperTextView** will completely change this situation.
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo1.gif)
+
+**Gif** and **SuperTextView** are natural and natural, so you can display a **Gif** diagram in the most familiar and natural way. It's as simple as showing a normal picture as usual.
+
+Thanks to the ultra-high performance of **c/c++** and the precise operation of memory. **SuperTextView** Customized the powerful **Gif** driver engine for mobile platforms by using **c/c++**.
+
+**SuperTextView**'s **Gif** engine, which can accurately manipulate image pixel memory, only update local pixel memory when frame refresh of **Gif** image, which makes **Gif** image rendering efficiency Got a qualitative leap.
+
+Through asynchronous off-screen rendering technology, **SuperTextView** can ensure smooth and smooth application interface and sensitive response speed even when displaying large **Gif** images.
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo2.gif)
+
+> 💡In the above Demo, using **SuperTextView** shows a **Gif** image with a **265** frame image, but the user interface is still very smooth.
+
+#### Display Gif super simple
+
+Display a **Gif** diagram in **SuperTextView**, super easy!
+
+You can configure it directly in the **XML** layout document or add it in your code.
+
+##### Configuring **Gif** in **XML**
+
+```
+<com.coorchice.library.SuperTextView
+    android:id="@+id/stv_1"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    app:stv_state_drawable="@drawable/gif_1" />
+```
+
+You can display the **Gif** diagram for the **SuperTextView** configuration just like configuring a normal image.
+
+##### Configuring Gif in your code
+
+```
+stv_1 = (SuperTextView) findViewById(R.id.stv_1);
+stv_1.setDrawable(R.drawable.gif_1);
+```
+
+It's that simple and natural, **SuperTextView** allows developers to display a **Gif** diagram without any awareness.
+
+In the kernel logic of **SuperTextView**, **SuperTextView** intelligently classifies the normal graph and **Gif** graph, and then processes and optimizes accordingly.
+
+##### Display network **Gif** is as simple
+
+What if your **Gif** is not local but in the cloud?
+
+You don't have to worry about it!Everything is handed over to **SuperTextView**.
+
+```
+stv_1 = (SuperTextView) findViewById(R.id.stv_1);
+stv_1.setUrlImage("http://example.com/images/example.gif");
+```
+
+With just one line of code, **SuperTextView** will assist you in the background to load the **Gif** image and then process the rendering to the screen.
+
+> 💡In fact, the **Drawable1** and **Drawable2** image display bits of **SuperTextView** can be used to display **Gif** images. In short, everything is what you are familiar with.
+
+
+#### You can control more
+
+**SuperTextView** not only display **Gif**, but also you can control more details.
+
+##### Play / Pause
+
+You can control **Gif** , play, or pause at any time.
+
+```
+if (stv.getDrawable() instanceof GifDrawable) {
+  // Get the GifDrawable first
+  GifDrawable gifDrawable = (GifDrawable) stv.getDrawable();
+
+  // Play
+  gifDrawable.play();
+
+  // Pause
+  gifDrawable.stop();
+}
+```
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo3.gif)
+
+##### Jump/Get the specified frame
+
+In **SuperTextView**, you can always reach the image of the frame you specify, as well as the image that can be extracted to the specified frame.
+
+```
+if (stv.getDrawable() instanceof GifDrawable) {
+  // Get the GifDrawable first
+  GifDrawable gifDrawable = (GifDrawable) stv.getDrawable();
+
+  // Jump to the specified frame
+  gifDrawable.gotoFrame(pre);
+
+  // Get the specified frame
+  Bitmap frame = gifDrawable.getFrame(i);
+}
+```
+> 💡Since **SuperTextView** can support local incremental rendering, when your **Gif** supports this rendering mode, it means you may need to enable ** strict mode by calling `gifDrawable.setStrict(true)` *, to ensure that the frame jump or frame extraction image is correct. This can take some time, so you should try to do the operations under ** strict mode** in an asynchronous thread.
+
+##### Fast, follow your heart
+
+**SuperTextView** allows you to modify the playback rate of the **Gif** chart at will.
+
+```
+if (stv.getDrawable() instanceof GifDrawable) {
+  // Get the GifDrawable first
+  GifDrawable gifDrawable = (GifDrawable) stv.getDrawable();
+
+  // Set the frame playback interval, 20 ms
+  gifDrawable.setFrameDuration(20);
+}
+```
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo4.gif)
+
+##### You can know all
+
+With **SuperTextView** you can get a glimpse of the information of a **Gif**.
+
+- Get **Gif** size
+
+    ```
+    // Get width
+    int width = gifDrawable.getWidth();
+
+    // Get height
+    int height = gifDrawable.getHeight();
+    ```
+
+- Get **Gif** frame information
+
+    ```
+    // Get the number of frames
+    int frameCount = gifDrawable.getFrameCount();
+
+    // Get the current frame interval
+    int frameDuration = gifDrawable.getFrameDuration();
+
+    // Get the current render to that frame
+    int framePotision = gifDrawable.getCurrentFrame();
+
+    // Whether it is playing
+    boolean isPlaying = gifDrawable.isPlaying();
+    ```
+
+#### More brilliant Gif
+
+** SuperTextView ** and ** Gif ** rendered by virtue of seamless integration, after ** Drawable1 ** and ** Drawable2 ** all configuration items in the display ** Gif ** Figure, too, can enter into force.
+
+##### Gif as a normal Drawable
+    app:stv_state_drawable_rotate="90"
+
+Let's take a look at what's going on with a **Gif** in the original **Drawable** position.
+
+```
+<com.coorchice.library.SuperTextView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingLeft="62dp"
+    android:paddingRight="10dp"
+    android:text="小火箭发射了！啦啦啦啦啦啦..."
+    android:textColor="#ffffff"
+    android:textSize="22dp"
+    app:stv_corner="6dp"
+    app:stv_isShowState="true"
+    app:stv_solid="#0D1831"
+
+    // set Gif
+    app:stv_state_drawable="@drawable/gif_1"
+
+    // set Gif height
+    app:stv_state_drawable_height="40dp"
+
+    // set Gif width
+    app:stv_state_drawable_width="40dp"
+
+    // set Gif to left
+    app:stv_state_drawable_mode="left"
+
+    // set Gif left spacing
+    app:stv_state_drawable_padding_left="10dp"/>
+```
+
+The effect is...
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo5.gif)
+
+
+Now let's try **Gif** to rotate 90 degrees.
+
+```
+<com.coorchice.library.SuperTextView
+    ...
+    // set Gif to rotate 90 degrees
+    app:stv_state_drawable_rotate="90"
+    ...
+/>
+```
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo6.gif)
+
+
+##### Fillet the Gif
+
+**SuperTextView** incredible implementation **Gif** The fillet of the graph opens a new door for developers.
+
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo7.gif)
+
+
+However, the realization of this effect is amazingly simple.
+
+```
+<com.coorchice.library.SuperTextView
+    android:layout_width="185dp"
+    android:layout_height="138.75dp"
+    android:layout_gravity="center_horizontal"
+    app:stv_corner="20dp"
+
+    // set Gif as the control background
+    app:stv_drawableAsBackground="true"
+
+    app:stv_scaleType="fitCenter"
+
+    // Configuring Gif
+    app:stv_state_drawable="@drawable/gif_1" />
+```
+
+##### Add a border to the Gif
+
+Developers can even easily add a border to a **Gif**.
+
+```
+<com.coorchice.library.SuperTextView
+    android:layout_width="350dp"
+    android:layout_height="148.4dp"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center"
+
+    // add the text will be more stylish
+    android:text="SuperTextView"
+
+    android:textSize="36dp"
+    android:textStyle="bold"
+    android:visibility="invisible"
+    app:stv_corner="6dp"
+    app:stv_drawableAsBackground="true"
+    app:stv_isShowState="true"
+    app:stv_scaleType="center"
+    // Set the border color
+    app:stv_stroke_color="@color/opacity_8_gray_4c
+
+    // Set the border width
+    app:stv_stroke_width="5dp"
+
+    app:stv_text_fill_color="#ccffffff"
+    app:stv_text_stroke="true"
+    app:stv_text_stroke_color="#cc000000"
+    app:stv_text_stroke_width="2dp"
+
+    // Configuring Gif
+    app:stv_state_drawable="@drawable/gif_1"/>
+```
+
+The effect is instantly presented...
+
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo8.gif)
+
+
+##### Easily implement dynamic avatars
+
+In the past, some cool dynamics often stopped at the complexity and cost of implementation. And **SuperTextView** brings you more possibilities, and your inspiration can be free.
+
+For example, the implementation of dynamic avatars will be simpler than ever.
+
+```
+<com.coorchice.library.SuperTextView
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_marginLeft="30dp"
+    app:stv_corner="40dp"
+
+    // Set as background image
+    app:stv_drawableAsBackground="true"
+
+    // Configure Gif avatar
+    app:stv_state_drawable="@drawable/gif_avatar"
+
+    // Add border
+    app:stv_stroke_color="#ffffff"
+    app:stv_stroke_width="3dp"
+    />
+```
+
+In the code, you can configure a web dynamic avatar directly.
+
+```
+stv.setUrlImage("http://gif_avatar.gif");
+```
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo9.gif)
+
+### More surprises
+
+#### Both Drawables support clicks!
+
+In the new version of **SuperTextView**, **Drawable1** and **Drawable2** are given new capabilities - support for precise clicks.
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/gif_demo10.gif)
+
+**SuperTextView** By monitoring the location where the click action occurs, the click action can be accurately located in the area where it occurred (**Drawable1**, **Drawable2** or **Other areas**), then trigger accordingly Listening callbacks.
+
+You can set the click action listener on **Drawable** for **SuperTextView** to make an accurate response when an action occurs.
+
+```
+stv.setOnDrawableClickedListener(new SuperTextView.OnDrawableClickedListener() {
+    @Override
+    public void onDrawable1Clicked(SuperTextView stv) {
+        // Drawable1 clicked，do something...
+    }
+    @Override
+    public void onDrawable2Clicked(SuperTextView stv) {
+        // Drawable2 clicked，do something...
+    }
+});
+
+stv.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        // Non-Drawable area is clicked, do something...
+    }
+});
+```
+
+#### Background image zoom mode support
+
+Now, when you use **Drawable1** as the background image, you can configure different zoom modes for it to achieve your favorite effect.
+
+```
+stv.setScaleType(ScaleType.CENTER);
+```
+
+**SuperTextView** provides developers with up to 3 zoom modes:
+
+- `ScaleType.FIT_XY`
+
+    Stretch the picture to tile.
+
+- `ScaleType.FIT_CENTER`
+
+    Center the image adaptively.
+
+- `ScaleType.CENTER`
+
+    Crop the picture centered. Defaults.
+
+
+![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_scaletype.png)
+
+
+#### Other updates
+
+- In the **XML** layout document, **Drawable1** and **Drawable2** now support direct setting **color** or **ShapeDrawable**.
+
+    ```
+    // Circle_f9ad36 is a shape file written in xml
+    app:stv_state_drawable="@drawable/circle_f9ad36"
+
+    // Use solid color as Drawable
+    app:stv_state_drawable="#000000"
+    ```
+
+- ⚠️ The minimum supported version **API** is promoted to **19**.
+
+- Rendering performance is at least **30%** better than in the past.
+
+- Upgrade the default image loading engine to support smart caching. Maybe now, you don't have to introduce a third-party image loading library.
 
 ## v3.1.1 - Sincerity works，SuperTextView
 
