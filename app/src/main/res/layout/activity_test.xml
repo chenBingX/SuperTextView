@@ -89,7 +89,7 @@
             app:stv_isShowState2="true"
             app:stv_solid="#A58FED"
             app:stv_state_drawable="@drawable/alpha_gif2"
-            app:stv_state_drawable2="@drawable/alpha_gif1"
+            app:stv_state_drawable2="@drawable/alpha_gif2"
             app:stv_state_drawable2_height="50dp"
             app:stv_state_drawable2_mode="right"
             app:stv_state_drawable2_padding_left="-5dp"
