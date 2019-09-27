@@ -52,6 +52,7 @@ import com.coorchice.library.utils.track.Event;
 import com.coorchice.library.utils.track.TimeEvent;
 import com.coorchice.library.utils.track.Tracker;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -910,14 +911,26 @@ public class SuperTextView extends TextView {
 
 
     private void drawTextStroke(Canvas canvas) {
-        getPaint().setStyle(Paint.Style.STROKE);
-        setTextColor(textStrokeColor);
-        getPaint().setFakeBoldText(true);
+        setIncludeFontPadding(false);
+        setTextColorNoInvalidate(textStrokeColor);
+        getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
         getPaint().setStrokeWidth(textStrokeWidth);
         sdkOnDraw(canvas);
+        setTextColorNoInvalidate(textFillColor);
         getPaint().setStyle(Paint.Style.FILL);
-        getPaint().setFakeBoldText(false);
-        setTextColor(textFillColor);
+        getPaint().setStrokeWidth(0);
+    }
+
+    private void setTextColorNoInvalidate(int color) {
+        Field textColorField;
+        try {
+            textColorField = TextView.class.getDeclaredField("mCurTextColor");
+            textColorField.setAccessible(true);
+            textColorField.set(this, color);
+            textColorField.setAccessible(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void drawShaderText(Canvas canvas) {
