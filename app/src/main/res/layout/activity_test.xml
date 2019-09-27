@@ -66,8 +66,8 @@
             app:stv_corner="10dp"
             app:stv_isShowState="true"
             app:stv_state_drawable="#000000"
-            app:stv_state_drawable_height="1dp"
-            app:stv_state_drawable_width="1000dp"
+            app:stv_state_drawable_height="10dp"
+            app:stv_state_drawable_width="10000dp"
             app:stv_text_fill_color="@color/red"
             app:stv_text_stroke="true"
             app:stv_text_stroke_color="@color/black"
@@ -76,11 +76,28 @@
             />
 
         <com.coorchice.library.SuperTextView
-            android:layout_width="237dp"
-            android:layout_height="296dp"
+            android:id="@+id/stv_6"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
             android:layout_gravity="center_horizontal"
-            app:stv_drawableAsBackground="true"
-            app:stv_state_drawable="@drawable/alpha_gif2" />
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:text="SuperTextView"
+            android:textColor="#ffffff"
+            app:stv_corner="10dp"
+            app:stv_isShowState="true"
+            app:stv_isShowState2="true"
+            app:stv_solid="#A58FED"
+            app:stv_state_drawable="@drawable/alpha_gif2"
+            app:stv_state_drawable2="@drawable/alpha_gif1"
+            app:stv_state_drawable2_height="50dp"
+            app:stv_state_drawable2_mode="right"
+            app:stv_state_drawable2_padding_left="-5dp"
+            app:stv_state_drawable2_width="50dp"
+            app:stv_state_drawable_height="50dp"
+            app:stv_state_drawable_mode="left"
+            app:stv_state_drawable_padding_left="5dp"
+            app:stv_state_drawable_width="50dp" />
 
     </LinearLayout>
 

@@ -557,6 +557,7 @@ public class SuperTextView extends TextView {
                         drawable1Canvas = new Canvas(drawable1CanvasBitmap);
                     }
                     drawable.getBounds().offset(-(int) drawableBounds[0], -(int) drawableBounds[1]);
+                    drawable1Canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                     drawable.draw(drawable1Canvas);
                     drawable.getBounds().offset((int) drawableBounds[0], (int) drawableBounds[1]);
                 }
@@ -598,6 +599,7 @@ public class SuperTextView extends TextView {
                     drawable2Canvas = new Canvas(drawable2CanvasBitmap);
                 }
                 drawable2.getBounds().offset(-(int) drawable2Bounds[0], -(int) drawable2Bounds[1]);
+                drawable2Canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 drawable2.draw(drawable2Canvas);
                 drawable2.getBounds().offset((int) drawable2Bounds[0], (int) drawable2Bounds[1]);
             }
@@ -684,6 +686,7 @@ public class SuperTextView extends TextView {
                 drawable.draw(tempDrawableBgCanvas);
                 int color = paint.getColor();
                 paint.setColor(Color.WHITE);
+                drawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 drawableBgCanvas.drawBitmap(tempDrawableBgCanvasBitmap, 0, 0, paint);
                 paint.setColor(color);
             } else {
