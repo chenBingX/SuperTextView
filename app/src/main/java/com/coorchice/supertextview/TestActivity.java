@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,6 +78,7 @@ public class TestActivity extends ActionBarActivity {
             }
         });
     }
+
 
     private void findViews() {
         stv_0 = (SuperTextView) findViewById(R.id.stv_0);

@@ -101,22 +101,22 @@ public class PressAdjuster extends SuperTextView.Adjuster {
     int action = event.getAction();
     switch (action) {
       case MotionEvent.ACTION_DOWN:
+        press = true;
         if (normalTextColor == -99) {
           normalTextColor = v.getCurrentTextColor();
         }
         if (pressTextColor != -99 && v.getCurrentTextColor() != pressTextColor) {
           v.setTextColor(pressTextColor);
         }
-        press = true;
-        v.postInvalidate();
+//        v.postInvalidate();
         break;
       case MotionEvent.ACTION_UP:
       case MotionEvent.ACTION_CANCEL:
+        press = false;
         if (normalTextColor != -99 && v.getCurrentTextColor() != normalTextColor) {
           v.setTextColor(normalTextColor);
         }
-        press = false;
-        v.postInvalidate();
+//        v.postInvalidate();
         break;
     }
     return true;

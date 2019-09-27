@@ -687,6 +687,7 @@ public class SuperTextView extends TextView {
                 drawableBgCanvas.drawBitmap(tempDrawableBgCanvasBitmap, 0, 0, paint);
                 paint.setColor(color);
             } else {
+                drawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 drawable.draw(drawableBgCanvas);
             }
             Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnCopyDrawableBackgroundToShaderEnd, System.currentTimeMillis() - startCopyDrawableBackgroundToShaderTime));

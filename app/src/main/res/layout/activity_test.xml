@@ -24,6 +24,7 @@
     tools:context=".TestActivity">
 
     <LinearLayout
+        android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -70,7 +71,16 @@
             app:stv_text_fill_color="@color/red"
             app:stv_text_stroke="true"
             app:stv_text_stroke_color="@color/black"
-            app:stv_text_stroke_width="5dp" />
+            app:stv_text_stroke_width="5dp"
+            app:stv_pressTextColor="@color/yellow"
+            />
+
+        <com.coorchice.library.SuperTextView
+            android:layout_width="237dp"
+            android:layout_height="296dp"
+            android:layout_gravity="center_horizontal"
+            app:stv_drawableAsBackground="true"
+            app:stv_state_drawable="@drawable/alpha_gif2" />
 
     </LinearLayout>
 
