@@ -38,6 +38,14 @@
     <attr name="stv_text_stroke_width" format="dimension"/>
     <attr name="stv_text_fill_color" format="reference|color"/>
     <attr name="stv_autoAdjust" format="boolean"/>
+    <attr name="stv_state_drawable_layer" format="enum">
+      <enum name="beforeText" value="0"/>
+      <enum name="afterText" value="1"/>
+    </attr>
+    <attr name="stv_state_drawable2_layer" format="enum">
+      <enum name="beforeText" value="0"/>
+      <enum name="afterText" value="1"/>
+    </attr>
     <attr name="stv_state_drawable_mode" format="enum">
       <enum name="left" value="0"/>
       <enum name="top" value="1"/>

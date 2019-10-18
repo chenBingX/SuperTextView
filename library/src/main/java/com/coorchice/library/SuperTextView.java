@@ -73,6 +73,7 @@ public class SuperTextView extends TextView {
     private static final float DEFAULT_STROKE_WIDTH = 0f;
     private static final int DEFAULT_STROKE_COLOR = Color.BLACK;
     private static final int DEFAULT_STATE_DRAWABLE_MODE = DrawableMode.CENTER.code;
+    private static final int DEFAULT_STATE_DRAWABLE_LAYER = DrawableLayer.BEFORE_TEXT.code;
     private static final int DEFAULT_TEXT_STROKE_COLOR = Color.BLACK;
     private static final int DEFAULT_TEXT_FILL_COLOR = Color.BLACK;
     private static final float DEFAULT_TEXT_STROKE_WIDTH = 0f;
@@ -87,6 +88,8 @@ public class SuperTextView extends TextView {
     private int solid;
     private float strokeWidth;
     private int strokeColor;
+    private DrawableLayer stateDrawableLayer;
+    private DrawableLayer stateDrawable2Layer;
     private DrawableMode stateDrawableMode;
     private DrawableMode stateDrawable2Mode;
     private boolean isShowState;
@@ -250,6 +253,13 @@ public class SuperTextView extends TextView {
                 int drawableId = typedArray.getResourceId(R.styleable.SuperTextView_stv_state_drawable, 0);
                 if (drawableId != 0) {
                     innerSetDrawable(drawableId);
+                } else {
+                    try {
+                        drawable = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        drawable = null;
+                    }
                 }
             }
             drawableWidth =
@@ -272,6 +282,13 @@ public class SuperTextView extends TextView {
                 int drawable2Id = typedArray.getResourceId(R.styleable.SuperTextView_stv_state_drawable2, 0);
                 if (drawable2Id != 0) {
                     innerSetDrawable2(drawable2Id);
+                } else {
+                    try {
+                        drawable2 = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable2);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        drawable2 = null;
+                    }
                 }
             }
             drawable2Width =
@@ -290,6 +307,10 @@ public class SuperTextView extends TextView {
                     typedArray.getBoolean(R.styleable.SuperTextView_stv_drawableAsBackground, false);
             backgroundScaleType = ScaleType.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_scaleType, ScaleType.CENTER.code));
             isShowState2 = typedArray.getBoolean(R.styleable.SuperTextView_stv_isShowState2, false);
+            stateDrawableLayer = DrawableLayer.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_state_drawable_layer,
+                    DEFAULT_STATE_DRAWABLE_LAYER));
+            stateDrawable2Layer = DrawableLayer.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_state_drawable2_layer,
+                    DEFAULT_STATE_DRAWABLE_LAYER));
             stateDrawableMode = DrawableMode.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_state_drawable_mode,
                     DEFAULT_STATE_DRAWABLE_MODE));
             stateDrawable2Mode = DrawableMode.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_state_drawable2_mode,
@@ -365,7 +386,10 @@ public class SuperTextView extends TextView {
         checkPressColor(canvas);
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_DRAWABLE);
         long startDrawDrawableTime = System.currentTimeMillis();
-        drawStateDrawable(canvas);
+        if (drawableAsBackground || stateDrawableLayer == DrawableLayer.BEFORE_TEXT) {
+            drawStateDrawable(canvas);
+        }
+        if (stateDrawable2Layer == DrawableLayer.BEFORE_TEXT) drawStateDrawable2(canvas);
         Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableEnd, System.currentTimeMillis() - startDrawDrawableTime));
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_TEXT);
         if (needScroll) {
@@ -379,7 +403,15 @@ public class SuperTextView extends TextView {
         } else {
             sdkOnDraw(canvas);
         }
+        if (needScroll) {
+            canvas.translate(getScrollX(), getScrollY());
+        }
+        if (!drawableAsBackground && stateDrawableLayer == DrawableLayer.AFTER_TEXT) drawStateDrawable(canvas);
+        if (stateDrawable2Layer == DrawableLayer.AFTER_TEXT) drawStateDrawable2(canvas);
         isNeedToAdjust(canvas, Adjuster.Opportunity.AT_LAST);
+        if (needScroll) {
+            canvas.translate(-getScrollX(), -getScrollY());
+        }
         Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawEnd, System.currentTimeMillis() - startDrawTime));
     }
 
@@ -581,47 +613,6 @@ public class SuperTextView extends TextView {
                 }
             }
         }
-
-        if (drawable2 != null && isShowState2) {
-            getDrawable2Bounds();
-            drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1], (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
-            if (drawable2Tint != NO_COLOR) {
-                drawable2.setColorFilter(drawable2Tint, PorterDuff.Mode.SRC_IN);
-            }
-            if (drawable2 instanceof GifDrawable) {
-                if (drawable2Canvas == null || drawable2Canvas.getWidth() != drawable2.getIntrinsicWidth() || drawable2Canvas.getHeight() != drawable2.getIntrinsicHeight()) {
-                    if (drawable2Canvas != null) {
-                        drawable2CanvasBitmap.recycle();
-                        drawable2CanvasBitmap = null;
-                        drawable2Canvas = null;
-                    }
-                    drawable2CanvasBitmap = Bitmap.createBitmap(drawable2.getIntrinsicWidth(), drawable2.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-                    drawable2Canvas = new Canvas(drawable2CanvasBitmap);
-                }
-                drawable2.getBounds().offset(-(int) drawable2Bounds[0], -(int) drawable2Bounds[1]);
-                drawable2Canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                drawable2.draw(drawable2Canvas);
-                drawable2.getBounds().offset((int) drawable2Bounds[0], (int) drawable2Bounds[1]);
-            }
-            if (drawable2Rotate != NO_ROTATE) {
-                canvas.save();
-                canvas.rotate(drawable2Rotate,
-                        drawable2Bounds[0] + (drawable2Bounds[2] - drawable2Bounds[0]) / 2,
-                        drawable2Bounds[1] + (drawable2Bounds[3] - drawable2Bounds[1]) / 2);
-                if (drawable2 instanceof GifDrawable && drawable2CanvasBitmap != null) {
-                    canvas.drawBitmap(drawable2CanvasBitmap, drawable2Bounds[0], drawable2Bounds[1], paint);
-                } else {
-                    drawable2.draw(canvas);
-                }
-                canvas.restore();
-            } else {
-                if (drawable2 instanceof GifDrawable && drawable2CanvasBitmap != null) {
-                    canvas.drawBitmap(drawable2CanvasBitmap, drawable2Bounds[0], drawable2Bounds[1], paint);
-                } else {
-                    drawable2.draw(canvas);
-                }
-            }
-        }
     }
 
     private void drawDrawableBackground(Canvas canvas) {
@@ -708,6 +699,49 @@ public class SuperTextView extends TextView {
             paint.setColor(color);
         }
         Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableBackgroundShaderEnd, System.currentTimeMillis() - startDrawDrawableBackgroundShaderTime));
+    }
+
+    private void drawStateDrawable2(Canvas canvas) {
+        if (drawable2 != null && isShowState2) {
+            getDrawable2Bounds();
+            drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1], (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
+            if (drawable2Tint != NO_COLOR) {
+                drawable2.setColorFilter(drawable2Tint, PorterDuff.Mode.SRC_IN);
+            }
+            if (drawable2 instanceof GifDrawable) {
+                if (drawable2Canvas == null || drawable2Canvas.getWidth() != drawable2.getIntrinsicWidth() || drawable2Canvas.getHeight() != drawable2.getIntrinsicHeight()) {
+                    if (drawable2Canvas != null) {
+                        drawable2CanvasBitmap.recycle();
+                        drawable2CanvasBitmap = null;
+                        drawable2Canvas = null;
+                    }
+                    drawable2CanvasBitmap = Bitmap.createBitmap(drawable2.getIntrinsicWidth(), drawable2.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                    drawable2Canvas = new Canvas(drawable2CanvasBitmap);
+                }
+                drawable2.getBounds().offset(-(int) drawable2Bounds[0], -(int) drawable2Bounds[1]);
+                drawable2Canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+                drawable2.draw(drawable2Canvas);
+                drawable2.getBounds().offset((int) drawable2Bounds[0], (int) drawable2Bounds[1]);
+            }
+            if (drawable2Rotate != NO_ROTATE) {
+                canvas.save();
+                canvas.rotate(drawable2Rotate,
+                        drawable2Bounds[0] + (drawable2Bounds[2] - drawable2Bounds[0]) / 2,
+                        drawable2Bounds[1] + (drawable2Bounds[3] - drawable2Bounds[1]) / 2);
+                if (drawable2 instanceof GifDrawable && drawable2CanvasBitmap != null) {
+                    canvas.drawBitmap(drawable2CanvasBitmap, drawable2Bounds[0], drawable2Bounds[1], paint);
+                } else {
+                    drawable2.draw(canvas);
+                }
+                canvas.restore();
+            } else {
+                if (drawable2 instanceof GifDrawable && drawable2CanvasBitmap != null) {
+                    canvas.drawBitmap(drawable2CanvasBitmap, drawable2Bounds[0], drawable2Bounds[1], paint);
+                } else {
+                    drawable2.draw(canvas);
+                }
+            }
+        }
     }
 
     private int[] computeSuitedBitmapSize(Drawable drawable) {
@@ -1577,6 +1611,50 @@ public class SuperTextView extends TextView {
     }
 
     /**
+     * 获得Drawable1的层级
+     *
+     * @return
+     */
+    public DrawableLayer getStateDrawableLayer() {
+        return stateDrawableLayer;
+    }
+
+    /**
+     * 设置Drawable1的层级
+     *
+     * @param drawableLayer
+     * @return
+     */
+    public SuperTextView setStateDrawableLayer(DrawableLayer drawableLayer) {
+        this.stateDrawableLayer = drawableLayer;
+        postInvalidate();
+
+        return this;
+    }
+
+    /**
+     * 获得Drawable2的层级
+     *
+     * @return
+     */
+    public DrawableLayer getStateDrawable2Layer() {
+        return stateDrawable2Layer;
+    }
+
+    /**
+     * 设置Drawable2的层级
+     *
+     * @param drawableLayer
+     * @return
+     */
+    public SuperTextView setStateDrawable2Layer(DrawableLayer drawableLayer) {
+        this.stateDrawable2Layer = drawableLayer;
+        postInvalidate();
+
+        return this;
+    }
+
+    /**
      * 获取状态图的显示模式。在 {@link DrawableMode} 中查看所有支持的模式。
      *
      * @return 状态图显示模式。{@link DrawableMode}
@@ -2373,7 +2451,7 @@ public class SuperTextView extends TextView {
         if (backgroundScaleType == scaleType) return this;
         this.backgroundScaleType = scaleType;
         drawableBackgroundShader = null;
-        invalidate();
+        postInvalidate();
         return this;
     }
 
@@ -2535,6 +2613,32 @@ public class SuperTextView extends TextView {
              * 最顶层
              */
             AT_LAST
+        }
+    }
+
+    public static enum DrawableLayer {
+        /**
+         * 在文字下。默认
+         */
+        BEFORE_TEXT(0),
+        /**
+         * 在文字上
+         */
+        AFTER_TEXT(1);
+
+        public int code;
+
+        DrawableLayer(int code) {
+            this.code = code;
+        }
+
+        public static DrawableLayer valueOf(int code) {
+            for (DrawableLayer mode : DrawableLayer.values()) {
+                if (mode.code == code) {
+                    return mode;
+                }
+            }
+            return BEFORE_TEXT;
         }
     }
 

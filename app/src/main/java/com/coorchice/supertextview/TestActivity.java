@@ -41,48 +41,48 @@ public class TestActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         setFinishOnTouchOutside(true);
-        SuperTextView stv = (SuperTextView)findViewById(R.id.stv_1);
+//        SuperTextView stv = (SuperTextView)findViewById(R.id.stv_1);
 //        stv.setDrawable(new ColorDrawable(Color.parseColor("#4CBDD2")));
         init();
 
     }
 
     private void init() {
-        findViews();
-        stv_0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TestActivity.this, "点击右边可以关闭哦👉", Toast.LENGTH_SHORT).show();
+//        findViews();
+//        stv_0.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(TestActivity.this, "点击右边可以关闭哦👉", Toast.LENGTH_SHORT).show();
 //                PopupWindow popupWindow = new PopupWindow();
 //                popupWindow.setWindowLayoutMode(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //                SuperTextView contentView = new SuperTextView(TestActivity.this);
 //                popupWindow.setContentView(contentView);
 //                popupWindow.showAsDropDown(stv_0);
-            }
-        });
-        stv_0.setOnDrawableClickedListener(new SuperTextView.OnDrawableClickedListener() {
-            @Override
-            public void onDrawable1Clicked(SuperTextView stv) {
-                stv_0.setVisibility(View.GONE);
-                stv.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        stv_0.setVisibility(View.VISIBLE);
-                    }
-                }, 2*1000);
-            }
-
-            @Override
-            public void onDrawable2Clicked(SuperTextView stv) {
-
-            }
-        });
+//            }
+//        });
+//        stv_0.setOnDrawableClickedListener(new SuperTextView.OnDrawableClickedListener() {
+//            @Override
+//            public void onDrawable1Clicked(SuperTextView stv) {
+//                stv_0.setVisibility(View.GONE);
+//                stv.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        stv_0.setVisibility(View.VISIBLE);
+//                    }
+//                }, 2*1000);
+//            }
+//
+//            @Override
+//            public void onDrawable2Clicked(SuperTextView stv) {
+//
+//            }
+//        });
     }
 
 
     private void findViews() {
-        stv_0 = (SuperTextView) findViewById(R.id.stv_0);
-        stv_1 = (SuperTextView) findViewById(R.id.stv_1);
+//        stv_0 = (SuperTextView) findViewById(R.id.stv_0);
+//        stv_1 = (SuperTextView) findViewById(R.id.stv_1);
     }
 
     @Override
