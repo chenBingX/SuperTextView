@@ -168,6 +168,7 @@ public class SuperTextView extends TextView {
     private Canvas drawableBgCanvas, tempDrawableBgCanvas, drawable1Canvas, drawable2Canvas;
     private Bitmap drawableBgCanvasBitmap, tempDrawableBgCanvasBitmap, drawable1CanvasBitmap, drawable2CanvasBitmap;
     private ScaleType backgroundScaleType = ScaleType.CENTER;
+    private Rect orgBounds;
     private Tracker tracker;
 
     /**
@@ -406,7 +407,8 @@ public class SuperTextView extends TextView {
         if (needScroll) {
             canvas.translate(getScrollX(), getScrollY());
         }
-        if (!drawableAsBackground && stateDrawableLayer == DrawableLayer.AFTER_TEXT) drawStateDrawable(canvas);
+        if (!drawableAsBackground && stateDrawableLayer == DrawableLayer.AFTER_TEXT)
+            drawStateDrawable(canvas);
         if (stateDrawable2Layer == DrawableLayer.AFTER_TEXT) drawStateDrawable2(canvas);
         isNeedToAdjust(canvas, Adjuster.Opportunity.AT_LAST);
         if (needScroll) {
@@ -669,7 +671,8 @@ public class SuperTextView extends TextView {
         Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnCreateDrawableBackgroundShaderEnd, System.currentTimeMillis() - startCreateDrawableBackgroundShaderTime));
         long startUpdateDrawableBackgroundShaderTime = System.currentTimeMillis();
         if (drawableBgCanvas != null && (needCopyDrawableToShader || drawable instanceof GifDrawable)) {
-            Rect orgBounds = drawable.getBounds();
+            if (orgBounds == null) orgBounds = new Rect();
+            orgBounds.set(drawable.getBounds());
             drawable.setBounds(suitedSize[2], suitedSize[3], suitedSize[2] + suitedSize[0], suitedSize[3] + suitedSize[1]);
             long startCopyDrawableBackgroundToShaderTime = System.currentTimeMillis();
             if (backgroundScaleType == ScaleType.FIT_CENTER && tempDrawableBgCanvas != null) {
