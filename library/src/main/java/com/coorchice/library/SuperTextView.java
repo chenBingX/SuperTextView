@@ -100,7 +100,6 @@ public class SuperTextView extends TextView {
     private int height;
     private Drawable drawable;
     private Drawable drawable2;
-    private float density;
     private boolean autoAdjust;
     // private Adjuster adjuster;
     private Adjuster pressAdjuster;
@@ -220,7 +219,6 @@ public class SuperTextView extends TextView {
     }
 
     private void init(AttributeSet attrs) {
-        density = getContext().getResources().getDisplayMetrics().density;
         initAttrs(attrs);
         paint = new Paint();
         initPaint();
