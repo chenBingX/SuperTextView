@@ -79,8 +79,13 @@ dependencies {
 
 [用这里的真实发行版本号, 替换 VERSION_CODE](https://github.com/chenBingX/SuperTextView/releases)
 
+> ⚠️ 特别注意：混淆请加上 `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
 
 # 近期更新
+
+## v3.2.5
+
+- 修复 `stv_pressBgColor` 失效
 
 ## v3.2.4
 

@@ -84,8 +84,13 @@ dependencies {
 
 [The version code of the latest release can be found here.](https://github.com/chenBingX/SuperTextView/releases)
 
+> ⚠️ Special attention: **`proguard-rules.pro`** please add `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
 
 # Update Log
+
+## v3.2.5
+
+- fix `stv_pressBgColor` invalid
 
 ## v3.2.4
 
