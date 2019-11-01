@@ -25,6 +25,8 @@ import android.view.MotionEvent;
 
 import com.coorchice.library.SuperTextView;
 
+import static com.coorchice.library.SuperTextView.NO_COLOR;
+
 /**
  * Project Name:SuperTextView
  * Author:CoorChice
@@ -37,88 +39,89 @@ import com.coorchice.library.SuperTextView;
  */
 public class PressAdjuster extends SuperTextView.Adjuster {
 
-  private int pressBgColor = Color.TRANSPARENT;
-  private int pressTextColor = -99;
-  private int normalTextColor = -99;
-  private boolean press = false;
-  private Path solidPath;
-  private RectF solidRectF;
-  private Paint paint;
+    private int pressBgColor = Color.TRANSPARENT;
+    private int pressTextColor = -99;
+    private int normalTextColor = -99;
+    private boolean press = false;
+    private Path solidPath;
+    private RectF solidRectF;
+    private Paint paint;
 
-  public PressAdjuster(int pressBgColor) {
-    this.pressBgColor = pressBgColor;
-    setOpportunity(Opportunity.BEFORE_DRAWABLE);
-    initPaint();
-  }
-
-  private void initPaint() {
-    if (paint == null) {
-      paint = new Paint();
+    public PressAdjuster(int pressBgColor) {
+        this.pressBgColor = pressBgColor;
+        setOpportunity(Opportunity.BEFORE_DRAWABLE);
+        initPaint();
     }
-    paint.reset();
-    paint.setAntiAlias(true);
-    paint.setDither(true);
-  }
 
-  public SuperTextView.Adjuster setPressTextColor(int pressTextColor) {
-    this.pressTextColor = pressTextColor;
-    return this;
-  }
-
-  public SuperTextView.Adjuster setPressBgColor(int pressBgColor) {
-    this.pressBgColor = pressBgColor;
-    return this;
-  }
-
-
-
-  @Override
-  public void adjust(SuperTextView v, Canvas canvas) {
-    if (press) {
-      if (solidPath == null) {
-        solidPath = new Path();
-      } else {
-        solidPath.reset();
-      }
-      if (solidRectF == null) {
-        solidRectF = new RectF();
-      } else {
-        solidRectF.setEmpty();
-      }
-      float strokeWidth = v.getStrokeWidth();
-      solidRectF.set(strokeWidth, strokeWidth, v.getWidth() - strokeWidth,
-          v.getHeight() - strokeWidth);
-      solidPath.addRoundRect(solidRectF, v.getCorners(), Path.Direction.CW);
-      paint.setStyle(Paint.Style.FILL);
-      paint.setColor(pressBgColor);
-      canvas.drawPath(solidPath, paint);
+    private void initPaint() {
+        if (paint == null) {
+            paint = new Paint();
+        }
+        paint.reset();
+        paint.setAntiAlias(true);
+        paint.setDither(true);
     }
-  }
 
-
-  @Override
-  public boolean onTouch(SuperTextView v, MotionEvent event) {
-    int action = event.getAction();
-    switch (action) {
-      case MotionEvent.ACTION_DOWN:
-        press = true;
-        if (normalTextColor == -99) {
-          normalTextColor = v.getCurrentTextColor();
-        }
-        if (pressTextColor != -99 && v.getCurrentTextColor() != pressTextColor) {
-          v.setTextColor(pressTextColor);
-        }
-//        v.postInvalidate();
-        break;
-      case MotionEvent.ACTION_UP:
-      case MotionEvent.ACTION_CANCEL:
-        press = false;
-        if (normalTextColor != -99 && v.getCurrentTextColor() != normalTextColor) {
-          v.setTextColor(normalTextColor);
-        }
-//        v.postInvalidate();
-        break;
+    public SuperTextView.Adjuster setPressTextColor(int pressTextColor) {
+        this.pressTextColor = pressTextColor;
+        return this;
     }
-    return true;
-  }
+
+    public SuperTextView.Adjuster setPressBgColor(int pressBgColor) {
+        this.pressBgColor = pressBgColor;
+        return this;
+    }
+
+
+    @Override
+    public void adjust(SuperTextView v, Canvas canvas) {
+        if (press && pressBgColor != NO_COLOR) {
+            if (solidPath == null) {
+                solidPath = new Path();
+            } else {
+                solidPath.reset();
+            }
+            if (solidRectF == null) {
+                solidRectF = new RectF();
+            } else {
+                solidRectF.setEmpty();
+            }
+            float strokeWidth = v.getStrokeWidth();
+            solidRectF.set(strokeWidth, strokeWidth, v.getWidth() - strokeWidth,
+                    v.getHeight() - strokeWidth);
+            solidPath.addRoundRect(solidRectF, v.getCorners(), Path.Direction.CW);
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(pressBgColor);
+            canvas.drawPath(solidPath, paint);
+        }
+    }
+
+
+    @Override
+    public boolean onTouch(SuperTextView v, MotionEvent event) {
+        int action = event.getAction();
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                press = true;
+                if (normalTextColor == NO_COLOR) {
+                    normalTextColor = v.getCurrentTextColor();
+                }
+                if (pressTextColor != NO_COLOR && v.getCurrentTextColor() != pressTextColor) {
+                    v.setTextColor(pressTextColor);
+                } else if (pressBgColor != NO_COLOR){
+                    v.postInvalidate();
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                press = false;
+                if (normalTextColor != NO_COLOR && v.getCurrentTextColor() != normalTextColor) {
+                    v.setTextColor(normalTextColor);
+                } else if (pressBgColor != NO_COLOR){
+                    v.postInvalidate();
+                }
+                break;
+        }
+        return true;
+    }
 }

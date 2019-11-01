@@ -28,8 +28,13 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.coorchice.library.OnDrawableClickedListenerAdapter;
 import com.coorchice.library.SuperTextView;
+import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
+import com.coorchice.library.utils.track.Event;
+import com.coorchice.library.utils.track.TimeEvent;
+import com.coorchice.library.utils.track.Tracker;
 
 public class TestActivity extends ActionBarActivity {
 
@@ -39,16 +44,30 @@ public class TestActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtils.DEBUG = true;
         setContentView(R.layout.activity_test);
         setFinishOnTouchOutside(true);
-//        SuperTextView stv = (SuperTextView)findViewById(R.id.stv_1);
-//        stv.setDrawable(new ColorDrawable(Color.parseColor("#4CBDD2")));
         init();
+
 
     }
 
     private void init() {
-//        findViews();
+        findViews();
+        Tracker stv_1Tracker = new Tracker("stv_1");
+        this.stv_1.setTracker(stv_1Tracker);
+        stv_1Tracker.addWatcher(new Tracker.Watcher<TimeEvent>(Event.OnDrawStart) {
+            @Override
+            public void onEvent(TimeEvent event) {
+                LogUtils.e("stv_1：" + "OnDrawStart");
+            }
+        });
+        stv_1.setOnDrawableClickedListener(new OnDrawableClickedListenerAdapter(){
+            @Override
+            public void onDrawable1Clicked(SuperTextView stv) {
+                LogUtils.e("stv_1：" + "onDrawable1Clicked");
+            }
+        });
 //        stv_0.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -82,7 +101,7 @@ public class TestActivity extends ActionBarActivity {
 
     private void findViews() {
 //        stv_0 = (SuperTextView) findViewById(R.id.stv_0);
-//        stv_1 = (SuperTextView) findViewById(R.id.stv_1);
+        stv_1 = (SuperTextView) findViewById(R.id.stv_1);
     }
 
     @Override

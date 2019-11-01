@@ -143,7 +143,7 @@ public class SuperTextView extends TextView {
     private ShaderMode textShaderMode;
     private boolean textShaderEnable;
     private LinearGradient textShader;
-    private int pressBgColor = Color.TRANSPARENT;
+    private int pressBgColor = NO_COLOR;
     private int pressTextColor = NO_COLOR;
     private boolean drawableAsBackground;
     private BitmapShader drawableBackgroundShader;
@@ -338,8 +338,8 @@ public class SuperTextView extends TextView {
                             ShaderMode.TOP_TO_BOTTOM.code));
             textShaderEnable = typedArray.getBoolean(R.styleable.SuperTextView_stv_textShaderEnable, false);
 
-            pressBgColor = typedArray.getColor(R.styleable.SuperTextView_stv_pressBgColor, Color.TRANSPARENT);
-            pressTextColor = typedArray.getColor(R.styleable.SuperTextView_stv_pressTextColor, -99);
+            pressBgColor = typedArray.getColor(R.styleable.SuperTextView_stv_pressBgColor, NO_COLOR);
+            pressTextColor = typedArray.getColor(R.styleable.SuperTextView_stv_pressTextColor, NO_COLOR);
             typedArray.recycle();
         }
     }
@@ -525,7 +525,7 @@ public class SuperTextView extends TextView {
     }
 
     private void checkPressColor(Canvas canvas) {
-        if (pressBgColor != Color.TRANSPARENT || pressTextColor != -99) {
+        if (pressBgColor != NO_COLOR || pressTextColor != NO_COLOR) {
             if (pressAdjuster == null) {
                 pressAdjuster = new PressAdjuster(pressBgColor)
                         .setPressTextColor(pressTextColor);
@@ -2177,7 +2177,7 @@ public class SuperTextView extends TextView {
     }
 
     /**
-     * 获得当前按压文字颜色色。没有设置默认为-99。
+     * 获得当前按压文字颜色色。没有设置默认为 {@link SuperTextView#NO_COLOR}。
      *
      * @return 按压时文字颜色
      */
@@ -2187,7 +2187,7 @@ public class SuperTextView extends TextView {
 
     /**
      * 获得当前按压文字色。一旦设置，立即生效。
-     * 取消可以设置-99。
+     * 取消可以设置 {@link SuperTextView#NO_COLOR}。
      *
      * @param pressTextColor 按压时文字颜色
      */
