@@ -23,11 +23,13 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.coorchice.library.OnDrawableClickedListenerAdapter;
 import com.coorchice.library.SuperTextView;
 import com.coorchice.library.utils.LogUtils;
@@ -40,6 +42,7 @@ public class TestActivity extends ActionBarActivity {
 
     private SuperTextView stv_0;
     private SuperTextView stv_1;
+    private ImageView img_gif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class TestActivity extends ActionBarActivity {
                 LogUtils.e("stv_1：" + "onDrawable1Clicked");
             }
         });
+        Glide.with(this).load(R.drawable.gif_m_7).asGif().into(img_gif);
 //        stv_0.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -102,6 +106,7 @@ public class TestActivity extends ActionBarActivity {
     private void findViews() {
 //        stv_0 = (SuperTextView) findViewById(R.id.stv_0);
         stv_1 = (SuperTextView) findViewById(R.id.stv_1);
+        img_gif = (ImageView) findViewById(R.id.img_gif);
     }
 
     @Override

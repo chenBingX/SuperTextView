@@ -77,6 +77,13 @@
             app:stv_stroke_width="2dp"
             />
 
+
+        <ImageView
+            android:id="@+id/img_gif"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            />
+
         <!--<com.coorchice.library.SuperTextView-->
         <!--android:id="@+id/stv_6"-->
         <!--android:layout_width="300dp"-->

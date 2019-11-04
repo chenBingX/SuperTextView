@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.coorchice.library.SuperTextView;
 import com.coorchice.library.gifdecoder.GifDrawable;
+import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
 
@@ -63,13 +64,18 @@ public class GifActivity extends Activity {
     ThreadPool.run(new Runnable() {
       @Override
       public void run() {
+        final long start = System.currentTimeMillis();
+        LogUtils.e("gif-begin = " + start);
         byte[] resBytes = STVUtils.getResBytes(GifActivity.this, R.drawable.gif_m_7);
+        LogUtils.e("gif-end = " + (System.currentTimeMillis() - start));
         gifMemory = resBytes.length / 1024;
         final GifDrawable drawable = GifDrawable.createDrawable(resBytes);
+        LogUtils.e("gif-end2 = " + (System.currentTimeMillis() - start));
         runOnUiThread(new Runnable() {
           @Override
           public void run() {
             stvGifScreen.setDrawable(drawable);
+            LogUtils.e("gif-end3 = " + (System.currentTimeMillis() - start));
           }
         });
       }
