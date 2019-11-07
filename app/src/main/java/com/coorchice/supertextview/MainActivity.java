@@ -47,9 +47,9 @@ public class MainActivity extends Activity {
     private void initView() {
         findViews();
 
-//        stv_17.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
-//                .setAutoAdjust(true)
-//                .startAnim();
+        stv_17.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
+                .setAutoAdjust(true)
+                .startAnim();
 
 //    stv_18.addAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
         stv_18.addAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_9_blue)));
