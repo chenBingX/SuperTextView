@@ -47,9 +47,9 @@ public class MainActivity extends Activity {
     private void initView() {
         findViews();
 
-        stv_17.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
-                .setAutoAdjust(true)
-                .startAnim();
+//        stv_17.addAdjuster(new MoveEffectAdjuster().setOpportunity(SuperTextView.Adjuster.Opportunity.BEFORE_DRAWABLE))
+//                .setAutoAdjust(true)
+//                .startAnim();
 
 //    stv_18.addAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_5_a58fed)));
         stv_18.addAdjuster(new RippleAdjuster(getResources().getColor(R.color.opacity_9_blue)));
@@ -74,7 +74,6 @@ public class MainActivity extends Activity {
                 stv_21.removeAdjuster(0);
             }
         });
-
 
         stv_clickDemo1.setOnDrawableClickedListener(new SuperTextView.OnDrawableClickedListener() {
             @Override
@@ -139,18 +138,18 @@ public class MainActivity extends Activity {
         stv_14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((GifDrawable)stv_14.getDrawable()).play();
+                ((GifDrawable) stv_14.getDrawable()).play();
             }
         });
 
         // 进入测试Activity
-      stv_0.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          Intent intent = new Intent(MainActivity.this, TestActivity.class);
-          startActivity(intent);
-        }
-      });
+        stv_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

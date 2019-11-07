@@ -578,7 +578,7 @@ public class SuperTextView extends TextView {
                 Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableBackgroundEnd, System.currentTimeMillis() - startDrawDrawableBackgroundTime));
             } else if (isShowState) {
                 getDrawableBounds();
-                drawable.getBounds().set((int) drawableBounds[0], (int) drawableBounds[1], (int) drawableBounds[2], (int) drawableBounds[3]);
+                drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1], (int) drawableBounds[2], (int) drawableBounds[3]);
                 if (drawableTint != NO_COLOR) {
                     drawable.setColorFilter(drawableTint, PorterDuff.Mode.SRC_IN);
                 }
@@ -709,7 +709,7 @@ public class SuperTextView extends TextView {
     private void drawStateDrawable2(Canvas canvas) {
         if (drawable2 != null && isShowState2) {
             getDrawable2Bounds();
-            drawable2.getBounds().set((int) drawable2Bounds[0], (int) drawable2Bounds[1], (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
+            drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1], (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
             if (drawable2Tint != NO_COLOR) {
                 drawable2.setColorFilter(drawable2Tint, PorterDuff.Mode.SRC_IN);
             }
