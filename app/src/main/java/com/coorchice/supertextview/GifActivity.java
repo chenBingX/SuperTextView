@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.coorchice.library.SuperTextView;
+import com.coorchice.library.gifdecoder.GifCache;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
@@ -69,7 +70,7 @@ public class GifActivity extends Activity {
         byte[] resBytes = STVUtils.getResBytes(GifActivity.this, R.drawable.gif_m_7);
         LogUtils.e("gif-end = " + (System.currentTimeMillis() - start));
         gifMemory = resBytes.length / 1024;
-        final GifDrawable drawable = GifDrawable.createDrawable(resBytes);
+        final GifDrawable drawable = GifCache.fromResource(GifActivity.this, R.drawable.gif_m_7);
         LogUtils.e("gif-end2 = " + (System.currentTimeMillis() - start));
         runOnUiThread(new Runnable() {
           @Override

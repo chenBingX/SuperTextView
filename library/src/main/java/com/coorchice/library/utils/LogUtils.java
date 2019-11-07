@@ -21,8 +21,8 @@ import java.util.Locale;
 import android.util.Log;
 
 /**
- * Project Name:AnimDveDemo
- * Author:IceChen
+ * Project Name:
+ * Author:CoorChice
  * Date:16/8/23
  * Notes:
  */

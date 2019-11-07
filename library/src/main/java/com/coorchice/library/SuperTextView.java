@@ -43,6 +43,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import com.coorchice.library.gifdecoder.GifCache;
 import com.coorchice.library.gifdecoder.GifDecoder;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.image_engine.Engine;
@@ -58,6 +59,8 @@ import java.util.List;
 
 
 public class SuperTextView extends TextView {
+
+    public static boolean GIF_CACHE_ENABLE = true;
 
     /**
      * 标识不进行颜色的更改
@@ -386,6 +389,7 @@ public class SuperTextView extends TextView {
         isNeedToAdjust(canvas, Adjuster.Opportunity.BEFORE_DRAWABLE);
         long startDrawDrawableTime = System.currentTimeMillis();
         if (drawableAsBackground || stateDrawableLayer == DrawableLayer.BEFORE_TEXT) {
+
             drawStateDrawable(canvas);
         }
         if (stateDrawable2Layer == DrawableLayer.BEFORE_TEXT) drawStateDrawable2(canvas);
@@ -574,7 +578,7 @@ public class SuperTextView extends TextView {
                 Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawDrawableBackgroundEnd, System.currentTimeMillis() - startDrawDrawableBackgroundTime));
             } else if (isShowState) {
                 getDrawableBounds();
-                drawable.setBounds((int) drawableBounds[0], (int) drawableBounds[1], (int) drawableBounds[2], (int) drawableBounds[3]);
+                drawable.getBounds().set((int) drawableBounds[0], (int) drawableBounds[1], (int) drawableBounds[2], (int) drawableBounds[3]);
                 if (drawableTint != NO_COLOR) {
                     drawable.setColorFilter(drawableTint, PorterDuff.Mode.SRC_IN);
                 }
@@ -621,7 +625,7 @@ public class SuperTextView extends TextView {
         if (drawableBackgroundShader == null) {
             if (!(drawable.getIntrinsicHeight() > 0)
                     || !(drawable.getIntrinsicWidth() > 0)) {
-                drawable.setBounds(0, 0, width, height);
+                drawable.getBounds().set(0, 0, width, height);
             }
             int[] size = computeSuitedBitmapSize(drawable);
             if (backgroundScaleType == ScaleType.FIT_CENTER) {
@@ -671,7 +675,7 @@ public class SuperTextView extends TextView {
         if (drawableBgCanvas != null && (needCopyDrawableToShader || drawable instanceof GifDrawable)) {
             if (orgBounds == null) orgBounds = new Rect();
             orgBounds.set(drawable.getBounds());
-            drawable.setBounds(suitedSize[2], suitedSize[3], suitedSize[2] + suitedSize[0], suitedSize[3] + suitedSize[1]);
+            drawable.getBounds().set(suitedSize[2], suitedSize[3], suitedSize[2] + suitedSize[0], suitedSize[3] + suitedSize[1]);
             long startCopyDrawableBackgroundToShaderTime = System.currentTimeMillis();
             if (backgroundScaleType == ScaleType.FIT_CENTER && tempDrawableBgCanvas != null) {
                 tempDrawableBgCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
@@ -686,7 +690,7 @@ public class SuperTextView extends TextView {
                 drawable.draw(drawableBgCanvas);
             }
             Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnCopyDrawableBackgroundToShaderEnd, System.currentTimeMillis() - startCopyDrawableBackgroundToShaderTime));
-            drawable.setBounds(orgBounds);
+            drawable.getBounds().set(orgBounds);
         }
         Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnUpdateDrawableBackgroundShaderEnd, System.currentTimeMillis() - startUpdateDrawableBackgroundShaderTime));
         long startDrawDrawableBackgroundShaderTime = System.currentTimeMillis();
@@ -705,7 +709,7 @@ public class SuperTextView extends TextView {
     private void drawStateDrawable2(Canvas canvas) {
         if (drawable2 != null && isShowState2) {
             getDrawable2Bounds();
-            drawable2.setBounds((int) drawable2Bounds[0], (int) drawable2Bounds[1], (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
+            drawable2.getBounds().set((int) drawable2Bounds[0], (int) drawable2Bounds[1], (int) drawable2Bounds[2], (int) drawable2Bounds[3]);
             if (drawable2Tint != NO_COLOR) {
                 drawable2.setColorFilter(drawable2Tint, PorterDuff.Mode.SRC_IN);
             }
@@ -1462,7 +1466,11 @@ public class SuperTextView extends TextView {
     public SuperTextView setDrawable(int drawableRes) {
         byte[] bytes = getResBytes(drawableRes);
         if (bytes != null && GifDecoder.isGif(bytes)) {
-            return setDrawable(GifDrawable.createDrawable(bytes));
+            if (GIF_CACHE_ENABLE){
+                return setDrawable(GifCache.fromResource(getContext(), drawableRes));
+            } else {
+                return setDrawable(GifDrawable.createDrawable(bytes));
+            }
         }
         return setDrawable(getResources().getDrawable(drawableRes).mutate());
     }
@@ -1471,8 +1479,12 @@ public class SuperTextView extends TextView {
         try {
             byte[] bytes = getResBytes(drawableRes);
             if (bytes != null && GifDecoder.isGif(bytes)) {
-                drawable = GifDrawable.createDrawable(bytes);
-                drawable.setCallback(this);
+                if (GIF_CACHE_ENABLE) {
+                    drawable = GifCache.fromResource(getContext(), drawableRes);
+                } else {
+                    drawable = GifDrawable.createDrawable(bytes);
+                }
+                if (drawable != null) drawable.setCallback(this);
             } else {
                 drawable = getResources().getDrawable(drawableRes).mutate();
             }
@@ -1491,7 +1503,11 @@ public class SuperTextView extends TextView {
     public SuperTextView setDrawable2(int drawableRes) {
         byte[] bytes = getResBytes(drawableRes);
         if (bytes != null && GifDecoder.isGif(bytes)) {
-            return setDrawable2(GifDrawable.createDrawable(bytes));
+            if (GIF_CACHE_ENABLE) {
+                setDrawable2(GifCache.fromResource(getContext(), drawableRes));
+            } else {
+                return setDrawable2(GifDrawable.createDrawable(bytes));
+            }
         }
         return setDrawable2(getResources().getDrawable(drawableRes).mutate());
     }
@@ -1500,8 +1516,12 @@ public class SuperTextView extends TextView {
         try {
             byte[] bytes = getResBytes(drawableRes);
             if (bytes != null && GifDecoder.isGif(bytes)) {
-                drawable2 = GifDrawable.createDrawable(bytes);
-                drawable2.setCallback(this);
+                if (GIF_CACHE_ENABLE) {
+                    drawable2 = GifCache.fromResource(getContext(), drawableRes);
+                } else {
+                    drawable2 = GifDrawable.createDrawable(bytes);
+                }
+                if (drawable2 != null) drawable2.setCallback(this);
             } else {
                 drawable2 = getResources().getDrawable(drawableRes).mutate();
             }
@@ -2239,15 +2259,27 @@ public class SuperTextView extends TextView {
         ImageEngine.checkEngine();
         // 缓存当前的imageUrl，当下载完成后需要校验
         curImageUrl = url;
-        ImageEngine.load(url, new ImageEngine.Callback() {
-            @Override
-            public void onCompleted(final Drawable drawable) {
-                if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
-                    SuperTextView.this.drawableAsBackground = asBackground;
-                    setDrawable(drawable);
+        if (STVUtils.isGif(url) && GIF_CACHE_ENABLE){
+            GifCache.fromUrl(url, new ImageEngine.Callback() {
+                @Override
+                public void onCompleted(Drawable drawable) {
+                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
+                        SuperTextView.this.drawableAsBackground = asBackground;
+                        setDrawable(drawable);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            ImageEngine.load(url, new ImageEngine.Callback() {
+                @Override
+                public void onCompleted(final Drawable drawable) {
+                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
+                        SuperTextView.this.drawableAsBackground = asBackground;
+                        setDrawable(drawable);
+                    }
+                }
+            });
+        }
         return this;
     }
 
@@ -2261,7 +2293,7 @@ public class SuperTextView extends TextView {
      * @param url 网络图片地址
      * @return SuperTextView
      */
-    public SuperTextView setUrlImage(final String url) {
+    public SuperTextView setUrlImage(String url) {
         return setUrlImage(url, true);
     }
 

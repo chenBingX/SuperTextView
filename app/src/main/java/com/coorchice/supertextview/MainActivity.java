@@ -1,10 +1,8 @@
 package com.coorchice.supertextview;
 
-import com.bumptech.glide.gifdecoder.GifDecoder;
 import com.coorchice.library.SuperTextView;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.LogUtils;
-import com.coorchice.library.utils.STVUtils;
 import com.coorchice.supertextview.SuperTextView.Adjuster.MoveEffectAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.OpportunityDemoAdjuster;
 import com.coorchice.supertextview.SuperTextView.Adjuster.RippleAdjuster;
@@ -15,19 +13,10 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.math.BigInteger;
 
 
 public class MainActivity extends Activity {
@@ -48,6 +37,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         density = getResources().getDisplayMetrics().density;
+        LogUtils.DEBUG = true;
+        SuperTextView.GIF_CACHE_ENABLE = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();

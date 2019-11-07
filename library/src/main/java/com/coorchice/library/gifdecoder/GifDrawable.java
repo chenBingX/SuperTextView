@@ -22,6 +22,9 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import com.coorchice.library.utils.LogUtils;
 
 /**
  * @author coorchice
@@ -33,6 +36,8 @@ public class GifDrawable extends Drawable implements Gif {
     private GifDecoder gifDecoder;
     private Bitmap frame;
     private GifDecoder.OnFrameListener onFrameListener;
+    private View.OnAttachStateChangeListener onAttachStateChangeListener;
+    private boolean destroyable = true;
 
     private GifDrawable(GifDecoder gifDecoder) {
         this.gifDecoder = gifDecoder;
@@ -40,7 +45,7 @@ public class GifDrawable extends Drawable implements Gif {
         gifDecoder.setOnFrameListener(new GifDecoder.OnFrameListener() {
             @Override
             public void onFrame(GifDecoder gd, Bitmap bitmap) {
-                if (onFrameListener != null){
+                if (onFrameListener != null) {
                     onFrameListener.onFrame(gd, bitmap);
                 }
                 frame = bitmap;
@@ -68,6 +73,10 @@ public class GifDrawable extends Drawable implements Gif {
      */
     public static GifDrawable createDrawable(byte[] bytes) {
         return new GifDrawable(GifDecoder.openBytes(bytes));
+    }
+
+    public static GifDrawable copy(long ptr) {
+        return new GifDrawable(GifDecoder.copy(ptr));
     }
 
     @Override
@@ -104,6 +113,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 获取 Gif 的宽
+     *
      * @return
      */
     @Override
@@ -116,11 +126,12 @@ public class GifDrawable extends Drawable implements Gif {
 
     @Override
     public int getIntrinsicWidth() {
-        return getBounds() == null? getWidth() : getBounds().width();
+        return getBounds() == null ? getWidth() : getBounds().width();
     }
 
     /**
      * 获取 Gif 的高
+     *
      * @return
      */
     @Override
@@ -138,6 +149,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 获取 Gif 总帧数
+     *
      * @return 返回 Gif 总帧数
      */
     @Override
@@ -150,6 +162,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 获取 Gif 当前帧间隔，单位毫秒（ms）
+     *
      * @return
      */
     @Override
@@ -187,7 +200,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 跳转到 Gif 指定帧。
-     *
+     * <p>
      * 指定帧取值范围为 [0, 帧总数) 之间。
      *
      * @param frame 指定帧位置。
@@ -201,7 +214,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 提取 Gif 指定帧图像。
-     *
+     * <p>
      * 指定帧取值范围为 [0, 帧总数) 之间。
      *
      * @param frame 指定帧位置。
@@ -230,6 +243,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 是否启用了严格模式
+     *
      * @return
      */
     @Override
@@ -250,6 +264,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 获取 Gif 底层指针地址
+     *
      * @return
      */
     @Override
@@ -262,6 +277,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 获取用于渲染 Gif 的 Bitmap 内存
+     *
      * @return
      */
     @Override
@@ -284,6 +300,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 是否在播放
+     *
      * @return
      */
     @Override
@@ -306,6 +323,7 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 是否被销毁
+     *
      * @return
      */
     @Override
@@ -318,14 +336,29 @@ public class GifDrawable extends Drawable implements Gif {
 
     /**
      * 销毁。
-     *
+     * <p>
      * 你不能使用一个以及被销毁的 Gif。
      */
     @Override
     public void destroy() {
+        if (!destroyable) return;
+        setCallback(null);
+        stop();
+        onFrameListener = null;
+        onAttachStateChangeListener = null;
+        frame = null;
         if (isValid()) {
             gifDecoder.destroy();
         }
+    }
+
+
+    void setDestroyable(boolean destroyable) {
+        this.destroyable = destroyable;
+    }
+
+    boolean destroyable() {
+        return destroyable;
     }
 
     /**
@@ -340,7 +373,34 @@ public class GifDrawable extends Drawable implements Gif {
     }
 
     @Override
+    public void invalidateSelf() {
+        if (gifDecoder == null && !gifDecoder.isPlaying()) return;
+        if (getCallback() != null) {
+            if (getCallback() instanceof View && onAttachStateChangeListener == null) {
+                onAttachStateChangeListener = new View.OnAttachStateChangeListener() {
+                    @Override
+                    public void onViewAttachedToWindow(View v) {
+
+                    }
+
+                    @Override
+                    public void onViewDetachedFromWindow(View v) {
+                        v.removeOnAttachStateChangeListener(onAttachStateChangeListener);
+                        stop();
+                        onAttachStateChangeListener = null;
+                    }
+                };
+                ((View) getCallback()).addOnAttachStateChangeListener(onAttachStateChangeListener);
+            }
+        } else {
+            stop();
+        }
+        super.invalidateSelf();
+    }
+
+    @Override
     protected void finalize() throws Throwable {
+        LogUtils.e("GifDrawable - finalize");
         super.finalize();
         destroy();
     }

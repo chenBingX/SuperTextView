@@ -60,11 +60,12 @@ public class ImageEngine {
   }
 
   /**
-   * @hide
    * @param url
    * @param callback
+   *
+   * @hide
    */
-  static void load(String url, Callback callback) {
+  public static void load(String url, Callback callback) {
     if (TextUtils.isEmpty(url)) return;
     if (Holder.instance.engine == null)
       throw new IllegalStateException("You must first install one engine!");

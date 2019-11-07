@@ -160,4 +160,19 @@ public class JNI {
      */
     public static native void destroy(long ptr);
 
+    /**
+     * 销毁复制实例
+     *
+     * @param ptr
+     * @return
+     */
+    public static native void copyDestroy(long ptr);
+
+    /**
+     * 拷贝 Gif 解析数据
+     * @param ptr 源 Gif 指针
+     * @return
+     */
+    public static native long copy(long ptr);
+
 }

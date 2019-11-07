@@ -28,7 +28,6 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 
 import com.coorchice.library.utils.LogUtils;
-import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
 
 import java.util.concurrent.ScheduledFuture;
@@ -42,6 +41,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class GifDecoder implements Gif {
 
+    private boolean isCopy;
     private long ptr;
     private Bitmap frame, buffer;
     private Canvas bufferCanvas;
@@ -73,9 +73,9 @@ public class GifDecoder implements Gif {
                 return;
             }
             int d = updateFrame();
-            LogUtils.e("当前帧 = " + getCurrentFrame());
-            LogUtils.e("当前帧间隔 = " + getFrameDuration());
-            LogUtils.e("native本帧剩余时间 = " + d);
+//            LogUtils.e("当前帧 = " + getCurrentFrame());
+//            LogUtils.e("当前帧间隔 = " + getFrameDuration());
+//            LogUtils.e("native本帧剩余时间 = " + d);
             handler.postAtTime(onFrameRunnable, SystemClock.uptimeMillis() + d);
             innerPlay(d);
         }
@@ -90,9 +90,15 @@ public class GifDecoder implements Gif {
         return new GifDecoder(bytes);
     }
 
+    public static GifDecoder copy(long ptr) {
+        return new GifDecoder(ptr);
+    }
+
     private GifDecoder(String filePtah) {
         if (!TextUtils.isEmpty(filePtah)) {
+            long startTime = System.currentTimeMillis();
             ptr = JNI.openFile(filePtah);
+            LogUtils.e("GifLib openFile useTime = " + (System.currentTimeMillis() - startTime));
         } else {
             throw new IllegalArgumentException("File path can not be null or empty!");
         }
@@ -101,9 +107,23 @@ public class GifDecoder implements Gif {
 
     private GifDecoder(byte[] bytes) {
         if (bytes != null) {
+            long startTime = System.currentTimeMillis();
             ptr = JNI.openBytes(bytes);
+            LogUtils.e("GifLib openBytes useTime = " + (System.currentTimeMillis() - startTime));
         } else {
-            throw new IllegalArgumentException("File path can not be null or empty!");
+            throw new IllegalArgumentException("bytes can not be null!");
+        }
+        init();
+    }
+
+    private GifDecoder(long srcPtr) {
+        if (srcPtr != 0) {
+            isCopy = true;
+            long startTime = System.currentTimeMillis();
+            ptr = JNI.copy(srcPtr);
+            LogUtils.e("GifLib isCopy useTime = " + (System.currentTimeMillis() - startTime));
+        } else {
+            throw new IllegalArgumentException("srcPtr can not be null!");
         }
         init();
     }
@@ -118,6 +138,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 获取 Gif 的宽
+     *
      * @return
      */
     public int getWidth() {
@@ -127,6 +148,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 获取 Gif 的高
+     *
      * @return
      */
     public int getHeight() {
@@ -136,6 +158,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 获取 Gif 总帧数
+     *
      * @return 返回 Gif 总帧数
      */
     public int getFrameCount() {
@@ -145,6 +168,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 获取 Gif 当前帧间隔，单位毫秒（ms）
+     *
      * @return
      */
     public int getFrameDuration() {
@@ -174,7 +198,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 跳转到 Gif 指定帧。
-     *
+     * <p>
      * 指定帧取值范围为 [0, 帧总数) 之间。
      *
      * @param frame 指定帧位置。
@@ -195,8 +219,10 @@ public class GifDecoder implements Gif {
             gotoFrameSchedule = ThreadPool.globleExecutor().schedule(gotoFrameRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    JNI.gotoFrame(ptr, frame, GifDecoder.this.frame);
-                    copyFrameToBuffer();
+                    synchronized (lock) {
+                        JNI.gotoFrame(ptr, frame, GifDecoder.this.frame);
+                        copyFrameToBuffer();
+                    }
                     handler.postAtTime(onFrameRunnable, SystemClock.uptimeMillis());
                 }
             }, 0, TimeUnit.MILLISECONDS);
@@ -205,7 +231,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 提取 Gif 指定帧图像。
-     *
+     * <p>
      * 指定帧取值范围为 [0, 帧总数) 之间。
      *
      * @param frame 指定帧位置。
@@ -232,6 +258,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 是否启用了严格模式
+     *
      * @return
      */
     @Override
@@ -242,20 +269,24 @@ public class GifDecoder implements Gif {
 
     /**
      * 渲染一帧
+     *
      * @return
      */
     public int updateFrame() {
         check();
         int r = 1;
         if (frame != null) {
-            r = JNI.updateFrame(ptr, frame);
-            copyFrameToBuffer();
+            synchronized (lock) {
+                r = JNI.updateFrame(ptr, frame);
+                copyFrameToBuffer();
+            }
         }
         return r;
     }
 
     /**
      * 获取 Gif 底层指针地址
+     *
      * @return
      */
     public long getPtr() {
@@ -264,6 +295,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 获取用于渲染 Gif 的 Bitmap 内存
+     *
      * @return
      */
     public Bitmap getBitmap() {
@@ -310,6 +342,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 是否在播放
+     *
      * @return
      */
     public boolean isPlaying() {
@@ -330,6 +363,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 是否被销毁
+     *
      * @return
      */
     public boolean isDestroy() {
@@ -338,7 +372,7 @@ public class GifDecoder implements Gif {
 
     /**
      * 销毁。
-     *
+     * <p>
      * 你不能使用一个以及被销毁的 Gif。
      */
     public void destroy() {
@@ -349,7 +383,11 @@ public class GifDecoder implements Gif {
             onceRenderSchedule.cancel(false);
         }
         check();
-        JNI.destroy(ptr);
+        if (isCopy) {
+            JNI.copyDestroy(ptr);
+        } else {
+            JNI.destroy(ptr);
+        }
         ptr = 0;
         frame.recycle();
         frame = null;
@@ -380,11 +418,9 @@ public class GifDecoder implements Gif {
     }
 
     private void copyFrameToBuffer() {
-        synchronized (lock) {
-            if (buffer != null && bufferCanvas != null && frame != null) {
-                bufferCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-                bufferCanvas.drawBitmap(frame, 0, 0, paint);
-            }
+        if (buffer != null && bufferCanvas != null && frame != null) {
+            bufferCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            bufferCanvas.drawBitmap(frame, 0, 0, paint);
         }
     }
 
@@ -407,6 +443,16 @@ public class GifDecoder implements Gif {
      * @return
      */
     public static boolean isGif(Object o) {
-        return STVUtils.isGif(o);
+        boolean r = false;
+        try {
+            if (o instanceof String) {
+                r = ((String) o).toUpperCase().endsWith(".gif".toUpperCase());
+            } else if (o instanceof byte[]) {
+                r = JNI.bytesIsGif((byte[]) o);
+            }
+        } catch (Exception ignored) {
+
+        }
+        return r;
     }
 }
