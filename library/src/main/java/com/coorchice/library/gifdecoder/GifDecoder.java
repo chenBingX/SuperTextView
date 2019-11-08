@@ -27,7 +27,6 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 
-import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.ThreadPool;
 
 import java.util.concurrent.ScheduledFuture;
@@ -73,9 +72,6 @@ public class GifDecoder implements Gif {
                 return;
             }
             int d = updateFrame();
-//            LogUtils.e("当前帧 = " + getCurrentFrame());
-//            LogUtils.e("当前帧间隔 = " + getFrameDuration());
-//            LogUtils.e("native本帧剩余时间 = " + d);
             handler.postAtTime(onFrameRunnable, SystemClock.uptimeMillis() + d);
             innerPlay(d);
         }
@@ -98,7 +94,6 @@ public class GifDecoder implements Gif {
         if (!TextUtils.isEmpty(filePtah)) {
             long startTime = System.currentTimeMillis();
             ptr = JNI.openFile(filePtah);
-            LogUtils.e("GifLib openFile useTime = " + (System.currentTimeMillis() - startTime));
         } else {
             throw new IllegalArgumentException("File path can not be null or empty!");
         }
@@ -109,7 +104,6 @@ public class GifDecoder implements Gif {
         if (bytes != null) {
             long startTime = System.currentTimeMillis();
             ptr = JNI.openBytes(bytes);
-            LogUtils.e("GifLib openBytes useTime = " + (System.currentTimeMillis() - startTime));
         } else {
             throw new IllegalArgumentException("bytes can not be null!");
         }
@@ -121,7 +115,6 @@ public class GifDecoder implements Gif {
             isCopy = true;
             long startTime = System.currentTimeMillis();
             ptr = JNI.copy(srcPtr);
-            LogUtils.e("GifLib isCopy useTime = " + (System.currentTimeMillis() - startTime));
         } else {
             throw new IllegalArgumentException("srcPtr can not be null!");
         }

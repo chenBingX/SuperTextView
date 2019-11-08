@@ -21,7 +21,6 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 import com.coorchice.library.ImageEngine;
-import com.coorchice.library.utils.LogUtils;
 import com.coorchice.library.utils.STVUtils;
 
 import java.util.ArrayList;

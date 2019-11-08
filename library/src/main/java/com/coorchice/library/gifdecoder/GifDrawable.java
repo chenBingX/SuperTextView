@@ -24,8 +24,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import com.coorchice.library.utils.LogUtils;
-
 /**
  * @author coorchice
  * @date 2019/09/03
@@ -400,7 +398,6 @@ public class GifDrawable extends Drawable implements Gif {
 
     @Override
     protected void finalize() throws Throwable {
-        LogUtils.e("GifDrawable - finalize");
         super.finalize();
         destroy();
     }
