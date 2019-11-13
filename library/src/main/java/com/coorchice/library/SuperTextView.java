@@ -369,7 +369,7 @@ public class SuperTextView extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (getVisibility() != VISIBLE || !isAttachedToWindow() || getWidth() < 0 || getHeight() < 0)
+        if (getVisibility() != VISIBLE || !isAttachedToWindow() || getWidth() <= 0 || getHeight() <= 0)
             return;
         long startDrawTime = System.currentTimeMillis();
         Tracker.notifyEvent(tracker, TimeEvent.create(Event.OnDrawStart, startDrawTime));
