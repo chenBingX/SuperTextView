@@ -1,7 +1,7 @@
 # Hello, Developer！Welcome to use SuperTextView
 
 
-[![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.4-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.4.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ--Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
+[![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.5-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.5.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ--Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
 
 # **English** | [**中文**](https://github.com/chenBingX/SuperTextView/blob/master/README_CN.md)
@@ -84,13 +84,25 @@ dependencies {
 
 [The version code of the latest release can be found here.](https://github.com/chenBingX/SuperTextView/releases)
 
-> ⚠️ Special attention: **`proguard-rules.pro`** please add `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
+# Special Note💡
+
+- **v3.2.5** support：`armeabi-v7a`
+
+- **v3.2.5.64** support：`armeabi-v7a`、`arm64-v8a`
+
+- **v3.2.5.99** support：`armeabi-v7a`、`arm64-v8a`、`x86`
+
+- ⚠️Attention: **`proguard-rules.pro`** please add `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
 
 # Update Log
 
 ## v3.2.5
 
-- fix `stv_pressBgColor` invalid
+- 【fix】 `stv_pressBgColor` invalid
+- 【fix】setDrawablePaddingLeft() not work
+- 【OP】Clear log
+- 【New】Support cache gif by the GifCache
+- 【OP】Optimize Gif rendering efficiency
 
 ## v3.2.4
 

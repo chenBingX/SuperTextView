@@ -1,7 +1,7 @@
 # 你好, 开发者！欢迎使用 SuperTextView
 
 
- [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.4-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.4.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/交流群-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
+ [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.5-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.5.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/交流群-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
 
 # [**English**](https://github.com/chenBingX/SuperTextView) | **中文**
@@ -79,13 +79,28 @@ dependencies {
 
 [用这里的真实发行版本号, 替换 VERSION_CODE](https://github.com/chenBingX/SuperTextView/releases)
 
-> ⚠️ 特别注意：混淆请加上 `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
+
+
+# 特别提示💡
+
+- **v3.2.5** 版本支持：`armeabi-v7a`
+
+- **v3.2.5.64** 版本支持：`armeabi-v7a`、`arm64-v8a`
+
+- **v3.2.5.99** 版本支持：`armeabi-v7a`、`arm64-v8a`、`x86`
+
+- ⚠️ 特别注意：混淆请加上 `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
+
 
 # 近期更新
 
 ## v3.2.5
 
 - 修复 `stv_pressBgColor` 失效
+- 修复 `setDrawablePaddingLeft()` 失效
+- 清理log信息
+- 现在，Gif 支持了高速缓存模式，在此模式下，即使是超大 Gif 图，也能秒级加载
+- 优化 Gif 渲染效率
 
 ## v3.2.4
 
