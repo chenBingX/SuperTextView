@@ -1,3 +1,7 @@
+> ### [GitAds](https://tracking.gitads.io/?repo=chenBingX/SuperTextView)
+> <a href="https://tracking.gitads.io/?repo=chenBingX/SuperTextView"> <img src="https://images.gitads.io/chenBingX/SuperTextView" alt="GitAds"/> </a>
+
+
 # Hello, Developer！Welcome to use SuperTextView
 
 
