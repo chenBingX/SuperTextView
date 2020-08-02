@@ -7,3 +7,5 @@
 /build
 /captures
 .externalNativeBuild
+.idea
+_config.yml

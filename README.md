@@ -10,7 +10,7 @@
 
 # **English** | [**中文**](https://github.com/chenBingX/SuperTextView/blob/master/README_CN.md)
 
-<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/STV_icon.png" width=200 height=200 align=right alt="SuperTextView">
+<img src="https://gw.alicdn.com/tfs/TB1Ijt0c7cx_u4jSZFlXXXnUFXa-1014-1014.png" width=200 height=200 align=right alt="SuperTextView">
 
 Hi，Developer，Welcome to use **SuperTextView** ！
 
@@ -53,11 +53,11 @@ You just enjoy the amazing visual effects you have written, and the rest will be
 
 [ 📲 click here (or scan the qr code below) to download the **Demo**](https://raw.githubusercontent.com/chenBingX/img/master/%E5%85%B6%E5%AE%83%E6%96%87%E4%BB%B6/STVDemo.apk)
 
-<img src="https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_Demo_url.png" width=150 height=150 align=center alt="SuperTextView">
+<img src="https://gw.alicdn.com/tfs/TB1XX4.P1L2gK0jSZPhXXahvXXa-150-150.png" width=150 height=150 align=center alt="SuperTextView">
 
 |||||
 |:---:|:---:|:---:|:---:|
-|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page1.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page2.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page3.gif)|![](https://raw.githubusercontent.com/chenBingX/img/master/stv/stv_page4.gif)|
+|![](https://gw.alicdn.com/tfs/TB1Nex9PVY7gK0jSZKzXXaikpXa-316-641.gif)|![](https://gw.alicdn.com/tfs/TB1SWbzdMgP7K4jSZFqXXamhVXa-316-641.gif)|![](https://gw.alicdn.com/tfs/TB1qmScP1H2gK0jSZJnXXaT1FXa-316-641.gif)|![](https://gw.alicdn.com/tfs/TB1_HmjP7T2gK0jSZFkXXcIQFXa-316-641.gif)|
 
 
 # Portal Area
