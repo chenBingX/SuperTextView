@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.coorchice.library.OnDrawableClickedListenerAdapter;
 import com.coorchice.library.SuperTextView;
+import com.coorchice.library.gifdecoder.GifCache;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
@@ -52,6 +53,7 @@ public class GifListActivity extends Activity {
 
     if (stv_1.getDrawable() instanceof GifDrawable) {
       GifDrawable gifDrawable = (GifDrawable) stv_1.getDrawable();
+      gifDrawable.play();
 //      gifDrawable.setFrameDuration(25);
     }
 

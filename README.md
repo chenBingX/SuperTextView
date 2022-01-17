@@ -5,7 +5,7 @@
 # Hello, Developer！Welcome to use SuperTextView
 
 
-[![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.5-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.5.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ--Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
+[![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.6-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.6.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ--Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
 
 # **English** | [**中文**](https://github.com/chenBingX/SuperTextView/blob/master/README_CN.md)
@@ -35,6 +35,7 @@ You just enjoy the amazing visual effects you have written, and the rest will be
 - support gradient background
 - touch discoloration
 - display pictures, including the net pictures
+- Supports setting network image directly in XML
 - set rounded corners for pictures
 - add borders to pictures
 -  **Adjuster** module can insert operation
@@ -90,15 +91,69 @@ dependencies {
 
 # Special Note💡
 
-- **v3.2.5** support：`armeabi-v7a`
+- **v3.2.6** support：`armeabi-v7a`
 
-- **v3.2.5.64** support：`armeabi-v7a`、`arm64-v8a`
+- **v3.2.6.64** support：`armeabi-v7a`、`arm64-v8a`
 
-- **v3.2.5.99** support：`armeabi-v7a`、`arm64-v8a`、`x86`
+- **v3.2.6.99** support：`armeabi-v7a`、`arm64-v8a`、`x86`
 
 - ⚠️Attention: **`proguard-rules.pro`** please add `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
 
 # Update Log
+
+## v3.2.6
+
+- Support for setting 'Network Image' in XML for StateDrawable and StateDrawable2
+
+> In XML, use a 'Network Image' as a background image
+
+![](https://gw.alicdn.com/imgextra/i1/O1CN01Pw9Z0U21Ie9BK88T9_!!6000000006962-0-tps-730-344.jpg)
+
+```html
+<com.coorchice.library.SuperTextView
+  android:id="@+id/stv_40"
+  android:layout_width="150dp"
+  android:layout_height="150dp"
+  android:layout_gravity="center_horizontal"
+  android:layout_marginTop="16dp"
+  android:gravity="bottom|center"
+  android:paddingBottom="1dp"
+  android:text="网络背景图"
+  android:textColor="#000"
+  android:textSize="14sp"
+  app:stv_corner="10dp"
+  app:stv_isShowState="true"
+  app:stv_drawableAsBackground="true"
+  app:stv_solid="#f1f1f1"
+  app:stv_state_drawable="https://gw.alicdn.com/imgextra/i3/O1CN01suhAFr1cXQX49D2xp_!!6000000003610-0-tps-468-466.jpg" />
+```
+
+> In XML, set the 'Network Image' for StateDrawable2
+
+![](https://gw.alicdn.com/imgextra/i4/O1CN01j3XdIb1LHXK50WtRd_!!6000000001274-0-tps-736-236.jpg)
+
+```html
+<com.coorchice.library.SuperTextView
+  android:id="@+id/stv_41"
+  android:layout_width="350dp"
+  android:layout_height="100dp"
+  android:layout_gravity="center_horizontal"
+  android:layout_marginTop="30dp"
+  android:paddingLeft="116dp"
+  android:paddingTop="30dp"
+  android:text="StateDrawable2 网络图"
+  android:textColor="@color/black"
+  android:textSize="14sp"
+  app:stv_corner="50dp"
+  app:stv_isShowState2="true"
+  app:stv_left_bottom_corner="true"
+  app:stv_left_top_corner="true"
+  app:stv_solid="#f1f1f1"
+  app:stv_state_drawable2="https://gw.alicdn.com/imgextra/i3/O1CN01XPmcmt1vJfKcQ8o6O_!!6000000006152-0-tps-500-500.jpg"
+  app:stv_state_drawable2_height="100dp"
+  app:stv_state_drawable2_mode="left"
+  app:stv_state_drawable2_width="100dp"/>
+```
 
 ## v3.2.5
 

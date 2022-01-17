@@ -1,7 +1,7 @@
 # 你好, 开发者！欢迎使用 SuperTextView
 
 
- [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.5-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.5.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/交流群-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
+ [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.6-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.6.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/交流群-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
 
 # [**English**](https://github.com/chenBingX/SuperTextView) | **中文**
@@ -28,6 +28,7 @@
 - 支持渐变色背景
 - 触摸变色
 - 展示图片，包括网络图片
+- 支持 XML 中直接设置网络图片
 - 为图片设置圆角
 - 为图片增加边框
 - 可插入操作的 **Adjuster** 模块
@@ -83,17 +84,70 @@ dependencies {
 
 # 特别提示💡
 
-- **v3.2.5** 版本支持：`armeabi-v7a`
+- **v3.2.6** 版本支持：`armeabi-v7a`
 
-- **v3.2.5.64** 版本支持：`armeabi-v7a`、`arm64-v8a`
+- **v3.2.6.64** 版本支持：`armeabi-v7a`、`arm64-v8a`
 
-- **v3.2.5.99** 版本支持：`armeabi-v7a`、`arm64-v8a`、`x86`
+- **v3.2.6.99** 版本支持：`armeabi-v7a`、`arm64-v8a`、`x86`
 
 - ⚠️ 特别注意：混淆请加上 `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
 
 
 # 近期更新
 
+## v3.2.6
+
+- 支持在 XML 中，为 StateDrawable 和 StateDrawable2 设置网络图片
+
+> 在 XML 中，把网络图片作为背景图
+
+![](https://gw.alicdn.com/imgextra/i1/O1CN01Pw9Z0U21Ie9BK88T9_!!6000000006962-0-tps-730-344.jpg)
+
+```html
+<com.coorchice.library.SuperTextView
+  android:id="@+id/stv_40"
+  android:layout_width="150dp"
+  android:layout_height="150dp"
+  android:layout_gravity="center_horizontal"
+  android:layout_marginTop="16dp"
+  android:gravity="bottom|center"
+  android:paddingBottom="1dp"
+  android:text="网络背景图"
+  android:textColor="#000"
+  android:textSize="14sp"
+  app:stv_corner="10dp"
+  app:stv_isShowState="true"
+  app:stv_drawableAsBackground="true"
+  app:stv_solid="#f1f1f1"
+  app:stv_state_drawable="https://gw.alicdn.com/imgextra/i3/O1CN01suhAFr1cXQX49D2xp_!!6000000003610-0-tps-468-466.jpg" />
+```
+
+> 在 XML 中，为 StateDrawable2 设置网络图片
+
+![](https://gw.alicdn.com/imgextra/i4/O1CN01j3XdIb1LHXK50WtRd_!!6000000001274-0-tps-736-236.jpg)
+
+```html
+<com.coorchice.library.SuperTextView
+  android:id="@+id/stv_41"
+  android:layout_width="350dp"
+  android:layout_height="100dp"
+  android:layout_gravity="center_horizontal"
+  android:layout_marginTop="30dp"
+  android:paddingLeft="116dp"
+  android:paddingTop="30dp"
+  android:text="StateDrawable2 网络图"
+  android:textColor="@color/black"
+  android:textSize="14sp"
+  app:stv_corner="50dp"
+  app:stv_isShowState2="true"
+  app:stv_left_bottom_corner="true"
+  app:stv_left_top_corner="true"
+  app:stv_solid="#f1f1f1"
+  app:stv_state_drawable2="https://gw.alicdn.com/imgextra/i3/O1CN01XPmcmt1vJfKcQ8o6O_!!6000000006152-0-tps-500-500.jpg"
+  app:stv_state_drawable2_height="100dp"
+  app:stv_state_drawable2_mode="left"
+  app:stv_state_drawable2_width="100dp"/>
+```
 ## v3.2.5
 
 - 修复 `stv_pressBgColor` 失效

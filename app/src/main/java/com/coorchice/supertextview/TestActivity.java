@@ -20,6 +20,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +46,7 @@ public class TestActivity extends ActionBarActivity {
     private SuperTextView stv_0;
     private SuperTextView stv_1;
     private ImageView img_gif;
+    private LinearLayout rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +104,28 @@ public class TestActivity extends ActionBarActivity {
 //
 //            }
 //        });
+        SuperTextView stv = (SuperTextView) LayoutInflater.from(this).inflate(R.layout.stv, rootView, false);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(300, 100);
+        params.setMargins(100, 50, 0 , 100);
+        stv.setLayoutParams(params);
+        stv.setTextColor(Color.parseColor("#666666"));
+        stv.setSolid(Color.parseColor("#FFFDF4"));
+        stv.setTextSize(11);
+        stv.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL);
+        stv.setShowState(true);
+        stv.setUrlImage("https://gw.alicdn.com/tfs/TB1PWPqtCzqK1RjSZFLXXcn2XXa-160-96.png", false);
+//        stv.setDrawableTint(SuperTextView.NO_COLOR);
+//        stv.setDrawableRotate(SuperTextView.NO_ROTATE);
+        stv.setStateDrawableMode(SuperTextView.DrawableMode.TOP);
+        stv.setDrawableWidth(36);
+        stv.setDrawableHeight(36);
+        stv.setText("IconText");
+        rootView.addView(stv);
     }
 
 
     private void findViews() {
+        rootView = (LinearLayout) findViewById(R.id.ll_root);
 //        stv_0 = (SuperTextView) findViewById(R.id.stv_0);
         stv_1 = (SuperTextView) findViewById(R.id.stv_1);
         img_gif = (ImageView) findViewById(R.id.img_gif);

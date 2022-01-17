@@ -158,6 +158,7 @@ public class SuperTextView extends TextView {
     private boolean drawable1Clicked = false;
     private boolean drawable2Clicked = false;
     private String curImageUrl;
+    private String curImageUrl2;
 
     private int drawableTint = NO_COLOR;
     private float drawableRotate = NO_ROTATE;
@@ -245,7 +246,8 @@ public class SuperTextView extends TextView {
                     DEFAULT_STROKE_WIDTH);
             strokeColor =
                     typedArray.getColor(R.styleable.SuperTextView_stv_stroke_color, DEFAULT_STROKE_COLOR);
-
+            drawableAsBackground =
+                    typedArray.getBoolean(R.styleable.SuperTextView_stv_drawableAsBackground, false);
             if (isInEditMode()) {
                 drawable = typedArray.getDrawable(R.styleable.SuperTextView_stv_state_drawable);
                 if (drawable != null) {
@@ -261,6 +263,11 @@ public class SuperTextView extends TextView {
                     } catch (Exception e) {
                         e.printStackTrace();
                         drawable = null;
+                        try{
+                            setUrlImage(typedArray.getString(R.styleable.SuperTextView_stv_state_drawable), drawableAsBackground);
+                        }catch (Exception e2){
+                            e2.printStackTrace();
+                        }
                     }
                 }
             }
@@ -290,6 +297,11 @@ public class SuperTextView extends TextView {
                     } catch (Exception e) {
                         e.printStackTrace();
                         drawable2 = null;
+                        try{
+                            setUrlImage2(typedArray.getString(R.styleable.SuperTextView_stv_state_drawable2));
+                        }catch (Exception e2){
+                            e2.printStackTrace();
+                        }
                     }
                 }
             }
@@ -305,8 +317,6 @@ public class SuperTextView extends TextView {
             drawable2Rotate = typedArray.getFloat(R.styleable.SuperTextView_stv_state_drawable2_rotate, NO_ROTATE);
 
             isShowState = typedArray.getBoolean(R.styleable.SuperTextView_stv_isShowState, false);
-            drawableAsBackground =
-                    typedArray.getBoolean(R.styleable.SuperTextView_stv_drawableAsBackground, false);
             backgroundScaleType = ScaleType.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_scaleType, ScaleType.CENTER.code));
             isShowState2 = typedArray.getBoolean(R.styleable.SuperTextView_stv_isShowState2, false);
             stateDrawableLayer = DrawableLayer.valueOf(typedArray.getInteger(R.styleable.SuperTextView_stv_state_drawable_layer,
@@ -2295,6 +2305,45 @@ public class SuperTextView extends TextView {
      */
     public SuperTextView setUrlImage(String url) {
         return setUrlImage(url, true);
+    }
+
+
+
+    /**
+     * 将一个网络图片作为SuperTextView的StateDrawable2。
+     * 在调用这个函数前，建议开发者根据当前所使用的图片框架实现{@link com.coorchice.library.image_engine.Engine}，
+     * 然后通过{@link ImageEngine#install(Engine)}为SuperTextView的ImageEngine安装一个全局引擎，开发者可以在
+     * {@link Application#onCreate()}中进行配置（需要注意任何时候新安装的引擎总会替换掉原本的引擎）。
+     * 在未设置引擎的情况下，SuperTextView仍然会通过内置的一个十分简易引擎去下载图片。
+     *
+     * @param url 网络图片地址
+     * @return SuperTextView
+     */
+    public SuperTextView setUrlImage2(final String url) {
+        // 检查是否已经安装了Engine，没有安装会安装一个默认的，后面仍然可以随时被替换
+        ImageEngine.checkEngine();
+        // 缓存当前的imageUrl，当下载完成后需要校验
+        curImageUrl2 = url;
+        if (STVUtils.isGif(url) && GIF_CACHE_ENABLE){
+            GifCache.fromUrl(url, new ImageEngine.Callback() {
+                @Override
+                public void onCompleted(Drawable drawable) {
+                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl2, url)) {
+                        setDrawable2(drawable);
+                    }
+                }
+            });
+        } else {
+            ImageEngine.load(url, new ImageEngine.Callback() {
+                @Override
+                public void onCompleted(final Drawable drawable) {
+                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl2, url)) {
+                        setDrawable2(drawable);
+                    }
+                }
+            });
+        }
+        return this;
     }
 
 

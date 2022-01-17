@@ -838,6 +838,53 @@
             app:stv_state_drawable_padding_left="5dp"
             app:stv_state_drawable_width="40dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="使用网络图片"
+            android:textSize="20sp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_40"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="bottom|center"
+            android:paddingBottom="1dp"
+            android:text="网络背景图"
+            android:textColor="#000"
+            android:textSize="14sp"
+            app:stv_corner="10dp"
+            app:stv_isShowState="true"
+            app:stv_drawableAsBackground="true"
+            app:stv_solid="#f1f1f1"
+            app:stv_state_drawable="https://gw.alicdn.com/imgextra/i3/O1CN01suhAFr1cXQX49D2xp_!!6000000003610-0-tps-468-466.jpg" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_41"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="116dp"
+            android:paddingTop="30dp"
+            android:text="StateDrawable2 网络图"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:stv_corner="50dp"
+            app:stv_isShowState2="true"
+            app:stv_left_bottom_corner="true"
+            app:stv_left_top_corner="true"
+            app:stv_solid="#f1f1f1"
+            app:stv_state_drawable2="https://gw.alicdn.com/imgextra/i3/O1CN01XPmcmt1vJfKcQ8o6O_!!6000000006152-0-tps-500-500.jpg"
+            app:stv_state_drawable2_height="100dp"
+            app:stv_state_drawable2_mode="left"
+            app:stv_state_drawable2_width="100dp"
+            tools:stv_state_drawable2="@drawable/avatar3" />
+
         <!--Next-->
         <com.coorchice.library.SuperTextView
             android:id="@+id/btn_next"

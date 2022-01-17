@@ -11,14 +11,14 @@
     <attr name="stv_solid" format="reference|color"/>
     <attr name="stv_stroke_width" format="dimension"/>
     <attr name="stv_stroke_color" format="reference|color"/>
-    <attr name="stv_state_drawable" format="reference|color"/>
+    <attr name="stv_state_drawable" format="reference|color|string"/>
     <attr name="stv_state_drawable_width" format="dimension"/>
     <attr name="stv_state_drawable_height" format="dimension"/>
     <attr name="stv_state_drawable_padding_left" format="dimension"/>
     <attr name="stv_state_drawable_padding_top" format="dimension"/>
     <attr name="stv_state_drawable_tint" format="reference|color"/>
     <attr name="stv_state_drawable_rotate" format="float"/>
-    <attr name="stv_state_drawable2" format="reference|color"/>
+    <attr name="stv_state_drawable2" format="reference|color|string"/>
     <attr name="stv_state_drawable2_width" format="dimension"/>
     <attr name="stv_state_drawable2_height" format="dimension"/>
     <attr name="stv_state_drawable2_padding_left" format="dimension"/>
