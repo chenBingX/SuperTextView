@@ -103,7 +103,7 @@ dependencies {
 
 ## v3.2.6
 
-- Support for setting 'Network Image' in XML for StateDrawable and StateDrawable2
+- 【New】Support for setting 'Network Image' in XML for StateDrawable and StateDrawable2
 
 > In XML, use a 'Network Image' as a background image
 
