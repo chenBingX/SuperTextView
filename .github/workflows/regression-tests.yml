@@ -19,8 +19,10 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Install Android SDK used by the standalone tests
-        run: sdkmanager 'platforms;android-28' 'build-tools;30.0.3'
+        with:
+          # The action defaults to the removed 'tools' package; request only what we use.
+          packages: 'platform-tools platforms;android-28 build-tools;30.0.3'
+          log-accepted-android-sdk-licenses: 'false'
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
