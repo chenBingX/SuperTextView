@@ -1,0 +1,94 @@
+// Standalone build: deliberately does not evaluate the legacy root/library build files.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.0'
+    }
+}
+
+apply plugin: 'com.android.library'
+
+// Test HEAD without temporarily reverting or otherwise touching the shared working tree.
+def baseline = providers.gradleProperty('baseline').orNull == 'true'
+if (baseline) {
+    buildDir = file('build/baseline')
+}
+def baselineSources = file("$buildDir/baseline-sources")
+if (baseline) {
+    def prepareBaselineSources = tasks.register('prepareBaselineSources') {
+        doLast {
+            delete baselineSources
+            def archive = file("$buildDir/baseline-sources.tar")
+            archive.parentFile.mkdirs()
+            archive.withOutputStream { output ->
+                exec {
+                    workingDir rootProject.projectDir.parentFile
+                    commandLine 'git', 'archive', '--format=tar', 'HEAD', 'library/src/main/java'
+                    standardOutput = output
+                }
+            }
+            copy {
+                from tarTree(archive)
+                into baselineSources
+            }
+        }
+    }
+    tasks.withType(JavaCompile).configureEach {
+        dependsOn prepareBaselineSources
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+android {
+    namespace 'com.coorchice.library'
+    compileSdk 28
+
+    defaultConfig {
+        minSdk 19
+        targetSdk 28
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile '../library/src/main/AndroidManifest.xml'
+            java.srcDirs = [baseline
+                    ? new File(baselineSources, 'library/src/main/java')
+                    : file('../library/src/main/java')]
+            res.srcDirs = ['../library/src/main/res', 'src/main/res']
+        }
+        test {
+            java.srcDirs = ['../library/src/test/java']
+            resources.srcDirs = ['../library/src/test/resources']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+        unitTests.all {
+            // Robolectric's runtime Android jar also comes from public Maven Central.
+            systemProperty 'robolectric.dependency.repo.url', 'https://repo.maven.apache.org/maven2'
+            testLogging {
+                events 'passed', 'skipped', 'failed'
+                exceptionFormat 'full'
+            }
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.robolectric:robolectric:4.11.1'
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+}
