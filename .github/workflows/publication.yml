@@ -1,0 +1,90 @@
+name: Production publication
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  publication:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-28 build-tools;30.0.3'
+          log-accepted-android-sdk-licenses: 'false'
+      - name: Run publication validation tests
+        run: python3 -m unittest discover -s tools/tests -v
+      - name: Run library regressions
+        run: ./publishing/gradlew --no-daemon -p regression-tests testDebugUnitTest --console=plain
+      - name: Validate release tag version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: test "$GITHUB_REF_NAME" = "v$(sed -n 's/^VERSION_NAME=//p' gradle.properties)"
+      - name: Build the real production publication
+        run: ./publishing/gradlew --no-daemon -p publishing clean publishToMavenLocal --console=plain
+      - name: Check POM, JNI, rules, licenses and production-only payload
+        run: |
+          VERSION="v$(sed -n 's/^VERSION_NAME=//p' gradle.properties)"
+          python3 tools/check_release_artifact.py --version "$VERSION"
+      - name: Compile a consumer of the final AAR
+        run: |
+          VERSION="v$(sed -n 's/^VERSION_NAME=//p' gradle.properties)"
+          ./publishing/gradlew --no-daemon -p native-tests assembleDebug -PstvAar="$HOME/.m2/repository/com/github/chenBingX/SuperTextView/$VERSION/SuperTextView-$VERSION.aar" --console=plain
+      - name: Stage verified Maven artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v$(sed -n 's/^VERSION_NAME=//p' gradle.properties)"
+          DIR="$HOME/.m2/repository/com/github/chenBingX/SuperTextView/$VERSION"
+          mkdir release-publication
+          for suffix in .aar .pom .module -sources.jar; do
+            cp "$DIR/SuperTextView-$VERSION$suffix" release-publication/
+          done
+          (cd release-publication && sha256sum * > SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: production-publication
+          path: release-publication/*
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: publication
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: production-publication
+          path: release
+      - name: Check release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd release && sha256sum -c SHA256SUMS)
+          test -f "release/SuperTextView-$GITHUB_REF_NAME.aar"
+          test -f "release/SuperTextView-$GITHUB_REF_NAME-sources.jar"
+          test -f "docs/releases/$GITHUB_REF_NAME.md"
+      - name: Publish GitHub Release with verified AAR and sources
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }} — 16 KB and four-ABI compatibility
+          body_path: docs/releases/${{ github.ref_name }}.md
+          files: release/*
+          fail_on_unmatched_files: true
+          draft: false
+          prerelease: false
+          make_latest: true

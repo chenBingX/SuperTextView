@@ -14,3 +14,5 @@ _config.yml
 /native-tests/local.properties
 /tools/__pycache__/
 /tools/tests/__pycache__/
+/publishing/build/
+/publishing/local.properties

@@ -1,0 +1,2 @@
+// Production publication only; do not configure the legacy demo or test fixtures.
+rootProject.name = 'SuperTextView'

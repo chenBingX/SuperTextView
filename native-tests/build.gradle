@@ -11,6 +11,9 @@ buildscript {
 
 apply plugin: 'com.android.application'
 
+// Optional final-AAR consumer test; default remains the source/JNI-only smoke build.
+def stvAar = providers.gradleProperty('stvAar').orNull
+
 // AGP resolves its cached AAPT2 executable as a project dependency.
 repositories {
     google()
@@ -34,11 +37,11 @@ android {
     sourceSets {
         main {
             manifest.srcFile 'src/main/AndroidManifest.xml'
-            java.srcDirs = ['src/main/java', '../library/src/main/java']
+            java.srcDirs = stvAar ? ['src/main/java'] : ['src/main/java', '../library/src/main/java']
             // Compile the actual JNI contract, not a copied declaration or stub.
             java.includes = ['com/coorchice/nativetests/**',
                              'com/coorchice/library/gifdecoder/JNI.java']
-            jniLibs.srcDirs = ['../library/src/main/jniLibs']
+            jniLibs.srcDirs = stvAar ? [] : ['../library/src/main/jniLibs']
             assets.srcDirs = ['src/main/assets']
         }
     }
@@ -57,6 +60,10 @@ android {
         // Preserve exact production bytes and avoid depending on an NDK to strip them.
         jniLibs.keepDebugSymbols += ['**/libGifLib.so']
     }
+}
+
+dependencies {
+    if (stvAar) implementation files(stvAar)
 }
 
 // Deliberately no JUnit, AndroidX, androidTest APK, or external runner dependencies.

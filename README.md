@@ -5,10 +5,12 @@
 # Hello, Developer！Welcome to use SuperTextView
 
 
-[![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.6-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.6.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ--Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
+[![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.7-orange.svg)](CHANGELOG.md) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/QQ--Group-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
 
 # **English** | [**中文**](https://github.com/chenBingX/SuperTextView/blob/master/README_CN.md)
+
+> **v3.2.7 · 2026-10-22** — Java fixes, a rebuilt four-ABI GIF decoder and AAR validation. [Changelog](CHANGELOG.md) · [Native compatibility and test evidence](docs/native-compatibility.md). JitPack builds the Maven artifact on demand from the release tag.
 
 <img src="https://gw.alicdn.com/tfs/TB1Ijt0c7cx_u4jSZFlXXXnUFXa-1014-1014.png" width=200 height=200 align=right alt="SuperTextView">
 
@@ -72,7 +74,7 @@ You just enjoy the amazing visual effects you have written, and the rest will be
 # Usage
 
 
-Add it in you build.gradle:
+Add v3.2.7 to your `build.gradle`:
 
 ```
 allprojects {
@@ -83,23 +85,50 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.chenBingX:SuperTextView:VERSION_CODE'
+    implementation 'com.github.chenBingX:SuperTextView:v3.2.7'
 }
 ```
 
-[The version code of the latest release can be found here.](https://github.com/chenBingX/SuperTextView/releases)
+JitPack builds the artifact on the first request; check the [build status](https://jitpack.io/#chenbingx/supertextview) if dependency resolution is still waiting for that build.
+
+## Building the production AAR from source
+
+Use **JDK 11 or 17**, the independent `publishing/` build's **Gradle 7.5** wrapper, an Android SDK and **Python 3**. From the repository root:
+
+```sh
+./publishing/gradlew -p publishing publishToMavenLocal
+```
+
+The standalone publishing build packages only the production library sources/resources and the four native libraries; it excludes test code, fixtures and test-only resources. It does not evaluate or migrate the legacy demo build. Python 3 runs the source-build native/AAR validation gate; applications consuming the AAR **do not need Python**. This command publishes locally, not to JitPack or a remote repository.
 
 # Special Note💡
 
-- **v3.2.6** support：`armeabi-v7a`
+- **v3.2.7 is one unified version** for `armeabi-v7a`, `arm64-v8a`, `x86` and `x86_64`. Do not append `.64` or `.99` to select an ABI.
+- The Java library and 32-bit native ABIs retain **API 19** support; the 64-bit native ABIs require **API 21**. The test APK's minimum SDK does not raise the library's minimum.
+- All four native libraries are rebuilt for **16 KB ELF LOAD/RELRO compatibility**. Final application APK ZIP alignment and other dependencies still need separate checks; see [native compatibility](docs/native-compatibility.md).
+- The v3.2.7 AAR includes the required JNI consumer keep rule for R8/ProGuard. For older AARs or custom shrinking pipelines that do not apply consumer rules, retain this in `proguard-rules.pro`:
 
-- **v3.2.6.64** support：`armeabi-v7a`、`arm64-v8a`
+  ```proguard
+  -keep class com.coorchice.library.gifdecoder.JNI { *; }
+  ```
 
-- **v3.2.6.99** support：`armeabi-v7a`、`arm64-v8a`、`x86`
+### Historical ABI variants (not v3.2.7 coordinates)
 
-- ⚠️Attention: **`proguard-rules.pro`** please add `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
+- **v3.2.6** supported `armeabi-v7a`.
+- **v3.2.6.64** supported `armeabi-v7a` and `arm64-v8a`.
+- **v3.2.6.99** supported `armeabi-v7a`, `arm64-v8a` and `x86`.
 
 # Update Log
+
+## v3.2.7 · 2026-10-22
+
+- **Java fixes (PR #125):** align Java-constructor drawable defaults with XML, cancel drawable clicks correctly, reject stale image-request callbacks, restore text-stroke drawing state, gate GIF playback by owner visibility/attachment, and avoid native GIF detection for static images.
+- **Native compatibility (PR #126):** restore the decoder sources and rebuild all four ABIs with 16 KB LOAD/RELRO checks, including the previously missing `x86_64` library.
+- **Drawing and packaging (PR #127):** skip fully transparent border/fill submissions while preserving visible/pressed/image-background behavior; validate committed native libraries and the actual packaged AAR.
+- **Recorded verification:** 57 Java tests and the original 26 native-tool tests passed; the release adds 9 publication checks (35 Python tests total); the earlier ARM64 real-16-KB-kernel native run passed 47 tests × 10 runs (470 executions), and the current framework/Skia suite passed 15 tests on that virtual device. The x86_64 `ps16k` CI image uses a simulated 16 KB environment on a 4 KB kernel, not a real 16 KB kernel. These are not physical-device coverage or quantified CPU/GPU performance claims.
+- The original causes of **#91, #113, #77 and #107's reported 3.2.3 failure remain unconfirmed**; regression coverage is not a claim that those reports are fixed.
+
+See the [full changelog and publishing notes](CHANGELOG.md), [Java-fix evidence](docs/issue-triage-2026-10-21.md), [ARM64 native device evidence](docs/test-results/arm64-16k-2026-10-22/README.md) and [current UI/AAR verification](docs/remaining-issues-2026-10-22.md). Earlier entries below are historical and do not describe the v3.2.7 coordinates or build requirements.
 
 ## v3.2.6
 

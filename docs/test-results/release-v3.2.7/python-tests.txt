@@ -1,0 +1,40 @@
+test_4k_load_rejected (test_check_native_binaries.AlignmentTest.test_4k_load_rejected) ... ok
+test_address_offset_mismatch_rejected (test_check_native_binaries.AlignmentTest.test_address_offset_mismatch_rejected) ... ok
+test_aligned_loads_and_relro (test_check_native_binaries.AlignmentTest.test_aligned_loads_and_relro) ... ok
+test_missing_load_rejected (test_check_native_binaries.AlignmentTest.test_missing_load_rejected) ... ok
+test_old_64k_load_with_shared_writable_data_is_rejected (test_check_native_binaries.AlignmentTest.test_old_64k_load_with_shared_writable_data_is_rejected) ... ok
+test_relro_alone_in_load_need_not_fill_page (test_check_native_binaries.AlignmentTest.test_relro_alone_in_load_need_not_fill_page) ... ok
+test_truncated_elf_rejected (test_check_native_binaries.AlignmentTest.test_truncated_elf_rejected) ... ok
+test_writable_bytes_before_relro_are_rejected (test_check_native_binaries.AlignmentTest.test_writable_bytes_before_relro_are_rejected) ... ok
+test_cli_bad_aar_returns_failure (test_native_aar.NativeAarTest.test_cli_bad_aar_returns_failure) ... ok
+test_crc_valid_but_empty_so_is_rejected (test_native_aar.NativeAarTest.test_crc_valid_but_empty_so_is_rejected) ... ok
+test_duplicate_entry_is_rejected (test_native_aar.NativeAarTest.test_duplicate_entry_is_rejected) ... ok
+test_four_correct_abis_with_sizes_and_hashes (test_native_aar.NativeAarTest.test_four_correct_abis_with_sizes_and_hashes) ... ok
+test_missing_abi_is_rejected (test_native_aar.NativeAarTest.test_missing_abi_is_rejected) ... ok
+test_non_native_entry_crc_is_checked_too (test_native_aar.NativeAarTest.test_non_native_entry_crc_is_checked_too) ... ok
+test_truncated_elf_is_rejected (test_native_aar.NativeAarTest.test_truncated_elf_is_rejected) ... ok
+test_truncated_zip_is_rejected (test_native_aar.NativeAarTest.test_truncated_zip_is_rejected) ... ok
+test_unexpected_abi_is_rejected (test_native_aar.NativeAarTest.test_unexpected_abi_is_rejected) ... ok
+test_wrong_architecture_is_rejected (test_native_aar.NativeAarTest.test_wrong_architecture_is_rejected) ... ok
+test_host_application_override_fails (test_release_artifact.ReleaseArtifactTest.test_host_application_override_fails) ... ok
+test_missing_jni_rule_fails (test_release_artifact.ReleaseArtifactTest.test_missing_jni_rule_fails) ... ok
+test_missing_native_attribution_fails (test_release_artifact.ReleaseArtifactTest.test_missing_native_attribution_fails) ... ok
+test_missing_sources_fails (test_release_artifact.ReleaseArtifactTest.test_missing_sources_fails) ... ok
+test_native_source_mismatch_fails (test_release_artifact.ReleaseArtifactTest.test_native_source_mismatch_fails) ... ok
+test_raised_minimum_sdk_fails (test_release_artifact.ReleaseArtifactTest.test_raised_minimum_sdk_fails) ... ok
+test_test_resource_leak_fails (test_release_artifact.ReleaseArtifactTest.test_test_resource_leak_fails) ... ok
+test_valid_production_publication (test_release_artifact.ReleaseArtifactTest.test_valid_production_publication) ... ok
+test_wrong_pom_version_fails (test_release_artifact.ReleaseArtifactTest.test_wrong_pom_version_fails) ... ok
+test_complete_success (test_run_native_smoke.SmokeReceiptTest.test_complete_success) ... ok
+test_instrumentation_failure_code (test_run_native_smoke.SmokeReceiptTest.test_instrumentation_failure_code) ... ok
+test_native_crash_without_summary (test_run_native_smoke.SmokeReceiptTest.test_native_crash_without_summary) ... ok
+test_real_16k_kernel_page_size (test_run_native_smoke.SmokeReceiptTest.test_real_16k_kernel_page_size) ... ok
+test_shell_zero_exit_does_not_hide_assertion_failure (test_run_native_smoke.SmokeReceiptTest.test_shell_zero_exit_does_not_hide_assertion_failure) ... ok
+test_simulated_16k_userspace_does_not_pass_real_kernel_requirement (test_run_native_smoke.SmokeReceiptTest.test_simulated_16k_userspace_does_not_pass_real_kernel_requirement) ... ok
+test_unreadable_smaps_does_not_pass_real_kernel_requirement (test_run_native_smoke.SmokeReceiptTest.test_unreadable_smaps_does_not_pass_real_kernel_requirement) ... ok
+test_zero_or_partial_test_run_is_not_success (test_run_native_smoke.SmokeReceiptTest.test_zero_or_partial_test_run_is_not_success) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 0.151s
+
+OK

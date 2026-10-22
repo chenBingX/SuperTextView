@@ -1,0 +1,72 @@
+// Independent production build. The legacy demo and regression fixtures are not evaluated.
+buildscript {
+    repositories { google(); mavenCentral() }
+    dependencies { classpath 'com.android.tools.build:gradle:7.4.0' }
+}
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply from: '../gradle/native-validation.gradle'
+
+Properties releaseProperties = new Properties()
+file('../gradle.properties').withInputStream { releaseProperties.load(it) }
+def libraryVersion = releaseProperties.getProperty('VERSION_NAME')
+if (!libraryVersion) throw new GradleException('VERSION_NAME is required')
+group = System.getenv('GROUP') ?: 'com.github.chenBingX'
+version = System.getenv('VERSION') ?: "v${libraryVersion}"
+
+repositories { google(); mavenCentral() }
+android {
+    namespace 'com.coorchice.library'
+    compileSdk 28
+    buildToolsVersion '30.0.3'
+    defaultConfig {
+        minSdk 19
+        targetSdk 21
+        consumerProguardFiles '../library/consumer-rules.pro'
+    }
+    sourceSets {
+        main {
+            manifest.srcFile '../library/src/main/AndroidManifest.xml'
+            java.srcDirs = ['../library/src/main/java']
+            res.srcDirs = ['../library/src/main/res']
+            jniLibs.srcDirs = ['../library/src/main/jniLibs']
+            // The statically linked giflib attribution must accompany the native binary.
+            resources.srcDirs = ['../library/src/main/cpp']
+            resources.includes = ['COPYING.giflib']
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions { jniLibs.keepDebugSymbols += ['**/libGifLib.so'] }
+    publishing { singleVariant('release') { withSourcesJar() } }
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = project.group.toString()
+                artifactId = 'SuperTextView'
+                version = project.version.toString()
+                pom {
+                    name = 'SuperTextView'
+                    description = 'Android TextView with rounded backgrounds, image slots, text effects and GIF support.'
+                    url = 'https://github.com/chenBingX/SuperTextView'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                        license {
+                            name = 'giflib MIT license (native decoder)'
+                            url = 'https://github.com/chenBingX/SuperTextView/blob/master/library/src/main/cpp/COPYING.giflib'
+                        }
+                    }
+                    scm { url = 'https://github.com/chenBingX/SuperTextView' }
+                }
+            }
+        }
+    }
+}

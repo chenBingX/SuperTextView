@@ -1,0 +1,23 @@
+{
+  "coordinate": "com.github.chenBingX:SuperTextView:v3.2.7",
+  "aarBytes": 329168,
+  "aarSha256": "edd08713b4c9d1d916ef9dac6bafe208d9e7a67e8df06b4e4cfaf20997af6e2d",
+  "native": {
+    "arm64-v8a": {
+      "bytes": 198440,
+      "sha256": "59f77f68ac6f0dbc8fe8825e35ad6f1dc4b30a8190eb6b6bb7bbd4d4903dd48d"
+    },
+    "armeabi-v7a": {
+      "bytes": 96408,
+      "sha256": "61d82fee3ab004f2092d3c0c5fe6b5e140a1eae4ba9a6dc25540ba2e97561664"
+    },
+    "x86": {
+      "bytes": 186276,
+      "sha256": "0324ca582980b76503187e2b61eef51b4de8fe19be040c9f80f4e0f3bb71883b"
+    },
+    "x86_64": {
+      "bytes": 205048,
+      "sha256": "bab9ce900a376769e06c2901b10434d504bb67b49368ae44c30f8505bc34ee77"
+    }
+  }
+}

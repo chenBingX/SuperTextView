@@ -1,10 +1,12 @@
 # 你好, 开发者！欢迎使用 SuperTextView
 
 
- [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.6-orange.svg)](https://github.com/chenBingX/SuperTextView)  [![](https://img.shields.io/badge/SuperTextView-v3.2.6.64-orange.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/chenBingX/SuperTextView) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/交流群-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
+ [![](https://jitpack.io/v/chenbingx/supertextview.svg)](https://jitpack.io/#chenbingx/supertextview) [![](https://img.shields.io/badge/SuperTextView-v3.2.7-orange.svg)](CHANGELOG.md) [![](https://img.shields.io/badge/API-19+-yellowgreen.svg)](https://android-arsenal.com/api?level=14#l14) [![](https://img.shields.io/badge/License-Apache--2.0-blueviolet.svg)](https://github.com/chenBingX/SuperTextView#license) [![](https://img.shields.io/badge/Author-CoorChice-blue.svg)](https://weibo.com/5406092281/profile?topnav=1&wvr=6) [![](https://img.shields.io/badge/交流群-775951525-ff5722.svg)](https://jq.qq.com/?_wv=1027&k=5DIRlPm)
 
 
 # [**English**](https://github.com/chenBingX/SuperTextView) | **中文**
+
+> **v3.2.7 · 2026-10-22** — Java 问题修复、四 ABI GIF 解码器重建与 AAR 校验。[完整更新日志](CHANGELOG.md) · [Native 兼容性与实测证据](docs/native-compatibility.md)。JitPack 会根据 Release 标签按需构建 Maven 产物。
 
 <img src="https://gw.alicdn.com/tfs/TB1Ijt0c7cx_u4jSZFlXXXnUFXa-1014-1014.png" width=200 height=200 align=right alt="SuperTextView">
 
@@ -63,7 +65,7 @@
 # 如何开始使用
 
 
-在你的**build.gradle**中加入：
+在你的 `build.gradle` 中加入 v3.2.7 依赖：
 
 ```
 allprojects {
@@ -74,26 +76,51 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.chenBingX:SuperTextView:VERSION_CODE'
+    implementation 'com.github.chenBingX:SuperTextView:v3.2.7'
 }
 ```
 
-[用这里的真实发行版本号, 替换 VERSION_CODE](https://github.com/chenBingX/SuperTextView/releases)
+JitPack 在首次请求时构建产物；如果依赖解析仍在等待构建，可以查看 [构建状态](https://jitpack.io/#chenbingx/supertextview)。
 
+## 从源码构建生产 AAR
 
+使用 **JDK 11 或 17**、独立 `publishing/` 工程自带的 **Gradle 7.5** wrapper、Android SDK 和 **Python 3**，在仓库根目录执行：
+
+```sh
+./publishing/gradlew -p publishing publishToMavenLocal
+```
+
+独立发布工程仅打包生产库源码、资源及四个 ABI 的 native 库，不包含测试代码、fixture 或测试专用资源；不求值、也不迁移旧 demo 构建。Python 3 用于源码构建时的 native/AAR 校验门禁；直接依赖 AAR 的应用**不需要 Python**。上述命令仅发布到本地 Maven 仓库，不会发布到 JitPack 或远程仓库。
 
 # 特别提示💡
 
-- **v3.2.6** 版本支持：`armeabi-v7a`
+- **v3.2.7 使用统一版本号**，同时包含 `armeabi-v7a`、`arm64-v8a`、`x86`、`x86_64`，不再通过 `.64` 或 `.99` 后缀选择 ABI。
+- Java 库和 32 位 native ABI 保留 **API 19** 支持；64 位 native ABI 最低为 **API 21**。测试 APK 的最低 SDK 不改变生产库的兼容范围。
+- 四个 ABI 均已重建并通过 **16 KB ELF LOAD/RELRO 兼容性检查**；最终应用的 APK ZIP 对齐和其他依赖仍需单独核验，详见 [Native 兼容性说明](docs/native-compatibility.md)。
+- v3.2.7 AAR 内置所需的 JNI consumer keep 规则，供 R8/ProGuard 自动应用。旧版本 AAR，或未应用 consumer 规则的自定义混淆流程，仍需在 `proguard-rules.pro` 中保留：
 
-- **v3.2.6.64** 版本支持：`armeabi-v7a`、`arm64-v8a`
+  ```proguard
+  -keep class com.coorchice.library.gifdecoder.JNI { *; }
+  ```
 
-- **v3.2.6.99** 版本支持：`armeabi-v7a`、`arm64-v8a`、`x86`
+### 历史 ABI 变体（不适用于 v3.2.7 坐标）
 
-- ⚠️ 特别注意：混淆请加上 `-keep class com.coorchice.library.gifdecoder.JNI { *; }`
+- **v3.2.6** 支持 `armeabi-v7a`。
+- **v3.2.6.64** 支持 `armeabi-v7a`、`arm64-v8a`。
+- **v3.2.6.99** 支持 `armeabi-v7a`、`arm64-v8a`、`x86`。
 
 
 # 近期更新
+
+## v3.2.7 · 2026-10-22
+
+- **Java 修复（PR #125）：** 对齐 Java 构造与 XML 的 drawable 默认行为，修正点击取消处理、拦截过期图片请求回调、恢复文字描边绘制状态，按所有者可见性与挂载状态控制 GIF 播放，并避免静态图片检测触发 native GIF 库加载。
+- **Native 兼容（PR #126）：** 恢复解码器源码，重建四个 ABI 并校验 16 KB LOAD/RELRO，补齐此前缺失的 `x86_64`。
+- **绘制与打包（PR #127）：** 跳过完全透明的边框和填充提交，保留可见色、按压态及图片背景行为；同时校验仓库中的 native 库和最终打包的 AAR。
+- **已有实测：** 57 项 Java 和原有 26 项 native 工具测试通过；发布新增 9 项校验，Python 测试合计 35 项通过；此前 ARM64 真 16 KB 内核虚拟设备的 native 测试为 47 项 × 10 轮（470 次执行），当前框架/Skia UI 测试在该虚拟设备上 15 项通过。CI 的 x86_64 `ps16k` 镜像是在 4 KB 内核上模拟 16 KB 环境，不是真 16 KB 内核。以上不是实体设备覆盖，也不是量化的 CPU/GPU 性能结论。
+- **#91、#113、#77 及 #107 原报 3.2.3 故障的根因仍未确认**，不能因新增回归覆盖就将原报告称为已修复。
+
+详见 [完整更新日志与发布说明](CHANGELOG.md)、[Java 修复证据](docs/issue-triage-2026-10-21.md)、[ARM64 native 实测记录](docs/test-results/arm64-16k-2026-10-22/README.md) 和 [当前 UI/AAR 验证](docs/remaining-issues-2026-10-22.md)。以下旧版本章节仅保留历史记录，不代表 v3.2.7 的依赖坐标或构建要求。
 
 ## v3.2.6
 

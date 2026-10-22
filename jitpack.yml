@@ -1,0 +1,8 @@
+# Keep the legacy demo build separate from the production Maven artifact.
+jdk:
+  - openjdk17
+before_install:
+  - yes | sdkmanager "platforms;android-28" "build-tools;30.0.3"
+install:
+  - ./publishing/gradlew --no-daemon -p publishing clean publishToMavenLocal --console=plain
+  - python3 tools/check_release_artifact.py --version "$VERSION"
