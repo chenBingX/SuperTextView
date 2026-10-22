@@ -68,6 +68,14 @@ It requires the expected runtime page size, a complete passing test summary and
 `INSTRUMENTATION_CODE: -1`; an adb shell exit code alone is not accepted. See the
 PR checks for the actual CI results.
 
+The initial CI run passed both x86_64 jobs (47 tests each):
+https://github.com/chenBingX/SuperTextView/actions/runs/39717058777 .
+The official x86_64 `ps16k` image reports `sysconf` page size **16384** while
+`smaps` reports a **4 KB kernel page size**. This exercises Android's simulated
+16 KB environment, not a real ARM64 16 KB kernel. A native ARM64 16 KB device
+or ARM64 16 KB-kernel emulator has not been runtime-tested. ELF LOAD/RELRO
+validation is performed separately for all four shipped ABIs.
+
 The suite is not a complete GIF conformance, fuzzing, lifetime/thread-safety or
 memory-leak test. In particular, copied GIF instances borrow their source's
 decoded data; the source must outlive its copies, as required by the existing API.
