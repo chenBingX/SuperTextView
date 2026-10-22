@@ -1,0 +1,85 @@
+name: Native compatibility
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  native-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-28 build-tools;30.0.3 ndk;25.0.8775105 cmake;3.22.1'
+          log-accepted-android-sdk-licenses: 'false'
+      - name: Test validation tools
+        run: python3 -m unittest discover -s tools/tests -v
+      - name: Validate committed libraries and rebuild all four ABIs
+        run: |
+          python3 tools/check_native_binaries.py
+          python3 tools/build_native.py --ndk "$ANDROID_HOME/ndk/25.0.8775105" --cmake "$ANDROID_HOME/cmake/3.22.1/bin/cmake"
+          python3 tools/check_native_binaries.py
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '7.5'
+      - name: Build JNI smoke APK against rebuilt binaries
+        run: gradle --no-daemon -p native-tests assembleDebug --console=plain
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-smoke-apk
+          path: native-tests/build/outputs/apk/debug/SuperTextView-native-tests-debug.apk
+          if-no-files-found: error
+
+  native-smoke:
+    needs: native-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: google_apis
+            page-size: 4096
+          - target: google_apis_ps16k
+            page-size: 16384
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: actions/download-artifact@v4
+        with:
+          name: native-smoke-apk
+          path: native-tests/build/outputs/apk/debug
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: ${{ matrix.target }}
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
+          script: python3 tools/run_native_smoke.py --serial emulator-$EMULATOR_PORT --page-size ${{ matrix.page-size }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-smoke-${{ matrix.page-size }}
+          path: native-build/native-smoke.txt
