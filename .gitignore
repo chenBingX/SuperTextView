@@ -9,3 +9,8 @@
 .externalNativeBuild
 .idea
 _config.yml
+/native-build/
+/native-tests/build/
+/native-tests/local.properties
+/tools/__pycache__/
+/tools/tests/__pycache__/

@@ -1,0 +1,18 @@
+{
+  "runs": 10,
+  "passedTestsPerRun": [
+    47,
+    47,
+    47,
+    47,
+    47,
+    47,
+    47,
+    47,
+    47,
+    47
+  ],
+  "passedExecutions": 470,
+  "testPackageInCrashBuffer": false,
+  "finishedAt": "2026-10-22T13:15:09.250420+08:00"
+}

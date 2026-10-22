@@ -1,0 +1,62 @@
+// Standalone APK: never evaluates the repository's legacy Android build.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.0'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+// AGP resolves its cached AAPT2 executable as a project dependency.
+repositories {
+    google()
+    mavenCentral()
+}
+
+android {
+    namespace 'com.coorchice.nativetests'
+    compileSdk 28
+    buildToolsVersion '30.0.3'
+
+    defaultConfig {
+        applicationId 'com.coorchice.nativetests'
+        // Only the smoke APK requires API 21 (android.system.Os); not the library.
+        minSdk 21
+        targetSdk 28
+        versionCode 1
+        versionName '1.0'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java', '../library/src/main/java']
+            // Compile the actual JNI contract, not a copied declaration or stub.
+            java.includes = ['com/coorchice/nativetests/**',
+                             'com/coorchice/library/gifdecoder/JNI.java']
+            jniLibs.srcDirs = ['../library/src/main/jniLibs']
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+
+    buildFeatures {
+        buildConfig false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        // Extract native libraries on install. ELF alignment is tested by loading;
+        // this AGP 7.4 smoke APK does not claim 16 KB uncompressed ZIP alignment.
+        jniLibs.useLegacyPackaging = true
+        // Preserve exact production bytes and avoid depending on an NDK to strip them.
+        jniLibs.keepDebugSymbols += ['**/libGifLib.so']
+    }
+}
+
+// Deliberately no JUnit, AndroidX, androidTest APK, or external runner dependencies.

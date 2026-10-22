@@ -1,0 +1,19 @@
+{
+  "startedAt": "2026-10-22T13:15:02.872775+08:00",
+  "serial": "emulator-5582",
+  "avd": "stv-arm64-real16k-20261022",
+  "fingerprint": "google/sdk_gphone16k_arm64/emu64a16k:15/AE3A.240806.043/12960925:userdebug/dev-keys",
+  "abi": "arm64-v8a",
+  "sdk": "35",
+  "kernel": "Linux localhost 6.6.30-android15-8-gdd9c02ccfe27-ab11987101 #1 SMP PREEMPT Tue Jun 18 20:50:32 UTC 2024 aarch64 Toybox",
+  "pageSizeBytes": 16384,
+  "shellKernelPageSize": "KernelPageSize:       16 kB",
+  "apkSha256": "ba910af8c7f04709ddd24d9c73a687449146c9f5ff947b336e5cdd783defcb5e",
+  "nativeLibrarySha256": {
+    "armeabi-v7a": "61d82fee3ab004f2092d3c0c5fe6b5e140a1eae4ba9a6dc25540ba2e97561664",
+    "arm64-v8a": "59f77f68ac6f0dbc8fe8825e35ad6f1dc4b30a8190eb6b6bb7bbd4d4903dd48d",
+    "x86": "0324ca582980b76503187e2b61eef51b4de8fe19be040c9f80f4e0f3bb71883b",
+    "x86_64": "bab9ce900a376769e06c2901b10434d504bb67b49368ae44c30f8505bc34ee77"
+  },
+  "testedCommit": "d72aeef416673001c60dff55893c76431dd1d45a"
+}
