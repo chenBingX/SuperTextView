@@ -9,6 +9,23 @@ class SmokeReceiptTest(unittest.TestCase):
     def test_complete_success(self):
         self.assertEqual(47, verify_output('Native smoke: passed=47 failed=0 total=47\nINSTRUMENTATION_CODE: -1'))
 
+    def test_real_16k_kernel_page_size(self):
+        text = ('Native smoke: passed=47 failed=0 total=47\n'
+                'smaps=KernelPageSize:        16 kB\nINSTRUMENTATION_CODE: -1')
+        self.assertEqual(47, verify_output(text, kernel_page_size=16384))
+
+    def test_simulated_16k_userspace_does_not_pass_real_kernel_requirement(self):
+        text = ('Native smoke: passed=47 failed=0 total=47\n'
+                'pageSizeBytes=16384 smaps=KernelPageSize: 4 kB\nINSTRUMENTATION_CODE: -1')
+        with self.assertRaisesRegex(ValueError, 'kernel page size'):
+            verify_output(text, kernel_page_size=16384)
+
+    def test_unreadable_smaps_does_not_pass_real_kernel_requirement(self):
+        text = ('Native smoke: passed=47 failed=0 total=47\n'
+                'smaps=unavailable\nINSTRUMENTATION_CODE: -1')
+        with self.assertRaisesRegex(ValueError, 'kernel page size'):
+            verify_output(text, kernel_page_size=16384)
+
     def test_native_crash_without_summary(self):
         with self.assertRaisesRegex(ValueError, 'did not finish'):
             verify_output('START openBytesTruncated\nProcess crashed.')

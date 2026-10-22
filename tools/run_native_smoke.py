@@ -9,13 +9,17 @@ import subprocess
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
-def verify_output(text, minimum=47):
+def verify_output(text, minimum=47, kernel_page_size=None):
     match = re.search(r'Native smoke: passed=(\d+) failed=(\d+) total=(\d+)', text)
     if match is None:
         raise ValueError('instrumentation did not finish (possibly a native crash)')
     passed, failed, total = map(int, match.groups())
     if failed or total < minimum or passed != total or not re.search(r'INSTRUMENTATION_CODE:\s*-1\b', text):
         raise ValueError('native smoke tests failed or did not execute the full suite')
+    if kernel_page_size is not None:
+        kernel = re.search(r'\bsmaps=KernelPageSize:\s*(\d+)\s*kB\b', text)
+        if kernel is None or int(kernel.group(1)) * 1024 != kernel_page_size:
+            raise ValueError('kernel page size is missing or differs from the required {} bytes'.format(kernel_page_size))
     return total
 
 
@@ -24,6 +28,8 @@ def main():
     p.add_argument('--adb', default='adb')
     p.add_argument('--serial', default=os.environ.get('ANDROID_SERIAL'))
     p.add_argument('--page-size', type=int, choices=(4096, 16384), required=True)
+    p.add_argument('--kernel-page-size', type=int, choices=(4096, 16384),
+                   help='also require the actual smaps kernel page size, not only sysconf')
     p.add_argument('--apk', type=pathlib.Path, default=ROOT / 'native-tests/build/outputs/apk/debug/SuperTextView-native-tests-debug.apk')
     p.add_argument('--log', type=pathlib.Path, default=ROOT / 'native-build/native-smoke.txt')
     args = p.parse_args()
@@ -40,7 +46,7 @@ def main():
     print(result.stdout)
     if result.returncode:
         raise RuntimeError('adb instrumentation exited with ' + str(result.returncode))
-    total = verify_output(result.stdout)
+    total = verify_output(result.stdout, kernel_page_size=args.kernel_page_size)
     print('Verified {} native tests on {} with {}-byte pages'.format(total, args.serial, args.page_size))
 
 

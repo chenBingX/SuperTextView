@@ -60,6 +60,17 @@ runner 输出 `Build.SUPPORTED_ABIS`、进程 `os.arch`、SDK、nativeLibraryDir
 `KernelPageSize`。sysconf 从 API 21 起可用；smaps 访问失败会明确标注，不掩盖 sysconf 错误。
 `requirePageSize` 不匹配会让 environment 用例失败。4 KB 上通过的结果不能证明 16 KB 兼容。
 
+验证 **ARM64 真实 16 KB 内核** 时，同时硬性检查 `smaps`，避免把 x86_64 的
+userspace 16 KB 模拟当成内核 16 KB：
+
+```sh
+python3 tools/run_native_smoke.py --adb "$ADB" --serial "$ANDROID_SERIAL" \
+  --page-size 16384 --kernel-page-size 16384 --log native-build/arm64-16k-smoke.txt
+```
+
+未传 `--kernel-page-size` 时保留原来的 sysconf 校验，适用于 x86_64 ps16k 的模拟测试。
+传入时若 `smaps` 不可读或内核页大小不符，测试工具会拒绝判定成功。
+
 完整执行包含 **47 个用例**。每例都有 `START` 和 `PASS` / `FAIL`，最后返回
 `passed`、`failed`、`total` 与 `Native smoke: passed=... failed=... total=47`。
 全部通过时 `INSTRUMENTATION_CODE: -1`、`failed=0`；Java 断言失败返回 code 0 并继续其余用例。
