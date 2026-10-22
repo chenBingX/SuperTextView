@@ -1,0 +1,244 @@
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START environment
+
+INSTRUMENTATION_STATUS: test=environment
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS environment
+
+INSTRUMENTATION_STATUS: test=environment
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlBothDrawableSlots_png
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_png
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlBothDrawableSlots_png
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_png
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlBothDrawableSlots_jpeg
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_jpeg
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlBothDrawableSlots_jpeg
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_jpeg
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlBothDrawableSlots_vector
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_vector
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlBothDrawableSlots_vector
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_vector
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlBothDrawableSlots_shape
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_shape
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlBothDrawableSlots_shape
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_shape
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlBothDrawableSlots_selector
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_selector
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlBothDrawableSlots_selector
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_selector
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlBothDrawableSlots_gif
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_gif
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlBothDrawableSlots_gif
+
+INSTRUMENTATION_STATUS: test=xmlBothDrawableSlots_gif
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START roundedPngBackgroundPixels
+
+INSTRUMENTATION_STATUS: test=roundedPngBackgroundPixels
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS roundedPngBackgroundPixels
+
+INSTRUMENTATION_STATUS: test=roundedPngBackgroundPixels
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START zeroGradientEndpointKeepsVisibleFallback
+
+INSTRUMENTATION_STATUS: test=zeroGradientEndpointKeepsVisibleFallback
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS zeroGradientEndpointKeepsVisibleFallback
+
+INSTRUMENTATION_STATUS: test=zeroGradientEndpointKeepsVisibleFallback
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START roundedThinLabelSubmitsNoInvisiblePaths
+
+INSTRUMENTATION_STATUS: test=roundedThinLabelSubmitsNoInvisiblePaths
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS roundedThinLabelSubmitsNoInvisiblePaths
+
+INSTRUMENTATION_STATUS: test=roundedThinLabelSubmitsNoInvisiblePaths
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlMonospaceTypeface_mode0
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode0
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlMonospaceTypeface_mode0
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode0
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlMonospaceTypeface_mode1
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlMonospaceTypeface_mode1
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlMonospaceTypeface_mode2
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlMonospaceTypeface_mode2
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode2
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START xmlMonospaceTypeface_mode3
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS xmlMonospaceTypeface_mode3
+
+INSTRUMENTATION_STATUS: test=xmlMonospaceTypeface_mode3
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+START repeatedDrawingHasNoPerFrameDiagnostics
+
+INSTRUMENTATION_STATUS: test=repeatedDrawingHasNoPerFrameDiagnostics
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.library.DeviceRegressionInstrumentation
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: numtests=15
+INSTRUMENTATION_STATUS: stream=
+PASS repeatedDrawingHasNoPerFrameDiagnostics
+
+INSTRUMENTATION_STATUS: test=repeatedDrawingHasNoPerFrameDiagnostics
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+DEVICE_SUMMARY passed=15 failed=0 total=15
+
+INSTRUMENTATION_CODE: -1

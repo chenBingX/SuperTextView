@@ -432,7 +432,7 @@ public class SuperTextView extends TextView {
     }
 
     private void drawStrokeLine(Canvas canvas) {
-        if (strokeWidth > 0) {
+        if (strokeWidth > 0 && Color.alpha(strokeColor) != 0) {
             if (strokeWidthPath == null) {
                 strokeWidthPath = new Path();
             } else {
@@ -480,7 +480,11 @@ public class SuperTextView extends TextView {
         } else {
             paint.setColor(solid);
         }
-        canvas.drawPath(solidPath, paint);
+        // Keep the path and FILL paint ready for drawable/pressed backgrounds, but do not
+        // submit an invisible fill. A gradient can be visible even when solid is transparent.
+        if (paint.getShader() != null || Color.alpha(paint.getColor()) != 0) {
+            canvas.drawPath(solidPath, paint);
+        }
     }
 
     private float[] getCorners(float corner) {

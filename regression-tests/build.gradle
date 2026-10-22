@@ -10,6 +10,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+apply from: '../gradle/native-validation.gradle'
 
 // Test HEAD without temporarily reverting or otherwise touching the shared working tree.
 def baseline = providers.gradleProperty('baseline').orNull == 'true'
@@ -53,6 +54,7 @@ android {
     defaultConfig {
         minSdk 19
         targetSdk 28
+        testInstrumentationRunner 'com.coorchice.library.DeviceRegressionInstrumentation'
     }
 
     sourceSets {
@@ -62,6 +64,11 @@ android {
                     ? new File(baselineSources, 'library/src/main/java')
                     : file('../library/src/main/java')]
             res.srcDirs = ['../library/src/main/res', 'src/main/res']
+            jniLibs.srcDirs = ['../library/src/main/jniLibs']
+        }
+        androidTest {
+            java.srcDirs = ['../library/src/androidTest/java']
+            manifest.srcFile 'src/androidTest/AndroidManifest.xml'
         }
         test {
             java.srcDirs = ['../library/src/test/java']

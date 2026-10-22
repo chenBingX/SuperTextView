@@ -16,6 +16,7 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply from: '../gradle/native-validation.gradle'
 
 group='com.github.chenBingX'
 

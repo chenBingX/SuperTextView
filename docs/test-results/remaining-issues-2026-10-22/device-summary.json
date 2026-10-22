@@ -1,0 +1,13 @@
+{
+  "serial": "emulator-5582",
+  "fingerprint": "google/sdk_gphone16k_arm64/emu64a16k:15/AE3A.240806.043/12960925:userdebug/dev-keys",
+  "pageSizeBytes": 16384,
+  "apkSha256": "099115ad12d81cb781175f4896e016f6fd039f0d698ab474bb847395bcc343bc",
+  "passed": 15,
+  "failed": 0,
+  "perFrameDiagnosticCount": 0,
+  "crashBufferEmpty": true,
+  "appEnvironment": [
+    "10-22 15:06:31.918  5389  5389 I System.out: sdk=35 arch=aarch64 pageSizeBytes=16384 smaps=KernelPageSize:       16 kB pid=5389"
+  ]
+}
