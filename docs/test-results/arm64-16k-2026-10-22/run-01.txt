@@ -1,0 +1,770 @@
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START environment (1/47)
+
+INSTRUMENTATION_STATUS: test=environment
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+sdk=35 supportedAbis=[arm64-v8a] processArch=aarch64 pageSizeBytes=16384 smaps=KernelPageSize:       16 kB nativeLibraryDir=/data/app/~~JWQ6g5xRWPVNrNggqqdVhg==/com.coorchice.nativetests-ztlahr_-AMd0wd6j1sa8UA==/lib/arm64
+
+INSTRUMENTATION_STATUS_CODE: 2
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS environment (1/47)
+
+INSTRUMENTATION_STATUS: test=environment
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START jniRegistration (2/47)
+
+INSTRUMENTATION_STATUS: test=jniRegistration
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=
+JNI_OnLoad loaded; 19 native declarations=[openFile, bytesIsGif, getFrame, destroy, fileIsGif, setStrict, getWidth, getFrameCount, setFrameDuration, getFrameDuration, copyDestroy, getHeight, getStrict, openBytes, updateFrame, getCurrentFrame, setFrame, copy, gotoFrame]
+
+INSTRUMENTATION_STATUS_CODE: 2
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS jniRegistration (2/47)
+
+INSTRUMENTATION_STATUS: test=jniRegistration
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START positiveSignatures (3/47)
+
+INSTRUMENTATION_STATUS: test=positiveSignatures
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS positiveSignatures (3/47)
+
+INSTRUMENTATION_STATUS: test=positiveSignatures
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesMetadata (4/47)
+
+INSTRUMENTATION_STATUS: test=openBytesMetadata
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesMetadata (4/47)
+
+INSTRUMENTATION_STATUS: test=openBytesMetadata
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileMetadata (5/47)
+
+INSTRUMENTATION_STATUS: test=openFileMetadata
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileMetadata (5/47)
+
+INSTRUMENTATION_STATUS: test=openFileMetadata
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START unicodeFilePath (6/47)
+
+INSTRUMENTATION_STATUS: test=unicodeFilePath
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS unicodeFilePath (6/47)
+
+INSTRUMENTATION_STATUS: test=unicodeFilePath
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START sequentialPixels (7/47)
+
+INSTRUMENTATION_STATUS: test=sequentialPixels
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=7
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS sequentialPixels (7/47)
+
+INSTRUMENTATION_STATUS: test=sequentialPixels
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START strictFrameControls (8/47)
+
+INSTRUMENTATION_STATUS: test=strictFrameControls
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=8
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS strictFrameControls (8/47)
+
+INSTRUMENTATION_STATUS: test=strictFrameControls
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START nonStrictFrameControls (9/47)
+
+INSTRUMENTATION_STATUS: test=nonStrictFrameControls
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=9
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS nonStrictFrameControls (9/47)
+
+INSTRUMENTATION_STATUS: test=nonStrictFrameControls
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START copyOwnership (10/47)
+
+INSTRUMENTATION_STATUS: test=copyOwnership
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=10
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS copyOwnership (10/47)
+
+INSTRUMENTATION_STATUS: test=copyOwnership
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START gif87BytesNoGcb (11/47)
+
+INSTRUMENTATION_STATUS: test=gif87BytesNoGcb
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=11
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS gif87BytesNoGcb (11/47)
+
+INSTRUMENTATION_STATUS: test=gif87BytesNoGcb
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START gif87FileNoGcb (12/47)
+
+INSTRUMENTATION_STATUS: test=gif87FileNoGcb
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=12
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS gif87FileNoGcb (12/47)
+
+INSTRUMENTATION_STATUS: test=gif87FileNoGcb
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START zeroHandleDestroy (13/47)
+
+INSTRUMENTATION_STATUS: test=zeroHandleDestroy
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=13
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS zeroHandleDestroy (13/47)
+
+INSTRUMENTATION_STATUS: test=zeroHandleDestroy
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesNull (14/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesNull
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=14
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesNull (14/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesNull
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileNull (15/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileNull
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=15
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileNull (15/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileNull
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesEmpty (16/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesEmpty
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=16
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesEmpty (16/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesEmpty
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileEmpty (17/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileEmpty
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=17
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileEmpty (17/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileEmpty
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesShort1 (18/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=18
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesShort1 (18/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileShort1 (19/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=19
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileShort1 (19/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort1
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesShort2 (20/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=20
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesShort2 (20/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort2
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileShort2 (21/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=21
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileShort2 (21/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort2
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesShort3 (22/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=22
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesShort3 (22/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort3
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileShort3 (23/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort3
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=23
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileShort3 (23/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort3
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesShort4 (24/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort4
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=24
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesShort4 (24/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort4
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileShort4 (25/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort4
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=25
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileShort4 (25/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort4
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesShort5 (26/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort5
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=26
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesShort5 (26/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesShort5
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileShort5 (27/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort5
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=27
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileShort5 (27/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileShort5
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureBytesNonGif (28/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesNonGif
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=28
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureBytesNonGif (28/47)
+
+INSTRUMENTATION_STATUS: test=signatureBytesNonGif
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileNonGif (29/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileNonGif
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=29
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileNonGif (29/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileNonGif
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START signatureFileMissing (30/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileMissing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=30
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS signatureFileMissing (30/47)
+
+INSTRUMENTATION_STATUS: test=signatureFileMissing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesNull (31/47)
+
+INSTRUMENTATION_STATUS: test=openBytesNull
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=31
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesNull (31/47)
+
+INSTRUMENTATION_STATUS: test=openBytesNull
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileNull (32/47)
+
+INSTRUMENTATION_STATUS: test=openFileNull
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=32
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileNull (32/47)
+
+INSTRUMENTATION_STATUS: test=openFileNull
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesEmpty (33/47)
+
+INSTRUMENTATION_STATUS: test=openBytesEmpty
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=33
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesEmpty (33/47)
+
+INSTRUMENTATION_STATUS: test=openBytesEmpty
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileEmpty (34/47)
+
+INSTRUMENTATION_STATUS: test=openFileEmpty
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=34
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileEmpty (34/47)
+
+INSTRUMENTATION_STATUS: test=openFileEmpty
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesShort (35/47)
+
+INSTRUMENTATION_STATUS: test=openBytesShort
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=35
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesShort (35/47)
+
+INSTRUMENTATION_STATUS: test=openBytesShort
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileShort (36/47)
+
+INSTRUMENTATION_STATUS: test=openFileShort
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=36
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileShort (36/47)
+
+INSTRUMENTATION_STATUS: test=openFileShort
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesNonGif (37/47)
+
+INSTRUMENTATION_STATUS: test=openBytesNonGif
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=37
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesNonGif (37/47)
+
+INSTRUMENTATION_STATUS: test=openBytesNonGif
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileNonGif (38/47)
+
+INSTRUMENTATION_STATUS: test=openFileNonGif
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=38
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileNonGif (38/47)
+
+INSTRUMENTATION_STATUS: test=openFileNonGif
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesTruncatedHeader (39/47)
+
+INSTRUMENTATION_STATUS: test=openBytesTruncatedHeader
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=39
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesTruncatedHeader (39/47)
+
+INSTRUMENTATION_STATUS: test=openBytesTruncatedHeader
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileTruncatedHeader (40/47)
+
+INSTRUMENTATION_STATUS: test=openFileTruncatedHeader
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=40
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileTruncatedHeader (40/47)
+
+INSTRUMENTATION_STATUS: test=openFileTruncatedHeader
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=41
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesTruncatedScreen (41/47)
+
+INSTRUMENTATION_STATUS: test=openBytesTruncatedScreen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=41
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesTruncatedScreen (41/47)
+
+INSTRUMENTATION_STATUS: test=openBytesTruncatedScreen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=42
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileTruncatedScreen (42/47)
+
+INSTRUMENTATION_STATUS: test=openFileTruncatedScreen
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=42
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileTruncatedScreen (42/47)
+
+INSTRUMENTATION_STATUS: test=openFileTruncatedScreen
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=43
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesTruncatedFrame (43/47)
+
+INSTRUMENTATION_STATUS: test=openBytesTruncatedFrame
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=43
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesTruncatedFrame (43/47)
+
+INSTRUMENTATION_STATUS: test=openBytesTruncatedFrame
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=44
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileTruncatedFrame (44/47)
+
+INSTRUMENTATION_STATUS: test=openFileTruncatedFrame
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=44
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileTruncatedFrame (44/47)
+
+INSTRUMENTATION_STATUS: test=openFileTruncatedFrame
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=45
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openBytesMissingTrailer (45/47)
+
+INSTRUMENTATION_STATUS: test=openBytesMissingTrailer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=45
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openBytesMissingTrailer (45/47)
+
+INSTRUMENTATION_STATUS: test=openBytesMissingTrailer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=46
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileMissingTrailer (46/47)
+
+INSTRUMENTATION_STATUS: test=openFileMissingTrailer
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=46
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileMissingTrailer (46/47)
+
+INSTRUMENTATION_STATUS: test=openFileMissingTrailer
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=47
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+START openFileMissing (47/47)
+
+INSTRUMENTATION_STATUS: test=openFileMissing
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.coorchice.nativetests.NativeSmokeInstrumentation
+INSTRUMENTATION_STATUS: current=47
+INSTRUMENTATION_STATUS: numtests=47
+INSTRUMENTATION_STATUS: stream=
+PASS openFileMissing (47/47)
+
+INSTRUMENTATION_STATUS: test=openFileMissing
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: environment=sdk=35 supportedAbis=[arm64-v8a] processArch=aarch64 pageSizeBytes=16384 smaps=KernelPageSize:       16 kB nativeLibraryDir=/data/app/~~JWQ6g5xRWPVNrNggqqdVhg==/com.coorchice.nativetests-ztlahr_-AMd0wd6j1sa8UA==/lib/arm64
+INSTRUMENTATION_RESULT: failed=0
+INSTRUMENTATION_RESULT: passed=47
+INSTRUMENTATION_RESULT: stream=
+Native smoke: passed=47 failed=0 total=47
+sdk=35 supportedAbis=[arm64-v8a] processArch=aarch64 pageSizeBytes=16384 smaps=KernelPageSize:       16 kB nativeLibraryDir=/data/app/~~JWQ6g5xRWPVNrNggqqdVhg==/com.coorchice.nativetests-ztlahr_-AMd0wd6j1sa8UA==/lib/arm64
+OK
+
+INSTRUMENTATION_RESULT: total=47
+INSTRUMENTATION_CODE: -1

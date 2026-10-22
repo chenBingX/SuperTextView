@@ -72,9 +72,18 @@ The initial CI run passed both x86_64 jobs (47 tests each):
 https://github.com/chenBingX/SuperTextView/actions/runs/39717058777 .
 The official x86_64 `ps16k` image reports `sysconf` page size **16384** while
 `smaps` reports a **4 KB kernel page size**. This exercises Android's simulated
-16 KB environment, not a real ARM64 16 KB kernel. A native ARM64 16 KB device
-or ARM64 16 KB-kernel emulator has not been runtime-tested. ELF LOAD/RELRO
-validation is performed separately for all four shipped ABIs.
+16 KB environment, not a real ARM64 16 KB kernel. ELF LOAD/RELRO validation is
+performed separately for all four shipped ABIs.
+
+On 2026-10-22 the official API 35 **ARM64 `ps16k` emulator with a real 16 KB
+kernel** also passed all 47 tests in **10 consecutive runs (470 executions)**.
+Both the app's `sysconf` and `/proc/self/smaps` reported 16 KB, and the device
+crash buffer was empty after the runs. This closes the native 16 KB-kernel
+runtime gap; it is virtual-device testing, not physical OEM-device testing.
+The APK contained byte-identical copies of the shipped native libraries.
+See the [device evidence and raw test log](test-results/arm64-16k-2026-10-22/README.md)
+for the image fingerprint, kernel, APK/library hashes, reproduction command and
+per-run results. Use `--kernel-page-size 16384` to require this real-kernel check.
 
 The suite is not a complete GIF conformance, fuzzing, lifetime/thread-safety or
 memory-leak test. In particular, copied GIF instances borrow their source's
