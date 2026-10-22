@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 """Check ELF architecture, 16 KB LOAD congruence and RELRO/writable-page safety."""
 import argparse
+import hashlib
 import pathlib
 import struct
 import sys
+import zipfile
 
 ABIS = {'armeabi-v7a': (1, 40), 'arm64-v8a': (2, 183), 'x86': (1, 3), 'x86_64': (2, 62)}
 PAGE = 16384
 
 
 def inspect(path):
-    data = pathlib.Path(path).read_bytes()
+    return inspect_bytes(pathlib.Path(path).read_bytes())
+
+
+def inspect_bytes(data):
     if len(data) < 52 or data[:4] != b'\x7fELF' or data[5] != 1:
         raise ValueError('not a little-endian ELF file')
     bits = data[4]
@@ -54,11 +59,50 @@ def inspect(path):
     return bits, header[1], [hex(p['align']) for p in loads]
 
 
+def inspect_aar(path):
+    """Validate the actual AAR payload, not just its ZIP CRC or source directory."""
+    expected = {'jni/{}/libGifLib.so'.format(abi): abi for abi in ABIS}
+    result = {}
+    with zipfile.ZipFile(path) as archive:
+        entries = [i for i in archive.infolist() if i.filename.endswith('/libGifLib.so')]
+        names = [i.filename for i in entries]
+        if len(names) != len(set(names)):
+            raise ValueError('duplicate libGifLib.so ZIP entry')
+        if set(names) != set(expected):
+            raise ValueError('wrong native ABI entries: missing={}, unexpected={}'.format(
+                sorted(set(expected) - set(names)), sorted(set(names) - set(expected))))
+        bad_entry = archive.testzip()
+        if bad_entry:
+            raise ValueError('ZIP CRC failed: ' + bad_entry)
+        for entry in entries:
+            if entry.file_size > 64 * 1024 * 1024:
+                raise ValueError('unexpectedly large native library: ' + entry.filename)
+            data = archive.read(entry)
+            abi = expected[entry.filename]
+            bits, machine, _ = inspect_bytes(data)
+            if (bits, machine) != ABIS[abi]:
+                raise ValueError('wrong ELF architecture for ' + abi)
+            result[abi] = {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('root', nargs='?', type=pathlib.Path,
-                        default=pathlib.Path(__file__).resolve().parents[1] / 'library/src/main/jniLibs')
+    parser.add_argument('root', nargs='?', type=pathlib.Path)
+    parser.add_argument('--aar', type=pathlib.Path, help='check the final four-ABI AAR')
     args = parser.parse_args()
+    if args.aar:
+        if args.root is not None:
+            parser.error('root and --aar cannot be combined')
+        try:
+            for abi, receipt in sorted(inspect_aar(args.aar).items()):
+                print('{}: PASS ({} bytes, SHA-256 {})'.format(
+                    abi, receipt['bytes'], receipt['sha256']))
+            return 0
+        except (OSError, ValueError, struct.error, zipfile.BadZipFile, RuntimeError) as error:
+            print('AAR: FAIL: {}'.format(error), file=sys.stderr)
+            return 1
+    args.root = args.root or pathlib.Path(__file__).resolve().parents[1] / 'library/src/main/jniLibs'
     failures = []
     for abi, expected in ABIS.items():
         path = args.root / abi / 'libGifLib.so'

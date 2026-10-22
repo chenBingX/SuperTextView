@@ -1,0 +1,25 @@
+// Shared by the legacy library build and the independently runnable regression build.
+// An empty/corrupt committed .so must fail before Android merges it into an AAR (#107).
+def stvRepository = project.projectDir.parentFile
+def stvPython = project.findProperty('stvPython') ?:
+        (System.getProperty('os.name').toLowerCase().contains('windows') ? 'python' : 'python3')
+def stvNativeCheck = tasks.create('verifyNativeLibraries', Exec) {
+    workingDir stvRepository
+    commandLine stvPython, new File(stvRepository, 'tools/check_native_binaries.py').absolutePath
+}
+tasks.matching { it.name == 'preBuild' }.all {
+    dependsOn stvNativeCheck
+}
+// Inspect the actual output as well: a valid source tree alone cannot prove AAR integrity.
+tasks.matching { it.name.startsWith('bundle') && it.name.endsWith('Aar') }.all { bundleTask ->
+    bundleTask.doLast {
+        def aars = bundleTask.outputs.files.files.findAll { it.isFile() && it.name.endsWith('.aar') }
+        if (aars.size() != 1) {
+            throw new GradleException("Expected one AAR output from ${bundleTask.name}, found ${aars}")
+        }
+        project.exec {
+            commandLine stvPython, new File(stvRepository, 'tools/check_native_binaries.py').absolutePath,
+                    '--aar', aars.first().absolutePath
+        }
+    }
+}

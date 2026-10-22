@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RemainingFontAppearance" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ff123456</item>
+    </style>
+
+    <style name="RemainingFontBase">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:textAppearance">@style/RemainingFontAppearance</item>
+        <!-- Plain Latin text exercises BoringLayout's direct drawText, not Paint.set copying. -->
+        <item name="android:text">iiiiWW</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="RemainingFontInherited" parent="RemainingFontBase" />
+</resources>

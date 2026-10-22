@@ -75,3 +75,34 @@ reports are separately retained in `build/baseline/reports/tests/testDebugUnitTe
 
 The standalone build also supports other tests in `library/src/test/java`, including
 Mockito-based tests; GIF native binaries are not loaded by the regular-drawable tests.
+
+## Remaining-issue and device coverage
+
+`FontAndOverdrawRegressionTest` adds 14 contracts for #89 and #91: transparent
+path submissions, visible/translucent/gradient fills, drawable and press geometry,
+and XML-inherited typeface preservation. These record drawing commands/typeface,
+not GPU overdraw or legacy Robolectric glyph-width estimates. See
+[the investigation and limits](../docs/remaining-issues-2026-10-22.md).
+
+The same build can produce a self-contained library instrumentation APK (no
+AndroidX test runner or separate application APK). It includes the real production
+Java/resources/native libraries and tests both XML image slots, rounded image
+pixels, real platform fonts, drawing commands and repeated diagnostics:
+
+```sh
+"$GRADLE_75" -p regression-tests assembleDebugAndroidTest --console=plain
+adb -s <serial> install -r build/outputs/apk/androidTest/debug/SuperTextView-regression-tests-debug-androidTest.apk
+adb -s <serial> shell am instrument -w -r \
+  com.coorchice.library.test/com.coorchice.library.DeviceRegressionInstrumentation
+```
+
+Run installation from this directory, or prefix the APK with `regression-tests/`
+from the repository root. Do not trust the shell exit alone: require
+`DEVICE_SUMMARY passed=15 failed=0 total=15` **and** `INSTRUMENTATION_CODE: -1`.
+The recorded device run used API 35; it is not API-19/OEM compatibility coverage.
+
+The build and legacy `library` both apply `gradle/native-validation.gradle`.
+Source builds require Python 3 (`-PstvPython=...` overrides it): native payloads
+are checked before `preBuild` and the final AAR is checked after bundling. CI also
+runs the AAR CLI check explicitly and tests these device cases in its emulator
+matrix. Consuming an existing published AAR has no new Python requirement.

@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [master]
+    tags: ['v*', '[0-9]*']
 
 permissions:
   contents: read
@@ -36,6 +37,15 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '7.5'
+      - name: Validate a packaged four-ABI AAR
+        run: |
+          gradle --no-daemon -p regression-tests assembleRelease assembleDebugAndroidTest --console=plain
+          python3 tools/check_native_binaries.py --aar regression-tests/build/outputs/aar/SuperTextView-regression-tests-release.aar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: view-regressions-apk
+          path: regression-tests/build/outputs/apk/androidTest/debug/SuperTextView-regression-tests-debug-androidTest.apk
+          if-no-files-found: error
       - name: Build JNI smoke APK against rebuilt binaries
         run: gradle --no-daemon -p native-tests assembleDebug --console=plain
       - uses: actions/upload-artifact@v4
@@ -66,6 +76,10 @@ jobs:
         with:
           name: native-smoke-apk
           path: native-tests/build/outputs/apk/debug
+      - uses: actions/download-artifact@v4
+        with:
+          name: view-regressions-apk
+          path: regression-tests/build/outputs/apk/androidTest/debug
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -77,9 +91,16 @@ jobs:
           arch: x86_64
           target: ${{ matrix.target }}
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -camera-back none
-          script: python3 tools/run_native_smoke.py --serial emulator-$EMULATOR_PORT --page-size ${{ matrix.page-size }}
+          script: |
+            python3 tools/run_native_smoke.py --serial emulator-$EMULATOR_PORT --page-size ${{ matrix.page-size }}
+            adb -s emulator-$EMULATOR_PORT install -r regression-tests/build/outputs/apk/androidTest/debug/SuperTextView-regression-tests-debug-androidTest.apk
+            adb -s emulator-$EMULATOR_PORT shell am instrument -w -r com.coorchice.library.test/com.coorchice.library.DeviceRegressionInstrumentation | tee native-build/view-regressions.txt
+            grep -F 'DEVICE_SUMMARY passed=15 failed=0 total=15' native-build/view-regressions.txt
+            grep -F 'INSTRUMENTATION_CODE: -1' native-build/view-regressions.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: native-smoke-${{ matrix.page-size }}
-          path: native-build/native-smoke.txt
+          path: |
+            native-build/native-smoke.txt
+            native-build/view-regressions.txt

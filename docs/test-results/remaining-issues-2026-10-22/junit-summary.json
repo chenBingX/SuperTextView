@@ -1,0 +1,44 @@
+{
+  "baseline": [
+    {
+      "suite": "com.coorchice.library.FontAndOverdrawRegressionTest",
+      "tests": 14,
+      "failures": 7,
+      "failedCases": [
+        "issue89_drawableBackgroundRetainsFilledGeometryAfterVisibleStroke",
+        "issue89_transparentRoundedStrokeAndSolidIncludeNonzeroRgbAlphaZero",
+        "issue89_defaultTransparentSolidSubmitsNoPathButStillDrawsText",
+        "issue89_pressedBackgroundKeepsGeometryAcrossFramesUpAndCancel",
+        "issue89_transparentVisibleTransparentSettersTakeEffectEveryFrame",
+        "issue89_solidAlphaOneHalfAndOpaqueAreAllVisible",
+        "issue89_strokeAlphaOneHalfAndOpaqueAreAllVisible"
+      ]
+    }
+  ],
+  "worktree": [
+    {
+      "suite": "com.coorchice.library.FontAndOverdrawRegressionTest",
+      "tests": 14,
+      "failures": 0,
+      "failedCases": []
+    },
+    {
+      "suite": "com.coorchice.library.GifSignatureTest",
+      "tests": 4,
+      "failures": 0,
+      "failedCases": []
+    },
+    {
+      "suite": "com.coorchice.library.GifVisibilityRegressionTest",
+      "tests": 11,
+      "failures": 0,
+      "failedCases": []
+    },
+    {
+      "suite": "com.coorchice.library.SuperTextViewRegressionTest",
+      "tests": 28,
+      "failures": 0,
+      "failedCases": []
+    }
+  ]
+}

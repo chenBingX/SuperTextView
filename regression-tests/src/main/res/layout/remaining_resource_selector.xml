@@ -1,0 +1,6 @@
+<com.coorchice.library.SuperTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="80dp" android:layout_height="80dp"
+    app:stv_state_drawable="@drawable/remaining_selector"
+    app:stv_state_drawable2="@drawable/remaining_selector"
+    app:stv_isShowState="true" app:stv_isShowState2="true" />

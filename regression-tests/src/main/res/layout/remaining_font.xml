@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Both widgets inherit the same platform textAppearance through a real XML style. -->
+    <TextView
+        android:id="@+id/remaining_platform_text"
+        style="@style/RemainingFontInherited" />
+
+    <com.coorchice.library.SuperTextView
+        android:id="@+id/remaining_super_text"
+        style="@style/RemainingFontInherited" />
+</LinearLayout>
