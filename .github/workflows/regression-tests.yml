@@ -1,0 +1,42 @@
+name: Android regressions
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  regression-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          # The action defaults to the removed 'tools' package; request only what we use.
+          packages: 'platform-tools platforms;android-28 build-tools;30.0.3'
+          log-accepted-android-sdk-licenses: 'false'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '7.5'
+      - name: Run regression tests against real library sources
+        run: gradle --no-daemon -p regression-tests testDebugUnitTest --console=plain
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-regression-results
+          path: |
+            regression-tests/build/reports/tests/
+            regression-tests/build/test-results/

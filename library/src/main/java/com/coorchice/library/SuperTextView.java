@@ -23,6 +23,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -53,7 +54,6 @@ import com.coorchice.library.utils.track.Event;
 import com.coorchice.library.utils.track.TimeEvent;
 import com.coorchice.library.utils.track.Tracker;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,13 +88,13 @@ public class SuperTextView extends TextView {
     private boolean rightTopCornerEnable;
     private boolean leftBottomCornerEnable;
     private boolean rightBottomCornerEnable;
-    private int solid;
-    private float strokeWidth;
-    private int strokeColor;
-    private DrawableLayer stateDrawableLayer;
-    private DrawableLayer stateDrawable2Layer;
-    private DrawableMode stateDrawableMode;
-    private DrawableMode stateDrawable2Mode;
+    private int solid = DEFAULT_SOLID;
+    private float strokeWidth = DEFAULT_STROKE_WIDTH;
+    private int strokeColor = DEFAULT_STROKE_COLOR;
+    private DrawableLayer stateDrawableLayer = DrawableLayer.BEFORE_TEXT;
+    private DrawableLayer stateDrawable2Layer = DrawableLayer.BEFORE_TEXT;
+    private DrawableMode stateDrawableMode = DrawableMode.CENTER;
+    private DrawableMode stateDrawable2Mode = DrawableMode.CENTER;
     private boolean isShowState;
     private boolean isShowState2;
 
@@ -107,9 +107,10 @@ public class SuperTextView extends TextView {
     // private Adjuster adjuster;
     private Adjuster pressAdjuster;
     private boolean textStroke;
-    private int textStrokeColor;
-    private int textFillColor;
-    private float textStrokeWidth;
+    private int textStrokeColor = DEFAULT_TEXT_STROKE_COLOR;
+    private int textFillColor = DEFAULT_TEXT_FILL_COLOR;
+    private float textStrokeWidth = DEFAULT_TEXT_STROKE_WIDTH;
+    private boolean settingTextColorForDraw;
     private boolean runnable = false;
     private boolean needRun = false;
     private Thread animThread;
@@ -138,12 +139,12 @@ public class SuperTextView extends TextView {
     private Runnable invalidate;
     private int shaderStartColor;
     private int shaderEndColor;
-    private ShaderMode shaderMode;
+    private ShaderMode shaderMode = ShaderMode.TOP_TO_BOTTOM;
     private LinearGradient solidShader;
     private boolean shaderEnable;
     private int textShaderStartColor;
     private int textShaderEndColor;
-    private ShaderMode textShaderMode;
+    private ShaderMode textShaderMode = ShaderMode.TOP_TO_BOTTOM;
     private boolean textShaderEnable;
     private LinearGradient textShader;
     private int pressBgColor = NO_COLOR;
@@ -159,6 +160,8 @@ public class SuperTextView extends TextView {
     private boolean drawable2Clicked = false;
     private String curImageUrl;
     private String curImageUrl2;
+    private long imageRequestId;
+    private long imageRequestId2;
 
     private int drawableTint = NO_COLOR;
     private float drawableRotate = NO_ROTATE;
@@ -367,7 +370,7 @@ public class SuperTextView extends TextView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (w != oldw && h != oldh) {
+        if (w != oldw || h != oldh) {
             drawableBackgroundShader = null;
         }
     }
@@ -410,8 +413,7 @@ public class SuperTextView extends TextView {
         }
         if (textStroke) {
             drawTextStroke(canvas);
-        }
-        if (textShaderEnable) {
+        } else if (textShaderEnable) {
             drawShaderText(canvas);
         } else {
             sdkOnDraw(canvas);
@@ -657,6 +659,12 @@ public class SuperTextView extends TextView {
                     tempDrawableBgCanvas = new Canvas(tempDrawableBgCanvasBitmap);
                 }
             } else {
+                // FIT_XY/CENTER no longer use FIT_CENTER's intermediate bitmap, even when sizes match.
+                if (tempDrawableBgCanvasBitmap != null) {
+                    tempDrawableBgCanvasBitmap.recycle();
+                    tempDrawableBgCanvasBitmap = null;
+                    tempDrawableBgCanvas = null;
+                }
                 if (drawableBgCanvas == null
                         || (drawableBgCanvas.getWidth() != size[0] || drawableBgCanvas.getHeight() != size[1])) {
                     if (drawableBgCanvasBitmap != null) {
@@ -964,25 +972,51 @@ public class SuperTextView extends TextView {
 
 
     private void drawTextStroke(Canvas canvas) {
-        setIncludeFontPadding(false);
-        setTextColorNoInvalidate(textStrokeColor);
-        getPaint().setStyle(Paint.Style.FILL_AND_STROKE);
-        getPaint().setStrokeWidth(textStrokeWidth);
-        sdkOnDraw(canvas);
-        setTextColorNoInvalidate(textFillColor);
-        getPaint().setStyle(Paint.Style.FILL);
-        getPaint().setStrokeWidth(0);
+        ColorStateList textColors = getTextColors();
+        Paint textPaint = getPaint();
+        Paint.Style style = textPaint.getStyle();
+        float strokeWidth = textPaint.getStrokeWidth();
+        int color = textPaint.getColor();
+        Shader shader = textPaint.getShader();
+        try {
+            // Use public APIs: TextView's private fields are restricted on recent Android versions.
+            setTextColorForDraw(ColorStateList.valueOf(textStrokeColor));
+            textPaint.setShader(null);
+            textPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+            textPaint.setStrokeWidth(textStrokeWidth);
+            sdkOnDraw(canvas);
+            setTextColorForDraw(ColorStateList.valueOf(textFillColor));
+            textPaint.setStyle(Paint.Style.FILL);
+            textPaint.setStrokeWidth(0);
+            textPaint.setShader(shader);
+            if (textShaderEnable) {
+                drawShaderText(canvas);
+            } else {
+                sdkOnDraw(canvas);
+            }
+        } finally {
+            setTextColorForDraw(textColors);
+            textPaint.setStyle(style);
+            textPaint.setStrokeWidth(strokeWidth);
+            textPaint.setColor(color);
+            textPaint.setShader(shader);
+        }
     }
 
-    private void setTextColorNoInvalidate(int color) {
-        Field textColorField;
+    private void setTextColorForDraw(ColorStateList colors) {
+        settingTextColorForDraw = true;
         try {
-            textColorField = TextView.class.getDeclaredField("mCurTextColor");
-            textColorField.setAccessible(true);
-            textColorField.set(this, color);
-            textColorField.setAccessible(false);
-        } catch (Exception e) {
-            e.printStackTrace();
+            setTextColor(colors);
+        } finally {
+            settingTextColorForDraw = false;
+        }
+    }
+
+    @Override
+    public void invalidate() {
+        // Temporary drawing colors must not schedule another draw indefinitely.
+        if (!settingTextColorForDraw) {
+            super.invalidate();
         }
     }
 
@@ -1438,12 +1472,17 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable(Drawable drawable) {
+        imageRequestId++;
         Drawable temp = this.drawable;
         this.drawable = drawable;
-        this.drawable.setCallback(this);
+        if (drawable != null) drawable.setCallback(this);
         drawableBackgroundShader = null;
         postInvalidate();
-        resetGifDrawable(temp);
+        if (temp != drawable) {
+            cacheDrawablePlaying = false;
+            resetGifDrawable(temp);
+        }
+        updateDrawableVisibility(isGifVisible());
         return this;
     }
 
@@ -1454,11 +1493,16 @@ public class SuperTextView extends TextView {
      * @return SuperTextView
      */
     public SuperTextView setDrawable2(Drawable drawable) {
+        imageRequestId2++;
         Drawable temp = this.drawable2;
         this.drawable2 = drawable;
-        this.drawable2.setCallback(this);
+        if (drawable != null) drawable.setCallback(this);
         postInvalidate();
-        resetGifDrawable(temp);
+        if (temp != drawable) {
+            cacheDrawable2Playing = false;
+            resetGifDrawable(temp);
+        }
+        updateDrawableVisibility(isGifVisible());
         return this;
     }
 
@@ -1514,7 +1558,7 @@ public class SuperTextView extends TextView {
         byte[] bytes = getResBytes(drawableRes);
         if (bytes != null && GifDecoder.isGif(bytes)) {
             if (GIF_CACHE_ENABLE) {
-                setDrawable2(GifCache.fromResource(getContext(), drawableRes));
+                return setDrawable2(GifCache.fromResource(getContext(), drawableRes));
             } else {
                 return setDrawable2(GifDrawable.createDrawable(bytes));
             }
@@ -2269,11 +2313,12 @@ public class SuperTextView extends TextView {
         ImageEngine.checkEngine();
         // 缓存当前的imageUrl，当下载完成后需要校验
         curImageUrl = url;
+        final long requestId = ++imageRequestId;
         if (STVUtils.isGif(url) && GIF_CACHE_ENABLE){
             GifCache.fromUrl(url, new ImageEngine.Callback() {
                 @Override
                 public void onCompleted(Drawable drawable) {
-                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
+                    if (getContext() != null && drawable != null && requestId == imageRequestId && TextUtils.equals(curImageUrl, url)) {
                         SuperTextView.this.drawableAsBackground = asBackground;
                         setDrawable(drawable);
                     }
@@ -2283,7 +2328,7 @@ public class SuperTextView extends TextView {
             ImageEngine.load(url, new ImageEngine.Callback() {
                 @Override
                 public void onCompleted(final Drawable drawable) {
-                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl, url)) {
+                    if (getContext() != null && drawable != null && requestId == imageRequestId && TextUtils.equals(curImageUrl, url)) {
                         SuperTextView.this.drawableAsBackground = asBackground;
                         setDrawable(drawable);
                     }
@@ -2324,11 +2369,12 @@ public class SuperTextView extends TextView {
         ImageEngine.checkEngine();
         // 缓存当前的imageUrl，当下载完成后需要校验
         curImageUrl2 = url;
+        final long requestId = ++imageRequestId2;
         if (STVUtils.isGif(url) && GIF_CACHE_ENABLE){
             GifCache.fromUrl(url, new ImageEngine.Callback() {
                 @Override
                 public void onCompleted(Drawable drawable) {
-                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl2, url)) {
+                    if (getContext() != null && drawable != null && requestId == imageRequestId2 && TextUtils.equals(curImageUrl2, url)) {
                         setDrawable2(drawable);
                     }
                 }
@@ -2337,7 +2383,7 @@ public class SuperTextView extends TextView {
             ImageEngine.load(url, new ImageEngine.Callback() {
                 @Override
                 public void onCompleted(final Drawable drawable) {
-                    if (getContext() != null && drawable != null && TextUtils.equals(curImageUrl2, url)) {
+                    if (getContext() != null && drawable != null && requestId == imageRequestId2 && TextUtils.equals(curImageUrl2, url)) {
                         setDrawable2(drawable);
                     }
                 }
@@ -2448,19 +2494,21 @@ public class SuperTextView extends TextView {
             if (superTouchEvent) {
                 super.onTouchEvent(event);
             }
+            hasConsume |= drawable1Clicked || drawable2Clicked;
             if (actionMasked == MotionEvent.ACTION_UP || actionMasked == MotionEvent.ACTION_CANCEL) {
-                if (onDrawableClickedListener != null) {
-                    if (drawable1Clicked) {
-                        onDrawableClickedListener.onDrawable1Clicked(this);
-                    }
-                    if (drawable2Clicked) {
-                        onDrawableClickedListener.onDrawable2Clicked(this);
-                    }
-                }
+                boolean clickDrawable1 = drawable1Clicked;
+                boolean clickDrawable2 = drawable2Clicked;
+                OnDrawableClickedListener listener = onDrawableClickedListener;
+                hasConsume |= superTouchEvent;
+                // Clear before invoking user code: dismiss() can synchronously dispatch CANCEL.
                 touchAdjusters.clear();
                 drawable1Clicked = false;
                 drawable2Clicked = false;
                 superTouchEvent = false;
+                if (actionMasked == MotionEvent.ACTION_UP && listener != null) {
+                    if (clickDrawable1) listener.onDrawable1Clicked(this);
+                    if (clickDrawable2) listener.onDrawable2Clicked(this);
+                }
             }
         }
         return hasConsume || superTouchEvent;
@@ -2474,12 +2522,14 @@ public class SuperTextView extends TextView {
         return r;
     }
 
-    @Override
-    protected void onWindowVisibilityChanged(int visibility) {
-        super.onWindowVisibilityChanged(visibility);
-        if (visibility != VISIBLE && visibility != INVISIBLE) {
-            cacheRunnableState = runnable;
-            cacheNeedRunState = needRun;
+    private boolean isGifVisible() {
+        return isAttachedToWindow() && getWindowVisibility() == VISIBLE && isShown();
+    }
+
+    private void updateDrawableVisibility(boolean visible) {
+        if (!visible) {
+            cacheRunnableState |= runnable;
+            cacheNeedRunState |= needRun;
             stopAnim();
             if (drawable instanceof GifDrawable && ((GifDrawable) drawable).isPlaying()) {
                 cacheDrawablePlaying = true;
@@ -2489,9 +2539,12 @@ public class SuperTextView extends TextView {
                 cacheDrawable2Playing = true;
                 ((GifDrawable) drawable2).stop();
             }
-        } else if (cacheRunnableState && cacheNeedRunState) {
-            startAnim();
         } else {
+            if (cacheRunnableState && cacheNeedRunState) {
+                cacheRunnableState = false;
+                cacheNeedRunState = false;
+                startAnim();
+            }
             if (drawable instanceof GifDrawable && cacheDrawablePlaying) {
                 cacheDrawablePlaying = false;
                 ((GifDrawable) drawable).play();
@@ -2504,10 +2557,29 @@ public class SuperTextView extends TextView {
     }
 
     @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        updateDrawableVisibility(visibility == VISIBLE && isGifVisible());
+    }
+
+    @Override
+    protected void onVisibilityChanged(android.view.View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        updateDrawableVisibility(isGifVisible());
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (drawable != null) drawable.setCallback(this);
+        if (drawable2 != null) drawable2.setCallback(this);
+        updateDrawableVisibility(isGifVisible());
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
-        resetGifDrawable(drawable);
-        resetGifDrawable(drawable2);
-        stopAnim();
+        updateDrawableVisibility(false);
+        // Keep ownership while temporarily detached: GifCache reuses callback-free instances.
         super.onDetachedFromWindow();
     }
 

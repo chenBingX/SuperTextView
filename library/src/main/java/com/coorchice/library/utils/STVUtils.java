@@ -23,8 +23,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Looper;
 
-import com.coorchice.library.gifdecoder.JNI;
-
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -80,7 +78,11 @@ public class STVUtils {
             if (o instanceof String) {
                 r = ((String) o).toUpperCase().endsWith(".gif".toUpperCase());
             } else if (o instanceof byte[]) {
-                r = JNI.bytesIsGif((byte[]) o);
+                // Signature detection must not load GifLib for PNG/vector/static resources.
+                byte[] bytes = (byte[]) o;
+                r = bytes.length >= 6 && bytes[0] == 'G' && bytes[1] == 'I'
+                        && bytes[2] == 'F' && bytes[3] == '8'
+                        && (bytes[4] == '7' || bytes[4] == '9') && bytes[5] == 'a';
             }
         } catch (Exception ignored) {
 

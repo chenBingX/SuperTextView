@@ -138,7 +138,9 @@ public class MainActivity extends Activity {
         stv_14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((GifDrawable) stv_14.getDrawable()).play();
+                if (stv_14.getDrawable() instanceof GifDrawable) {
+                    ((GifDrawable) stv_14.getDrawable()).play();
+                }
             }
         });
 
