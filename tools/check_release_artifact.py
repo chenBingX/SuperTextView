@@ -21,14 +21,15 @@ def check_publication(repository, version, source_root=ROOT):
     folder = pathlib.Path(repository) / GROUP.replace('.', '/') / ARTIFACT / version
     stem = '{}-{}'.format(ARTIFACT, version)
     aar = folder / (stem + '.aar')
-    pom = ET.parse(folder / (stem + '.pom')).getroot()
+    # Python 3.5 file APIs do not accept pathlib.Path (JitPack legacy image).
+    pom = ET.parse(str(folder / (stem + '.pom'))).getroot()
     ns = {'m': 'http://maven.apache.org/POM/4.0.0'}
     for field, expected in [('groupId', GROUP), ('artifactId', ARTIFACT),
                             ('version', version), ('packaging', 'aar')]:
         if pom.findtext('m:' + field, namespaces=ns) != expected:
             raise ValueError('incorrect POM ' + field)
     native = inspect_aar(aar)
-    with zipfile.ZipFile(aar) as archive:
+    with zipfile.ZipFile(str(aar)) as archive:
         if any('remaining_' in name for name in archive.namelist()):
             raise ValueError('regression resource leaked into production AAR')
         manifest = ET.fromstring(archive.read('AndroidManifest.xml'))
@@ -56,7 +57,7 @@ def check_publication(repository, version, source_root=ROOT):
             source = source_root / 'library/src/main/jniLibs' / abi / 'libGifLib.so'
             if entry['sha256'] != hashlib.sha256(source.read_bytes()).hexdigest():
                 raise ValueError('packaged JNI differs from validated source: ' + abi)
-    with zipfile.ZipFile(folder / (stem + '-sources.jar')) as sources:
+    with zipfile.ZipFile(str(folder / (stem + '-sources.jar'))) as sources:
         if 'com/coorchice/library/SuperTextView.java' not in sources.namelist():
             raise ValueError('production Java sources missing')
         if any('RegressionTest' in name or 'DeviceRegression' in name for name in sources.namelist()):

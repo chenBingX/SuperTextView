@@ -63,7 +63,8 @@ def inspect_aar(path):
     """Validate the actual AAR payload, not just its ZIP CRC or source directory."""
     expected = {'jni/{}/libGifLib.so'.format(abi): abi for abi in ABIS}
     result = {}
-    with zipfile.ZipFile(path) as archive:
+    # JitPack's legacy image uses Python 3.5, before ZipFile's PathLike support.
+    with zipfile.ZipFile(str(path) if isinstance(path, pathlib.PurePath) else path) as archive:
         entries = [i for i in archive.infolist() if i.filename.endswith('/libGifLib.so')]
         names = [i.filename for i in entries]
         if len(names) != len(set(names)):

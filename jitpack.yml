@@ -1,8 +1,7 @@
 # Keep the legacy demo build separate from the production Maven artifact.
 jdk:
   - openjdk17
-before_install:
-  - yes | sdkmanager "platforms;android-28" "build-tools;30.0.3"
+# AGP installs SDK 28/build-tools 30.0.3 with the image's accepted licenses.
+# Its standalone sdkmanager is too old for JDK 17 (removed JAXB classes).
 install:
-  - ./publishing/gradlew --no-daemon -p publishing clean publishToMavenLocal --console=plain
-  - python3 tools/check_release_artifact.py --version "$VERSION"
+  - ./publishing/gradlew --no-daemon -p publishing clean publishToMavenLocal --console=plain && python3 tools/check_release_artifact.py --version "$VERSION"

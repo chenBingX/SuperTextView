@@ -17,6 +17,7 @@ test_truncated_zip_is_rejected (test_native_aar.NativeAarTest.test_truncated_zip
 test_unexpected_abi_is_rejected (test_native_aar.NativeAarTest.test_unexpected_abi_is_rejected) ... ok
 test_wrong_architecture_is_rejected (test_native_aar.NativeAarTest.test_wrong_architecture_is_rejected) ... ok
 test_host_application_override_fails (test_release_artifact.ReleaseArtifactTest.test_host_application_override_fails) ... ok
+test_legacy_python_file_apis_receive_strings_not_paths (test_release_artifact.ReleaseArtifactTest.test_legacy_python_file_apis_receive_strings_not_paths) ... ok
 test_missing_jni_rule_fails (test_release_artifact.ReleaseArtifactTest.test_missing_jni_rule_fails) ... ok
 test_missing_native_attribution_fails (test_release_artifact.ReleaseArtifactTest.test_missing_native_attribution_fails) ... ok
 test_missing_sources_fails (test_release_artifact.ReleaseArtifactTest.test_missing_sources_fails) ... ok
@@ -35,6 +36,6 @@ test_unreadable_smaps_does_not_pass_real_kernel_requirement (test_run_native_smo
 test_zero_or_partial_test_run_is_not_success (test_run_native_smoke.SmokeReceiptTest.test_zero_or_partial_test_run_is_not_success) ... ok
 
 ----------------------------------------------------------------------
-Ran 35 tests in 0.151s
+Ran 36 tests in 0.857s
 
 OK

@@ -3,7 +3,9 @@ import pathlib
 import sys
 import tempfile
 import unittest
+from unittest import mock
 import zipfile
+import xml.etree.ElementTree as ET
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from check_release_artifact import check_publication
@@ -47,6 +49,24 @@ class ReleaseArtifactTest(unittest.TestCase):
 
     def test_valid_production_publication(self):
         self.assertEqual('com.github.chenBingX:SuperTextView:v3.2.7', self.check()['coordinate'])
+
+    def test_legacy_python_file_apis_receive_strings_not_paths(self):
+        # Python 3.5's ZipFile/ElementTree do not implement os.PathLike support.
+        real_zip, real_parse = zipfile.ZipFile, ET.parse
+
+        def old_zip(file, *args, **kwargs):
+            if isinstance(file, pathlib.PurePath):
+                raise TypeError('legacy ZipFile rejects Path')
+            return real_zip(file, *args, **kwargs)
+
+        def old_parse(file, *args, **kwargs):
+            if isinstance(file, pathlib.PurePath):
+                raise TypeError('legacy ElementTree rejects Path')
+            return real_parse(file, *args, **kwargs)
+
+        with mock.patch.object(zipfile, 'ZipFile', side_effect=old_zip), \
+                mock.patch.object(ET, 'parse', side_effect=old_parse):
+            self.assertEqual('com.github.chenBingX:SuperTextView:v3.2.7', self.check()['coordinate'])
 
     def test_wrong_pom_version_fails(self):
         self.pom = self.pom.replace('<version>v3.2.7', '<version>wrong')

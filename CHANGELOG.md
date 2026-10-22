@@ -75,7 +75,7 @@ Evidence: [PR #127](https://github.com/chenBingX/SuperTextView/pull/127),
 | Evidence | Recorded result | Boundary |
 | --- | --- | --- |
 | Java host regression suite | **57/57 passed**; 14 new contracts include the confirmed transparent-drawing failures on the original baseline | Host command/typeface assertions are not device pixels or GPU measurements. |
-| Python validation-tool suite | **35/35 passed**, including 9 new production-publication checks | Tool tests do not prove an external publication. |
+| Python validation-tool suite | **36/36 passed**, including 10 new production-publication checks | Tool tests do not prove an external publication. |
 | Actual debug/release regression AARs | Four native ABIs validated; byte-identical to shipped libraries | These test-build AARs are not the production publishing AAR. |
 | Earlier API 35 ARM64 real-16-KB-kernel native suite | **47/47 in each of 10 runs = 470 executions**, empty crash buffer | Historical run at `d72aeef416673001c60dff55893c76431dd1d45a`; only the ARM64 library was loaded. |
 | Current API 35 ARM64 framework/Skia UI suite | **15/15 passed**, empty crash buffer | Virtual device with app `sysconf=16384` and `smaps KernelPageSize=16 kB`; not physical OEM or API 31 coverage. |

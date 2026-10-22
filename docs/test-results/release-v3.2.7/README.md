@@ -23,8 +23,16 @@ The hosted publication job and JitPack use JDK 17 with the same Gradle version.
   are present in the [raw run](native-run.txt). This is a real 16 KB-kernel virtual
   device, not a physical OEM phone. Only ARM64 was loaded in this run.
 - Fresh Java host regressions: **57 tests, 0 failures, 0 errors**.
-- Fresh Python tool tests: **35 passed**, including 9 publication contracts;
+- Fresh Python tool tests: **36 passed**, including 10 publication contracts;
   see [raw Python output](python-tests.txt).
+
+A commit-only JitPack preflight found that its legacy image runs Python 3.5:
+`ZipFile` and `ElementTree.parse` there reject `Path` objects. Publication file
+paths now cross those APIs as strings, with a regression test that reproduced
+this failure before the fix. JitPack's old standalone `sdkmanager` also lacks
+JDK-17-compatible JAXB classes; AGP successfully installs the required SDK/build
+tools using that image's accepted licenses, so the redundant old manager call
+is removed. No Java code or native payload changed in this compatibility fix.
 
 The earlier [470 native executions](../arm64-16k-2026-10-22/README.md) and
 [15 UI tests](../remaining-issues-2026-10-22/device-summary.json) remain separate
